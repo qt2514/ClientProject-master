@@ -34,6 +34,7 @@ import com.ontbee.legacyforks.cn.pedant.SweetAlert.SweetAlertDialog;
 import com.twotr.twotr.R;
 import com.twotr.twotr.globalpackfiles.Global_url_twotr;
 import com.twotr.twotr.globalpackfiles.TinyDB;
+import com.wang.avi.AVLoadingIndicatorView;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -58,7 +59,7 @@ String Stoken;
     List<String> subjectnameid;
     Context context;
 
-
+AVLoadingIndicatorView avi;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -70,12 +71,14 @@ String Stoken;
         Stoken=  Shared_user_details.getString("token", null);
 serach_text=findViewById(R.id.serach_subject);
 textViewadd=findViewById(R.id.add_subject_list);
+        avi = findViewById(R.id.avi);
+avi.hide();
 Bdone=findViewById(R.id.addsubject_button);
 context=this;
         subjectnamelist=new ArrayList<>();
         subjectnameid=new ArrayList<>();
         listViewItems = new ArrayList<MultispinnerList>();
-        subject_name_list("acc");
+        subject_name_list("acco");
         listViewWithCheckBox.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
             @Override
@@ -91,10 +94,11 @@ context=this;
 Bdone.setOnClickListener(new View.OnClickListener() {
     @Override
     public void onClick(View v) {
+
         TinyDB tinydb = new TinyDB(context);
         tinydb.putListString("subjectnamelist", (ArrayList<String>) subjectnamelist);
         tinydb.putListString("subjectnameid", (ArrayList<String>) subjectnameid);
-        tinydb.putString("subjecttype","Subject");
+        tinydb.putString("subjecttype", "Subject");
         Intent intent = new Intent();
         setResult(RESULT_OK, intent);
         finish();
@@ -106,12 +110,7 @@ textViewadd.setOnClickListener(new View.OnClickListener() {
     public void onClick(View v) {
         String newsub=serach_text.getText().toString().trim();
         user_subject(newsub);
-        TinyDB tinydb = new TinyDB(context);
-        tinydb.putString("subjecttype","UserSubject");
-        tinydb.putListString("subjectnameid", (ArrayList<String>) subjectnameid);
-        Intent intent = new Intent();
-        setResult(RESULT_OK, intent);
-        finish();
+
     }
 });
         serach_text.addTextChangedListener(new TextWatcher() {
@@ -225,6 +224,7 @@ listViewItems.clear();
 
     public void subject_name_list(String subject_name) {
 
+        avi.show();
 
         RequestQueue requestQueueq = Volley.newRequestQueue(this);
 
@@ -256,7 +256,7 @@ Bdone.setVisibility(View.INVISIBLE);
 
                     CustomListView adapter = new CustomListView(getBaseContext(), R.layout.time_slot_list_view, listViewItems);
                     listViewWithCheckBox.setAdapter(adapter);
-
+avi.hide();
                     adapter.notifyDataSetChanged();
                 //    listViewWithCheckBox.setAdapter(new CustomListView(getBaseContext(), listViewItems));
 
@@ -268,7 +268,7 @@ Bdone.setVisibility(View.INVISIBLE);
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-
+avi.hide();
                 Toast.makeText(MultiSubjectSpinner.this, error.toString(), Toast.LENGTH_SHORT).show();
             }
         }) {
@@ -301,7 +301,7 @@ Bdone.setVisibility(View.INVISIBLE);
 
     public void user_subject(String usersubject)
     {
-
+avi.show();
         try {
 
             RequestQueue requestQueue = Volley.newRequestQueue(context);
@@ -321,9 +321,16 @@ Bdone.setVisibility(View.INVISIBLE);
                         String id = jObj.getString("_id");
                         String createdAt = jObj.getString("createdAt");
                         String isApproved = jObj.getString("isApproved");
-                        TinyDB tinydb = new TinyDB(context);
-                        subjectnameid.add(id);
 
+                        subjectnameid.add(id);
+                        avi.hide();
+                        TinyDB tinydb = new TinyDB(context);
+                        tinydb.putString("subjecttype","UserSubject");
+                        tinydb.putString("subjectnamei",title);
+                        tinydb.putListString("subjectnameid", (ArrayList<String>) subjectnameid);
+                        Intent intent = new Intent();
+                        setResult(RESULT_OK, intent);
+                        finish();
 
                         //Ssubjectid=id;
                     } catch (JSONException e) {
@@ -335,15 +342,8 @@ Bdone.setVisibility(View.INVISIBLE);
             }, new Response.ErrorListener() {
                 @Override
                 public void onErrorResponse(VolleyError error) {
-
-                    new SweetAlertDialog(context, SweetAlertDialog.WARNING_TYPE).setTitleText("Server Error")
-                            .setConfirmText("OK")
-                            .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
-                                @Override
-                                public void onClick(SweetAlertDialog sweetAlertDialog) {
-                                    sweetAlertDialog.dismiss();
-                                }
-                            }).show();
+avi.hide();
+                    Toast.makeText(context, "Please add subject again", Toast.LENGTH_SHORT).show();
                 }
             })
             {

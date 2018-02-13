@@ -127,59 +127,14 @@
                     android:layout_marginTop="5dp"
                     android:fontFamily="@font/montserrat"
                     android:hint="Last Name"
+                    android:imeOptions="actionDone"
                     android:inputType="textPersonName"
                     android:padding="10dp"
                     android:singleLine="true"
                     android:textColorLink="@color/colorAccent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"/>
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/montserrat"
-                    android:text="Subject"
 
-                    android:layout_marginTop="10dp"
-                    android:textColor="@android:color/black"
-                    android:textSize="16sp" />
-                <TextView
-                    android:id="@+id/per_prof_subject"
-                    android:layout_width="match_parent"
-                    android:layout_height="55dp"
-                    android:background="@drawable/edittext_unselected"
-                    android:textSize="18sp"
-                    android:layout_marginTop="5dp"
-                    android:fontFamily="@font/montserrat"
-                    android:hint="Subject"
-                    android:textColor="@color/colorBlack"
-                    android:padding="10dp"
-                    android:singleLine="true"
-                    android:textColorLink="@color/colorAccent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"/>
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/montserrat"
-                    android:text="Grade"
-                    android:layout_marginTop="10dp"
-                    android:textColor="@android:color/black"
-                    android:textSize="16sp" />
-                <TextView
-                    android:id="@+id/profile_gradespin"
-                    android:layout_width="match_parent"
-                    android:layout_height="55dp"
-                    android:background="@drawable/edittext_unselected"
-                    android:textSize="18sp"
-                    android:layout_marginTop="5dp"
-                    android:fontFamily="@font/montserrat"
-                    android:hint="Grade"
-                    android:textColor="@color/colorBlack"
-                    android:padding="10dp"
-                    android:singleLine="true"
-                    android:textColorLink="@color/colorAccent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"/>
 
 
                 <TextView
@@ -246,6 +201,8 @@
                         android:layout_weight="1"
                         android:inputType="number"
                         android:padding="10dp"
+                        android:imeOptions="actionDone"
+
                         android:maxLength="10"
                         android:singleLine="true"
                         android:textColor="@color/colorBlack"
@@ -291,6 +248,53 @@
                     android:layout_marginTop="5dp"
 
                     app:hintText="Select Time Zone"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/montserrat"
+                    android:text="Subject"
+
+                    android:layout_marginTop="10dp"
+                    android:textColor="@android:color/black"
+                    android:textSize="16sp" />
+                <TextView
+                    android:id="@+id/per_prof_subject"
+                    android:layout_width="match_parent"
+                    android:layout_height="55dp"
+                    android:background="@drawable/edittext_unselected"
+                    android:textSize="18sp"
+                    android:layout_marginTop="5dp"
+                    android:fontFamily="@font/montserrat"
+                    android:hint="Subject"
+                    android:textColor="@color/colorBlack"
+                    android:padding="10dp"
+                    android:singleLine="true"
+                    android:textColorLink="@color/colorAccent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/montserrat"
+                    android:text="Grade"
+                    android:layout_marginTop="10dp"
+                    android:textColor="@android:color/black"
+                    android:textSize="16sp" />
+                <TextView
+                    android:id="@+id/profile_gradespin"
+                    android:layout_width="match_parent"
+                    android:layout_height="55dp"
+                    android:background="@drawable/edittext_unselected"
+                    android:textSize="18sp"
+                    android:layout_marginTop="5dp"
+                    android:fontFamily="@font/montserrat"
+                    android:hint="Grade"
+                    android:textColor="@color/colorBlack"
+                    android:padding="10dp"
+                    android:singleLine="true"
+                    android:textColorLink="@color/colorAccent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"/>
 
                 <TextView
                     android:layout_width="wrap_content"

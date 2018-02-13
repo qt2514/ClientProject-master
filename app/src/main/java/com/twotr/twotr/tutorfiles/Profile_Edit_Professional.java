@@ -100,22 +100,46 @@ EditText ed_prof_wortt;
                     if (instu_selec==null)
                     {
                         sweetmessage="Please Select Your Organization";
+                        new SweetAlertDialog(Profile_Edit_Professional.this, SweetAlertDialog.WARNING_TYPE).setTitleText(sweetmessage)
+                                .setConfirmText("OK")
+                                .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                                    @Override
+                                    public void onClick(SweetAlertDialog sweetAlertDialog) {
+                                        sweetAlertDialog.dismiss();
+                                    }
+                                }).show();
                     }
                     else
                     {
                         if (ed_prof_startd.getText().toString().equals(""))
                         {
                             sweetmessage="Please Select Start Date";
+                            new SweetAlertDialog(Profile_Edit_Professional.this, SweetAlertDialog.WARNING_TYPE).setTitleText(sweetmessage)
+                                    .setConfirmText("OK")
+                                    .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                                        @Override
+                                        public void onClick(SweetAlertDialog sweetAlertDialog) {
+                                            sweetAlertDialog.dismiss();
+                                        }
+                                    }).show();
                         }
                         else
                         {
                             if (ed_prof_endd.getText().toString().equals(""))
                             {
                                 sweetmessage="Please Select End Date";
+                                new SweetAlertDialog(Profile_Edit_Professional.this, SweetAlertDialog.WARNING_TYPE).setTitleText(sweetmessage)
+                                        .setConfirmText("OK")
+                                        .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                                            @Override
+                                            public void onClick(SweetAlertDialog sweetAlertDialog) {
+                                                sweetAlertDialog.dismiss();
+                                            }
+                                        }).show();
                             }
                             else
                             {
-                                sweetmessage="Thank You";
+
                                 avi.show();
                                 Stitle=ed_prof_wortt.getText().toString();
                                 Sinsitutionname=ed_prof_inst.getSelectedItem().toString();
@@ -127,14 +151,7 @@ EditText ed_prof_wortt;
                         }
                     }
                 }
-                new SweetAlertDialog(Profile_Edit_Professional.this, SweetAlertDialog.WARNING_TYPE).setTitleText(sweetmessage)
-                        .setConfirmText("OK")
-                        .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
-                            @Override
-                            public void onClick(SweetAlertDialog sweetAlertDialog) {
-                                sweetAlertDialog.dismiss();
-                            }
-                        }).show();
+
 
 
                 //startActivity(new Intent(Profile_Edit_Professional.this,Tutor_VerficationPage.class));

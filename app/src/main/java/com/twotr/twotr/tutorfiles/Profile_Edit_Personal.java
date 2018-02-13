@@ -966,8 +966,10 @@ et_per_fname.setOnFocusChangeListener(new View.OnFocusChangeListener() {
                 }
                 else
                 {
-                    String subjetiname=tinydb.getString("");
-
+                    Ssubjectkind=tinydb.getString("subjecttype");
+                    String Ssubjectnamei=tinydb.getString("subjectnamei");
+                    subjectnameid = tinydb.getListString("subjectnameid");
+TVsubject.setText(Ssubjectnamei);
                 }
 
                 //   startendarray.put(obj);
@@ -987,24 +989,33 @@ et_per_fname.setOnFocusChangeListener(new View.OnFocusChangeListener() {
 
             JSONObject jsonBody = new JSONObject();
 
-            JSONArray array=new JSONArray();
+            JSONArray array = new JSONArray();
+            JSONObject jsonObject = new JSONObject();
 
-            for(int i=0;i<subjectnamelist.size();i++){
-                JSONObject jsonObject=new JSONObject();
+            try {
+                if ((subjectnamelist != null) && (subjectnamelist.size() > 0)) {
+                    for (int i = 0; i < subjectnamelist.size(); i++) {
+                        // JSONObject jsonObject = new JSONObject();
 
-                try {
+                        try {
 
-                     jsonObject.put("kind",Ssubjectkind);
-                     jsonObject.put("id",subjectnameid.get(i));
+                            jsonObject.put("kind", Ssubjectkind);
+                            jsonObject.put("id", subjectnameid.get(i));
 
 
-                 } catch (JSONException e) {
-                      e.printStackTrace();
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
+                jsonObject.put("kind", Ssubjectkind);
+                jsonObject.put("id", subjectnameid.get(0));
+            } catch (JSONException e1) {
+                e1.printStackTrace();
             }
 
+            array.put(jsonObject);
 
-                array.put(jsonObject);
-               }
             JSONArray array2=new JSONArray(aryGrade);
             //array2.put(Sgrade);
             JSONObject jsonObject1 = new JSONObject();
