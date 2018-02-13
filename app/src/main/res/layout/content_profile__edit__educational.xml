@@ -1,0 +1,306 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="com.twotr.twotr.tutorfiles.Profile_Edit_Educational"
+    tools:showIn="@layout/activity_profile__edit__educational">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:id="@+id/top_relat"
+        android:gravity="top"
+        android:background="@color/colorPrimaryDark"
+        android:layout_height="60dp">
+
+        <TextView
+            android:text="Major In"
+            android:fontFamily="@font/montserrat"
+            android:layout_width="wrap_content"
+            android:textSize="15sp"
+            android:padding="2dp"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true"
+            android:textColor="#fff"
+            android:layout_height="wrap_content" />
+
+    </RelativeLayout>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_below="@+id/top_relat"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <android.support.v7.widget.CardView
+
+                android:id="@+id/cardView_edu"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:elevation="10dp"
+                android:elevation="10dp"
+                app:cardElevation="10dp"
+                android:layout_margin="15dp"
+                app:cardCornerRadius="5dp">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="10dp"
+                    android:orientation="vertical">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/montserrat"
+                        android:text="Major Level"
+                        android:textColor="@android:color/black"
+                        android:textSize="16sp"
+
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent" />
+
+
+                    <TextView
+                        android:id="@+id/per_edu_edlevel"
+                        android:padding="10dp"
+                        android:background="@drawable/edittext_unselected"
+                        android:layout_width="match_parent"
+                        android:layout_height="55dp"
+                        android:layout_marginTop="5dp"
+                        android:textSize="16sp"
+                        android:fontFamily="@font/montserrat"
+                        android:hint="Select your Educational Level"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/montserrat"
+                        android:text="Institute"
+                        android:layout_marginTop="10dp"
+                        android:textColor="@android:color/black"
+                        android:textSize="16sp" />
+
+                    <TextView
+                        android:id="@+id/per_edu_inst"
+                        android:background="@drawable/edittext_unselected"
+                        android:textSize="16sp"
+                        android:layout_width="match_parent"
+                        android:layout_height="55dp"
+                        android:padding="10dp"
+                        android:layout_marginTop="5dp"
+                        android:fontFamily="@font/montserrat"
+                        android:hint="Select your Insititute"/>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:weightSum="2"
+                        android:orientation="horizontal">
+
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/montserrat"
+                            android:text="Start Year"
+                            android:layout_weight="1"
+
+
+                            android:layout_marginTop="10dp"
+                            android:textColor="@android:color/black"
+                            android:textSize="16sp" />
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/montserrat"
+                            android:text="End Year"
+                            android:layout_weight="1"
+
+
+                            android:layout_marginTop="10dp"
+                            android:textColor="@android:color/black"
+                            android:textSize="16sp" />
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="55dp"
+                        android:weightSum="2"
+                        android:layout_marginTop="5dp"
+                        android:orientation="horizontal">
+                        <TextView
+                            android:id="@+id/per_edu_startd"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:background="@drawable/edittext_unselected"
+                            android:layout_weight="1"
+                            android:fontFamily="@font/montserrat"
+                            android:hint="2006"
+                            android:gravity="center|start"
+android:textColor="@color/colorBlack"
+                          android:layout_margin="2dp"
+                        android:padding="10dp"
+                            android:textColorLink="@color/colorAccent"
+
+                           />
+                        <TextView
+                            android:id="@+id/per_edu_endd"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:background="@drawable/edittext_unselected"
+                            android:layout_weight="1"
+                            android:fontFamily="@font/montserrat"
+                            android:hint="2010"
+                            android:textColor="@color/colorBlack"
+android:layout_margin="2dp"
+                            android:gravity="center|start"
+
+                            android:padding="10dp"
+                            android:textColorLink="@color/colorAccent"
+
+                            />
+
+                    </LinearLayout>
+                    <!--<TextView-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:fontFamily="@font/montserrat"-->
+                        <!--android:text="Specialization"-->
+                        <!--android:layout_marginTop="10dp"-->
+                        <!--android:textColor="@android:color/black"-->
+                        <!--android:textSize="16sp" />-->
+                    <!--<EditText-->
+                        <!--android:id="@+id/per_edu_spcl"-->
+
+                        <!--android:layout_width="match_parent"-->
+                        <!--android:layout_height="55dp"-->
+                        <!--android:background="@drawable/edittext_unselected"-->
+                        <!--android:ems="10"-->
+                        <!--android:layout_marginTop="5dp"-->
+                        <!--android:fontFamily="@font/montserrat"-->
+                        <!--android:hint="CSE"-->
+                        <!--android:inputType="textPersonName"-->
+                        <!--android:padding="10dp"-->
+                        <!--android:singleLine="true"-->
+                        <!--android:textColorLink="@color/colorAccent"-->
+                        <!--app:layout_constraintEnd_toEndOf="parent"-->
+                        <!--app:layout_constraintStart_toStartOf="parent"/>-->
+
+                </LinearLayout>
+            </android.support.v7.widget.CardView>
+            <!--<LinearLayout-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:weightSum="2"-->
+                <!--android:layout_marginLeft="30dp"-->
+                <!--android:layout_marginRight="30dp"-->
+                <!--android:layout_marginTop="10dp"-->
+                <!--android:layout_gravity="center"-->
+
+                <!--android:orientation="horizontal">-->
+            <!--<TextView-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:text="Add Qualification"-->
+
+              <!--android:gravity="start"-->
+                <!--android:layout_weight="1"-->
+                <!--android:textColor="@color/colorAccent"-->
+                <!--android:textSize="18sp"-->
+                <!--/>-->
+                <!--<TextView-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:text="Remove"-->
+                    <!--android:layout_below="@+id/cardView_edu"-->
+                    <!--android:layout_weight="1"-->
+                    <!--android:gravity="end"-->
+                    <!--android:textColor="@color/colorRed"-->
+                    <!--android:textSize="18sp"-->
+                    <!--/>-->
+            <!--</LinearLayout>-->
+
+
+
+
+                <!--<CheckBox-->
+                    <!--android:id="@+id/checkBox"-->
+                    <!--android:layout_marginLeft="30dp"-->
+                    <!--android:layout_marginTop="15dp"-->
+                    <!--android:textSize="18sp"-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:textColor="@color/colorBlack"-->
+                    <!--android:text="I am a Certified Tutor" />-->
+
+            <Button
+                android:id="@+id/educational_compelete"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="15dp"
+                android:background="@color/colorPrimary"
+                android:padding="10dp"
+                android:fontFamily="@font/montserrat"
+
+                android:text="Save and Continue"
+                android:textAllCaps="false"
+                android:textColor="@color/colorwhite"
+                android:textStyle="bold" />
+            <TextView
+                android:id="@+id/skip_edu"
+                android:layout_width="wrap_content"
+                android:layout_gravity="center"
+                android:text="Skip "
+                android:fontFamily="@font/montserrat"
+                android:layout_margin="5dp"
+                android:textColor="@color/colorAccent"
+                android:textSize="18sp"
+                android:gravity="center"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+    </ScrollView>
+    <com.wang.avi.AVLoadingIndicatorView
+        android:id="@+id/avi"
+        style="@style/AVLoadingIndicatorView"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:layout_centerHorizontal="true"
+        android:layout_centerInParent="true"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:visibility="visible"
+        app:indicatorColor="@color/colorPrimaryDark"
+        app:indicatorName="BallClipRotateMultipleIndicator"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:id="@+id/searchnewedu"
+        android:visibility="invisible"
+        android:background="#9e000000"
+        android:layout_height="match_parent">
+        <com.quinny898.library.persistentsearch.SearchBox
+            android:id="@+id/searchboxedu"
+            android:visibility="invisible"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"/>
+    </RelativeLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:id="@+id/searchnewins"
+        android:visibility="invisible"
+        android:background="#9e000000"
+        android:layout_height="match_parent">
+        <com.quinny898.library.persistentsearch.SearchBox
+            android:id="@+id/searchboxins"
+            android:visibility="invisible"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"/>
+    </RelativeLayout>
+</RelativeLayout>

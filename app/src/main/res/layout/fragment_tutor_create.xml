@@ -1,0 +1,279 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="com.twotr.twotr.tutorfiles.TutorCreate">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:id="@+id/top_relat"
+        android:background="@color/colorPrimaryDark"
+        android:layout_height="60dp">
+        <TextView
+            android:text="@string/create_subject"
+            android:fontFamily="@font/montserrat"
+            android:layout_width="wrap_content"
+            android:textSize="15sp"
+            android:padding="2dp"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true"
+            android:textColor="#fff"
+            android:layout_height="wrap_content" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="60dp">
+        <TextView
+            android:id="@+id/type_search"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:layout_alignParentStart="true"
+            android:layout_margin="10dp"
+            android:background="@drawable/edittext_unselected"
+            android:padding="5dp"
+            android:textSize="17sp"
+            android:gravity="center"
+            android:fontFamily="@font/montserrat"
+            android:hint="@string/type_and_choose_subject"/>
+        <LinearLayout
+            android:layout_below="@+id/type_search"
+            android:layout_width="match_parent"
+            android:weightSum="2"
+            android:layout_margin="10dp"
+            android:gravity="center"
+            android:layout_height="40dp"
+            android:id="@+id/linearLayout3">
+            <Button
+                android:id="@+id/one_to_one"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/tab_button_selected"
+                android:layout_weight="1"
+                android:textColor="@android:color/white"
+                android:text="ONE ON ONE" />
+            <Button
+                android:id="@+id/group_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/tab_button_unselected"
+                android:text="GROUP" />
+        </LinearLayout>
+
+        <EditText
+            android:id="@+id/amount_create"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:layout_below="@+id/linearLayout3"
+            android:layout_centerHorizontal="true"
+            android:layout_margin="5dp"
+            android:background="@drawable/edittext_unselected"
+            android:ems="10"
+            android:fontFamily="@font/montserrat"
+            android:gravity="center"
+            android:hint="Total Amount"
+            android:inputType="number"
+            android:padding="5dp" />
+        <EditText
+            android:id="@+id/group_students"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:layout_below="@+id/linearLayout3"
+            android:layout_centerHorizontal="true"
+            android:layout_margin="5dp"
+            android:background="@drawable/edittext_unselected"
+            android:ems="10"
+android:visibility="gone"
+            android:fontFamily="@font/montserrat"
+            android:gravity="center"
+            android:hint="No of Students"
+            android:inputType="number"
+            android:padding="5dp" />
+        <TextView
+            android:id="@+id/grade_create"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:layout_margin="5dp"
+            android:fontFamily="@font/montserrat"
+            android:background="@drawable/edittext_unselected"
+            android:layout_below="@+id/amount_create"
+            android:hint="Select Grade"
+            android:gravity="center"
+            android:textSize="18sp"/>
+        <!--<EditText-->
+            <!--android:id="@+id/grade_create"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="45dp"-->
+            <!--android:layout_below="@+id/amount_create"-->
+            <!--android:layout_centerHorizontal="true"-->
+            <!--android:ems="10"-->
+            <!--android:inputType="textPersonName"-->
+            <!--android:layout_margin="5dp"-->
+            <!--android:background="@drawable/edittext_unselected"-->
+            <!--android:padding="5dp"-->
+            <!--android:gravity="center"-->
+            <!--android:fontFamily="@font/montserrat"-->
+            <!--android:hint="Grade"-->
+            <!--/>-->
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:weightSum="2"
+            android:layout_below="@+id/grade_create"
+            android:layout_centerHorizontal="true"
+            android:id="@+id/linearLayout4">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:weightSum="2"
+            android:id="@+id/liner_tot"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:layout_weight="1"
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:id="@+id/total_amount_group"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:layout_weight="1"
+                android:background="@drawable/edittext_unselected"
+                android:ems="10"
+                android:fontFamily="@font/montserrat"
+                android:gravity="center"
+                android:visibility="gone"
+                android:hint="Total Amount"
+                android:inputType="number"
+                android:padding="5dp" />
+
+            <EditText
+                android:id="@+id/min_amount_group"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:layout_weight="1"
+                android:background="@drawable/edittext_unselected"
+                android:ems="10"
+                android:fontFamily="@font/montserrat"
+                android:gravity="center"
+                android:hint="Min.Amount"
+                android:visibility="gone"
+                android:inputType="textPersonName"
+                android:padding="5dp"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:weightSum="2"
+            android:layout_weight="1"
+            android:orientation="horizontal"
+            android:layout_height="wrap_content">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_weight="1"
+            android:weightSum="2"
+            android:orientation="horizontal"
+            android:background="@drawable/edittext_unselected"
+            android:padding="5dp"
+            android:layout_margin="5dp"
+            android:layout_height="match_parent">
+                <TextView
+                    android:id="@+id/add_schedule_create"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:padding="2dp"
+                    android:fontFamily="@font/montserrat"
+                    android:textSize="17sp"
+                    android:text="Add Schedule"/>
+
+        <ImageView
+            android:id="@+id/hint_sched"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_margin="5dp"
+            android:layout_weight="1"
+            app:srcCompat="@drawable/ic_error_outline_black_24dp" />
+        </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_weight="1"
+                android:weightSum="2"
+                android:layout_margin="5dp"
+                android:orientation="horizontal"
+                android:background="@drawable/edittext_unselected"
+                android:padding="5dp"
+                android:layout_height="match_parent">
+                <TextView
+                android:id="@+id/add_map_create"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:padding="2dp"
+                android:fontFamily="@font/montserrat"
+                android:textSize="17sp"
+                android:layout_weight="1"
+                android:text="Add Map"/>
+
+                <ImageView
+                    android:id="@+id/hint_map"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_margin="5dp"
+                    android:layout_weight="1"
+                    app:srcCompat="@drawable/ic_error_outline_black_24dp" />
+            </LinearLayout>
+        </LinearLayout>
+        </LinearLayout>
+        <EditText
+            android:id="@+id/shrot_des_create"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@+id/add_subject_create"
+            android:layout_below="@+id/linearLayout4"
+            android:layout_centerHorizontal="true"
+            android:layout_margin="5dp"
+            android:background="@drawable/edittext_unselected"
+            android:ems="10"
+            android:fontFamily="@font/montserrat"
+            android:gravity="top|center"
+            android:hint="Short Instructions (Optional)"
+            android:inputType="textMultiLine"
+            android:padding="5dp" />
+        <Button
+            android:id="@+id/add_subject_create"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:background="@color/colorPrimary"
+            android:fontFamily="@font/montserrat"
+            android:text="Add Subject"
+            android:textAllCaps="false"
+            android:textColor="@android:color/white" />
+    </RelativeLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:id="@+id/searchnew"
+        android:visibility="invisible"
+        android:background="#9e000000"
+        android:layout_height="match_parent">
+        <com.quinny898.library.persistentsearch.SearchBox
+            android:id="@+id/searchbox"
+            android:visibility="invisible"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"/>
+    </RelativeLayout>
+</RelativeLayout>

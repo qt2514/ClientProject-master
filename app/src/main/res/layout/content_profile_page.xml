@@ -1,0 +1,231 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="com.twotr.twotr.tutorfiles.Profile_Page"
+    tools:showIn="@layout/activity_profile_page">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:id="@+id/top_relat"
+        android:gravity="top"
+        android:background="@color/colorPrimaryDark"
+        android:layout_height="80dp">
+        <ImageButton
+            android:id="@+id/back_ima_scedule"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:focusable="true"
+            android:layout_alignParentStart="true"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="19dp"
+            android:background="@drawable/ic_back_page"
+            android:backgroundTint="#fff" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center|start"
+            android:weightSum="4"
+            android:layout_marginTop="9dp"
+            android:orientation="horizontal"
+            android:layout_marginLeft="50dp"
+            android:id="@+id/linearLayout5">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/image_profile"
+                android:layout_width="45dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:src="@drawable/profile_image_tutor" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:layout_weight="2">
+
+                <TextView
+                    android:id="@+id/prof_prof_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="start|center"
+                    android:layout_marginLeft="7dp"
+
+                    android:textColor="@color/colorwhite"
+                    android:textSize="18sp" />
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="start"
+                    android:gravity="center"
+                    android:layout_marginTop="10dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/prof_prof_name_short"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentStart="true"
+                        android:layout_alignParentTop="true"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginStart="13dp"
+
+                        android:textColor="@color/colorwhite"
+                        android:textSize="13sp" />
+
+                    <!--<RatingBar-->
+                        <!--android:id="@+id/servpdet_ratingbar"-->
+                        <!--style="?android:attr/ratingBarStyleIndicator"-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:clickable="false"-->
+                        <!--android:focusable="false"-->
+                        <!--android:numStars="5"-->
+                        <!--android:progressBackgroundTint="@color/colorwhite"-->
+                        <!--android:progressTint="@color/buttonColorPrimary"-->
+                        <!--android:rating="3"-->
+                        <!--android:scaleX=".4"-->
+                        <!--android:scaleY=".4"-->
+                        <!--android:secondaryProgressTint="@color/colorwhite"-->
+                        <!--android:transformPivotX="150dp"-->
+                        <!--android:transformPivotY="0dp" />-->
+                </RelativeLayout>
+
+            </LinearLayout>
+
+            <!--<ImageView-->
+                <!--android:layout_width="30dp"-->
+                <!--android:layout_height="30dp"-->
+
+                <!--android:layout_marginBottom="5dp"-->
+                <!--android:layout_marginLeft="60dp"-->
+                <!--android:background="@drawable/twotr_main" />-->
+        </LinearLayout>
+
+    </RelativeLayout>
+    <!--<ScrollView-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_below="@+id/top_relat"-->
+    <!--android:layout_height="match_parent">-->
+
+    <!--<LinearLayout-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:orientation="horizontal"-->
+    <!--android:layout_height="match_parent">-->
+
+    <RelativeLayout
+        android:id="@+id/mid_relat"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/colorPrimaryDarks"
+        android:layout_below="@+id/top_relat">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:weightSum="4"
+            android:layout_marginRight="5dp"
+            android:orientation="horizontal">
+            <Button
+                android:id="@+id/prof_but_personal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@color/transparent"
+                android:text="Personal"
+                android:textAllCaps="false"
+                android:textSize="13sp"
+                android:textColor="@color/colorwhite"
+                android:layout_weight="1"/>
+            <Button
+                android:id="@+id/prof_nut_educational"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@color/transparent"
+                android:text="Educational"
+                android:textAllCaps="false"
+                android:textSize="13sp"
+
+                android:textColor="@color/colorwhite"
+                android:layout_weight="1.4"/>
+            <Button
+                android:id="@+id/prof_but_professional"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@color/transparent"
+                android:text="Professional"
+                android:textAllCaps="false"
+                android:textSize="13sp"
+
+                android:textColor="@color/colorwhite"
+                android:layout_weight="1.4"/>
+            <Button
+                android:id="@+id/profile_edit"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:background="@drawable/ic_profile_edit_icon"
+
+                android:layout_weight="0.2"/>
+        </LinearLayout>
+
+    </RelativeLayout>
+    <ScrollView
+        android:id="@+id/srcollview_personal"
+        android:layout_width="match_parent"
+        android:layout_below="@+id/mid_relat"
+        android:layout_height="match_parent"
+>
+
+        <include layout="@layout/profile_personal_relat" />
+
+    </ScrollView>
+
+
+
+    <ScrollView
+        android:id="@+id/srcollview_educational"
+        android:visibility="invisible"
+        android:layout_width="match_parent"
+        android:layout_below="@+id/mid_relat"
+        android:layout_height="match_parent">
+
+        <include layout="@layout/profile_educational_relat" />
+
+    </ScrollView>
+
+
+    <ScrollView
+        android:id="@+id/srcollview_professional"
+        android:visibility="invisible"
+        android:layout_width="match_parent"
+        android:layout_below="@+id/mid_relat"
+        android:layout_height="match_parent">
+
+        <include layout="@layout/profile_professional_relat" />
+
+    </ScrollView>
+
+    <com.wang.avi.AVLoadingIndicatorView
+        android:id="@+id/avi"
+        style="@style/AVLoadingIndicatorView"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:layout_centerHorizontal="true"
+        android:layout_centerInParent="true"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:visibility="visible"
+        app:indicatorColor="@color/colorPrimaryDark"
+        app:indicatorName="BallClipRotateMultipleIndicator"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+</RelativeLayout>

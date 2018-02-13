@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <TextView
+        android:layout_width="wrap_content"
+        android:id="@+id/start_time_slot"
+        android:layout_weight="1"
+        android:layout_margin="5dp"
+        android:ems="5"
+        android:fontFamily="@font/montserrat"
+        android:textColorHint="@color/colorPrimary"
+        android:padding="10dp"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:hint="02.30 PM"
+        android:background="@drawable/textview_roundedcorner"
+        android:layout_height="wrap_content" />
+</RelativeLayout>

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_profile"
+            android:icon="@drawable/ic_account_circle_black_24dp"
+            android:title="My Profile" />
+        <item
+            android:id="@+id/nav_subscribe"
+            android:icon="@drawable/ic_star_border_black_24dp"
+            android:title="Subscribe" />
+        <item
+            android:id="@+id/nav_ac_details"
+            android:icon="@drawable/ic_person_outline_black_24dp"
+            android:title="Account Details" />
+        <item
+            android:id="@+id/nav_reminder"
+            android:icon="@drawable/ic_access_alarm_black_24dp"
+            android:title="Reminder" />
+        <item
+            android:id="@+id/nav_notifications"
+            android:icon="@drawable/ic_add_alert_black_24dp"
+            android:title="Notifications" />
+        <item
+            android:id="@+id/nav_language"
+            android:icon="@drawable/ic_language_black_24dp"
+            android:title="Language English" />
+        <item
+            android:id="@+id/nav_sign_out"
+            android:icon="@drawable/ic_compare_arrows_black_24dp"
+            android:title="Sign Out" />
+        <item
+            android:id="@+id/nav_about_us"
+            android:icon="@drawable/ic_error_outline_black_24dp"
+            android:title="About Us" />
+        <item
+            android:id="@+id/nav_terms_conditions"
+            android:icon="@drawable/ic_settings_black_24dp"
+            android:title="Terms and Conditions" />
+    </group>
+
+
+
+</menu>
