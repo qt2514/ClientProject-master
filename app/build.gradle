@@ -60,5 +60,6 @@ dependencies {
     compile 'com.squareup.picasso:picasso:2.5.2'
     compile 'de.hdodenhof:circleimageview:2.2.0'
     compile 'com.loyalsound:android-single-image-picker:0.0.2'
+    compile 'com.thefinestartist:finestwebview:1.2.7'
 
 }

@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.GravityCompat;
@@ -16,6 +17,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.thefinestartist.finestwebview.FinestWebView;
 import com.twotr.twotr.R;
 import com.twotr.twotr.db_handlers.SessionManager;
 import com.twotr.twotr.globalpackfiles.SigninActivity;
@@ -28,7 +30,7 @@ public class TutorSettings extends Fragment implements NavigationView.OnNavigati
 TextView TVprofile_link,TVsignout;
     DrawerLayout drawer;
     AVLoadingIndicatorView avi;
-
+TextView TVtermsandcondi,TVabout;
     private SessionManager session;
     SharedPreferences Shared_user_details;
     SharedPreferences.Editor editor;
@@ -50,10 +52,57 @@ TextView TVprofile_link,TVsignout;
 avi.hide();
         TVprofile_link=view.findViewById(R.id.profile_link);
         TVsignout=view.findViewById(R.id.signout_settings);
+        TVtermsandcondi=view.findViewById(R.id.termsandcondi_settings);
+        TVabout=view.findViewById(R.id.about_settings);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 getActivity(), drawer,  R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
+        TVabout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new FinestWebView.Builder(getActivity())
+                        .titleDefault("Twotr")
+                        .showUrl(false)
+                        .dividerHeight(0)
+                        .toolbarScrollFlags(AppBarLayout.LayoutParams.SCROLL_FLAG_SCROLL | AppBarLayout.LayoutParams.SCROLL_FLAG_ENTER_ALWAYS)
+                        .gradientDivider(false)
+                        .titleColorRes(R.color.finestWhite)
+                        .urlColorRes(R.color.finestWhite)
+                        .statusBarColorRes(R.color.colorPrimaryDark)
+                        .toolbarColorRes(R.color.colorPrimary)
+                        .iconPressedColorRes(R.color.colorPrimary)
+                        .progressBarColorRes(R.color.colorPrimary)
+                        .backPressToClose(false)
+                        .gradientDivider(false)
+                        .setCustomAnimations(R.anim.activity_open_enter, R.anim.activity_open_exit, R.anim.activity_close_enter, R.anim.activity_close_exit)
+.show("https://www.twotr.com/");
+            }
+        });
+
+
+
+        TVtermsandcondi.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new FinestWebView.Builder(getActivity())
+                        .titleDefault("Twotr")
+                        .showUrl(false)
+                        .dividerHeight(0)
+                        .toolbarScrollFlags(AppBarLayout.LayoutParams.SCROLL_FLAG_SCROLL | AppBarLayout.LayoutParams.SCROLL_FLAG_ENTER_ALWAYS)
+                        .gradientDivider(false)
+                        .titleColorRes(R.color.finestWhite)
+                        .urlColorRes(R.color.finestWhite)
+                        .statusBarColorRes(R.color.colorPrimaryDark)
+                        .toolbarColorRes(R.color.colorPrimary)
+                        .iconPressedColorRes(R.color.colorPrimary)
+                        .progressBarColorRes(R.color.colorPrimary)
+                        .backPressToClose(false)
+                        .gradientDivider(false)
+                        .setCustomAnimations(R.anim.activity_open_enter, R.anim.activity_open_exit, R.anim.activity_close_enter, R.anim.activity_close_exit)
+.show("https://www.twotr.com/");
+            }
+        });
         TVprofile_link.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -82,6 +131,9 @@ avi.hide();
         } else {
             drawer.openDrawer(GravityCompat.END);
         }
+
+
+
 //display(view);
 return view;
     }

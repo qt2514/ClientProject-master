@@ -24,16 +24,15 @@
 
             android:fitsSystemWindows="true">
             <ImageView
+                android:id="@+id/settings_profile_image"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_gravity="top"
-
-                android:src="@drawable/steve"/>
+               android:background="@drawable/settingsprofile"/>
 
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:background="#bf807e7e"
-
                 android:layout_height="match_parent"
                 >
                 <ImageView
@@ -245,7 +244,7 @@ android:layout_marginLeft="10dp"
                         android:text="About"
                         android:fontFamily="@font/montserrat"
                         android:padding="5dp"
-
+android:id="@+id/about_settings"
                         android:textSize="15sp"
                         android:layout_marginStart="10dp"
                         android:textColor="@color/colorwhite"
@@ -271,6 +270,7 @@ android:layout_marginLeft="10dp"
                         android:layout_height="wrap_content"
                         android:text="Terms and Conditions"
 android:padding="5dp"
+                        android:id="@+id/termsandcondi_settings"
                         android:textSize="15sp"
                         android:fontFamily="@font/montserrat"
                         android:layout_marginLeft="10dp"

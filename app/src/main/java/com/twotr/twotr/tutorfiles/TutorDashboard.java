@@ -229,22 +229,21 @@ imageView=view.findViewById(R.id.creadte_dashboard_image);
             if ((ScheduleMode != null) && (ScheduleMode.size()>0))
             {
                 imageView.setVisibility(View.INVISIBLE);
-
                 Schedule_class adapter = new Schedule_class(getActivity(), R.layout.schedule_list, ScheduleMode);
                 LVtutordashboard.setAdapter(adapter);
-                LVtutordashboard.setOnItemClickListener( new AdapterView.OnItemClickListener() {
-                    @Override
-                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                        Schedule_upcoming_list schedule_upcoming_list = ScheduleMode.get(position);
-                        Intent intent = new Intent(getActivity(),ScheduleDetailPage.class);
-                        intent.putExtra("subject_name",schedule_upcoming_list.getSubject());
-                        intent.putExtra("type_subject",schedule_upcoming_list.getSubject());
-                        intent.putExtra("schedule_description",schedule_upcoming_list.getDescription());
-                        intent.putExtra("schedule_price",schedule_upcoming_list.getPrice());
-
-                        startActivity(intent);
-                    }
-                });
+//                LVtutordashboard.setOnItemClickListener( new AdapterView.OnItemClickListener() {
+//                    @Override
+//                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+//                        Schedule_upcoming_list schedule_upcoming_list = ScheduleMode.get(position);
+//                        Intent intent = new Intent(getActivity(),ScheduleDetailPage.class);
+//                        intent.putExtra("subject_name",schedule_upcoming_list.getSubject());
+//                        intent.putExtra("type_subject",schedule_upcoming_list.getSubject());
+//                        intent.putExtra("schedule_description",schedule_upcoming_list.getDescription());
+//                        intent.putExtra("schedule_price",schedule_upcoming_list.getPrice());
+//
+//                        startActivity(intent);
+//                    }
+//                });
                 adapter.notifyDataSetChanged();
 
             }

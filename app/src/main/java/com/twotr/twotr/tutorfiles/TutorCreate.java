@@ -441,6 +441,9 @@ String Sshortdesc=ETshortins.getText().toString();
                                 @Override
                                 public void onClick(SweetAlertDialog sweetAlertDialog) {
                                     sweetAlertDialog.dismiss();
+                                    Fragment mFragment = new TutorDashboard();
+                                    getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.contentContainer, mFragment).commit();
+
                                 }
                             }).show();
                 }
