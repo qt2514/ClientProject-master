@@ -76,7 +76,7 @@ avi.hide();
                         .backPressToClose(false)
                         .gradientDivider(false)
                         .setCustomAnimations(R.anim.activity_open_enter, R.anim.activity_open_exit, R.anim.activity_close_enter, R.anim.activity_close_exit)
-.show("https://www.twotr.com/");
+.show("https://www.twotr.com");
             }
         });
 
@@ -100,7 +100,7 @@ avi.hide();
                         .backPressToClose(false)
                         .gradientDivider(false)
                         .setCustomAnimations(R.anim.activity_open_enter, R.anim.activity_open_exit, R.anim.activity_close_enter, R.anim.activity_close_exit)
-.show("https://www.twotr.com/");
+.show("https://www.twotr.com");
             }
         });
         TVprofile_link.setOnClickListener(new View.OnClickListener() {
