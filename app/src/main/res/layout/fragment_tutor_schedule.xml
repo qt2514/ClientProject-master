@@ -58,6 +58,31 @@
         android:layout_margin="10dp"
         android:layout_below="@+id/top_rel_schedule"
         android:layout_height="match_parent"/>
+
+        <pl.droidsonroids.gif.GifImageView
+            android:id="@+id/nodatagif"
+            android:layout_width="150dp"
+            android:visibility="invisible"
+            android:layout_height="150dp"
+            android:layout_centerHorizontal="true"
+            android:layout_alignStart="@+id/avi"
+            android:layout_centerVertical="true"
+            android:src="@drawable/nodatagif" />
+
+        <TextView
+            android:id="@+id/nodatatext"
+            android:layout_width="wrap_content"
+            android:layout_below="@+id/nodatagif"
+            android:visibility="invisible"
+            android:text="Create Classes to Load Me Up"
+            android:layout_centerHorizontal="true"
+
+            android:layout_centerVertical="true"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="18sp"
+            android:layout_margin="5dp"
+            android:fontFamily="@font/montserrat"
+            android:layout_height="wrap_content" />
         <com.wang.avi.AVLoadingIndicatorView
             android:id="@+id/avi"
             android:layout_width="120dp"

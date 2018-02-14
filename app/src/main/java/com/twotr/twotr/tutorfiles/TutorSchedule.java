@@ -39,6 +39,8 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
+import pl.droidsonroids.gif.GifImageView;
+
 import static android.content.Context.LAYOUT_INFLATER_SERVICE;
 
 /**
@@ -52,7 +54,8 @@ SwipeMenuListView LVschedule;
 private  String schedule_list_url;
     SharedPreferences Shared_user_details;
     public String Stoken;
-
+TextView nodatatextview;
+    GifImageView underser_gif;
     public static TutorSchedule newInstance() {
         return new TutorSchedule();
     }
@@ -64,12 +67,12 @@ private  String schedule_list_url;
      View view= inflater.inflate(R.layout.fragment_tutor_schedule, container, false);
         Shared_user_details=this.getActivity().getSharedPreferences("user_detail_mode",0);
         Stoken=  Shared_user_details.getString("token", null);
-
      Bhistory=view.findViewById(R.id.history_button);
      Bupcoming=view.findViewById(R.id.upcoming_button);
+     underser_gif=view.findViewById(R.id.nodatagif);
+     nodatatextview=view.findViewById(R.id.nodatatext);
 LVschedule=view.findViewById(R.id.schedule_list);
         avi=view.findViewById(R.id.avi);
-
          schedule_list_url = "http://twotr.com:4040/api/class/upcoming?page=1&size=10" ;
         new ScheduleAsyncList().execute(schedule_list_url);
         SwipeMenuCreator creator = new SwipeMenuCreator() {
@@ -369,7 +372,7 @@ public class Schedule_class extends ArrayAdapter {
 
                 connection.setRequestProperty("content-type","application/json");
                 connection.setRequestProperty("x-tutor-app-id","tutor-app-android");
-                connection.setRequestProperty("authorization","Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVhM2MxZDY0MTE5OTBkMmMyNDRiNDI4OCIsInJvbGVzIjpbInR1dG9yIl0sImlhdCI6MTUxNzE1MTI4OCwiZXhwIjoxNTE4NDQ3Mjg4LCJqdGkiOiIxIn0.efviEAlmLRkBev5Ib4N35XaCZyzXinc1KJYgv9KM_Yo");
+                connection.setRequestProperty("authorization","Bearer "+Stoken);
                 connection.setRequestMethod("GET");
                 connection.connect();
                 InputStream stream = connection.getInputStream();
@@ -412,8 +415,11 @@ public class Schedule_class extends ArrayAdapter {
         protected void onPostExecute(final List<Schedule_upcoming_list> ScheduleMode) {
             super.onPostExecute(ScheduleMode);
             avi.hide();
-            if (ScheduleMode!= null)
+            if ((ScheduleMode != null) && (ScheduleMode.size()>0))
             {
+                LVschedule.setVisibility(View.VISIBLE);
+                nodatatextview.setVisibility(View.INVISIBLE);
+                underser_gif.setVisibility(View.INVISIBLE);
                 Schedule_class adapter = new Schedule_class(getActivity(), R.layout.schedule_list, ScheduleMode);
                 LVschedule.setAdapter(adapter);
                 LVschedule.setOnItemClickListener( new AdapterView.OnItemClickListener() {
@@ -431,6 +437,12 @@ public class Schedule_class extends ArrayAdapter {
                 });
                 adapter.notifyDataSetChanged();
 
+            }
+            else
+            {
+                LVschedule.setVisibility(View.INVISIBLE);
+                nodatatextview.setVisibility(View.VISIBLE);
+                underser_gif.setVisibility(View.VISIBLE);
             }
 
             }

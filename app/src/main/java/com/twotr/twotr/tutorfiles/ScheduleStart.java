@@ -358,7 +358,7 @@ if (!(stringend.isEmpty())) {
 
     @Override
     public void onTimeSet(TimePickerDialog view, int hourOfDay, int minute, int second) {
-        String hoursday;
+        String hoursday,minuteofday,secondsofday;
         if(hourOfDay<9)
         {
  hoursday="0"+hourOfDay;
@@ -367,7 +367,24 @@ if (!(stringend.isEmpty())) {
         {
             hoursday= Integer.toString( hourOfDay );
         }
-        String time = hoursday+":"+minute+":"+second;
+        if(minute<9)
+        {
+            minuteofday="0"+minute;
+        }
+        else
+        {
+            minuteofday= Integer.toString( minute );
+        }
+        if (second<9)
+        {
+            secondsofday="0"+second;
+
+        }
+        else {
+            secondsofday= Integer.toString( second );
+
+        }
+        String time = hoursday+":"+minuteofday+":"+secondsofday;
 
       if (starttimetpd.equals("1"))
       {

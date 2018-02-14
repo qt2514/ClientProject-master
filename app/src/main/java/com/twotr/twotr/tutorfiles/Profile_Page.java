@@ -36,6 +36,7 @@ import java.util.List;
 import java.util.Map;
 
 import de.hdodenhof.circleimageview.CircleImageView;
+import pl.droidsonroids.gif.GifImageView;
 
 public class Profile_Page extends AppCompatActivity {
     Button but_personal,but_educational,but_professional,but_profile_edit;
@@ -52,6 +53,9 @@ public class Profile_Page extends AppCompatActivity {
    TextView TVheadernamefull,TVheadernameshort;
    CircleImageView CIVprofimage;
    ImageButton IB_back;
+   GifImageView pendinggiflist;
+   TextView pendingtextlist;
+    Boolean isEmailVerified, isProfessionalCompleted;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -75,6 +79,8 @@ public class Profile_Page extends AppCompatActivity {
         TVemailverify=findViewById(R.id.profile_email_verify);
         TVmobileverify=findViewById(R.id.profile_mobile_verify);
 TVheadernamefull=findViewById(R.id.prof_prof_name);
+pendinggiflist=findViewById(R.id.nodatagif);
+pendingtextlist=findViewById(R.id.nodatatext);
 TVheadernameshort=findViewById(R.id.prof_prof_name_short);
         scrollView_educational=findViewById(R.id.srcollview_educational);
         scrollview_professional=findViewById(R.id.srcollview_professional);
@@ -111,6 +117,8 @@ CIVprofimage=findViewById(R.id.image_profile);
                 scrollview_personal.setVisibility(View.VISIBLE);
                 scrollView_educational.setVisibility(View.GONE);
                 scrollview_professional.setVisibility(View.GONE);
+                pendinggiflist.setVisibility(View.INVISIBLE);
+                pendingtextlist.setVisibility(View.INVISIBLE);
 
             }
         });
@@ -125,6 +133,18 @@ CIVprofimage=findViewById(R.id.image_profile);
                 scrollView_educational.setVisibility(View.VISIBLE);
                 scrollview_personal.setVisibility(View.GONE);
                 scrollview_professional.setVisibility(View.GONE);
+                if (!isEmailVerified)
+                {
+                    scrollView_educational.setVisibility(View.INVISIBLE);
+
+                    pendinggiflist.setVisibility(View.VISIBLE);
+                    pendingtextlist.setVisibility(View.VISIBLE);
+                }
+                else
+                {
+                    pendinggiflist.setVisibility(View.INVISIBLE);
+                    pendingtextlist.setVisibility(View.INVISIBLE);
+                }
             }
         });
         but_professional.setOnClickListener(new View.OnClickListener() {
@@ -138,6 +158,18 @@ CIVprofimage=findViewById(R.id.image_profile);
                 scrollview_professional.setVisibility(View.VISIBLE);
                 scrollview_personal.setVisibility(View.GONE);
                 scrollView_educational.setVisibility(View.GONE);
+                if (!isProfessionalCompleted)
+                {
+                    scrollview_professional.setVisibility(View.INVISIBLE);
+
+                    pendinggiflist.setVisibility(View.VISIBLE);
+                    pendingtextlist.setVisibility(View.VISIBLE);
+                }
+                else
+                {
+                    pendinggiflist.setVisibility(View.INVISIBLE);
+                    pendingtextlist.setVisibility(View.INVISIBLE);
+                }
             }
         });
         but_profile_edit.setOnClickListener(new View.OnClickListener() {
@@ -219,11 +251,11 @@ CIVprofimage=findViewById(R.id.image_profile);
 
 
                     JSONObject verification = userprofile.getJSONObject("verification");
-                    Boolean isEmailVerified =verification.getBoolean("isEmailVerified");
+                     isEmailVerified =verification.getBoolean("isEmailVerified");
                     Boolean isMobileVerified=verification.getBoolean("isMobileVerified");
                     Boolean isProfileCompleted=verification.getBoolean("isProfileCompleted");
                     Boolean isEducationCompleted=verification.getBoolean("isEducationCompleted");
-                    Boolean isProfessionalCompleted=verification.getBoolean("isProfessionalCompleted");
+                     isProfessionalCompleted=verification.getBoolean("isProfessionalCompleted");
                     Boolean isIdVerified=verification.getBoolean("isIdVerified");
                     Boolean isTeachingVerified=verification.getBoolean("isTeachingVerified");
 
@@ -243,6 +275,8 @@ CIVprofimage=findViewById(R.id.image_profile);
                     TVheadernameshort.setText(SfirstName +" "+SlastName);
 if (isEmailVerified)
 {
+
+
     TVemailverify.setVisibility(View.INVISIBLE);
 }
 if (isMobileVerified)
@@ -251,23 +285,22 @@ if (isMobileVerified)
 
 }
 
+    JSONObject educationinfo = jObj.getJSONObject("educationInfo");
+    JSONArray jsonArray2 = educationinfo.getJSONArray("degrees");
+    for (int i = 0; i < jsonArray2.length(); i++) {
+        JSONObject jsonObjectedu = jsonArray2.getJSONObject(i);
+        String Smajor =jsonObjectedu.getString("major");
+        String Sinstitution =jsonObjectedu.getString("institution");
+        String SfieldOfStudy =jsonObjectedu.getString("fieldOfStudy");
+        String SstartYear =jsonObjectedu.getString("startYear");
+        String SendYear =jsonObjectedu.getString("endYear");
+        Boolean SisStudyingCurrently =jsonObjectedu.getBoolean("isStudyingCurrently");
 
+        TVmajor.setText(Smajor);
+        TVinsitute.setText(Sinstitution);
+        TVyear.setText(SstartYear+"-"+SendYear);
+    }
 
-                    JSONObject educationinfo = jObj.getJSONObject("educationInfo");
-                    JSONArray jsonArray2 = educationinfo.getJSONArray("degrees");
-                    for (int i = 0; i < jsonArray2.length(); i++) {
-                        JSONObject jsonObjectedu = jsonArray2.getJSONObject(i);
-                        String Smajor =jsonObjectedu.getString("major");
-                        String Sinstitution =jsonObjectedu.getString("institution");
-                        String SfieldOfStudy =jsonObjectedu.getString("fieldOfStudy");
-                        String SstartYear =jsonObjectedu.getString("startYear");
-                        String SendYear =jsonObjectedu.getString("endYear");
-                        Boolean SisStudyingCurrently =jsonObjectedu.getBoolean("isStudyingCurrently");
-
-                        TVmajor.setText(Smajor);
-                        TVinsitute.setText(Sinstitution);
-                        TVyear.setText(SstartYear+"-"+SendYear);
-                    }
                     JSONObject professionalInfo = jObj.getJSONObject("professionalInfo");
 String Stitle=professionalInfo.getString("title");
                     String SinstitutionName=professionalInfo.getString("institutionName");

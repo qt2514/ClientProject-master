@@ -35,7 +35,7 @@ public class Schedule_ShowMap extends FragmentActivity implements OnMapReadyCall
         Double latm = tgps.getLatitude();
         Double lngm = tgps.getLongitude();
         LatLng sydney = new LatLng(latm, lngm);
-        mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
+        mMap.addMarker(new MarkerOptions().position(sydney));
         mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
     }
 }

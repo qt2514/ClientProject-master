@@ -14,16 +14,16 @@
         android:gravity="top"
         android:background="@color/colorPrimaryDark"
         android:layout_height="80dp">
-
         <ImageButton
             android:id="@+id/back_ima_scedule"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-
             android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="8dp"
             android:background="@drawable/ic_back_page"
-            android:backgroundTint="#fff" />
+            android:backgroundTint="#fff"
+            android:focusable="true" />
 
         <RelativeLayout
             android:layout_width="wrap_content"
@@ -59,51 +59,51 @@
 
         </RelativeLayout>
 
+        <!--<ImageView-->
+            <!--android:id="@+id/imageView3"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+
+            <!--android:layout_centerVertical="true"-->
+            <!--android:layout_toEndOf="@+id/back_ima_scedule"-->
+            <!--android:background="@drawable/ic_access_time_black_24dp"-->
+            <!--android:backgroundTint="@color/buttonColorSecondary" />-->
+
+        <!--<TextView-->
+            <!--android:id="@+id/hours_sched"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_centerVertical="true"-->
+            <!--android:layout_toEndOf="@+id/imageView3"-->
+            <!--android:gravity="center"-->
+            <!--android:text="2 Hours  - "-->
+            <!--android:textColor="@color/buttonColorSecondary" />-->
+
+        <!--<TextView-->
+            <!--android:id="@+id/time_sched"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_centerVertical="true"-->
+
+            <!--android:layout_toEndOf="@+id/hours_sched"-->
+            <!--android:gravity="center"-->
+            <!--android:text="2:30 | "-->
+            <!--android:textColor="@color/buttonColorSecondary" />-->
+
+        <!--<TextView-->
+            <!--android:id="@+id/month_day_sched"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_alignBaseline="@+id/time_sched"-->
+            <!--android:layout_alignBottom="@+id/time_sched"-->
+            <!--android:layout_toEndOf="@+id/time_sched"-->
+            <!--android:gravity="center"-->
+            <!--android:text="Nov 28"-->
+            <!--android:textColor="@color/buttonColorSecondary" />-->
+
         <ImageView
-            android:id="@+id/imageView3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-
-            android:layout_centerVertical="true"
-            android:layout_toEndOf="@+id/back_ima_scedule"
-            android:background="@drawable/ic_access_time_black_24dp"
-            android:backgroundTint="@color/buttonColorSecondary" />
-
-        <TextView
-            android:id="@+id/hours_sched"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_toEndOf="@+id/imageView3"
-            android:gravity="center"
-            android:text="2 Hours  - "
-            android:textColor="@color/buttonColorSecondary" />
-
-        <TextView
-            android:id="@+id/time_sched"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-
-            android:layout_toEndOf="@+id/hours_sched"
-            android:gravity="center"
-            android:text="2:30 | "
-            android:textColor="@color/buttonColorSecondary" />
-
-        <TextView
-            android:id="@+id/month_day_sched"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignBaseline="@+id/time_sched"
-            android:layout_alignBottom="@+id/time_sched"
-            android:layout_toEndOf="@+id/time_sched"
-            android:gravity="center"
-            android:text="Nov 28"
-            android:textColor="@color/buttonColorSecondary" />
-
-        <ImageView
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
             android:layout_marginEnd="13dp"
@@ -117,54 +117,59 @@
         android:layout_height="wrap_content"
         android:background="#fff"
         app:textColorSelected="@color/colorPrimary"/>
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-        <android.support.v7.widget.CardView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:elevation="9dp"
-            app:cardElevation="3dp"
-            app:cardCornerRadius="6dp"
-            android:layout_margin="30dp"
-            android:padding="10dp"
 
-            >
-            <ScrollView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
+    <!--<RelativeLayout-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_alignParentStart="true"-->
+        <!--android:layout_centerVertical="true">-->
 
+        <!--<android.support.v7.widget.CardView-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_centerInParent="true"-->
+            <!--android:layout_margin="30dp"-->
+            <!--android:elevation="9dp"-->
+            <!--android:padding="10dp"-->
+            <!--app:cardCornerRadius="6dp"-->
+            <!--app:cardElevation="3dp"-->
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:orientation="vertical"
-                    android:weightSum="2"
-                    android:layout_margin="5dp"
-                    android:layout_height="match_parent">
+            <!--&gt;-->
 
-                    <GridView
-                        android:layout_below="@+id/gridview_schowschedule"
-                        android:layout_height="match_parent"
-                        android:layout_width="match_parent"
-                        android:id="@+id/home_gridview"
-
-                        android:layout_margin="6dp"
-                        android:verticalSpacing="3dp"
-                        android:scrollbars="none"
-                        android:horizontalSpacing="2dp"
-                        android:numColumns="2"
-                        android:layout_marginTop="5dp"/>
+            <!--<ScrollView-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="match_parent">-->
 
 
-                    <Button
-                        android:layout_width="match_parent"
-                        android:layout_height="50dp"
-                        android:background="@color/colorPrimary"
-                        android:text="Edit Time Slots"
-                        android:textColor="@color/buttonColorPrimary"/>
-                </LinearLayout>
-            </ScrollView>
-        </android.support.v7.widget.CardView>
-    </RelativeLayout>
+                <!--<LinearLayout-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="match_parent"-->
+                    <!--android:layout_margin="5dp"-->
+                    <!--android:orientation="vertical"-->
+                    <!--android:weightSum="2">-->
+
+                    <!--<GridView-->
+                        <!--android:id="@+id/home_gridview"-->
+                        <!--android:layout_width="match_parent"-->
+                        <!--android:layout_height="match_parent"-->
+                        <!--android:layout_below="@+id/gridview_schowschedule"-->
+
+                        <!--android:layout_margin="6dp"-->
+                        <!--android:layout_marginTop="5dp"-->
+                        <!--android:horizontalSpacing="2dp"-->
+                        <!--android:numColumns="2"-->
+                        <!--android:scrollbars="none"-->
+                        <!--android:verticalSpacing="3dp" />-->
+
+
+                    <!--<Button-->
+                        <!--android:layout_width="match_parent"-->
+                        <!--android:layout_height="50dp"-->
+                        <!--android:background="@color/colorPrimary"-->
+                        <!--android:text="Edit Time Slots"-->
+                        <!--android:textColor="@color/buttonColorPrimary" />-->
+                <!--</LinearLayout>-->
+            <!--</ScrollView>-->
+        <!--</android.support.v7.widget.CardView>-->
+    <!--</RelativeLayout>-->
 </RelativeLayout>

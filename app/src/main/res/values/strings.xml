@@ -47,4 +47,5 @@
     <string name="title_activity_tutor__verfication_page">Verification</string>
     <string name="title_activity_search_text_view">SearchTextView</string>
     <string name="title_activity_multi_subject_spinner">MultiSubjectSpinner</string>
+    <string name="title_activity_single_subject_select">SingleSubjectSelect</string>
 </resources>

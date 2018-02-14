@@ -23,7 +23,7 @@ public class MyApplication  extends Application {
     public void onCreate() {
         super.onCreate();
         mInstance = this;
-        MultiDex.install(this);
+        //MultiDex.install(this);
 
     }
 

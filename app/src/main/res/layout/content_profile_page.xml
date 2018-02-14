@@ -228,4 +228,28 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+    <pl.droidsonroids.gif.GifImageView
+        android:id="@+id/nodatagif"
+        android:layout_width="150dp"
+        android:visibility="invisible"
+        android:layout_height="150dp"
+        android:layout_centerHorizontal="true"
+        android:layout_alignStart="@+id/avi"
+        android:layout_centerVertical="true"
+        android:src="@drawable/pendinglistgif" />
+
+    <TextView
+        android:id="@+id/nodatatext"
+        android:layout_width="wrap_content"
+        android:layout_below="@+id/nodatagif"
+        android:visibility="invisible"
+        android:text="Press Edit and Complete Info"
+        android:layout_centerHorizontal="true"
+
+        android:layout_centerVertical="true"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="18sp"
+        android:layout_margin="5dp"
+        android:fontFamily="@font/montserrat"
+        android:layout_height="wrap_content" />
 </RelativeLayout>

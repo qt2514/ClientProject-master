@@ -140,6 +140,10 @@
         <activity
             android:name=".tutorfiles.MultiSubjectSpinner"
             android:label="@string/title_activity_multi_subject_spinner"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".tutorfiles.SingleSubjectSelect"
+            android:label="@string/title_activity_single_subject_select"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 

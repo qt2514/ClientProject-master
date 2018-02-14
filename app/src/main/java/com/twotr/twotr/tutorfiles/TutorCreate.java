@@ -1,10 +1,16 @@
 package com.twotr.twotr.tutorfiles;
 
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.location.Address;
+import android.location.Geocoder;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -27,6 +33,10 @@ import com.android.volley.VolleyError;
 import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.android.gms.common.api.Status;
+import com.google.android.gms.location.places.Place;
+import com.google.android.gms.location.places.ui.PlaceAutocomplete;
+import com.google.android.gms.maps.model.LatLng;
 import com.ontbee.legacyforks.cn.pedant.SweetAlert.SweetAlertDialog;
 import com.quinny898.library.persistentsearch.SearchBox;
 import com.quinny898.library.persistentsearch.SearchResult;
@@ -39,12 +49,16 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.UUID;
+
+import static android.app.Activity.RESULT_OK;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -57,8 +71,9 @@ public class TutorCreate extends Fragment {
     private TextView ETgrade;
     private TextView TVaddsched,TVaddmap;
     private TextView TVtypesearch;
-    private  String Ssubjectid;
-    SearchBox search;
+    private static final int SECOND_ACTIVITY_REQUEST_CODE = 0;
+
+    //SearchBox search;
     String BaseSearchurl="http://twotr.com:4040/api/subject/search?key=";
     String search_result;
     public static TutorCreate newInstance() {
@@ -68,14 +83,15 @@ public class TutorCreate extends Fragment {
     ArrayList aryGrade=new ArrayList();
     SharedPreferences Shared_user_details;
     public String Stoken;
-    RelativeLayout relativeLayout;
+   // RelativeLayout relativeLayout;
     List<String> starttimesched;
     List<String> endtimesched;
     String typeofstudteach;
 Boolean Bisusersubject;
 Button add_subject;
-
-
+    List<String> subjectnamelist;
+    List<String> subjectnameid;
+String Ssubjectkind;
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -95,101 +111,40 @@ Button add_subject;
         TVaddmap=view.findViewById(R.id.add_map_create);
         ETshortins=view.findViewById(R.id.shrot_des_create);
         ETgrade=view.findViewById(R.id.grade_create);
-        relativeLayout=view.findViewById(R.id.searchnew);
+       // relativeLayout=view.findViewById(R.id.searchnew);
         ImageView IVaddsch = view.findViewById(R.id.hint_sched);
         ImageView IVaddmap = view.findViewById(R.id.hint_map);
-        search =  view.findViewById(R.id.searchbox);
+        //search =  view.findViewById(R.id.searchbox);
         add_subject=view.findViewById(R.id.add_subject_create);
-        search.setLogoText("Search Your Subject here");
-
-        subject_spinner("http://twotr.com:4040/api/userinfo/basic/profile");
-        search.enableVoiceRecognition(getActivity());
+      //  search.setLogoText("Search Your Subject here");
+        //search.enableVoiceRecognition(getActivity());
         starttimesched=new ArrayList<>();
         endtimesched=new ArrayList<>();
         typeofstudteach="oneonone";
         Bisusersubject=false;
-        search.setMenuListener(new SearchBox.MenuListener(){
+//        search.setMenuListener(new SearchBox.MenuListener(){
+//
+//            @Override
+//            public void onMenuClick() {
+//
+//            }
+//
+//        });
 
-            @Override
-            public void onMenuClick() {
-
-            }
-
-        });
-        search.setSearchListener(new SearchBox.SearchListener(){
-
-            @Override
-            public void onSearchOpened() {
-                //Use this to tint the screen
-
-            }
-
-            @Override
-            public void onSearchClosed() {
-                //Use this to un-tint the screen
-                search.setVisibility(View.INVISIBLE);
-                relativeLayout.setVisibility(View.INVISIBLE);
-                search.clearSearchable();
-                search.clearResults();
-
-
-            }
-
-            @Override
-            public void onSearchTermChanged(String s) {
-
-                subject_spinner(BaseSearchurl+s);
-
-            }
-
-            @Override
-            public void onSearch(String searchTerm) {
-if (searchTerm.matches(" ")) {
-    search.clearSearchable();
-    search.clearResults();
-}
-                TVtypesearch.setText(searchTerm);
-                search.setVisibility(View.INVISIBLE);
-                relativeLayout.setVisibility(View.INVISIBLE);
-                user_subject(searchTerm);
-                Bisusersubject=true;
-              //  Toast.makeText(getActivity(), searchTerm +" Searched", Toast.LENGTH_LONG).show();
-
-            }
-
-            @Override
-            public void onResultClick(SearchResult result){
-                search_result= String.valueOf(result);
-                TVtypesearch.setText(search_result);
-                search.setVisibility(View.INVISIBLE);
-                relativeLayout.setVisibility(View.INVISIBLE);
-            }
-
-
-            @Override
-            public void onSearchCleared() {
-
-            }
-
-        });
         TVtypesearch=view.findViewById(R.id.type_search);
         subject_grade_spinner();
-        relativeLayout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                search.setVisibility(View.INVISIBLE);
-                relativeLayout.setVisibility(View.INVISIBLE);
-            }
-        });
+//        relativeLayout.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                search.setVisibility(View.INVISIBLE);
+//                relativeLayout.setVisibility(View.INVISIBLE);
+//            }
+//        });
         TVtypesearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                search.clearSearchable();
-                search.clearResults();
-                subject_spinner("http://twotr.com:4040/api/userinfo/basic/profile");
-
-                search.setVisibility(View.VISIBLE);
-                relativeLayout.setVisibility(View.VISIBLE);
+                Intent intent = new Intent(getActivity(), SingleSubjectSelect.class);
+                startActivityForResult(intent, SECOND_ACTIVITY_REQUEST_CODE);
 
             }
         });
@@ -237,11 +192,12 @@ if (searchTerm.matches(" ")) {
         Boneonone.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                typeofstudteach="oneonone";
                 Boneonone.setBackgroundResource(R.drawable.tab_button_selected);
                 Bgroup.setBackgroundResource(R.drawable.tab_button_unselected);
                 Boneonone.setTextColor(getResources().getColor(R.color.colorwhite));
                 Bgroup.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
-     ETnofstudents.setVisibility(View.GONE);
+                ETnofstudents.setVisibility(View.GONE);
                 ETtotalone.setVisibility(View.VISIBLE);
                 ETtotalamount.setVisibility(View.GONE);
                 ETminamount.setVisibility(View.GONE);
@@ -249,8 +205,6 @@ if (searchTerm.matches(" ")) {
                 TVaddmap.setVisibility(View.VISIBLE);
                 ETshortins.setVisibility(View.VISIBLE);
                 ETgrade.setVisibility(View.VISIBLE);
-
-
             }
         });
 
@@ -362,9 +316,14 @@ if (searchTerm.matches(" ")) {
             @Override
             public void onClick(View v) {
 
-                String Ssubjectname=TVtypesearch.getText().toString();
+               // String Ssubjectname=TVtypesearch.getText().toString();
                 String Sgroup=typeofstudteach;
                 String Sprice=ETtotalone.getText().toString();
+                String minprice=ETminamount.getText().toString();
+                if (minprice.isEmpty())
+                {
+                    minprice="10";
+                }
 String Snoofstudents=ETnofstudents.getText().toString();
 if (Snoofstudents.isEmpty())
 {
@@ -380,7 +339,7 @@ String Sshortdesc=ETshortins.getText().toString();
              String longi=tinydb.getString("longitude");
 
 
-                tutor_create(Ssubjectname,Sgroup,Sprice,Snoofstudents,Sshortdesc,lati,longi);
+                tutor_create(Sgroup,Sprice,Snoofstudents,Sshortdesc,lati,longi,minprice);
 
             }
         });
@@ -391,7 +350,7 @@ String Sshortdesc=ETshortins.getText().toString();
 
 
 
-    public void tutor_create(String ssubjectname, String sgroup, String sprice, String snoofstudents, String sshortdesc, String lati, String longi)
+    public void tutor_create( String sgroup, String sprice, String snoofstudents, String sshortdesc, String lati, String longi,String minprice)
     {
         try {
 
@@ -428,8 +387,13 @@ String Sshortdesc=ETshortins.getText().toString();
             jsonBody.put("price",sprice);
             jsonBody.put("studentsCount",snoofstudents);
             jsonBody.put("description",sshortdesc);
-            jsonBody.put("minPrice","50");
-            jsonBody.put(  "subjectId",Ssubjectid);
+            jsonBody.put("minPrice",minprice);
+
+
+
+            String subid=subjectnameid.toString();
+           subid=subid.replaceAll("\\[", "").replaceAll("\\]","");
+            jsonBody.put(  "subjectId",subid);
 
 
             final String requestBody = jsonBody.toString();
@@ -493,6 +457,8 @@ String Sshortdesc=ETshortins.getText().toString();
             e.printStackTrace();
         }
     }
+
+
     public void subject_grade_spinner() {
 
 
@@ -554,142 +520,185 @@ String Sshortdesc=ETshortins.getText().toString();
         requestQueue.add(stringRequest);
     }
 
-    public void subject_spinner(String myapi) {
-
-
-        RequestQueue requestQueue = Volley.newRequestQueue(getContext());
-
-        StringRequest stringRequest = new StringRequest(Request.Method.GET,myapi , new Response.Listener<String>() {
-
-            public void onResponse(String response) {
-                try {
-
-                    JSONObject jObj = new JSONObject(response);
-                    JSONArray jsonArray = jObj.getJSONArray("subjects");
-
-                    for (int i = 0; i < jsonArray.length(); i++) {
-                        JSONObject jsonobject = jsonArray.getJSONObject(i);
-
-                        String name = jsonobject.getString("title");
-
-                        SearchResult option = new SearchResult(name, getResources().getDrawable(R.drawable.ic_local_library_black_24dp));
-                        search.addSearchable(option);
-
-//                        // String id = jsonobject.getString("_id");
+//    public void subject_spinner(String myapi) {
 //
-//                        subject_name.add(new MultiSelectModel(i,name));
+//
+//        RequestQueue requestQueue = Volley.newRequestQueue(getContext());
+//
+//        StringRequest stringRequest = new StringRequest(Request.Method.GET,myapi , new Response.Listener<String>() {
+//
+//            public void onResponse(String response) {
+//                try {
+//
+//                    JSONObject jObj = new JSONObject(response);
+//                    JSONArray jsonArray = jObj.getJSONArray("subjects");
+//
+//                    for (int i = 0; i < jsonArray.length(); i++) {
+//                        JSONObject jsonobject = jsonArray.getJSONObject(i);
+//
+//                        String name = jsonobject.getString("title");
+//
+//                        SearchResult option = new SearchResult(name, getResources().getDrawable(R.drawable.ic_local_library_black_24dp));
+//                        search.addSearchable(option);
+//
+////                        // String id = jsonobject.getString("_id");
+////
+////                        subject_name.add(new MultiSelectModel(i,name));
+//                    }
+//
+//
+//                } catch (JSONException e) {
+//                    e.printStackTrace();
+//                }
+//
+//            }
+//        }, new Response.ErrorListener() {
+//            @Override
+//            public void onErrorResponse(VolleyError error) {
+//
+//            }
+//        }) {
+//            @Override
+//            public String getBodyContentType() {
+//                return "application/json; charset=utf-8";
+//            }
+//            @Override
+//            public Map<String, String> getHeaders() throws AuthFailureError {
+//                HashMap<String, String> headers = new HashMap<String, String>();
+//                headers.put("content-Type", "application/json");
+//                headers.put("x-tutor-app-id", "tutor-app-android");
+//                headers.put("authorization", "Bearer "+Stoken);
+//                return headers;
+//            }
+//        };
+//
+//        requestQueue.add(stringRequest);
+//    }
+//
+
+
+//
+//    public void user_subject(String usersubject)
+//    {
+//
+//        try {
+//
+//            RequestQueue requestQueue = Volley.newRequestQueue(getContext());
+//
+//            JSONObject jsonObjectall=new JSONObject();
+//            jsonObjectall.put("title",usersubject);
+//
+//            final String requestBody = jsonObjectall.toString();
+//            StringRequest stringRequest = new StringRequest(Request.Method.POST, Global_url_twotr.Profile_subject_create, new Response.Listener<String>() {
+//
+//                public void onResponse(String response) {
+//                    JSONObject jObj = null;
+//                    try {
+//                        jObj = new JSONObject(response);
+//                        String title = jObj.getString("title");
+//                        String createdBy = jObj.getString("createdBy");
+//                        String id = jObj.getString("_id");
+//                        String createdAt = jObj.getString("createdAt");
+//                        String isApproved = jObj.getString("isApproved");
+//                        // Ssubjectid=id;
+//
+//                    }
+//                    catch (JSONException e) {
+//                        e.printStackTrace();
+//                    }
+//
+//
+//                }
+//            }, new Response.ErrorListener() {
+//                @Override
+//                public void onErrorResponse(VolleyError error) {
+//
+//                    new SweetAlertDialog(getContext(), SweetAlertDialog.WARNING_TYPE).setTitleText("Server Error")
+//                            .setConfirmText("OK")
+//                            .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+//                                @Override
+//                                public void onClick(SweetAlertDialog sweetAlertDialog) {
+//                                    sweetAlertDialog.dismiss();
+//                                }
+//                            }).show();
+//                }
+//            })
+//            {
+//                @Override
+//                public String getBodyContentType() {
+//
+//                    return "application/json; charset=utf-8";
+//                }
+//                @Override
+//                public Map<String, String> getHeaders() throws AuthFailureError {
+//                    HashMap<String, String> headers = new HashMap<String, String>();
+//                    headers.put("content-Type", "application/json");
+//                    headers.put("x-tutor-app-id", "tutor-app-android");
+//                    headers.put("authorization", "Bearer "+Stoken);
+//                    return headers;
+//
+//                }
+//                @Override
+//                public byte[] getBody() throws AuthFailureError {
+//                    try {
+//                        return requestBody == null ? null : requestBody.getBytes("utf-8");
+//
+//                    } catch (UnsupportedEncodingException uee) {
+//                        VolleyLog.wtf("Unsupported Encoding while trying to get the bytes of %s using %s", requestBody, "utf-8");
+//                        return null;
+//                    }
+//                }
+//
+//            };
+//
+//            requestQueue.add(stringRequest);
+//        } catch (JSONException e) {
+//            e.printStackTrace();
+//        }
+//    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+
+        if (requestCode == SECOND_ACTIVITY_REQUEST_CODE) {
+            if (resultCode == RESULT_OK) {
+                TinyDB tinydb = new TinyDB(getContext());
+                Ssubjectkind=tinydb.getString("subjecttype");
+                if (Ssubjectkind.equals("Subject")) {
+                    subjectnamelist = tinydb.getListString("subjectnamelist");
+                    subjectnameid = tinydb.getListString("subjectnameid");
+                    StringBuilder builder = new StringBuilder();
+                    // JSONArray startendarray=new JSONArray();
+                    for (int i = 0; i < subjectnamelist.size(); i++) {
+                        //   JSONObject obj=new JSONObject();
+                        // try {
+//                obj.put("start",starttimesched.get(i));
+//                obj.put("end",endtimesched.get(i));
+                        builder.append("").append(subjectnamelist.get(i)).append("");
+
+                        //   } catch (JSONException e) {
+                        //      e.printStackTrace();
                     }
 
-
-                } catch (JSONException e) {
-                    e.printStackTrace();
+                    TVtypesearch.setText(builder);
+                }
+                else
+                {
+                    Ssubjectkind=tinydb.getString("subjecttype");
+                    Bisusersubject=true;
+                    String Ssubjectnamei=tinydb.getString("subjectnamei");
+                    subjectnameid = tinydb.getListString("subjectnameid");
+                    TVtypesearch.setText(Ssubjectnamei);
                 }
 
+                //   startendarray.put(obj);
+                //   }
+                //Toast.makeText(context, "i got you", Toast.LENGTH_SHORT).show();
             }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-
-            }
-        }) {
-            @Override
-            public String getBodyContentType() {
-                return "application/json; charset=utf-8";
-            }
-            @Override
-            public Map<String, String> getHeaders() throws AuthFailureError {
-                HashMap<String, String> headers = new HashMap<String, String>();
-                headers.put("content-Type", "application/json");
-                headers.put("x-tutor-app-id", "tutor-app-android");
-                headers.put("authorization", "Bearer "+Stoken);
-                return headers;
-            }
-        };
-
-        requestQueue.add(stringRequest);
-    }
-
-
-
-
-    public void user_subject(String usersubject)
-    {
-
-        try {
-
-            RequestQueue requestQueue = Volley.newRequestQueue(getContext());
-
-            JSONObject jsonObjectall=new JSONObject();
-            jsonObjectall.put("title",usersubject);
-
-            final String requestBody = jsonObjectall.toString();
-            StringRequest stringRequest = new StringRequest(Request.Method.POST, Global_url_twotr.Profile_subject_create, new Response.Listener<String>() {
-
-                public void onResponse(String response) {
-                    JSONObject jObj = null;
-                    try {
-                        jObj = new JSONObject(response);
-                        String title = jObj.getString("title");
-                        String createdBy = jObj.getString("createdBy");
-                        String id = jObj.getString("_id");
-                        String createdAt = jObj.getString("createdAt");
-                        String isApproved = jObj.getString("isApproved");
-                        Ssubjectid=id;
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-
-
-                }
-            }, new Response.ErrorListener() {
-                @Override
-                public void onErrorResponse(VolleyError error) {
-
-                    new SweetAlertDialog(getContext(), SweetAlertDialog.WARNING_TYPE).setTitleText("Server Error")
-                            .setConfirmText("OK")
-                            .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
-                                @Override
-                                public void onClick(SweetAlertDialog sweetAlertDialog) {
-                                    sweetAlertDialog.dismiss();
-                                }
-                            }).show();
-                }
-            })
-            {
-                @Override
-                public String getBodyContentType() {
-
-                    return "application/json; charset=utf-8";
-                }
-                @Override
-                public Map<String, String> getHeaders() throws AuthFailureError {
-                    HashMap<String, String> headers = new HashMap<String, String>();
-                    headers.put("content-Type", "application/json");
-                    headers.put("x-tutor-app-id", "tutor-app-android");
-                    headers.put("authorization", "Bearer "+Stoken);
-                    return headers;
-
-                }
-                @Override
-                public byte[] getBody() throws AuthFailureError {
-                    try {
-                        return requestBody == null ? null : requestBody.getBytes("utf-8");
-
-                    } catch (UnsupportedEncodingException uee) {
-                        VolleyLog.wtf("Unsupported Encoding while trying to get the bytes of %s using %s", requestBody, "utf-8");
-                        return null;
-                    }
-                }
-
-            };
-
-            requestQueue.add(stringRequest);
-        } catch (JSONException e) {
-            e.printStackTrace();
         }
+
     }
-
-
 
 
 
