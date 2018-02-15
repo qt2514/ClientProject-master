@@ -1,11 +1,8 @@
 package com.twotr.twotr.tutorfiles;
 
 
-import android.annotation.SuppressLint;
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
-import android.media.Image;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -13,7 +10,6 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -165,7 +161,6 @@ imageView=view.findViewById(R.id.creadte_dashboard_image);
     }
 
 
-    @SuppressLint("StaticFieldLeak")
     public class ScheduleAsyncList extends AsyncTask<String, String, List<Schedule_upcoming_list>> {
         @Override
         protected void onPreExecute() {

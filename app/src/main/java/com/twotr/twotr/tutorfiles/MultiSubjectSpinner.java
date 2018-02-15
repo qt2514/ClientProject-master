@@ -78,7 +78,7 @@ context=this;
         subjectnamelist=new ArrayList<>();
         subjectnameid=new ArrayList<>();
         listViewItems = new ArrayList<MultispinnerList>();
-        subject_name_list("acco");
+
         listViewWithCheckBox.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
             @Override
@@ -269,7 +269,7 @@ avi.hide();
             @Override
             public void onErrorResponse(VolleyError error) {
 avi.hide();
-                Toast.makeText(MultiSubjectSpinner.this, error.toString(), Toast.LENGTH_SHORT).show();
+           //     Toast.makeText(MultiSubjectSpinner.this, error.toString(), Toast.LENGTH_SHORT).show();
             }
         }) {
             @Override
@@ -343,7 +343,7 @@ avi.show();
                 @Override
                 public void onErrorResponse(VolleyError error) {
 avi.hide();
-                    Toast.makeText(context, "Please add subject again", Toast.LENGTH_SHORT).show();
+             //       Toast.makeText(context, "Please add subject again", Toast.LENGTH_SHORT).show();
                 }
             })
             {

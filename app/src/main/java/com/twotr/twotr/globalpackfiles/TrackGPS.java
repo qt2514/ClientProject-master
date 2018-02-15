@@ -36,13 +36,14 @@ public class TrackGPS extends Service implements LocationListener {
         this.mContext = mContext;
         getLocation();
     }
-    private Location getLocation() {
+    public void getLocation() {
 
         try {
             locationManager = (LocationManager) mContext
                     .getSystemService(LOCATION_SERVICE);
 
             // getting GPS status
+            assert locationManager != null;
             checkGPS = locationManager
                     .isProviderEnabled(LocationManager.GPS_PROVIDER);
 
@@ -107,7 +108,6 @@ public class TrackGPS extends Service implements LocationListener {
             e.printStackTrace();
         }
 
-        return loc;
     }
 
     public double getLongitude() {

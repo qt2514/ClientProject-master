@@ -283,7 +283,7 @@ holder.subjectname.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
                 avi.hide();
-                Toast.makeText(SingleSubjectSelect.this, error.toString(), Toast.LENGTH_SHORT).show();
+     //           Toast.makeText(SingleSubjectSelect.this, error.toString(), Toast.LENGTH_SHORT).show();
             }
         }) {
             @Override
@@ -357,7 +357,7 @@ holder.subjectname.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onErrorResponse(VolleyError error) {
                     avi.hide();
-                    Toast.makeText(context, "Please add subject again", Toast.LENGTH_SHORT).show();
+         //           Toast.makeText(context, "Please add subject again", Toast.LENGTH_SHORT).show();
                 }
             })
             {

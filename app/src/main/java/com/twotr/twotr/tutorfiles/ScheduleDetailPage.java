@@ -9,6 +9,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.twotr.twotr.R;
 
@@ -41,13 +42,16 @@ Button But_showmap,But_showschedule;
         But_showmap.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(ScheduleDetailPage.this,Schedule_ShowMap.class));
+                Toast.makeText(ScheduleDetailPage.this, "Coming Soon", Toast.LENGTH_SHORT).show();
+               // startActivity(new Intent(ScheduleDetailPage.this,Schedule_ShowMap.class));
             }
         });
         But_showschedule.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(ScheduleDetailPage.this,Schedule_ShowSchedule.class));
+                Toast.makeText(ScheduleDetailPage.this, "Coming Soon", Toast.LENGTH_SHORT).show();
+
+                //   startActivity(new Intent(ScheduleDetailPage.this,Schedule_ShowSchedule.class));
             }
         });
         ETsched_desc.setEnabled(false);
@@ -68,7 +72,6 @@ TVprice_amount.setText(sched_price);
             @Override
             public void onClick(View view) {
                 ETsched_desc.setEnabled(true);
-
              //   IBedit_sched.setBackgroundResource(R.drawable.save_schedule_edit);
 
             }

@@ -144,8 +144,8 @@ ETreferby=findViewById(R.id.referal_signup);
             @Override
             public void onClick(View v) {
                 s_module="tutor";
-                BTutor.setBackgroundColor(getColor(R.color.buttonColorPrimary));
-                BStudent.setBackgroundColor(getColor(R.color.buttonColorSecondary));
+                BTutor.setBackgroundColor(getResources().getColor(R.color.buttonColorPrimary));
+                BStudent.setBackgroundColor(getResources().getColor(R.color.buttonColorSecondary));
             }
         });
         BStudent.setOnClickListener(new View.OnClickListener() {
@@ -153,8 +153,8 @@ ETreferby=findViewById(R.id.referal_signup);
             @Override
             public void onClick(View v) {
                 s_module="student";
-                BStudent.setBackgroundColor(getColor(R.color.buttonColorPrimary));
-                BTutor.setBackgroundColor(getColor(R.color.buttonColorSecondary));
+                BStudent.setBackgroundColor(getResources().getColor(R.color.buttonColorPrimary));
+                BTutor.setBackgroundColor(getResources().getColor(R.color.buttonColorSecondary));
             }
         });
         IBsignup_back.setOnClickListener(new View.OnClickListener() {

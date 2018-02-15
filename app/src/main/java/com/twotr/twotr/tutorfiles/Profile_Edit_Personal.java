@@ -1,6 +1,5 @@
 package com.twotr.twotr.tutorfiles;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -64,6 +63,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.UUID;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -96,7 +96,7 @@ public class Profile_Edit_Personal extends AppCompatActivity implements DatePick
     TrackGPS tgps;
 String Profile_update_url;
     SharedPreferences.Editor editor;
-    String Sdob,Sgender,Stimezone,Ssunjectid,Ssubjectkind,Smcode,Smobile_number,Saddline,Saddcity,
+    String Sdob,Sgender,Stimezone,Ssubjectkind,Smcode,Smobile_number,Saddline,Saddcity,
         Saddstate,Saddzipcode,Scountry,Sdefaultcountry,Sdecription,Sgrade;
     Boolean Scantutor;
   //  Multipart multipart;
@@ -190,13 +190,12 @@ imageView.setOnClickListener(new View.OnClickListener() {
             addresses = gcd.getFromLocation(latm, lngm, 1);
         } catch (IOException e) {
             e.printStackTrace();
+
         }
         assert addresses != null;
         if (addresses.size() > 0) {
             Sdefaultcountry= addresses.get(0).getCountryCode();
-
-
-
+         //   Toast.makeText(context, Sdefaultcountry, Toast.LENGTH_SHORT).show();
         }
         else {
             Toast.makeText(context, "Location Not Found", Toast.LENGTH_SHORT).show();
@@ -605,7 +604,8 @@ et_per_fname.setOnFocusChangeListener(new View.OnFocusChangeListener() {
         et_per_dob.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                dpd.show(getFragmentManager(),"dob");
+                String genrateach= UUID.randomUUID().toString();
+                dpd.show(getFragmentManager(),genrateach);
                 dpd.setTitle("Date Of Birth");
             }
         });
@@ -614,7 +614,7 @@ et_per_fname.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             public void onClick(View view) {
                 try {
                     AutocompleteFilter typeFilter = new AutocompleteFilter.Builder()
-                            .setCountry(Sdefaultcountry)
+                            .setCountry("KW")
                             .build();
 
                     Intent intent =
@@ -1024,7 +1024,7 @@ TVsubject.setText(Ssubjectnamei);
             jsonObject1.put("city",saddcity);
             jsonObject1.put("state",saddstate);
             jsonObject1.put("zipCode",saddzipcode);
-            jsonObject1.put("country",scountry);
+            jsonObject1.put("country","KW");
             JSONObject jsonObject2 = new JSONObject();
             jsonObject2.put("code",smcode);
             jsonObject2.put("number",smobile_number);
@@ -1040,13 +1040,9 @@ TVsubject.setText(Ssubjectnamei);
             jsonObjectall.put("mobileNumber",jsonObject2);
 
             jsonObjectall.put("address",jsonObject1);
-            jsonObjectall.put("defaultCountry",sdefaultcountry);
+            jsonObjectall.put("defaultCountry","KW");
             jsonObjectall.put("description",sdecription);
-
-
             jsonBody.put("profileInfo",jsonObjectall);
-
-
             final String requestBody = jsonBody.toString();
             StringRequest stringRequest = new StringRequest(Request.Method.POST, Profile_update_url, new Response.Listener<String>() {
 
@@ -1245,6 +1241,7 @@ finish();
                 for(Bitmap bitm : listBitmap){
                     long imagename = System.currentTimeMillis();
                     params.put("file" + imagename , new DataPart(imagename + ".png", getFileDataFromDrawable(bitm)));
+
                 }
                 return params;
             }

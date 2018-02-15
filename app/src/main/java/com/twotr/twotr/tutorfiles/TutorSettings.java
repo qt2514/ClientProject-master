@@ -61,7 +61,7 @@ avi.hide();
         TVabout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new FinestWebView.Builder(getActivity())
+                new FinestWebView.Builder(getContext())
                         .titleDefault("Twotr")
                         .showUrl(false)
                         .dividerHeight(0)
@@ -85,7 +85,7 @@ avi.hide();
         TVtermsandcondi.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new FinestWebView.Builder(getActivity())
+                new FinestWebView.Builder(getContext())
                         .titleDefault("Twotr")
                         .showUrl(false)
                         .dividerHeight(0)

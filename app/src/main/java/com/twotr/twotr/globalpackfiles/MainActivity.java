@@ -1,14 +1,12 @@
 package com.twotr.twotr.globalpackfiles;
 
 import android.Manifest;
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.os.Build;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.provider.Settings;
-import android.support.annotation.RequiresApi;
 import android.support.v4.content.ContextCompat;
 import android.view.View;
 import android.widget.Button;
@@ -24,15 +22,20 @@ RelativeLayout layout;
 TextView signupbut;
 Button Bsignin;
     private static final int REQUEST_PERMISSION = 10;
-    private Context context;
-    private Activity activity;
-    @RequiresApi(api = Build.VERSION_CODES.M)
+
+    Context context;
+    boolean GpsStatus ;
+    TextView textview;
+    LocationManager locationManager ;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         context = getApplicationContext();
-        activity=this;
+
+
+
         layout =  findViewById(R.id.rel_layout);
        Sequent.origin(layout).anim(getApplicationContext(), com.fujiyuu75.sequent.Animation.FADE_IN_UP).start();
         signupbut=findViewById(R.id.sign_up);
@@ -92,6 +95,7 @@ CheckEnableGPS();
 
     private void checkPermission(){
         int result = ContextCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION);
+
         if (result == PackageManager.PERMISSION_GRANTED){
 
         }

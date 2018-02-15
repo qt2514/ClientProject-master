@@ -124,7 +124,10 @@ LVschedule=view.findViewById(R.id.schedule_list);
 
              Bhistory.setBackgroundResource(R.drawable.tab_selected);
              Bupcoming.setBackgroundResource(R.drawable.tab_unselected_right);
-              schedule_list_url = " http://twotr.com:4040/api/class/history?page=1&size=10" ;
+             Bupcoming.setTextColor(getResources().getColor(R.color.mdtp_white));
+             Bhistory.setTextColor(getResources().getColor(R.color.black));
+
+             schedule_list_url = " http://twotr.com:4040/api/class/history?page=1&size=10" ;
              new ScheduleAsyncList().execute(schedule_list_url);
              SwipeMenuCreator creator = new SwipeMenuCreator() {
 
@@ -176,6 +179,8 @@ LVschedule=view.findViewById(R.id.schedule_list);
          public void onClick(View view) {
              Bupcoming.setBackgroundResource(R.drawable.tab_selected_right);
              Bhistory.setBackgroundResource(R.drawable.tab_unselected);
+             Bupcoming.setTextColor(getResources().getColor(R.color.black));
+             Bhistory.setTextColor(getResources().getColor(R.color.mdtp_white));
 //upcominglist(upcoming_url);
 
               schedule_list_url = "http://twotr.com:4040/api/class/upcoming?page=1&size=10" ;

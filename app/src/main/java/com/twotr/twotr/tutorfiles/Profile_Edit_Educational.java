@@ -96,7 +96,6 @@ textViewins=findViewById(R.id.per_edu_inst);
             public void onClick(View v) {
                 avi.show();
                 institution_list();
-
                 searchboxins.setVisibility(View.VISIBLE);
                 relativeLayoutins.setVisibility(View.VISIBLE);
             }

@@ -55,7 +55,7 @@ public class Profile_Page extends AppCompatActivity {
    ImageButton IB_back;
    GifImageView pendinggiflist;
    TextView pendingtextlist;
-    Boolean isEmailVerified, isProfessionalCompleted;
+    Boolean isEducationCompleted, isProfessionalCompleted;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -111,9 +111,9 @@ CIVprofimage=findViewById(R.id.image_profile);
             @Override
             public void onClick(View v) {
                 s_profile="personal";
-                but_personal.setTextColor(getColor(R.color.buttonColorPrimary));
-                but_educational.setTextColor(getColor(R.color.colorwhite));
-                but_professional.setTextColor(getColor(R.color.colorwhite));
+                but_personal.setTextColor(getResources().getColor(R.color.buttonColorPrimary));
+                but_educational.setTextColor(getResources().getColor(R.color.colorwhite));
+                but_professional.setTextColor(getResources().getColor(R.color.colorwhite));
                 scrollview_personal.setVisibility(View.VISIBLE);
                 scrollView_educational.setVisibility(View.GONE);
                 scrollview_professional.setVisibility(View.GONE);
@@ -129,11 +129,11 @@ CIVprofimage=findViewById(R.id.image_profile);
                 s_profile="educational";
                 but_educational.setTextColor(getResources().getColor(R.color.buttonColorPrimary));
                 but_personal.setTextColor(getResources().getColor(R.color.colorwhite));
-                but_professional.setTextColor(getColor(R.color.colorwhite));
+                but_professional.setTextColor(getResources().getColor(R.color.colorwhite));
                 scrollView_educational.setVisibility(View.VISIBLE);
                 scrollview_personal.setVisibility(View.GONE);
                 scrollview_professional.setVisibility(View.GONE);
-                if (!isEmailVerified)
+                if (!isEducationCompleted)
                 {
                     scrollView_educational.setVisibility(View.INVISIBLE);
 
@@ -142,6 +142,8 @@ CIVprofimage=findViewById(R.id.image_profile);
                 }
                 else
                 {
+                    scrollView_educational.setVisibility(View.VISIBLE);
+
                     pendinggiflist.setVisibility(View.INVISIBLE);
                     pendingtextlist.setVisibility(View.INVISIBLE);
                 }
@@ -167,6 +169,8 @@ CIVprofimage=findViewById(R.id.image_profile);
                 }
                 else
                 {
+                    scrollview_professional.setVisibility(View.VISIBLE);
+
                     pendinggiflist.setVisibility(View.INVISIBLE);
                     pendingtextlist.setVisibility(View.INVISIBLE);
                 }
@@ -251,10 +255,10 @@ CIVprofimage=findViewById(R.id.image_profile);
 
 
                     JSONObject verification = userprofile.getJSONObject("verification");
-                     isEmailVerified =verification.getBoolean("isEmailVerified");
+                     Boolean isEmailVerified =verification.getBoolean("isEmailVerified");
                     Boolean isMobileVerified=verification.getBoolean("isMobileVerified");
                     Boolean isProfileCompleted=verification.getBoolean("isProfileCompleted");
-                    Boolean isEducationCompleted=verification.getBoolean("isEducationCompleted");
+                     isEducationCompleted=verification.getBoolean("isEducationCompleted");
                      isProfessionalCompleted=verification.getBoolean("isProfessionalCompleted");
                     Boolean isIdVerified=verification.getBoolean("isIdVerified");
                     Boolean isTeachingVerified=verification.getBoolean("isTeachingVerified");

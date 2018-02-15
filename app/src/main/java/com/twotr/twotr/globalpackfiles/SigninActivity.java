@@ -246,6 +246,7 @@ public void signin_verif(String susername, String spass)
                     editor.commit();
                    avi.hide();
                     startActivity(new Intent(SigninActivity.this, HomePage.class));
+                    finish();
                 }
                 catch (JSONException e) {
                     e.printStackTrace();

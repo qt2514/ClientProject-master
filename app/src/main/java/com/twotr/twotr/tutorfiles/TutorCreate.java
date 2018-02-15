@@ -1,16 +1,10 @@
 package com.twotr.twotr.tutorfiles;
 
 
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Bitmap;
 import android.graphics.Color;
-import android.location.Address;
-import android.location.Geocoder;
-import android.net.Uri;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -19,7 +13,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -33,13 +26,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.google.android.gms.common.api.Status;
-import com.google.android.gms.location.places.Place;
-import com.google.android.gms.location.places.ui.PlaceAutocomplete;
-import com.google.android.gms.maps.model.LatLng;
 import com.ontbee.legacyforks.cn.pedant.SweetAlert.SweetAlertDialog;
-import com.quinny898.library.persistentsearch.SearchBox;
-import com.quinny898.library.persistentsearch.SearchResult;
 import com.twotr.twotr.R;
 import com.twotr.twotr.globalpackfiles.Global_url_twotr;
 import com.twotr.twotr.globalpackfiles.TinyDB;
@@ -49,12 +36,10 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Locale;
 import java.util.Map;
 import java.util.UUID;
 
@@ -166,7 +151,6 @@ String Ssubjectkind;
                                 List<String> mStrings = new ArrayList<String>();
                                 for (int i = 0; i < selectedIds.size(); i++) {
                                     ETgrade.setText(dataString);
-
 //                                    Toast.makeText(Profile_Edit_Personal.this, "Selected Ids : " + selectedIds.get(i) + "\n" +
 //                                            "Selected Names : " + selectedNames.get(i) + "\n" +
 //                                            "DataString : " + dataString, Toast.LENGTH_SHORT).show();
@@ -318,7 +302,18 @@ String Ssubjectkind;
 
                // String Ssubjectname=TVtypesearch.getText().toString();
                 String Sgroup=typeofstudteach;
-                String Sprice=ETtotalone.getText().toString();
+                String Sprice;
+                if (typeofstudteach.equals("group"))
+                {
+                     Sprice=ETtotalamount.getText().toString();
+                }
+                else
+                {
+                    Sprice=ETtotalone.getText().toString();
+
+                }
+
+
                 String minprice=ETminamount.getText().toString();
                 if (minprice.isEmpty())
                 {
@@ -364,8 +359,12 @@ String Sshortdesc=ETshortins.getText().toString();
 
 
             JSONObject jsonObjectall=new JSONObject();
-            jsonObjectall.put("lat",lati);
-            jsonObjectall.put("lng",longi);
+            if (!(lati.isEmpty()))
+            {
+                jsonObjectall.put("lat",lati);
+                jsonObjectall.put("lng",longi);
+                jsonBody.put("location",jsonObjectall);
+            }
 
             JSONArray startendarray=new JSONArray();
             for(int i=0;i<starttimesched.size();i++){
@@ -379,7 +378,7 @@ String Sshortdesc=ETshortins.getText().toString();
                 startendarray.put(obj);
             }
 
-            jsonBody.put("location",jsonObjectall);
+
             jsonBody.put("schedules",startendarray);
             jsonBody.put("gradeLevel",array2);
             jsonBody.put("type",sgroup);

@@ -2,7 +2,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context="com.twotr.twotr.tutorfiles.TutorSettings">
 
@@ -10,19 +9,14 @@
         android:id="@+id/drawer_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-
         android:fitsSystemWindows="true"
         tools:openDrawer="end">
-
-
         <android.support.design.widget.NavigationView
             android:id="@+id/nav_view"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_gravity="end"
-
-
-            android:fitsSystemWindows="true">
+            >
             <ImageView
                 android:id="@+id/settings_profile_image"
                 android:layout_width="match_parent"
@@ -39,7 +33,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:background="@drawable/curved_image"/>
-
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -262,7 +255,6 @@ android:id="@+id/about_settings"
                         android:layout_width="30dp"
                         android:layout_height="30dp"
 
-
                         app:srcCompat="@drawable/ic_add_alert_black_24dp"
                         android:tint="@color/colorwhite"/>
                     <TextView
@@ -280,8 +272,8 @@ android:padding="5dp"
                 </LinearLayout>
             </RelativeLayout>
         </android.support.design.widget.NavigationView>
-
     </android.support.v4.widget.DrawerLayout>
+
     <com.wang.avi.AVLoadingIndicatorView
         android:id="@+id/avi"
         style="@style/AVLoadingIndicatorView"

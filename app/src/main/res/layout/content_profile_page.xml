@@ -169,7 +169,7 @@
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:background="@drawable/ic_profile_edit_icon"
-
+android:visibility="invisible"
                 android:layout_weight="0.2"/>
         </LinearLayout>
 
