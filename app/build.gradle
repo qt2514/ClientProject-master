@@ -62,5 +62,6 @@ dependencies {
     compile 'com.loyalsound:android-single-image-picker:0.0.2'
     compile 'com.thefinestartist:finestwebview:1.2.7'
     compile 'pl.droidsonroids.gif:android-gif-drawable:1.2.10'
+    compile 'com.github.thunder413:DateTimeUtils:1.0'
 
 }

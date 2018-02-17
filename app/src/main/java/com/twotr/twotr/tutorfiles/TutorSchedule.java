@@ -1,6 +1,7 @@
 package com.twotr.twotr.tutorfiles;
 
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -22,6 +23,8 @@ import com.baoyz.swipemenulistview.SwipeMenu;
 import com.baoyz.swipemenulistview.SwipeMenuCreator;
 import com.baoyz.swipemenulistview.SwipeMenuItem;
 import com.baoyz.swipemenulistview.SwipeMenuListView;
+import com.github.thunder413.datetimeutils.DateTimeUnits;
+import com.github.thunder413.datetimeutils.DateTimeUtils;
 import com.google.gson.Gson;
 import com.twotr.twotr.R;
 import com.wang.avi.AVLoadingIndicatorView;
@@ -306,7 +309,9 @@ public class Schedule_class extends ArrayAdapter {
             holder.TVtypemenbers = convertView.findViewById(R.id.group_one_title);
             holder.TVschedule_des = convertView.findViewById(R.id.schedule_description);
             holder.TVprice_schedule = convertView.findViewById(R.id.price_schedule);
-
+            holder.TVhours=convertView.findViewById(R.id.hours_sched);
+            holder.TVmonth=convertView.findViewById(R.id.month_day_sched);
+            holder.TVtime_sched=convertView.findViewById(R.id.time_sched);
 
             //     holder.TVstart_time = convertView.findViewById(R.id.hours_sched);
 
@@ -318,10 +323,29 @@ public class Schedule_class extends ArrayAdapter {
         Schedule_upcoming_list supl = ScheduleModeList.get(position);
         holder.TVsubjectname.setText(supl.getSubject());
         String type_group=supl.getType();
+        if (type_group.equals("oneonone"))
+        {
+            type_group="1 to 1";
+        }
         holder.TVtypemenbers.setText(type_group);
         holder.TVschedule_des.setText(supl.getDescription());
         holder.TVprice_schedule.setText(supl.getPrice());
+        String Scompletestart=supl.getStart();
+        String Scompleteend=supl.getEnd();
 
+        String startdate=Scompletestart.substring(0,10);
+        String starttime=Scompletestart.substring(11,19);
+        String enddate=Scompleteend.substring(0,10);
+        String endtime=Scompleteend.substring(11,19);
+        String time_sched=Scompletestart.substring(11,16);
+        String datestart=startdate+ " "+starttime;
+        String dateend=enddate+ " "+endtime;
+        int diff = DateTimeUtils.getDateDiff(datestart,dateend, DateTimeUnits.HOURS);
+        diff=Math.abs(diff);
+        holder.TVhours.setText(diff+" hours - ");
+        holder.TVtime_sched.setText(time_sched+" | ");
+        String monthformating=DateTimeUtils.formatWithPattern(startdate, "EEEE, MMMM dd");
+        holder.TVmonth.setText(monthformating);
         // holder.TVstart_time.setText(supl.getStart());
 
 
@@ -352,7 +376,9 @@ public class Schedule_class extends ArrayAdapter {
         private TextView TVtypemenbers;
         private TextView TVschedule_des;
         private TextView TVprice_schedule;
-
+        private  TextView TVhours;
+        private  TextView TVtime_sched;
+        private  TextView TVmonth;
       //  private TextView TVstart_time;
 
 
@@ -360,6 +386,7 @@ public class Schedule_class extends ArrayAdapter {
 }
 
 
+    @SuppressLint("StaticFieldLeak")
     public class ScheduleAsyncList extends AsyncTask<String, String, List<Schedule_upcoming_list>> {
         @Override
         protected void onPreExecute() {
@@ -395,7 +422,23 @@ public class Schedule_class extends ArrayAdapter {
                 Gson gson = new Gson();
                 for (int i = 0; i < parentArray.length(); i++) {
                     JSONObject finalObject = parentArray.getJSONObject(i);
-                    Schedule_upcoming_list catego = gson.fromJson(finalObject.toString(), Schedule_upcoming_list.class);
+                    //
+                    Schedule_upcoming_list catego = new Schedule_upcoming_list();
+                    catego.setSubject(finalObject.getString("subject"));
+                    catego.setType(finalObject.getString("type"));
+                    catego.setDescription(finalObject.getString("description"));
+                    catego.setPrice(finalObject.getString("price"));
+
+                    JSONArray jsonArray1 = finalObject.getJSONArray("schedules");
+                    for (int j = 0; j < jsonArray1.length(); j++) {
+                        JSONObject jsonObject = jsonArray1.getJSONObject(j);
+                        catego.setStart(jsonObject.getString("start"));
+                        catego.setEnd(jsonObject.getString("end"));
+                      //  ListSubject.add(Skind);
+                    }
+
+
+
                     milokilo.add(catego);
                 }
                 return milokilo;
@@ -433,10 +476,25 @@ public class Schedule_class extends ArrayAdapter {
                         Schedule_upcoming_list schedule_upcoming_list = ScheduleMode.get(position);
                         Intent intent = new Intent(getActivity(),ScheduleDetailPage.class);
                         intent.putExtra("subject_name",schedule_upcoming_list.getSubject());
-                        intent.putExtra("type_subject",schedule_upcoming_list.getSubject());
+                        intent.putExtra("type_subject",schedule_upcoming_list.getType());
                         intent.putExtra("schedule_description",schedule_upcoming_list.getDescription());
                   intent.putExtra("schedule_price",schedule_upcoming_list.getPrice());
+                        String Scompletestart=schedule_upcoming_list.getStart();
+                        String Scompleteend=schedule_upcoming_list.getEnd();
 
+                        String startdate=Scompletestart.substring(0,10);
+                        String starttime=Scompletestart.substring(11,19);
+                        String enddate=Scompleteend.substring(0,10);
+                        String endtime=Scompleteend.substring(11,19);
+                        String time_sched=Scompletestart.substring(11,16);
+                        String datestart=startdate+ " "+starttime;
+                        String dateend=enddate+ " "+endtime;
+                        int diff = DateTimeUtils.getDateDiff(datestart,dateend, DateTimeUnits.HOURS);
+                        diff=Math.abs(diff);
+                       String shours=diff+" hours - ";
+                        String stimsc= time_sched+" | ";
+                        String smonth= DateTimeUtils.formatWithPattern(startdate, " MMMM dd");
+                        intent.putExtra("hrschmon",shours+stimsc+smonth);
                         startActivity(intent);
                     }
                 });

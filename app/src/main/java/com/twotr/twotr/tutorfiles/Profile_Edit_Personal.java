@@ -342,34 +342,10 @@ imageView.setOnClickListener(new View.OnClickListener() {
                                                                         }
                                                                     }).show();
                                                         }
-                                                        else
-                                                        {
-                                                            if (et_per_address.getText().toString().equals(""))
-                                                            {
-                                                                sweetmessage = "Please Select Your Address";
-                                                                new SweetAlertDialog(Profile_Edit_Personal.this, SweetAlertDialog.NORMAL_TYPE).setTitleText(sweetmessage)
-                                                                        .setConfirmText("OK")
-                                                                        .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
-                                                                            @Override
-                                                                            public void onClick(SweetAlertDialog sweetAlertDialog) {
-                                                                                sweetAlertDialog.dismiss();
-                                                                            }
-                                                                        }).show();
-                                                            }
-                                                            else
-                                                            {
-                                                                if (et_per_city.getText().toString().equals(""))
-                                                                {
-                                                                    sweetmessage = "Please Enter Your City";
-                                                                    new SweetAlertDialog(Profile_Edit_Personal.this, SweetAlertDialog.NORMAL_TYPE).setTitleText(sweetmessage)
-                                                                            .setConfirmText("OK")
-                                                                            .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
-                                                                                @Override
-                                                                                public void onClick(SweetAlertDialog sweetAlertDialog) {
-                                                                                    sweetAlertDialog.dismiss();
-                                                                                }
-                                                                            }).show();
-                                                                }
+
+
+
+
                                                                 else
                                                                 {
 
@@ -403,8 +379,8 @@ imageView.setOnClickListener(new View.OnClickListener() {
                                                                                 Sgrade,Scantutor,Smcode,Smobile_number,Saddline,Saddcity,
                                                                                 Saddstate,Saddzipcode,Scountry,Sdefaultcountry,Sdecription);
                                                                         profile_name(Sfirstname,Smiddlename,Slastname);
-                                                                        }
-                                                                    }
+
+
                                                         }
                                                     }
                                                 }
@@ -1018,16 +994,10 @@ TVsubject.setText(Ssubjectnamei);
 
             JSONArray array2=new JSONArray(aryGrade);
             //array2.put(Sgrade);
-            JSONObject jsonObject1 = new JSONObject();
-            jsonObject1.put("lineOne",saddline);
-            jsonObject1.put("lineTwo"," ");
-            jsonObject1.put("city",saddcity);
-            jsonObject1.put("state",saddstate);
-            jsonObject1.put("zipCode",saddzipcode);
-            jsonObject1.put("country","KW");
-            JSONObject jsonObject2 = new JSONObject();
-            jsonObject2.put("code",smcode);
-            jsonObject2.put("number",smobile_number);
+
+                JSONObject jsonObject2 = new JSONObject();
+                jsonObject2.put("code", smcode);
+                jsonObject2.put("number", smobile_number);
 
             JSONObject jsonObjectall=new JSONObject();
             jsonObjectall.put("dob",sdob);
@@ -1039,7 +1009,19 @@ TVsubject.setText(Ssubjectnamei);
             jsonObjectall.put("canTutor",scantutor);
             jsonObjectall.put("mobileNumber",jsonObject2);
 
-            jsonObjectall.put("address",jsonObject1);
+            JSONObject jsonObject1 = new JSONObject();
+           // if (!(saddline.isEmpty())) {
+
+
+                jsonObject1.put("lineOne", saddline);
+                jsonObject1.put("lineTwo", " ");
+                jsonObject1.put("city", saddcity);
+                jsonObject1.put("state", saddstate);
+                jsonObject1.put("zipCode", saddzipcode);
+                jsonObject1.put("country", "KW");
+                jsonObjectall.put("address",jsonObject1);
+
+            //}
             jsonObjectall.put("defaultCountry","KW");
             jsonObjectall.put("description",sdecription);
             jsonBody.put("profileInfo",jsonObjectall);

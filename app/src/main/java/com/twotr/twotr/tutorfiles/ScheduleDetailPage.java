@@ -1,5 +1,6 @@
 package com.twotr.twotr.tutorfiles;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -14,11 +15,12 @@ import android.widget.Toast;
 import com.twotr.twotr.R;
 
 public class ScheduleDetailPage extends AppCompatActivity {
-TextView TVsubject_name,TVtypesubject,TVprice_amount;
+TextView TVsubject_name,TVtypesubject,TVprice_amount,TVhrscal;
 EditText ETsched_desc;
 ImageButton IBedit_sched,IBpre_post,IB_back;
 LinearLayout linear_layout;
 Button But_showmap,But_showschedule;
+    @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,6 +32,7 @@ Button But_showmap,But_showschedule;
         TVprice_amount=findViewById(R.id.price_amount);
         IBpre_post=findViewById(R.id.add_pre_post);
         linear_layout=findViewById(R.id.post_pre_linear);
+        TVhrscal=findViewById(R.id.hours_sched);
         But_showmap=findViewById(R.id.schedule_map);
         But_showschedule=findViewById(R.id.schedule_show);
         IB_back=findViewById(R.id.back_ima_scedule);
@@ -61,10 +64,17 @@ Button But_showmap,But_showschedule;
         {
             String subname = (String) Bintent.get("subject_name");
             String type_subject = (String) Bintent.get("type_subject");
+            assert type_subject != null;
+            if (type_subject.equals("oneonone"))
+            {
+                type_subject="1 to 1";
+            }
             String sched_descr = (String) Bintent.get("schedule_description");
             String sched_price = (String) Bintent.get("schedule_price");
-TVprice_amount.setText(sched_price);
-            TVtypesubject.setText(type_subject);
+            String hrschmon = (String) Bintent.get("hrschmon");
+            TVhrscal.setText(hrschmon);
+            TVprice_amount.setText(sched_price);
+            TVtypesubject.setText(" "+ type_subject);
             TVsubject_name.setText(subname);
             ETsched_desc.setText(sched_descr);
         }

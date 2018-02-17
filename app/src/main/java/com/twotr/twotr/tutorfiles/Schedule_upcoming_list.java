@@ -26,6 +26,26 @@ public class Schedule_upcoming_list implements Parcelable {
     private Boolean isActive;
 private String subject;
 
+    public Schedule_upcoming_list() {
+        this.totalRecords = totalRecords;
+        this._id = _id;
+        this.subjectId = subjectId;
+        this.type = type;
+        this.studentsCount = studentsCount;
+        this.price = price;
+        this.description = description;
+        this.createdBy = createdBy;
+        this.createdAt = createdAt;
+        this.lat = lat;
+        this.lng = lng;
+        this.isUserSubject = isUserSubject;
+        this.start = start;
+        this.end = end;
+        this.classId = classId;
+        this.isActive = isActive;
+        this.subject = subject;
+    }
+
     public String getTotalRecords() {
         return totalRecords;
     }

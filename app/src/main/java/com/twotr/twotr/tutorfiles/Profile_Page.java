@@ -55,6 +55,9 @@ public class Profile_Page extends AppCompatActivity {
    ImageButton IB_back;
    GifImageView pendinggiflist;
    TextView pendingtextlist;
+    List<String> Listgrade ;
+    List<String> ListSubject ;
+
     Boolean isEducationCompleted, isProfessionalCompleted;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -102,6 +105,8 @@ CIVprofimage=findViewById(R.id.image_profile);
  });
 
         avi=findViewById(R.id.avi);
+       Listgrade= new ArrayList<String>();
+        ListSubject= new ArrayList<String>();
 
         gettallprofiledetails();
         s_profile="personal";
@@ -233,7 +238,6 @@ CIVprofimage=findViewById(R.id.image_profile);
                     String  Snumber=pmonum.getString("number");
 
                     JSONArray jsonArray = profile.getJSONArray("gradeLevel");
-                    List<String> Listgrade = new ArrayList<String>();
                     for (int i = 0; i < jsonArray.length(); i++) {
 
                         Listgrade.add(String.valueOf(jsonArray.get(i)));
@@ -244,6 +248,7 @@ CIVprofimage=findViewById(R.id.image_profile);
                         JSONObject jsonObject = jsonArray1.getJSONObject(i);
                         String Skind =jsonObject.getString("title");
                         String Sid =jsonObject.getString("_id");
+                        ListSubject.add(Skind);
 
                     }
                     JSONObject userprofile = jObj.getJSONObject("userProfile");

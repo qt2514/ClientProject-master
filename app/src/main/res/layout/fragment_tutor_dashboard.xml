@@ -12,19 +12,20 @@
     <RelativeLayout
     android:layout_width="match_parent"
     android:id="@+id/list_dashboard"
+        android:visibility="visible"
     android:background="@color/colorPrimaryDark"
     android:layout_height="250dp">
-<TextView
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:text="Dashboard"
-    android:textSize="15sp"
-    android:fontFamily="@font/montserrat"
-    android:gravity="center"
-    android:textColor="#fff"
-    android:layout_centerHorizontal="true"
+<!--<TextView-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:text="Dashboard"-->
+    <!--android:textSize="15sp"-->
+    <!--android:fontFamily="@font/montserrat"-->
+    <!--android:gravity="center"-->
+    <!--android:textColor="#fff"-->
+    <!--android:layout_centerHorizontal="true"-->
 
-    />
+    <!--/>-->
     <pl.pawelkleczkowski.customgauge.CustomGauge
         android:id="@+id/gauge2"
         android:layout_width="190dp"
@@ -35,9 +36,9 @@
         android:paddingLeft="10dp"
         android:paddingRight="10dp"
         android:paddingTop="10dp"
-        app:gaugeEndValue="100"
-        app:gaugePointEndColor="@android:color/holo_red_dark"
-        app:gaugePointStartColor="@android:color/holo_orange_dark"
+        app:gaugeEndValue="24"
+        app:gaugePointEndColor="@color/colorAccent"
+        app:gaugePointStartColor="@color/colorAccent"
         app:gaugeStartAngle="135"
         app:gaugeStrokeCap="ROUND"
         app:gaugeStrokeColor="@android:color/white"
@@ -45,57 +46,60 @@
         app:gaugeSweepAngle="270" />
 
     <TextView
-        android:id="@+id/total_schedule_hours"
+        android:id="@+id/dashboard_subject_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignTop="@+id/gauge2"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="65dp"
+        android:layout_marginTop="50dp"
         android:fontFamily="@font/montserrat"
-        android:text="04 Hours 13 minutes"
+        android:text="Subject Name"
         android:textColor="#fff"
         android:textSize="14sp" />
     <TextView
-        android:id="@+id/text_left"
+        android:id="@+id/subject_type"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-  android:layout_below="@+id/total_schedule_hours"
-        android:text="Left"
+  android:layout_below="@+id/dashboard_subject_name"
+        android:text="Type"
         android:fontFamily="@font/montserrat"
 
         android:textSize="12sp"
         android:textColor="#fff" />
+        <TextView
+            android:id="@+id/subject_start_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@+id/subject_type"
+            android:text="Start Time"
+            android:fontFamily="@font/montserrat"
+android:layout_marginTop="5dp"
+            android:textSize="12sp"
+            android:textColor="#fff" />
     <TextView
-        android:id="@+id/schedule_next_topic"
+        android:id="@+id/subject_start_date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:layout_below="@+id/text_left"
-        android:layout_marginTop="7dp"
-        android:text="Dynamic"
+        android:layout_below="@+id/subject_start_time"
+        android:layout_marginTop="5dp"
+        android:text="Start Date"
         android:fontFamily="@font/montserrat"
-        android:textSize="14sp"
-        android:textColor="#fff" />
-    <TextView
-        android:id="@+id/schedule_next_time"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_below="@+id/schedule_next_topic"
-        android:text="11AM"
-        android:fontFamily="@font/montserrat"
-
         android:textSize="12sp"
         android:textColor="#fff" />
-<ImageView
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_below="@+id/schedule_next_time"
-    android:layout_centerHorizontal="true"
-    android:background="@drawable/ic_location_on_black_24dp"
-    android:backgroundTint="#fff"
-    />
+
+
+        <ImageView
+            android:id="@+id/dashboard_location"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="invisible"
+            android:layout_below="@+id/subject_start_date"
+            android:layout_centerHorizontal="true"
+            android:background="@drawable/ic_location_on_black_24dp"
+            android:backgroundTint="#fff" />
 
 </RelativeLayout>
     <ListView
@@ -112,7 +116,7 @@
 
     <ImageView
         android:id="@+id/creadte_dashboard_image"
-        android:background="@drawable/tutor_empty_dash"
+        android:background="@drawable/dashboard"
         android:layout_width="match_parent"
         android:visibility="invisible"
         android:layout_height="match_parent" />

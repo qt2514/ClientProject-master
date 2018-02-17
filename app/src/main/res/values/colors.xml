@@ -4,7 +4,7 @@
     <color name="colorPrimaryDark">#2b3139</color>
     <color name="colorPrimaryDarks">#181f29</color>
 
-    <color name="colorAccent">#62cdec</color>
+    <color name="colorAccent">#65C8CD</color>
     <color name="colorRed">#cc1234</color>
 
     <color name="buttonColorPrimary">#c5ffcd</color>
@@ -13,5 +13,7 @@
 
     <color name="buttonColorSecondary">#e3e3e3</color>
     <color name="buttonColorSecondarys">#bab9b9</color>
+    <color name="bottomcolor">#bfbebe</color>
+    <color name="bottomactivetab">#31a0a6</color>
 
 </resources>

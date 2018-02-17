@@ -3,31 +3,31 @@
     <tab
         id="@+id/tab_schedules"
         icon="@drawable/ic_assignment_black_24dp"
-        inActiveColor="@color/buttonColorSecondary"
-        activeColor="@color/colorAccent"
+        inActiveColor="@color/bottomcolor"
+        activeColor="@color/bottomactivetab"
         barColorWhenSelected="#fff"
         title="Schedule" />
     <tab
         id="@+id/tab_dashboard"
         icon="@drawable/ic_dock_black_24dp"
-        inActiveColor="@color/buttonColorSecondary"
-        activeColor="@color/colorAccent"
+        inActiveColor="@color/bottomcolor"
+        activeColor="@color/bottomactivetab"
         barColorWhenSelected="#fff"
 
         title="Dashboard" />
     <tab
         id="@+id/tab_create"
-        icon="@drawable/ic_create_black_24dp"
-        inActiveColor="@color/buttonColorSecondary"
-        activeColor="@color/colorAccent"
+        icon="@drawable/ic_add_black_24dp"
+        inActiveColor="@color/bottomcolor"
+        activeColor="@color/bottomactivetab"
         barColorWhenSelected="#fff"
 
         title="Create" />
     <tab
         id="@+id/tab_settings"
         icon="@drawable/ic_settings_black_24dp"
-        inActiveColor="@color/buttonColorSecondary"
-        activeColor="@color/colorAccent"
+        inActiveColor="@color/bottomcolor"
+        activeColor="@color/bottomactivetab"
         barColorWhenSelected="#fff"
 
 

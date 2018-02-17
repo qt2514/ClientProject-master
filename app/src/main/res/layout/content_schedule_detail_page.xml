@@ -37,8 +37,8 @@
 
         <ImageView
             android:id="@+id/imageView3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
 
             android:layout_alignBottom="@+id/hours_sched"
             android:layout_toEndOf="@+id/back_ima_scedule"
@@ -52,31 +52,10 @@
             android:layout_below="@+id/back_ima_scedule"
             android:layout_toEndOf="@+id/imageView3"
             android:gravity="center"
-            android:text="2 Hours  - "
+
             android:textColor="@color/buttonColorSecondary" />
 
-        <TextView
-            android:id="@+id/time_sched"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
 
-            android:layout_alignBaseline="@+id/hours_sched"
-            android:layout_alignBottom="@+id/hours_sched"
-            android:layout_toEndOf="@+id/hours_sched"
-            android:gravity="center"
-            android:text="2:30 | "
-            android:textColor="@color/buttonColorSecondary" />
-
-        <TextView
-            android:id="@+id/month_day_sched"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignBaseline="@+id/time_sched"
-            android:layout_alignBottom="@+id/time_sched"
-            android:layout_toEndOf="@+id/time_sched"
-            android:gravity="center"
-            android:text="Nov 28"
-            android:textColor="@color/buttonColorSecondary" />
 
         <ImageView
             android:layout_width="30dp"
@@ -93,8 +72,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
 
-            android:layout_alignParentTop="true"
-            android:layout_marginTop="11dp"
+            android:layout_above="@+id/imageView3"
             android:layout_toEndOf="@+id/back_ima_scedule"
             android:fontFamily="@font/montserrat"
             android:padding="2dp"
