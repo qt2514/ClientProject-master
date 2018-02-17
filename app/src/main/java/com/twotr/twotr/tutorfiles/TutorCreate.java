@@ -59,7 +59,7 @@ public class TutorCreate extends Fragment {
     private static final int SECOND_ACTIVITY_REQUEST_CODE = 0;
 
     //SearchBox search;
-    String BaseSearchurl="http://twotr.com:4040/api/subject/search?key=";
+    String BaseSearchurl="https://api.twotr.com/api/subject/search?key=";
     String search_result;
     public static TutorCreate newInstance() {
         return new TutorCreate();
@@ -426,7 +426,7 @@ String Sshortdesc=ETshortins.getText().toString();
                 @Override
                 public Map<String, String> getHeaders() throws AuthFailureError {
                     HashMap<String, String> headers = new HashMap<String, String>();
-                    headers.put("content-Type", "application/json");
+                    // headers.put("content-Type", "application/json");
                     headers.put("x-tutor-app-id", "tutor-app-android");
                     headers.put("authorization", "Bearer "+Stoken);
 
@@ -503,7 +503,7 @@ String Sshortdesc=ETshortins.getText().toString();
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
                 HashMap<String, String> headers = new HashMap<String, String>();
-                headers.put("content-Type", "application/json");
+                 headers.put("content-Type", "application/json");
                 headers.put("x-tutor-app-id", "tutor-app-android");
                 headers.put("authorization", "Bearer "+Stoken);
 
@@ -564,7 +564,7 @@ String Sshortdesc=ETshortins.getText().toString();
 //            @Override
 //            public Map<String, String> getHeaders() throws AuthFailureError {
 //                HashMap<String, String> headers = new HashMap<String, String>();
-//                headers.put("content-Type", "application/json");
+//                // headers.put("content-Type", "application/json");
 //                headers.put("x-tutor-app-id", "tutor-app-android");
 //                headers.put("authorization", "Bearer "+Stoken);
 //                return headers;
@@ -631,7 +631,7 @@ String Sshortdesc=ETshortins.getText().toString();
 //                @Override
 //                public Map<String, String> getHeaders() throws AuthFailureError {
 //                    HashMap<String, String> headers = new HashMap<String, String>();
-//                    headers.put("content-Type", "application/json");
+//                    // headers.put("content-Type", "application/json");
 //                    headers.put("x-tutor-app-id", "tutor-app-android");
 //                    headers.put("authorization", "Bearer "+Stoken);
 //                    return headers;

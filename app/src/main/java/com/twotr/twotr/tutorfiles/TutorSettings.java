@@ -21,7 +21,6 @@ import com.thefinestartist.finestwebview.FinestWebView;
 import com.twotr.twotr.R;
 import com.twotr.twotr.db_handlers.SessionManager;
 import com.twotr.twotr.globalpackfiles.SigninActivity;
-import com.wang.avi.AVLoadingIndicatorView;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -29,7 +28,7 @@ import com.wang.avi.AVLoadingIndicatorView;
 public class TutorSettings extends Fragment implements NavigationView.OnNavigationItemSelectedListener {
 TextView TVprofile_link,TVsignout;
     DrawerLayout drawer;
-    AVLoadingIndicatorView avi;
+
 TextView TVtermsandcondi,TVabout;
     private SessionManager session;
     SharedPreferences Shared_user_details;
@@ -48,8 +47,7 @@ TextView TVtermsandcondi,TVabout;
         session = new SessionManager(getContext());
         Shared_user_details=this.getActivity().getSharedPreferences("user_detail_mode",0);
         editor = Shared_user_details.edit();
-        avi=view.findViewById(R.id.avi);
-avi.hide();
+
         TVprofile_link=view.findViewById(R.id.profile_link);
         TVsignout=view.findViewById(R.id.signout_settings);
         TVtermsandcondi=view.findViewById(R.id.termsandcondi_settings);
@@ -76,7 +74,7 @@ avi.hide();
                         .backPressToClose(false)
                         .gradientDivider(false)
                         .setCustomAnimations(R.anim.activity_open_enter, R.anim.activity_open_exit, R.anim.activity_close_enter, R.anim.activity_close_exit)
-.show("https://www.twotr.com");
+.show("https://www.twotr.com/about.html");
             }
         });
 
@@ -100,7 +98,7 @@ avi.hide();
                         .backPressToClose(false)
                         .gradientDivider(false)
                         .setCustomAnimations(R.anim.activity_open_enter, R.anim.activity_open_exit, R.anim.activity_close_enter, R.anim.activity_close_exit)
-.show("https://www.twotr.com");
+.show("https://www.twotr.com/condition.html");
             }
         });
         TVprofile_link.setOnClickListener(new View.OnClickListener() {
@@ -114,11 +112,11 @@ avi.hide();
         TVsignout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                avi.show();
+
                 session.setLogin(false);
                 editor.clear();
                 editor.apply();
-                avi.hide();
+
                 startActivity(new Intent(getActivity(), SigninActivity.class));
                 getActivity().finish();
 

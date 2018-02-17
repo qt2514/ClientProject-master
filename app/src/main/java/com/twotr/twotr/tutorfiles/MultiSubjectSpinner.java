@@ -1,6 +1,5 @@
 package com.twotr.twotr.tutorfiles;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -20,7 +19,6 @@ import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -30,7 +28,6 @@ import com.android.volley.VolleyError;
 import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.ontbee.legacyforks.cn.pedant.SweetAlert.SweetAlertDialog;
 import com.twotr.twotr.R;
 import com.twotr.twotr.globalpackfiles.Global_url_twotr;
 import com.twotr.twotr.globalpackfiles.TinyDB;
@@ -281,7 +278,7 @@ avi.hide();
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
                 HashMap<String, String> headers = new HashMap<String, String>();
-                headers.put("Content-Type", "application/json");
+              headers.put("Content-Type", "application/json");
                 headers.put("x-tutor-app-id", "tutor-app-android");
                 headers.put("Authorization", "Bearer "+Stoken);
 
@@ -355,7 +352,7 @@ avi.hide();
                 @Override
                 public Map<String, String> getHeaders() throws AuthFailureError {
                     HashMap<String, String> headers = new HashMap<String, String>();
-                    headers.put("content-Type", "application/json");
+                    // headers.put("content-Type", "application/json");
                     headers.put("x-tutor-app-id", "tutor-app-android");
                     headers.put("authorization", "Bearer "+Stoken);
                     return headers;

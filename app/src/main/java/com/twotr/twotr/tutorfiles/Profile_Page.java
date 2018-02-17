@@ -7,6 +7,8 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -57,6 +59,14 @@ public class Profile_Page extends AppCompatActivity {
    TextView pendingtextlist;
     List<String> Listgrade ;
     List<String> ListSubject ;
+    RecyclerView recyclerView,recyclerViewsub;
+
+    RecyclerView.LayoutManager RecyclerViewLayoutManager,RecyclerViewLayoutManagersub;
+    RecyclerViewAdapter RecyclerViewHorizontalAdapter,RecyclerViewHorizontalAdaptersub;
+    LinearLayoutManager HorizontalLayout,HorizontalLayoutsub ;
+
+
+
 
     Boolean isEducationCompleted, isProfessionalCompleted;
     @Override
@@ -97,7 +107,10 @@ CIVprofimage=findViewById(R.id.image_profile);
         TVproffinstitue=findViewById(R.id.prof_profess_insti);
  TVexperi=findViewById(R.id.prof_profess_experi);
  IB_back=findViewById(R.id.back_ima_scedule);
- IB_back.setOnClickListener(new View.OnClickListener() {
+        recyclerView = findViewById(R.id.recyclerview1);
+        recyclerViewsub=findViewById(R.id.recyclerviewsubject);
+
+        IB_back.setOnClickListener(new View.OnClickListener() {
      @Override
      public void onClick(View v) {
          finish();
@@ -200,6 +213,28 @@ CIVprofimage=findViewById(R.id.image_profile);
         });
 
 
+
+        RecyclerViewLayoutManager = new LinearLayoutManager(getApplicationContext());
+
+        recyclerView.setLayoutManager(RecyclerViewLayoutManager);
+
+        RecyclerViewHorizontalAdapter = new RecyclerViewAdapter(Listgrade);
+
+        HorizontalLayout = new LinearLayoutManager(Profile_Page.this, LinearLayoutManager.HORIZONTAL, false);
+        recyclerView.setLayoutManager(HorizontalLayout);
+recyclerView.setHorizontalScrollBarEnabled(false);
+
+        RecyclerViewLayoutManagersub = new LinearLayoutManager(getApplicationContext());
+
+        recyclerViewsub.setLayoutManager(RecyclerViewLayoutManagersub);
+
+        RecyclerViewHorizontalAdaptersub = new RecyclerViewAdapter(ListSubject);
+
+        HorizontalLayoutsub = new LinearLayoutManager(Profile_Page.this, LinearLayoutManager.HORIZONTAL, false);
+        recyclerViewsub.setLayoutManager(HorizontalLayoutsub);
+        recyclerViewsub.setHorizontalScrollBarEnabled(false);
+
+
     }
 
 
@@ -241,7 +276,9 @@ CIVprofimage=findViewById(R.id.image_profile);
                     for (int i = 0; i < jsonArray.length(); i++) {
 
                         Listgrade.add(String.valueOf(jsonArray.get(i)));
+                     //   Number.add(String.valueOf(jsonArray.get(i)));
                     }
+                    recyclerView.setAdapter(RecyclerViewHorizontalAdapter);
 
                     JSONArray jsonArray1 = profile.getJSONArray("subjectIds");
                     for (int i = 0; i < jsonArray1.length(); i++) {
@@ -251,6 +288,7 @@ CIVprofimage=findViewById(R.id.image_profile);
                         ListSubject.add(Skind);
 
                     }
+                    recyclerViewsub.setAdapter(RecyclerViewHorizontalAdaptersub);
                     JSONObject userprofile = jObj.getJSONObject("userProfile");
                     String  SfirstName=userprofile.getString("firstName");
                     String  SmiddleName=userprofile.getString("middleName");
@@ -361,7 +399,7 @@ TVexperi.setText(Sexperience);
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
                 HashMap<String, String> headers = new HashMap<String, String>();
-                headers.put("content-Type", "application/json");
+                 headers.put("content-Type", "application/json");
                 headers.put("x-tutor-app-id", "tutor-app-android");
                 headers.put("authorization", "Bearer "+Stoken);
                 return headers;

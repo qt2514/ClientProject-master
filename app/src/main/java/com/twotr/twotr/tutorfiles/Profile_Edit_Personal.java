@@ -667,7 +667,7 @@ et_per_fname.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
                 HashMap<String, String> headers = new HashMap<String, String>();
-                headers.put("content-Type", "application/json");
+                 headers.put("content-Type", "application/json");
                 headers.put("x-tutor-app-id", "tutor-app-android");
                 headers.put("authorization", "Bearer "+Stoken);
 
@@ -736,7 +736,7 @@ et_per_fname.setOnFocusChangeListener(new View.OnFocusChangeListener() {
 //            @Override
 //            public Map<String, String> getHeaders() throws AuthFailureError {
 //                HashMap<String, String> headers = new HashMap<String, String>();
-//                headers.put("Content-Type", "application/json");
+//                // headers.put("Content-Type", "application/json");
 //                headers.put("x-tutor-app-id", "tutor-app-android");
 //                headers.put("Authorization", "Bearer "+Stoken);
 //
@@ -787,7 +787,7 @@ et_per_fname.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
                 HashMap<String, String> headers = new HashMap<String, String>();
-                headers.put("content-Type", "application/json");
+                 headers.put("content-Type", "application/json");
                 headers.put("x-tutor-app-id", "tutor-app-android");
                 headers.put("authorization", "Bearer "+Stoken);
 
@@ -842,7 +842,7 @@ et_per_fname.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
                 HashMap<String, String> headers = new HashMap<String, String>();
-                headers.put("content-Type", "application/json");
+                 headers.put("content-Type", "application/json");
                 headers.put("x-tutor-app-id", "tutor-app-android");
                 headers.put("authorization", "Bearer "+Stoken);
 
@@ -1060,7 +1060,7 @@ finish();
                 @Override
                 public Map<String, String> getHeaders() throws AuthFailureError {
                     HashMap<String, String> headers = new HashMap<String, String>();
-                    headers.put("content-Type", "application/json");
+                    // headers.put("content-Type", "application/json");
                     headers.put("x-tutor-app-id", "tutor-app-android");
                     headers.put("authorization", "Bearer "+Stoken);
 
@@ -1132,7 +1132,7 @@ finish();
                 @Override
                 public Map<String, String> getHeaders() throws AuthFailureError {
                     HashMap<String, String> headers = new HashMap<String, String>();
-                    headers.put("content-Type", "application/json");
+                    // headers.put("content-Type", "application/json");
                     headers.put("x-tutor-app-id", "tutor-app-android");
                     headers.put("authorization", "Bearer "+Stoken);
 

@@ -5,24 +5,18 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -78,7 +72,7 @@ public class SingleSubjectSelect extends AppCompatActivity {
         subjectnamelist=new ArrayList<>();
         subjectnameid=new ArrayList<>();
         listViewItems = new ArrayList<MultispinnerList>();
-        String usersubjectname="http://twotr.com:4040/api/userinfo/basic/profile";
+        String usersubjectname="https://api.twotr.com/api/userinfo/basic/profile";
         subject_name_list(usersubjectname);
 
 //        listViewWithCheckBox.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -124,7 +118,7 @@ public class SingleSubjectSelect extends AppCompatActivity {
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 listViewItems.clear();
                 String subcharname=  s.toString();
-                subject_name_list("http://twotr.com:4040/api/subject/search?key="+subcharname);
+                subject_name_list("https://api.twotr.com/api/subject/search?key="+subcharname);
 
             }
 
@@ -295,7 +289,7 @@ holder.subjectname.setOnClickListener(new View.OnClickListener() {
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
                 HashMap<String, String> headers = new HashMap<String, String>();
-                headers.put("Content-Type", "application/json");
+              headers.put("Content-Type", "application/json");
                 headers.put("x-tutor-app-id", "tutor-app-android");
                 headers.put("Authorization", "Bearer "+Stoken);
 
@@ -369,7 +363,7 @@ holder.subjectname.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public Map<String, String> getHeaders() throws AuthFailureError {
                     HashMap<String, String> headers = new HashMap<String, String>();
-                    headers.put("content-Type", "application/json");
+                    // headers.put("content-Type", "application/json");
                     headers.put("x-tutor-app-id", "tutor-app-android");
                     headers.put("authorization", "Bearer "+Stoken);
                     return headers;

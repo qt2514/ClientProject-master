@@ -420,7 +420,7 @@ textViewins=findViewById(R.id.per_edu_inst);
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
                 HashMap<String, String> headers = new HashMap<String, String>();
-                headers.put("content-Type", "application/json");
+                 headers.put("content-Type", "application/json");
                 headers.put("x-tutor-app-id", "tutor-app-android");
                 headers.put("authorization", "Bearer "+Stoken);
 
@@ -475,7 +475,7 @@ textViewins=findViewById(R.id.per_edu_inst);
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
                 HashMap<String, String> headers = new HashMap<String, String>();
-                headers.put("content-Type", "application/json");
+                 headers.put("content-Type", "application/json");
                 headers.put("x-tutor-app-id", "tutor-app-android");
                 headers.put("authorization", "Bearer "+Stoken);
 
@@ -549,7 +549,7 @@ textViewins=findViewById(R.id.per_edu_inst);
                 @Override
                 public Map<String, String> getHeaders() throws AuthFailureError {
                     HashMap<String, String> headers = new HashMap<String, String>();
-                    headers.put("content-Type", "application/json");
+                    // headers.put("content-Type", "application/json");
                     headers.put("x-tutor-app-id", "tutor-app-android");
                     headers.put("authorization", "Bearer "+Stoken);
 

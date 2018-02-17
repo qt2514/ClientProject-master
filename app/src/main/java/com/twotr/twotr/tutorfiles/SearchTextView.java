@@ -31,7 +31,7 @@ String Stoken;
     SearchResult searchResult;
     SearchBox search;
 
-    String BaseSearchurl="http://twotr.com:4040/api/subject/search?key=";
+    String BaseSearchurl="https://api.twotr.com/api/subject/search?key=";
     String search_result;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,7 +42,7 @@ String Stoken;
         Stoken=  Shared_user_details.getString("token", null);
 
         search.setLogoText("Earch Your Subject here");
-        subject_spinner("http://twotr.com:4040/api/userinfo/basic/profile");
+        subject_spinner("https://api.twotr.com/api/userinfo/basic/profile");
         search.setMenuListener(new SearchBox.MenuListener(){
 
             @Override
@@ -136,7 +136,7 @@ String Stoken;
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
                 HashMap<String, String> headers = new HashMap<String, String>();
-                headers.put("content-Type", "application/json");
+                 headers.put("content-Type", "application/json");
                 headers.put("x-tutor-app-id", "tutor-app-android");
                 headers.put("authorization", "Bearer "+Stoken);
 

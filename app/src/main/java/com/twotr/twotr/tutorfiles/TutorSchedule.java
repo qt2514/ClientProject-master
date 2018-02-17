@@ -76,7 +76,7 @@ TextView nodatatextview;
      nodatatextview=view.findViewById(R.id.nodatatext);
 LVschedule=view.findViewById(R.id.schedule_list);
         avi=view.findViewById(R.id.avi);
-         schedule_list_url = "http://twotr.com:4040/api/class/upcoming?page=1&size=10" ;
+         schedule_list_url = "https://api.twotr.com/api/class/upcoming?page=1&size=10" ;
         new ScheduleAsyncList().execute(schedule_list_url);
         SwipeMenuCreator creator = new SwipeMenuCreator() {
 
@@ -130,7 +130,7 @@ LVschedule=view.findViewById(R.id.schedule_list);
              Bupcoming.setTextColor(getResources().getColor(R.color.mdtp_white));
              Bhistory.setTextColor(getResources().getColor(R.color.black));
 
-             schedule_list_url = " http://twotr.com:4040/api/class/history?page=1&size=10" ;
+             schedule_list_url = "https://api.twotr.com/api/class/history?page=1&size=10" ;
              new ScheduleAsyncList().execute(schedule_list_url);
              SwipeMenuCreator creator = new SwipeMenuCreator() {
 
@@ -186,7 +186,7 @@ LVschedule=view.findViewById(R.id.schedule_list);
              Bhistory.setTextColor(getResources().getColor(R.color.mdtp_white));
 //upcominglist(upcoming_url);
 
-              schedule_list_url = "http://twotr.com:4040/api/class/upcoming?page=1&size=10" ;
+              schedule_list_url = "https://api.twotr.com/api/class/upcoming?page=1&size=10" ;
              new ScheduleAsyncList().execute(schedule_list_url);
              SwipeMenuCreator creator = new SwipeMenuCreator() {
 
@@ -344,7 +344,7 @@ public class Schedule_class extends ArrayAdapter {
         diff=Math.abs(diff);
         holder.TVhours.setText(diff+" hours - ");
         holder.TVtime_sched.setText(time_sched+" | ");
-        String monthformating=DateTimeUtils.formatWithPattern(startdate, "EEEE, MMMM dd");
+        String monthformating=DateTimeUtils.formatWithPattern(startdate, "EEE, MMM dd");
         holder.TVmonth.setText(monthformating);
         // holder.TVstart_time.setText(supl.getStart());
 

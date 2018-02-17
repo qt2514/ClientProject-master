@@ -48,7 +48,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Locale;
 import java.util.Map;
 
 import pl.pawelkleczkowski.customgauge.CustomGauge;
@@ -176,7 +175,7 @@ String time_sched=Scompletestart.substring(11,16);
             diff=Math.abs(diff);
             holder.TVhours.setText(diff+" hours - ");
 holder.TVtime_sched.setText(time_sched+" | ");
-String monthformating=DateTimeUtils.formatWithPattern(startdate, "EEEE, MMMM dd");
+String monthformating=DateTimeUtils.formatWithPattern(startdate, "EEE, MMM dd");
 holder.TVmonth.setText(monthformating);
    //          holder.TVstart_time.setText(supl.getStart());
 
@@ -351,15 +350,19 @@ catego.setPrice(finalObject.getString("price"));
 
                         try {
                             JSONObject location=jsonObject.getJSONObject("location");
-                           final String lati = location.getString("lat");
+                         final   String lati = location.getString("lat");
                             final String longi=location.getString("lng");
                             imageViewloc.setVisibility(View.VISIBLE);
                             imageViewloc.setOnClickListener(new View.OnClickListener() {
                                 @Override
                                 public void onClick(View v) {
-                                    String uri = String.format(Locale.ENGLISH, "geo:%f,%f", lati, longi);
-                                    Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(uri));
-                                    getContext().startActivity(intent);
+//                                    String uri = String.format(Locale.ENGLISH, "geo:%f,%f", Long.parseLong(lati),Long.parseLong( longi));
+//                                    Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(uri));
+//                                    getContext().startActivity(intent);
+                                    Uri gmmIntentUri = Uri.parse("geo:"+lati+","+longi+"");
+                                    Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
+                                    mapIntent.setPackage("com.google.android.apps.maps");
+                                    startActivity(mapIntent);
                                 }
                             });
 
@@ -374,7 +377,9 @@ String startdate=start.substring(0,10);
 
 String endtime=start.substring(11,16);
 String endtimecomp=start.substring(11,19);
+
                         textViewsubjectname.setText(subject);
+
 textViewstartdate.setText(startdate);
 textViewstarttime.setText(endtime);
 
@@ -457,7 +462,7 @@ diff=Math.abs(diff);
                 @Override
                 public Map<String, String> getHeaders() throws AuthFailureError {
                     HashMap<String, String> headers = new HashMap<String, String>();
-                    headers.put("content-Type", "application/json");
+                     headers.put("content-Type", "application/json");
                     headers.put("x-tutor-app-id", "tutor-app-android");
                     headers.put("authorization", "Bearer "+Stoken);
 

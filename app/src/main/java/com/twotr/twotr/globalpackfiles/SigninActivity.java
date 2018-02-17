@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -257,6 +258,7 @@ public void signin_verif(String susername, String spass)
             @Override
             public void onErrorResponse(VolleyError error) {
                 avi.hide();
+                Log.i("checkerror",String.valueOf(error));
                 new SweetAlertDialog(SigninActivity.this, SweetAlertDialog.WARNING_TYPE).setTitleText("Please Enter Proper Credentials!")
                         .setConfirmText("OK")
                         .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
@@ -275,7 +277,7 @@ public void signin_verif(String susername, String spass)
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
                 HashMap<String, String> headers = new HashMap<String, String>();
-                headers.put("content-Type", "application/json");
+                //// headers.put("Content-Type", "application/json");
                 headers.put("x-tutor-app-id", "tutor-app-android");
                 return headers;
 

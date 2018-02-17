@@ -10,8 +10,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.ImageView;
-import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -281,7 +279,7 @@ public void signup_twotr(String sfull_name, String slast_name, String susername,
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
                 HashMap<String, String> headers = new HashMap<String, String>();
-            headers.put("content-Type", "application/json");
+            // headers.put("content-Type", "application/json");
             headers.put("x-tutor-app-id", "tutor-app-android");
             return headers;
 

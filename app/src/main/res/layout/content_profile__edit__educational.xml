@@ -15,7 +15,7 @@
         android:layout_height="60dp">
 
         <TextView
-            android:text="Major In"
+            android:text="Educational Info"
             android:fontFamily="@font/montserrat"
             android:layout_width="wrap_content"
             android:textSize="15sp"
@@ -53,7 +53,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/montserrat"
-                        android:text="Major Level"
+                        android:text="Major In"
                         android:textColor="@android:color/black"
                         android:textSize="16sp"
 
@@ -75,7 +75,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/montserrat"
-                        android:text="Institute"
+                        android:text="College or University"
                         android:layout_marginTop="10dp"
                         android:textColor="@android:color/black"
                         android:textSize="16sp" />
@@ -89,7 +89,7 @@
                         android:padding="10dp"
                         android:layout_marginTop="5dp"
                         android:fontFamily="@font/montserrat"
-                        android:hint="Select your Insititute"/>
+                        android:hint="Select your College or University"/>
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"

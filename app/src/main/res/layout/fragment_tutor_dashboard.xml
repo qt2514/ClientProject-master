@@ -53,7 +53,10 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="50dp"
         android:fontFamily="@font/montserrat"
+        android:maxLength="15"
         android:text="Subject Name"
+        android:ellipsize="end"
+        android:maxLines="1"
         android:textColor="#fff"
         android:textSize="14sp" />
     <TextView

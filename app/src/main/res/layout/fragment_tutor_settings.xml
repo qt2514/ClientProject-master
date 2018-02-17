@@ -1,4 +1,4 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -9,7 +9,7 @@
         android:id="@+id/drawer_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:fitsSystemWindows="true"
+
         tools:openDrawer="end">
         <android.support.design.widget.NavigationView
             android:id="@+id/nav_view"
@@ -163,6 +163,7 @@
 
                 </LinearLayout>
                 <LinearLayout
+                    android:id="@+id/lia"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="300dp"
@@ -192,10 +193,20 @@ android:layout_marginLeft="10dp"
 
                         />
                 </LinearLayout>
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_below="@+id/lia"
+    android:layout_alignParentBottom="true"
+    android:layout_height="wrap_content">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:layout_alignParentBottom="true"
+        android:layout_height="wrap_content">
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="400dp"
+
                     android:layout_marginStart="10dp"
 
                     android:orientation="horizontal">
@@ -222,7 +233,8 @@ android:layout_marginLeft="10dp"
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="450dp"
+                    android:layout_marginTop="20dp"
+
                     android:layout_marginStart="10dp"
 
                     android:orientation="horizontal">
@@ -247,8 +259,10 @@ android:id="@+id/about_settings"
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="500dp"
-                    android:layout_marginLeft="10dp"
+
+                    android:layout_marginTop="20dp"
+
+                    android:layout_marginStart="10dp"
 
                     android:orientation="horizontal">
                     <ImageView
@@ -270,18 +284,12 @@ android:padding="5dp"
                         android:layout_gravity="center"/>
 
                 </LinearLayout>
+    </LinearLayout>
+</RelativeLayout>
             </RelativeLayout>
         </android.support.design.widget.NavigationView>
     </android.support.v4.widget.DrawerLayout>
 
-    <com.wang.avi.AVLoadingIndicatorView
-        android:id="@+id/avi"
-        style="@style/AVLoadingIndicatorView"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:layout_gravity="center"
-        android:visibility="visible"
-        app:indicatorColor="@color/colorPrimaryDark"
-        app:indicatorName="BallClipRotateMultipleIndicator" />
 
-</FrameLayout>
+
+</RelativeLayout>
