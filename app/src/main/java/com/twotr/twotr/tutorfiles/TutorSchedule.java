@@ -146,49 +146,7 @@ navtab_list="history";
 
              schedule_list_url = "http://twotr.com:5040/api/class/history?page=1&size=10" ;
              new ScheduleAsyncList().execute(schedule_list_url);
-//             SwipeMenuCreator creator = new SwipeMenuCreator() {
-//
-//                 @Override
-//                 public void create(SwipeMenu menu) {
-//                     // create "open" item
-//                     SwipeMenuItem more_sched = new SwipeMenuItem(
-//                             getContext());
-//                     // set item background
-//                     more_sched.setBackground(new ColorDrawable(Color.rgb(0xC9, 0xC9,
-//                             0xCE)));
-//                     // set item width
-//                     more_sched.setWidth(180);
-//                     // set item title
-//
-//                     more_sched.setTitle("More");
-//                     more_sched.setIcon(R.drawable.ic_more_horiz_black_24dp);
-//                     // set item title fontsize
-//                     more_sched.setTitleSize(12);
-//                     // set item title font color
-//                     more_sched.setTitleColor(Color.WHITE);
-//                     // add to menu
-//                     menu.addMenuItem(more_sched);
-//
-//                     // create "delete" item
-//                     SwipeMenuItem review_sched = new SwipeMenuItem(
-//                             getContext());
-//                     // set item background
-//                     review_sched.setBackground(new ColorDrawable(Color.rgb(0x62, 0xCD,
-//                             0xEC)));
-//                     // set item width
-//                     review_sched.setWidth(180);
-//                     review_sched.setTitle("Review");
-//                     review_sched.setTitleSize(12);
-//                     // set item title font color
-//                     review_sched.setTitleColor(Color.WHITE);
-//                     // set a icon
-//                     review_sched.setIcon(R.drawable.review_list);
-//                     // add to menu
-//                     menu.addMenuItem(review_sched);
-//                 }
-//             };
-//
-//             LVschedule.setMenuCreator(creator);
+
          }
      });
      Bupcoming.setOnClickListener(new View.OnClickListener() {
@@ -203,49 +161,7 @@ navtab_list="history";
 
               schedule_list_url = "http://twotr.com:5040/api/class/upcoming?page=1&size=10" ;
              new ScheduleAsyncList().execute(schedule_list_url);
-//             SwipeMenuCreator creator = new SwipeMenuCreator() {
-//
-//                 @Override
-//                 public void create(SwipeMenu menu) {
-//                     // create "open" item
-//                     SwipeMenuItem more_sched = new SwipeMenuItem(
-//                             getContext());
-//                     // set item background
-//                     more_sched.setBackground(new ColorDrawable(Color.rgb(0xC9, 0xC9,
-//                             0xCE)));
-//                     // set item width
-//                     more_sched.setWidth(180);
-//                     // set item title
-//
-//                     more_sched.setTitle("More");
-//                     more_sched.setIcon(R.drawable.ic_more_horiz_black_24dp);
-//                     // set item title fontsize
-//                     more_sched.setTitleSize(12);
-//                     // set item title font color
-//                     more_sched.setTitleColor(Color.WHITE);
-//                     // add to menu
-//                     menu.addMenuItem(more_sched);
-//
-//                     // create "delete" item
-//                     SwipeMenuItem review_sched = new SwipeMenuItem(
-//                             getContext());
-//                     // set item background
-//                     review_sched.setBackground(new ColorDrawable(Color.rgb(0x62, 0xCD,
-//                             0xEC)));
-//                     // set
-//                     review_sched.setWidth(180);
-//                     review_sched.setTitle("Chat");
-//                     review_sched.setTitleSize(12);
-//                     // set item title font color
-//                     review_sched.setTitleColor(Color.WHITE);
-//                     // set a icon
-//                     review_sched.setIcon(R.drawable.chat_list);
-//                     // add to menu
-//                     menu.addMenuItem(review_sched);
-//                 }
-//             };
-//
-//             LVschedule.setMenuCreator(creator);
+
 
          }
      });
@@ -374,6 +290,36 @@ if (navtab_list.equals("upcoming"))
     };
 
     LVschedule.setMenuCreator(creator);
+
+    LVschedule.setOnMenuItemClickListener(new SwipeMenuListView.OnMenuItemClickListener() {
+        @Override
+        public boolean onMenuItemClick(int position, SwipeMenu menu, int index) {
+            switch (index) {
+                case 0:
+                    new MaterialDialog.Builder(getActivity())
+                            .title("More")
+                            .items(upcomingmore)
+                            .icon(getResources().getDrawable(R.drawable.ic_more_horiz_black_24dp))
+                            .itemsCallback(new MaterialDialog.ListCallback() {
+                                @Override
+                                public void onSelection(MaterialDialog dialog, View view, int which, CharSequence text) {
+
+
+                                }
+                            })
+                            .show();
+                    break;
+                case 1:
+                    Toast.makeText(getActivity(), "Chat "+position, Toast.LENGTH_SHORT).show();
+                    break;
+            }
+
+
+            return false;
+        }
+    });
+
+
 }
 else {
     SwipeMenuCreator creator = new SwipeMenuCreator() {
@@ -419,34 +365,35 @@ else {
     };
 
     LVschedule.setMenuCreator(creator);
-}
-        LVschedule.setOnMenuItemClickListener(new SwipeMenuListView.OnMenuItemClickListener() {
-            @Override
-            public boolean onMenuItemClick(int position, SwipeMenu menu, int index) {
-                switch (index) {
-                    case 0:
-                        new MaterialDialog.Builder(getActivity())
-                                .title("More")
-                                .items(upcomingmore)
-                                .icon(getResources().getDrawable(R.drawable.ic_more_horiz_black_24dp))
-                                .itemsCallback(new MaterialDialog.ListCallback() {
-                                    @Override
-                                    public void onSelection(MaterialDialog dialog, View view, int which, CharSequence text) {
+    LVschedule.setOnMenuItemClickListener(new SwipeMenuListView.OnMenuItemClickListener() {
+        @Override
+        public boolean onMenuItemClick(int position, SwipeMenu menu, int index) {
+            switch (index) {
+                case 0:
+                    new MaterialDialog.Builder(getActivity())
+                            .title("More")
+                            .items(historymore)
+                            .icon(getResources().getDrawable(R.drawable.ic_more_horiz_black_24dp))
+                            .itemsCallback(new MaterialDialog.ListCallback() {
+                                @Override
+                                public void onSelection(MaterialDialog dialog, View view, int which, CharSequence text) {
 
 
-                                    }
-                                })
-                                .show();
-                        break;
-                    case 1:
-                        Toast.makeText(getActivity(), "Chat "+position, Toast.LENGTH_SHORT).show();
-                        break;
-                }
-
-
-                return false;
+                                }
+                            })
+                            .show();
+                    break;
+                case 1:
+                    Toast.makeText(getActivity(), "Chat "+position, Toast.LENGTH_SHORT).show();
+                    break;
             }
-        });
+
+
+            return false;
+        }
+    });
+
+}
 
 
         // holder.TVstart_time.setText(supl.getStart());
@@ -531,7 +478,7 @@ else {
                     catego.setType(finalObject.getString("type"));
                     catego.setDescription(finalObject.getString("description"));
                     catego.setPrice(finalObject.getString("price"));
-
+catego.setStudentsCount(finalObject.getString("studentsCount"));
                     JSONArray jsonArray1 = finalObject.getJSONArray("schedules");
                     for (int j = 0; j < jsonArray1.length(); j++) {
                         JSONObject jsonObject = jsonArray1.getJSONObject(j);
@@ -540,7 +487,13 @@ else {
                       //  ListSubject.add(Skind);
                     }
 
-
+                    try {
+                        JSONObject jlocati=finalObject.getJSONObject("location");
+                        catego.setLat(jlocati.getString("lat"));
+                        catego.setLng(jlocati.getString("lng"));
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
 
                     milokilo.add(catego);
                 }
@@ -581,7 +534,11 @@ else {
                         intent.putExtra("subject_name",schedule_upcoming_list.getSubject());
                         intent.putExtra("type_subject",schedule_upcoming_list.getType());
                         intent.putExtra("schedule_description",schedule_upcoming_list.getDescription());
+                        intent.putExtra("latitude",schedule_upcoming_list.getLat());
+                        intent.putExtra("longitude",schedule_upcoming_list.getLng());
                   intent.putExtra("schedule_price",schedule_upcoming_list.getPrice());
+                        intent.putExtra("studentscount",schedule_upcoming_list.getStudentsCount());
+
                         String Scompletestart=schedule_upcoming_list.getStart();
                         String Scompleteend=schedule_upcoming_list.getEnd();
 

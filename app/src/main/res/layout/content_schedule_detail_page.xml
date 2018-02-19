@@ -25,15 +25,7 @@
             android:backgroundTint="#fff"
             android:focusable="true" />
 
-        <RelativeLayout
-            android:id="@+id/relativeLayout2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_above="@+id/hours_sched"
-            android:layout_toEndOf="@+id/back_ima_scedule">
 
-
-        </RelativeLayout>
 
         <ImageView
             android:id="@+id/imageView3"
@@ -95,7 +87,7 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="120dp"
+        android:layout_height="100dp"
         android:layout_margin="15dp"
         android:layout_alignParentStart="true"
         android:layout_below="@+id/top_relat"
@@ -111,7 +103,7 @@
             android:id="@+id/textView" />
 
         <EditText
-            android:id="@+id/schedule_description"
+            android:id="@+id/schedule_descripti"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
@@ -157,14 +149,12 @@
         android:id="@+id/price_amount"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-
         android:layout_alignBaseline="@+id/amount_sched_def"
         android:layout_alignBottom="@+id/amount_sched_def"
         android:layout_toEndOf="@+id/amount_sched_def"
         android:background="@drawable/tab_curve_button"
         android:fontFamily="@font/montserrat"
-        android:padding="10dp"
-
+        android:padding="5dp"
         android:textColor="@color/colorPrimaryDark"
         android:textSize="20sp" />
 
@@ -173,7 +163,7 @@
         android:layout_height="wrap_content"
         android:layout_alignStart="@+id/amount_sched_def"
         android:layout_below="@+id/price_amount"
-        android:layout_marginTop="21dp"
+        android:layout_marginTop="15dp"
         android:text="No of Students :"
         android:fontFamily="@font/montserrat"
         android:padding="3dp"
@@ -192,8 +182,7 @@
         android:layout_toEndOf="@+id/textView8"
         android:background="@drawable/tab_curve_button"
         android:fontFamily="@font/montserrat"
-        android:padding="8dp"
-        android:text="1"
+        android:padding="5dp"
         android:textColor="@color/colorPrimaryDark"
         android:textSize="20sp" />
 
@@ -224,7 +213,6 @@
                 android:background="@drawable/rounded_text"
                 android:fontFamily="@font/montserrat"
                 android:padding="5dp"
-
                 android:text="Show Schedule"
                 android:textAllCaps="false"
                 android:textColor="@android:color/white" />
@@ -237,10 +225,10 @@
                 android:layout_marginStart="49dp"
                 android:layout_toEndOf="@+id/schedule_show"
                 android:background="@drawable/rounded_text"
-
                 android:fontFamily="@font/montserrat"
                 android:padding="5dp"
                 android:text="Show Map"
+                android:visibility="gone"
                 android:textAllCaps="false"
                 android:textColor="@android:color/white" />
 
@@ -267,7 +255,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
-
         android:fontFamily="@font/montserrat"
         android:padding="3dp"
         android:text="Material"
@@ -356,7 +343,6 @@ android:layout_margin="5dp"
                 android:textSize="14sp"
                 android:gravity="center"
                 android:textColor="@color/colorPrimaryDark"
-
                 android:text="Post Class"
                 />
             <ImageButton

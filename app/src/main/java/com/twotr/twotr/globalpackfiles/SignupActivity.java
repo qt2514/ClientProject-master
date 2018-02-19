@@ -267,6 +267,7 @@ public void signup_twotr(String sfull_name, String slast_name, String susername,
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
+                avi.hide();
                 Log.e("VOLLEY", error.toString());
             }
         }) {

@@ -15,10 +15,11 @@ import android.widget.Toast;
 import com.twotr.twotr.R;
 
 public class ScheduleDetailPage extends AppCompatActivity {
-TextView TVsubject_name,TVtypesubject,TVprice_amount,TVhrscal;
+TextView TVsubject_name,TVtypesubject,TVprice_amount,TVhrscal,TVstudentcount;
 EditText ETsched_desc;
 ImageButton IBedit_sched,IBpre_post,IB_back;
 LinearLayout linear_layout;
+String Slati,Slongi,type_subject,subname,hrschmon,Sstudentcount;
 Button But_showmap,But_showschedule;
     @SuppressLint("SetTextI18n")
     @Override
@@ -28,9 +29,10 @@ Button But_showmap,But_showschedule;
         IBedit_sched=findViewById(R.id.edit_desc_sched);
         TVsubject_name=findViewById(R.id.subject_name);
         TVtypesubject=findViewById(R.id.type_detail_subject);
-        ETsched_desc=findViewById(R.id.schedule_description);
+        ETsched_desc=findViewById(R.id.schedule_descripti);
         TVprice_amount=findViewById(R.id.price_amount);
         IBpre_post=findViewById(R.id.add_pre_post);
+        TVstudentcount=findViewById(R.id.stu_count_sched);
         linear_layout=findViewById(R.id.post_pre_linear);
         TVhrscal=findViewById(R.id.hours_sched);
         But_showmap=findViewById(R.id.schedule_map);
@@ -45,15 +47,24 @@ Button But_showmap,But_showschedule;
         But_showmap.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(ScheduleDetailPage.this, "Coming Soon", Toast.LENGTH_SHORT).show();
+
+    Intent intent = new Intent(ScheduleDetailPage.this, Schedule_ShowMap.class);
+    intent.putExtra("latitude", Slati);
+    intent.putExtra("longitude", Slongi);
+    intent.putExtra("subjectname", subname);
+    intent.putExtra("subjecttype", type_subject);
+    intent.putExtra("subjecthours", hrschmon);
+    startActivity(intent);
+
+//                Toast.makeText(ScheduleDetailPage.this, "Coming Soon", Toast.LENGTH_SHORT).show();
                // startActivity(new Intent(ScheduleDetailPage.this,Schedule_ShowMap.class));
             }
         });
         But_showschedule.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(ScheduleDetailPage.this, "Coming Soon", Toast.LENGTH_SHORT).show();
 
+                Toast.makeText(ScheduleDetailPage.this, "Coming Soon", Toast.LENGTH_SHORT).show();
                 //   startActivity(new Intent(ScheduleDetailPage.this,Schedule_ShowSchedule.class));
             }
         });
@@ -62,8 +73,11 @@ Button But_showmap,But_showschedule;
         Bundle Bintent = intent.getExtras();
         if(Bintent != null)
         {
-            String subname = (String) Bintent.get("subject_name");
-            String type_subject = (String) Bintent.get("type_subject");
+             subname = (String) Bintent.get("subject_name");
+             type_subject = (String) Bintent.get("type_subject");
+            Slati=(String) Bintent.get("latitude");
+            Slongi=(String) Bintent.get("longitude");
+            Sstudentcount=(String) Bintent.get("studentscount");
             assert type_subject != null;
             if (type_subject.equals("oneonone"))
             {
@@ -71,12 +85,21 @@ Button But_showmap,But_showschedule;
             }
             String sched_descr = (String) Bintent.get("schedule_description");
             String sched_price = (String) Bintent.get("schedule_price");
-            String hrschmon = (String) Bintent.get("hrschmon");
+             hrschmon = (String) Bintent.get("hrschmon");
             TVhrscal.setText(hrschmon);
             TVprice_amount.setText(sched_price);
             TVtypesubject.setText(" "+ type_subject);
             TVsubject_name.setText(subname);
             ETsched_desc.setText(sched_descr);
+            TVstudentcount.setText(Sstudentcount);
+            if (Slati==null)
+            {
+                But_showmap.setVisibility(View.GONE);
+            }
+            else
+            {
+                But_showmap.setVisibility(View.VISIBLE);
+            }
         }
         IBedit_sched.setOnClickListener(new View.OnClickListener() {
             @Override
