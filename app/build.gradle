@@ -63,5 +63,6 @@ dependencies {
     compile 'com.thefinestartist:finestwebview:1.2.7'
     compile 'pl.droidsonroids.gif:android-gif-drawable:1.2.10'
     compile 'com.github.thunder413:DateTimeUtils:1.0'
+    implementation 'com.afollestad.material-dialogs:commons:0.9.6.0'
 
 }

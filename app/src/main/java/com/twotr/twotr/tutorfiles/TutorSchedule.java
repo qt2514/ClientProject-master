@@ -18,7 +18,9 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.baoyz.swipemenulistview.SwipeMenu;
 import com.baoyz.swipemenulistview.SwipeMenuCreator;
 import com.baoyz.swipemenulistview.SwipeMenuItem;
@@ -59,6 +61,17 @@ private  String schedule_list_url;
     public String Stoken;
 TextView nodatatextview;
     GifImageView underser_gif;
+    String[] upcomingmore = {
+            "Reschedule",
+            "Delete"
+
+    };
+    String[] historymore = {
+            "Edit",
+            "Delete"
+
+    };
+    String navtab_list="upcoming";
     public static TutorSchedule newInstance() {
         return new TutorSchedule();
     }
@@ -76,7 +89,8 @@ TextView nodatatextview;
      nodatatextview=view.findViewById(R.id.nodatatext);
 LVschedule=view.findViewById(R.id.schedule_list);
         avi=view.findViewById(R.id.avi);
-         schedule_list_url = "https://api.twotr.com/api/class/upcoming?page=1&size=10" ;
+
+         schedule_list_url = "http://twotr.com:5040/api/class/upcoming?page=1&size=10" ;
         new ScheduleAsyncList().execute(schedule_list_url);
         SwipeMenuCreator creator = new SwipeMenuCreator() {
 
@@ -124,113 +138,115 @@ LVschedule=view.findViewById(R.id.schedule_list);
      Bhistory.setOnClickListener(new View.OnClickListener() {
          @Override
          public void onClick(View view) {
-
+navtab_list="history";
              Bhistory.setBackgroundResource(R.drawable.tab_selected);
              Bupcoming.setBackgroundResource(R.drawable.tab_unselected_right);
              Bupcoming.setTextColor(getResources().getColor(R.color.mdtp_white));
              Bhistory.setTextColor(getResources().getColor(R.color.black));
 
-             schedule_list_url = "https://api.twotr.com/api/class/history?page=1&size=10" ;
+             schedule_list_url = "http://twotr.com:5040/api/class/history?page=1&size=10" ;
              new ScheduleAsyncList().execute(schedule_list_url);
-             SwipeMenuCreator creator = new SwipeMenuCreator() {
-
-                 @Override
-                 public void create(SwipeMenu menu) {
-                     // create "open" item
-                     SwipeMenuItem more_sched = new SwipeMenuItem(
-                             getContext());
-                     // set item background
-                     more_sched.setBackground(new ColorDrawable(Color.rgb(0xC9, 0xC9,
-                             0xCE)));
-                     // set item width
-                     more_sched.setWidth(180);
-                     // set item title
-
-                     more_sched.setTitle("More");
-                     more_sched.setIcon(R.drawable.ic_more_horiz_black_24dp);
-                     // set item title fontsize
-                     more_sched.setTitleSize(12);
-                     // set item title font color
-                     more_sched.setTitleColor(Color.WHITE);
-                     // add to menu
-                     menu.addMenuItem(more_sched);
-
-                     // create "delete" item
-                     SwipeMenuItem review_sched = new SwipeMenuItem(
-                             getContext());
-                     // set item background
-                     review_sched.setBackground(new ColorDrawable(Color.rgb(0x62, 0xCD,
-                             0xEC)));
-                     // set item width
-                     review_sched.setWidth(180);
-                     review_sched.setTitle("Review");
-                     review_sched.setTitleSize(12);
-                     // set item title font color
-                     review_sched.setTitleColor(Color.WHITE);
-                     // set a icon
-                     review_sched.setIcon(R.drawable.review_list);
-                     // add to menu
-                     menu.addMenuItem(review_sched);
-                 }
-             };
-
-             LVschedule.setMenuCreator(creator);
+//             SwipeMenuCreator creator = new SwipeMenuCreator() {
+//
+//                 @Override
+//                 public void create(SwipeMenu menu) {
+//                     // create "open" item
+//                     SwipeMenuItem more_sched = new SwipeMenuItem(
+//                             getContext());
+//                     // set item background
+//                     more_sched.setBackground(new ColorDrawable(Color.rgb(0xC9, 0xC9,
+//                             0xCE)));
+//                     // set item width
+//                     more_sched.setWidth(180);
+//                     // set item title
+//
+//                     more_sched.setTitle("More");
+//                     more_sched.setIcon(R.drawable.ic_more_horiz_black_24dp);
+//                     // set item title fontsize
+//                     more_sched.setTitleSize(12);
+//                     // set item title font color
+//                     more_sched.setTitleColor(Color.WHITE);
+//                     // add to menu
+//                     menu.addMenuItem(more_sched);
+//
+//                     // create "delete" item
+//                     SwipeMenuItem review_sched = new SwipeMenuItem(
+//                             getContext());
+//                     // set item background
+//                     review_sched.setBackground(new ColorDrawable(Color.rgb(0x62, 0xCD,
+//                             0xEC)));
+//                     // set item width
+//                     review_sched.setWidth(180);
+//                     review_sched.setTitle("Review");
+//                     review_sched.setTitleSize(12);
+//                     // set item title font color
+//                     review_sched.setTitleColor(Color.WHITE);
+//                     // set a icon
+//                     review_sched.setIcon(R.drawable.review_list);
+//                     // add to menu
+//                     menu.addMenuItem(review_sched);
+//                 }
+//             };
+//
+//             LVschedule.setMenuCreator(creator);
          }
      });
      Bupcoming.setOnClickListener(new View.OnClickListener() {
          @Override
          public void onClick(View view) {
+             navtab_list="upcoming";
              Bupcoming.setBackgroundResource(R.drawable.tab_selected_right);
              Bhistory.setBackgroundResource(R.drawable.tab_unselected);
              Bupcoming.setTextColor(getResources().getColor(R.color.black));
              Bhistory.setTextColor(getResources().getColor(R.color.mdtp_white));
 //upcominglist(upcoming_url);
 
-              schedule_list_url = "https://api.twotr.com/api/class/upcoming?page=1&size=10" ;
+              schedule_list_url = "http://twotr.com:5040/api/class/upcoming?page=1&size=10" ;
              new ScheduleAsyncList().execute(schedule_list_url);
-             SwipeMenuCreator creator = new SwipeMenuCreator() {
+//             SwipeMenuCreator creator = new SwipeMenuCreator() {
+//
+//                 @Override
+//                 public void create(SwipeMenu menu) {
+//                     // create "open" item
+//                     SwipeMenuItem more_sched = new SwipeMenuItem(
+//                             getContext());
+//                     // set item background
+//                     more_sched.setBackground(new ColorDrawable(Color.rgb(0xC9, 0xC9,
+//                             0xCE)));
+//                     // set item width
+//                     more_sched.setWidth(180);
+//                     // set item title
+//
+//                     more_sched.setTitle("More");
+//                     more_sched.setIcon(R.drawable.ic_more_horiz_black_24dp);
+//                     // set item title fontsize
+//                     more_sched.setTitleSize(12);
+//                     // set item title font color
+//                     more_sched.setTitleColor(Color.WHITE);
+//                     // add to menu
+//                     menu.addMenuItem(more_sched);
+//
+//                     // create "delete" item
+//                     SwipeMenuItem review_sched = new SwipeMenuItem(
+//                             getContext());
+//                     // set item background
+//                     review_sched.setBackground(new ColorDrawable(Color.rgb(0x62, 0xCD,
+//                             0xEC)));
+//                     // set
+//                     review_sched.setWidth(180);
+//                     review_sched.setTitle("Chat");
+//                     review_sched.setTitleSize(12);
+//                     // set item title font color
+//                     review_sched.setTitleColor(Color.WHITE);
+//                     // set a icon
+//                     review_sched.setIcon(R.drawable.chat_list);
+//                     // add to menu
+//                     menu.addMenuItem(review_sched);
+//                 }
+//             };
+//
+//             LVschedule.setMenuCreator(creator);
 
-                 @Override
-                 public void create(SwipeMenu menu) {
-                     // create "open" item
-                     SwipeMenuItem more_sched = new SwipeMenuItem(
-                             getContext());
-                     // set item background
-                     more_sched.setBackground(new ColorDrawable(Color.rgb(0xC9, 0xC9,
-                             0xCE)));
-                     // set item width
-                     more_sched.setWidth(180);
-                     // set item title
-
-                     more_sched.setTitle("More");
-                     more_sched.setIcon(R.drawable.ic_more_horiz_black_24dp);
-                     // set item title fontsize
-                     more_sched.setTitleSize(12);
-                     // set item title font color
-                     more_sched.setTitleColor(Color.WHITE);
-                     // add to menu
-                     menu.addMenuItem(more_sched);
-
-                     // create "delete" item
-                     SwipeMenuItem review_sched = new SwipeMenuItem(
-                             getContext());
-                     // set item background
-                     review_sched.setBackground(new ColorDrawable(Color.rgb(0x62, 0xCD,
-                             0xEC)));
-                     // set
-                     review_sched.setWidth(180);
-                     review_sched.setTitle("Chat");
-                     review_sched.setTitleSize(12);
-                     // set item title font color
-                     review_sched.setTitleColor(Color.WHITE);
-                     // set a icon
-                     review_sched.setIcon(R.drawable.chat_list);
-                     // add to menu
-                     menu.addMenuItem(review_sched);
-                 }
-             };
-
-             LVschedule.setMenuCreator(creator);
          }
      });
 
@@ -238,40 +254,6 @@ LVschedule=view.findViewById(R.id.schedule_list);
     }
 
 
-//    public void upcominglist(String upcoming_url)
-//    {
-//        RequestQueue queue = Volley.newRequestQueue(getActivity().getApplicationContext());
-//
-//        StringRequest postRequest = new StringRequest(Request.Method.GET, upcoming_url,
-//                new Response.Listener<String>()
-//                {
-//                    @Override
-//                    public void onResponse(String response) {
-//                        // response
-//                        Log.d("Response", response);
-//                    }
-//                },
-//                new Response.ErrorListener()
-//                {
-//                    @Override
-//                    public void onErrorResponse(VolleyError error) {
-//                        // TODO Auto-generated method stub
-//                        Log.d("ERROR","error => "+error.toString());
-//                    }
-//                }
-//        ) {
-//            @Override
-//            public Map<String, String> getHeaders() throws AuthFailureError {
-//                Map<String, String>  params = new HashMap<String, String>();
-//                params.put("content-type", "application/json");
-//                params.put("x-tutor-app-id", "tutor-app-ios");
-//                params.put("authorization", "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVhM2MxZDY0MTE5OTBkMmMyNDRiNDI4OCIsInJvbGVzIjpbInR1dG9yIl0sImlhdCI6MTUxNzE1MTI4OCwiZXhwIjoxNTE4NDQ3Mjg4LCJqdGkiOiIxIn0.efviEAlmLRkBev5Ib4N35XaCZyzXinc1KJYgv9KM_Yo");
-//
-//                return params;
-//            }
-//        };
-//        queue.add(postRequest);
-  //  }
 public class Schedule_class extends ArrayAdapter {
     private List<Schedule_upcoming_list> ScheduleModeList;
     private int resource;
@@ -297,6 +279,7 @@ public class Schedule_class extends ArrayAdapter {
     }
 
 
+    @SuppressLint("SetTextI18n")
     @NonNull
     @Override
     public View getView(final int position, View convertView, @NonNull ViewGroup parent) {
@@ -346,6 +329,126 @@ public class Schedule_class extends ArrayAdapter {
         holder.TVtime_sched.setText(time_sched+" | ");
         String monthformating=DateTimeUtils.formatWithPattern(startdate, "EEE, MMM dd");
         holder.TVmonth.setText(monthformating);
+if (navtab_list.equals("upcoming"))
+{
+    SwipeMenuCreator creator = new SwipeMenuCreator() {
+
+        @Override
+        public void create(SwipeMenu menu) {
+            // create "open" item
+            SwipeMenuItem more_sched = new SwipeMenuItem(
+                    getContext());
+            // set item background
+            more_sched.setBackground(new ColorDrawable(Color.rgb(0xC9, 0xC9,
+                    0xCE)));
+            // set item width
+            more_sched.setWidth(180);
+            // set item title
+
+            more_sched.setTitle("More");
+            more_sched.setIcon(R.drawable.ic_more_horiz_black_24dp);
+            // set item title fontsize
+            more_sched.setTitleSize(12);
+            // set item title font color
+            more_sched.setTitleColor(Color.WHITE);
+            // add to menu
+            menu.addMenuItem(more_sched);
+
+            // create "delete" item
+            SwipeMenuItem review_sched = new SwipeMenuItem(
+                    getContext());
+            // set item background
+            review_sched.setBackground(new ColorDrawable(Color.rgb(0x62, 0xCD,
+                    0xEC)));
+            // set
+            review_sched.setWidth(180);
+            review_sched.setTitle("Chat");
+            review_sched.setTitleSize(12);
+            // set item title font color
+            review_sched.setTitleColor(Color.WHITE);
+            // set a icon
+            review_sched.setIcon(R.drawable.chat_list);
+            // add to menu
+            menu.addMenuItem(review_sched);
+        }
+    };
+
+    LVschedule.setMenuCreator(creator);
+}
+else {
+    SwipeMenuCreator creator = new SwipeMenuCreator() {
+
+        @Override
+        public void create(SwipeMenu menu) {
+            // create "open" item
+            SwipeMenuItem more_sched = new SwipeMenuItem(
+                    getContext());
+            // set item background
+            more_sched.setBackground(new ColorDrawable(Color.rgb(0xC9, 0xC9,
+                    0xCE)));
+            // set item width
+            more_sched.setWidth(180);
+            // set item title
+
+            more_sched.setTitle("More");
+            more_sched.setIcon(R.drawable.ic_more_horiz_black_24dp);
+            // set item title fontsize
+            more_sched.setTitleSize(12);
+            // set item title font color
+            more_sched.setTitleColor(Color.WHITE);
+            // add to menu
+            menu.addMenuItem(more_sched);
+
+            // create "delete" item
+            SwipeMenuItem review_sched = new SwipeMenuItem(
+                    getContext());
+            // set item background
+            review_sched.setBackground(new ColorDrawable(Color.rgb(0x62, 0xCD,
+                    0xEC)));
+            // set item width
+            review_sched.setWidth(180);
+            review_sched.setTitle("Review");
+            review_sched.setTitleSize(12);
+            // set item title font color
+            review_sched.setTitleColor(Color.WHITE);
+            // set a icon
+            review_sched.setIcon(R.drawable.review_list);
+            // add to menu
+            menu.addMenuItem(review_sched);
+        }
+    };
+
+    LVschedule.setMenuCreator(creator);
+}
+        LVschedule.setOnMenuItemClickListener(new SwipeMenuListView.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(int position, SwipeMenu menu, int index) {
+                switch (index) {
+                    case 0:
+                        new MaterialDialog.Builder(getActivity())
+                                .title("More")
+                                .items(upcomingmore)
+                                .icon(getResources().getDrawable(R.drawable.ic_more_horiz_black_24dp))
+                                .itemsCallback(new MaterialDialog.ListCallback() {
+                                    @Override
+                                    public void onSelection(MaterialDialog dialog, View view, int which, CharSequence text) {
+
+
+                                    }
+                                })
+                                .show();
+                        break;
+                    case 1:
+                        Toast.makeText(getActivity(), "Chat "+position, Toast.LENGTH_SHORT).show();
+                        break;
+                }
+
+
+                return false;
+            }
+        });
+
+
         // holder.TVstart_time.setText(supl.getStart());
 
 

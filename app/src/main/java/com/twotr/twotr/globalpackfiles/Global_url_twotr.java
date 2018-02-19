@@ -3,8 +3,8 @@ package com.twotr.twotr.globalpackfiles;
 
 public class Global_url_twotr {
 
-    public static  String Base_url ="https://api.twotr.com/api/";
-    public static  String Base_Imgurl ="https://api.twotr.com/api/files";
+    public static  String Base_url ="http://twotr.com:5040/api/";
+    public static  String Base_Imgurl ="http://twotr.com:5040/api/files";
 
     public static  String User_signup= Base_url + "users";
     public  static  String User_signin=Base_url +"auth/login";
@@ -31,7 +31,7 @@ public class Global_url_twotr {
 
     public static String Profile_getdetails=Base_url +"userinfo/basic";
 
-    public static String Image_Base_url="https://api.twotr.com/files";
+    public static String Image_Base_url="http://twotr.com:5040/files";
 
 
     public static String Profile_subject_grade_spin=Base_url +"userinfo/basic/profile";

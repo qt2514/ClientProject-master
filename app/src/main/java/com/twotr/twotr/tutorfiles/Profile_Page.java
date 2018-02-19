@@ -5,16 +5,21 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.InputType;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ScrollView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.afollestad.materialdialogs.DialogAction;
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -212,7 +217,48 @@ CIVprofimage=findViewById(R.id.image_profile);
             }
         });
 
+TVemailverify.setOnClickListener(new View.OnClickListener() {
+    @Override
+    public void onClick(View v) {
+        new MaterialDialog.Builder(Profile_Page.this)
+                .title("Email Verification")
+                .content("Verification Mail has been sent to your mail id.Please Check !")
+                .positiveText("Ok")
+                .negativeText("Resend")
+                .onPositive(new MaterialDialog.SingleButtonCallback() {
+                    @Override
+                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                        Toast.makeText(context, "Dismissed", Toast.LENGTH_SHORT).show();
+                    }
+                })
+                .onNegative(new MaterialDialog.SingleButtonCallback() {
+                    @Override
+                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                        Toast.makeText(context, "EMail Resend", Toast.LENGTH_SHORT).show();
 
+                    }
+                })
+                .show();
+
+    }
+});
+
+TVmobileverify.setOnClickListener(new View.OnClickListener() {
+    @Override
+    public void onClick(View v) {
+        new MaterialDialog.Builder(Profile_Page.this)
+                .title("Enter Your OTP")
+                .content("This is Content")
+                .inputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_CLASS_NUMBER)
+                .input("Enter Your OTP","", new MaterialDialog.InputCallback() {
+                    @Override
+                    public void onInput(MaterialDialog dialog, CharSequence input) {
+                        // Do something
+                    }
+                }).show();
+
+    }
+});
 
         RecyclerViewLayoutManager = new LinearLayoutManager(getApplicationContext());
 
@@ -225,16 +271,11 @@ CIVprofimage=findViewById(R.id.image_profile);
 recyclerView.setHorizontalScrollBarEnabled(false);
 
         RecyclerViewLayoutManagersub = new LinearLayoutManager(getApplicationContext());
-
         recyclerViewsub.setLayoutManager(RecyclerViewLayoutManagersub);
-
         RecyclerViewHorizontalAdaptersub = new RecyclerViewAdapter(ListSubject);
-
         HorizontalLayoutsub = new LinearLayoutManager(Profile_Page.this, LinearLayoutManager.HORIZONTAL, false);
         recyclerViewsub.setLayoutManager(HorizontalLayoutsub);
         recyclerViewsub.setHorizontalScrollBarEnabled(false);
-
-
     }
 
 
