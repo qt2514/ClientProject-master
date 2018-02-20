@@ -479,12 +479,14 @@ else {
                     catego.setDescription(finalObject.getString("description"));
                     catego.setPrice(finalObject.getString("price"));
 catego.setStudentsCount(finalObject.getString("studentsCount"));
+catego.setMinPrice(finalObject.getString("minPrice"));
                     JSONArray jsonArray1 = finalObject.getJSONArray("schedules");
                     for (int j = 0; j < jsonArray1.length(); j++) {
                         JSONObject jsonObject = jsonArray1.getJSONObject(j);
                         catego.setStart(jsonObject.getString("start"));
                         catego.setEnd(jsonObject.getString("end"));
-                      //  ListSubject.add(Skind);
+
+                        //  ListSubject.add(Skind);
                     }
 
                     try {
@@ -538,7 +540,7 @@ catego.setStudentsCount(finalObject.getString("studentsCount"));
                         intent.putExtra("longitude",schedule_upcoming_list.getLng());
                   intent.putExtra("schedule_price",schedule_upcoming_list.getPrice());
                         intent.putExtra("studentscount",schedule_upcoming_list.getStudentsCount());
-
+intent.putExtra("minprice",schedule_upcoming_list.getMinPrice());
                         String Scompletestart=schedule_upcoming_list.getStart();
                         String Scompleteend=schedule_upcoming_list.getEnd();
 

@@ -15,12 +15,12 @@ import android.widget.Toast;
 import com.twotr.twotr.R;
 
 public class ScheduleDetailPage extends AppCompatActivity {
-TextView TVsubject_name,TVtypesubject,TVprice_amount,TVhrscal,TVstudentcount;
+TextView TVsubject_name,TVtypesubject,TVprice_amount,TVhrscal,TVstudentcount,TVnoofstutext,TVminamount,TVminamounttex;
 EditText ETsched_desc;
 ImageButton IBedit_sched,IBpre_post,IB_back;
 LinearLayout linear_layout;
-String Slati,Slongi,type_subject,subname,hrschmon,Sstudentcount;
-Button But_showmap,But_showschedule;
+String Slati,Slongi,type_subject,subname,hrschmon,Sstudentcount,Sminprice;
+Button But_showmap,But_showschedule,But_updatemap;
     @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +38,10 @@ Button But_showmap,But_showschedule;
         But_showmap=findViewById(R.id.schedule_map);
         But_showschedule=findViewById(R.id.schedule_show);
         IB_back=findViewById(R.id.back_ima_scedule);
+        But_updatemap=findViewById(R.id.map_update);
+TVnoofstutext=findViewById(R.id.textView8);
+TVminamount=findViewById(R.id.min_amount);
+TVminamounttex=findViewById(R.id.min_price_amount);
         IB_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -78,15 +82,21 @@ Button But_showmap,But_showschedule;
             Slati=(String) Bintent.get("latitude");
             Slongi=(String) Bintent.get("longitude");
             Sstudentcount=(String) Bintent.get("studentscount");
+Sminprice=(String) Bintent.get("minprice");
             assert type_subject != null;
-            if (type_subject.equals("oneonone"))
-            {
-                type_subject="1 to 1";
-            }
             String sched_descr = (String) Bintent.get("schedule_description");
             String sched_price = (String) Bintent.get("schedule_price");
              hrschmon = (String) Bintent.get("hrschmon");
             TVhrscal.setText(hrschmon);
+            if (type_subject.equals("oneonone"))
+            {
+                type_subject="1 to 1";
+                TVstudentcount.setVisibility(View.INVISIBLE);
+                TVnoofstutext.setVisibility(View.INVISIBLE);
+                TVminamount.setVisibility(View.INVISIBLE);
+                TVminamounttex.setVisibility(View.INVISIBLE);
+            }
+            TVminamounttex.setText(Sminprice);
             TVprice_amount.setText(sched_price);
             TVtypesubject.setText(" "+ type_subject);
             TVsubject_name.setText(subname);
@@ -105,10 +115,21 @@ Button But_showmap,But_showschedule;
             @Override
             public void onClick(View view) {
                 ETsched_desc.setEnabled(true);
-             //   IBedit_sched.setBackgroundResource(R.drawable.save_schedule_edit);
+                if (Slati==null) {
+                    But_updatemap.setVisibility(View.VISIBLE);
+                }
+                else
+                {
+                    But_updatemap.setVisibility(View.GONE);
+
+                }
+
+
+                //   IBedit_sched.setBackgroundResource(R.drawable.save_schedule_edit);
 
             }
         });
+
         IBpre_post.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

@@ -25,6 +25,7 @@ public class Schedule_upcoming_list implements Parcelable {
     private String classId;
     private Boolean isActive;
 private String subject;
+private  String minPrice;
 
     public Schedule_upcoming_list() {
         this.totalRecords = totalRecords;
@@ -44,6 +45,7 @@ private String subject;
         this.classId = classId;
         this.isActive = isActive;
         this.subject = subject;
+        this.minPrice = minPrice;
     }
 
     public String getTotalRecords() {
@@ -182,6 +184,14 @@ private String subject;
         this.subject = subject;
     }
 
+    public String getMinPrice() {
+        return minPrice;
+    }
+
+    public void setMinPrice(String minPrice) {
+        this.minPrice = minPrice;
+    }
+
     public static Creator<Schedule_upcoming_list> getCREATOR() {
         return CREATOR;
     }
@@ -206,6 +216,7 @@ private String subject;
         byte tmpIsActive = in.readByte();
         isActive = tmpIsActive == 0 ? null : tmpIsActive == 1;
         subject = in.readString();
+        minPrice = in.readString();
     }
 
     @Override
@@ -227,6 +238,7 @@ private String subject;
         dest.writeString(classId);
         dest.writeByte((byte) (isActive == null ? 0 : isActive ? 1 : 2));
         dest.writeString(subject);
+        dest.writeString(minPrice);
     }
 
     @Override
