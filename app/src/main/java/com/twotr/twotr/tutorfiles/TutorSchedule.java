@@ -11,6 +11,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -55,7 +56,7 @@ public class TutorSchedule extends Fragment {
     AVLoadingIndicatorView avi;
 
 private Button Bhistory,Bupcoming;
-SwipeMenuListView LVschedule;
+SwipeMenuListView LVschedule,LVschedule_history;
 private  String schedule_list_url;
     SharedPreferences Shared_user_details;
     public String Stoken;
@@ -72,6 +73,7 @@ TextView nodatatextview;
 
     };
     String navtab_list="upcoming";
+    List<Schedule_upcoming_list> ScheduleMode;
     public static TutorSchedule newInstance() {
         return new TutorSchedule();
     }
@@ -88,6 +90,7 @@ TextView nodatatextview;
      underser_gif=view.findViewById(R.id.nodatagif);
      nodatatextview=view.findViewById(R.id.nodatatext);
 LVschedule=view.findViewById(R.id.schedule_list);
+LVschedule_history=view.findViewById(R.id.schedule_list_history);
         avi=view.findViewById(R.id.avi);
 
          schedule_list_url = "http://twotr.com:5040/api/class/upcoming?page=1&size=10" ;
@@ -139,13 +142,14 @@ LVschedule=view.findViewById(R.id.schedule_list);
          @Override
          public void onClick(View view) {
 navtab_list="history";
+LVschedule.setVisibility(View.INVISIBLE);
+LVschedule_history.setVisibility(View.VISIBLE);
              Bhistory.setBackgroundResource(R.drawable.tab_selected);
              Bupcoming.setBackgroundResource(R.drawable.tab_unselected_right);
              Bupcoming.setTextColor(getResources().getColor(R.color.mdtp_white));
              Bhistory.setTextColor(getResources().getColor(R.color.black));
-
              schedule_list_url = "http://twotr.com:5040/api/class/history?page=1&size=10" ;
-             new ScheduleAsyncList().execute(schedule_list_url);
+             new ScheduleAsyncListHistory().execute(schedule_list_url);
 
          }
      });
@@ -153,6 +157,8 @@ navtab_list="history";
          @Override
          public void onClick(View view) {
              navtab_list="upcoming";
+             LVschedule_history.setVisibility(View.INVISIBLE);
+             LVschedule.setVisibility(View.VISIBLE);
              Bupcoming.setBackgroundResource(R.drawable.tab_selected_right);
              Bhistory.setBackgroundResource(R.drawable.tab_unselected);
              Bupcoming.setTextColor(getResources().getColor(R.color.black));
@@ -245,8 +251,7 @@ public class Schedule_class extends ArrayAdapter {
         holder.TVtime_sched.setText(time_sched+" | ");
         String monthformating=DateTimeUtils.formatWithPattern(startdate, "EEE, MMM dd");
         holder.TVmonth.setText(monthformating);
-if (navtab_list.equals("upcoming"))
-{
+
     SwipeMenuCreator creator = new SwipeMenuCreator() {
 
         @Override
@@ -320,102 +325,6 @@ if (navtab_list.equals("upcoming"))
     });
 
 
-}
-else {
-    SwipeMenuCreator creator = new SwipeMenuCreator() {
-
-        @Override
-        public void create(SwipeMenu menu) {
-            // create "open" item
-            SwipeMenuItem more_sched = new SwipeMenuItem(
-                    getContext());
-            // set item background
-            more_sched.setBackground(new ColorDrawable(Color.rgb(0xC9, 0xC9,
-                    0xCE)));
-            // set item width
-            more_sched.setWidth(180);
-            // set item title
-
-            more_sched.setTitle("More");
-            more_sched.setIcon(R.drawable.ic_more_horiz_black_24dp);
-            // set item title fontsize
-            more_sched.setTitleSize(12);
-            // set item title font color
-            more_sched.setTitleColor(Color.WHITE);
-            // add to menu
-            menu.addMenuItem(more_sched);
-
-            // create "delete" item
-            SwipeMenuItem review_sched = new SwipeMenuItem(
-                    getContext());
-            // set item background
-            review_sched.setBackground(new ColorDrawable(Color.rgb(0x62, 0xCD,
-                    0xEC)));
-            // set item width
-            review_sched.setWidth(180);
-            review_sched.setTitle("Review");
-            review_sched.setTitleSize(12);
-            // set item title font color
-            review_sched.setTitleColor(Color.WHITE);
-            // set a icon
-            review_sched.setIcon(R.drawable.review_list);
-            // add to menu
-            menu.addMenuItem(review_sched);
-        }
-    };
-
-    LVschedule.setMenuCreator(creator);
-    LVschedule.setOnMenuItemClickListener(new SwipeMenuListView.OnMenuItemClickListener() {
-        @Override
-        public boolean onMenuItemClick(int position, SwipeMenu menu, int index) {
-            switch (index) {
-                case 0:
-                    new MaterialDialog.Builder(getActivity())
-                            .title("More")
-                            .items(historymore)
-                            .icon(getResources().getDrawable(R.drawable.ic_more_horiz_black_24dp))
-                            .itemsCallback(new MaterialDialog.ListCallback() {
-                                @Override
-                                public void onSelection(MaterialDialog dialog, View view, int which, CharSequence text) {
-
-
-                                }
-                            })
-                            .show();
-                    break;
-                case 1:
-                    Toast.makeText(getActivity(), "Chat "+position, Toast.LENGTH_SHORT).show();
-                    break;
-            }
-
-
-            return false;
-        }
-    });
-
-}
-
-
-        // holder.TVstart_time.setText(supl.getStart());
-
-
-//        String strThatDay = holder.text_getingdate.getText().toString();
-//        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-//        Date d = null;
-//        try {
-//            d = formatter.parse(strThatDay);//catch exception
-//        } catch (ParseException e) {
-//
-//            e.printStackTrace();
-//        }
-//        Calendar thatDay = Calendar.getInstance();
-//        thatDay.setTime(d);
-//        Calendar c = Calendar.getInstance();
-//        SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy");
-//        String formattedDate = df.format(c.getTime());
-//        long diff = c.getTimeInMillis() - thatDay.getTimeInMillis(); //result in millis
-//        days = diff / (24 * 60 );
-//        holder.text_dispdate.setText("accepted before "+days+" days");
 
 
         return convertView;
@@ -480,6 +389,7 @@ else {
                     catego.setPrice(finalObject.getString("price"));
 catego.setStudentsCount(finalObject.getString("studentsCount"));
 catego.setMinPrice(finalObject.getString("minPrice"));
+catego.set_id(finalObject.getString("_id"));
                     JSONArray jsonArray1 = finalObject.getJSONArray("schedules");
                     for (int j = 0; j < jsonArray1.length(); j++) {
                         JSONObject jsonObject = jsonArray1.getJSONObject(j);
@@ -528,39 +438,44 @@ catego.setMinPrice(finalObject.getString("minPrice"));
                 underser_gif.setVisibility(View.INVISIBLE);
                 Schedule_class adapter = new Schedule_class(getActivity(), R.layout.schedule_list, ScheduleMode);
                 LVschedule.setAdapter(adapter);
-                LVschedule.setOnItemClickListener( new AdapterView.OnItemClickListener() {
-                    @Override
-                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                        Schedule_upcoming_list schedule_upcoming_list = ScheduleMode.get(position);
-                        Intent intent = new Intent(getActivity(),ScheduleDetailPage.class);
-                        intent.putExtra("subject_name",schedule_upcoming_list.getSubject());
-                        intent.putExtra("type_subject",schedule_upcoming_list.getType());
-                        intent.putExtra("schedule_description",schedule_upcoming_list.getDescription());
-                        intent.putExtra("latitude",schedule_upcoming_list.getLat());
-                        intent.putExtra("longitude",schedule_upcoming_list.getLng());
-                  intent.putExtra("schedule_price",schedule_upcoming_list.getPrice());
-                        intent.putExtra("studentscount",schedule_upcoming_list.getStudentsCount());
-intent.putExtra("minprice",schedule_upcoming_list.getMinPrice());
-                        String Scompletestart=schedule_upcoming_list.getStart();
-                        String Scompleteend=schedule_upcoming_list.getEnd();
+                if (navtab_list.equals("upcoming")) {
+                    Log.i("checksch",navtab_list);
+                    LVschedule.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                        @Override
+                        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                            Schedule_upcoming_list schedule_upcoming_list = ScheduleMode.get(position);
+                            Intent intent = new Intent(getActivity(), ScheduleDetailPage.class);
+                            intent.putExtra("subject_name", schedule_upcoming_list.getSubject());
+                            intent.putExtra("type_subject", schedule_upcoming_list.getType());
+                            intent.putExtra("schedule_description", schedule_upcoming_list.getDescription());
+                            intent.putExtra("latitude", schedule_upcoming_list.getLat());
+                            intent.putExtra("longitude", schedule_upcoming_list.getLng());
+                            intent.putExtra("schedule_price", schedule_upcoming_list.getPrice());
+                            intent.putExtra("studentscount", schedule_upcoming_list.getStudentsCount());
+                            intent.putExtra("minprice", schedule_upcoming_list.getMinPrice());
+                            intent.putExtra("cateid",schedule_upcoming_list.get_id());
+                            String Scompletestart = schedule_upcoming_list.getStart();
+                            String Scompleteend = schedule_upcoming_list.getEnd();
 
-                        String startdate=Scompletestart.substring(0,10);
-                        String starttime=Scompletestart.substring(11,19);
-                        String enddate=Scompleteend.substring(0,10);
-                        String endtime=Scompleteend.substring(11,19);
-                        String time_sched=Scompletestart.substring(11,16);
-                        String datestart=startdate+ " "+starttime;
-                        String dateend=enddate+ " "+endtime;
-                        int diff = DateTimeUtils.getDateDiff(datestart,dateend, DateTimeUnits.HOURS);
-                        diff=Math.abs(diff);
-                       String shours=diff+" hours - ";
-                        String stimsc= time_sched+" | ";
-                        String smonth= DateTimeUtils.formatWithPattern(startdate, " MMMM dd");
-                        intent.putExtra("hrschmon",shours+stimsc+smonth);
-                        startActivity(intent);
-                    }
-                });
-                adapter.notifyDataSetChanged();
+                            String startdate = Scompletestart.substring(0, 10);
+                            String starttime = Scompletestart.substring(11, 19);
+                            String enddate = Scompleteend.substring(0, 10);
+                            String endtime = Scompleteend.substring(11, 19);
+                            String time_sched = Scompletestart.substring(11, 16);
+                            String datestart = startdate + " " + starttime;
+                            String dateend = enddate + " " + endtime;
+                            int diff = DateTimeUtils.getDateDiff(datestart, dateend, DateTimeUnits.HOURS);
+                            diff = Math.abs(diff);
+                            String shours = diff + " hours - ";
+                            String stimsc = time_sched + " | ";
+                            String smonth = DateTimeUtils.formatWithPattern(startdate, " MMMM dd");
+                            intent.putExtra("hrschmon", shours + stimsc + smonth);
+                            startActivity(intent);
+                        }
+                    });
+                    adapter.notifyDataSetChanged();
+                }
+
 
             }
             else
@@ -572,6 +487,255 @@ intent.putExtra("minprice",schedule_upcoming_list.getMinPrice());
 
             }
         }
-    
+
+
+
+    public class Schedule_history_class extends ArrayAdapter {
+        private List<Schedule_history_list> ScheduleModeList;
+        private int resource;
+        Context context;
+        private LayoutInflater inflater;
+        Schedule_history_class(Context context, int resource, List<Schedule_history_list> objects) {
+            super(context, resource, objects);
+            ScheduleModeList = objects;
+            this.context = context;
+            this.resource = resource;
+            inflater = (LayoutInflater) getActivity().getSystemService(LAYOUT_INFLATER_SERVICE);
+        }
+        @Override
+        public int getViewTypeCount() {
+            return 1;
+        }
+        @Override
+        public int getItemViewType(int position) {
+            return position;
+        }
+        @SuppressLint("SetTextI18n")
+        @NonNull
+        @Override
+        public View getView(final int position, View convertView, @NonNull ViewGroup parent) {
+            final ViewHolder holder;
+            if (convertView == null) {
+                convertView = inflater.inflate(resource, null);
+                holder = new ViewHolder();
+                holder.TVsubjectname = convertView.findViewById(R.id.sub_name_sched);
+                holder.TVtypemenbers = convertView.findViewById(R.id.group_one_title);
+                holder.TVschedule_des = convertView.findViewById(R.id.schedule_description);
+                holder.TVprice_schedule = convertView.findViewById(R.id.price_schedule);
+                holder.TVhours=convertView.findViewById(R.id.hours_sched);
+                holder.TVmonth=convertView.findViewById(R.id.month_day_sched);
+                holder.TVtime_sched=convertView.findViewById(R.id.time_sched);
+                //     holder.TVstart_time = convertView.findViewById(R.id.hours_sched);
+                convertView.setTag(holder);
+            }//ino
+            else {
+                holder = (ViewHolder) convertView.getTag();
+            }
+            Schedule_history_list supl = ScheduleModeList.get(position);
+            holder.TVsubjectname.setText(supl.getSubject());
+            String type_group=supl.getType();
+            if (type_group.equals("oneonone"))
+            {
+                type_group="1 to 1";
+            }
+            holder.TVtypemenbers.setText(type_group);
+            holder.TVschedule_des.setText(supl.getDescription());
+            holder.TVprice_schedule.setText(supl.getPrice());
+            String Scompletestart=supl.getStart();
+            String Scompleteend=supl.getEnd();
+            String startdate=Scompletestart.substring(0,10);
+            String starttime=Scompletestart.substring(11,19);
+            String enddate=Scompleteend.substring(0,10);
+            String endtime=Scompleteend.substring(11,19);
+            String time_sched=Scompletestart.substring(11,16);
+            String datestart=startdate+ " "+starttime;
+            String dateend=enddate+ " "+endtime;
+            int diff = DateTimeUtils.getDateDiff(datestart,dateend, DateTimeUnits.HOURS);
+            diff=Math.abs(diff);
+            holder.TVhours.setText(diff+" hours - ");
+            holder.TVtime_sched.setText(time_sched+" | ");
+            String monthformating=DateTimeUtils.formatWithPattern(startdate, "EEE, MMM dd");
+            holder.TVmonth.setText(monthformating);
+
+                SwipeMenuCreator creator = new SwipeMenuCreator() {
+                    @Override
+                    public void create(SwipeMenu menu) {
+                        // create "open" item
+                        SwipeMenuItem more_sched = new SwipeMenuItem(
+                                getContext());
+                        // set item background
+                        more_sched.setBackground(new ColorDrawable(Color.rgb(0xC9, 0xC9,
+                                0xCE)));
+                        // set item width
+                        more_sched.setWidth(180);
+                        // set item title
+                        more_sched.setTitle("More");
+                        more_sched.setIcon(R.drawable.ic_more_horiz_black_24dp);
+                        // set item title fontsize
+                        more_sched.setTitleSize(12);
+                        // set item title font color
+                        more_sched.setTitleColor(Color.WHITE);
+                        // add to menu
+                        menu.addMenuItem(more_sched);
+                        // create "delete" item
+                        SwipeMenuItem review_sched = new SwipeMenuItem(
+                                getContext());
+                        // set item background
+                        review_sched.setBackground(new ColorDrawable(Color.rgb(0x62, 0xCD,
+                                0xEC)));
+                        // set item width
+                        review_sched.setWidth(180);
+                        review_sched.setTitle("Review");
+                        review_sched.setTitleSize(12);
+                        // set item title font color
+                        review_sched.setTitleColor(Color.WHITE);
+                        // set a icon
+                        review_sched.setIcon(R.drawable.review_list);
+                        // add to menu
+                        menu.addMenuItem(review_sched);
+                    }
+                };
+            LVschedule_history.setMenuCreator(creator);
+            LVschedule_history.setOnMenuItemClickListener(new SwipeMenuListView.OnMenuItemClickListener() {
+                    @Override
+                    public boolean onMenuItemClick(int position, SwipeMenu menu, int index) {
+                        switch (index) {
+                            case 0:
+                                new MaterialDialog.Builder(getActivity())
+                                        .title("More")
+                                        .items(historymore)
+                                        .icon(getResources().getDrawable(R.drawable.ic_more_horiz_black_24dp))
+                                        .itemsCallback(new MaterialDialog.ListCallback() {
+                                            @Override
+                                            public void onSelection(MaterialDialog dialog, View view, int which, CharSequence text) {
+                                            }
+                                        })
+                                        .show();
+                                break;
+                            case 1:
+                                Toast.makeText(getActivity(), "Chat "+position, Toast.LENGTH_SHORT).show();
+                                break;
+                        }
+                        return false;
+                    }
+                });
+
+
+            return convertView;
+        }
+        class ViewHolder {
+            private TextView TVsubjectname;
+            private TextView TVtypemenbers;
+            private TextView TVschedule_des;
+            private TextView TVprice_schedule;
+            private  TextView TVhours;
+            private  TextView TVtime_sched;
+            private  TextView TVmonth;
+            //  private TextView TVstart_time;
+        }
+    }
+
+    @SuppressLint("StaticFieldLeak")
+    public class ScheduleAsyncListHistory extends AsyncTask<String, String, List<Schedule_history_list>> {
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            avi.show();
+        }
+        @Override
+        protected List<Schedule_history_list> doInBackground(String... params) {
+            HttpURLConnection connection = null;
+            BufferedReader reader = null;
+            try {
+                URL url = new URL(params[0]);
+                connection = (HttpURLConnection) url.openConnection();
+                connection.setRequestProperty("content-type","application/json");
+                connection.setRequestProperty("x-tutor-app-id","tutor-app-android");
+                connection.setRequestProperty("authorization","Bearer "+Stoken);
+                connection.setRequestMethod("GET");
+                connection.connect();
+                InputStream stream = connection.getInputStream();
+                reader = new BufferedReader(new InputStreamReader(stream));
+                StringBuilder buffer = new StringBuilder();
+                String line = "";
+                while ((line = reader.readLine()) != null) {
+                    buffer.append(line);
+                }
+                String finalJson = buffer.toString();
+                JSONObject parentObject = new JSONObject(finalJson);
+                JSONArray parentArray = parentObject.getJSONArray("classes");
+                List<Schedule_history_list> milokilo = new ArrayList<>();
+                Gson gson = new Gson();
+                for (int i = 0; i < parentArray.length(); i++) {
+                    JSONObject finalObject = parentArray.getJSONObject(i);
+                    //
+                    Schedule_history_list catego = new Schedule_history_list();
+                    catego.setSubject(finalObject.getString("subject"));
+                    catego.setType(finalObject.getString("type"));
+                    catego.setDescription(finalObject.getString("description"));
+                    catego.setPrice(finalObject.getString("price"));
+                    catego.setStudentsCount(finalObject.getString("studentsCount"));
+                    catego.setMinPrice(finalObject.getString("minPrice"));
+                    catego.set_id(finalObject.getString("_id"));
+
+                    JSONArray jsonArray1 = finalObject.getJSONArray("schedules");
+                    for (int j = 0; j < jsonArray1.length(); j++) {
+                        JSONObject jsonObject = jsonArray1.getJSONObject(j);
+                        catego.setStart(jsonObject.getString("start"));
+                        catego.setEnd(jsonObject.getString("end"));
+
+                    }
+                    try {
+                        JSONObject jlocati=finalObject.getJSONObject("location");
+                        catego.setLat(jlocati.getString("lat"));
+                        catego.setLng(jlocati.getString("lng"));
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                    milokilo.add(catego);
+                }
+                return milokilo;
+            } catch (JSONException | IOException e) {
+                e.printStackTrace();
+            } finally {
+                if (connection != null) {
+                    connection.disconnect();
+                }
+                try {
+                    if (reader != null) {
+                        reader.close();
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+            return null;
+        }
+        @Override
+        protected void onPostExecute(final List<Schedule_history_list> Schedule_Mode_Class) {
+            super.onPostExecute(Schedule_Mode_Class);
+            avi.hide();
+            if ((Schedule_Mode_Class != null) && (Schedule_Mode_Class.size()>0))
+            {
+                LVschedule_history.setVisibility(View.VISIBLE);
+                nodatatextview.setVisibility(View.INVISIBLE);
+                underser_gif.setVisibility(View.INVISIBLE);
+                Schedule_history_class adapter = new Schedule_history_class(getActivity(), R.layout.schedule_list, Schedule_Mode_Class);
+                LVschedule_history.setAdapter(adapter);
+
+                adapter.notifyDataSetChanged();
+
+            }
+            else
+            {
+                LVschedule_history.setVisibility(View.INVISIBLE);
+                nodatatextview.setVisibility(View.VISIBLE);
+                underser_gif.setVisibility(View.VISIBLE);
+            }
+        }
+    }
+
+
+
 
 }

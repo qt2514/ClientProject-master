@@ -45,7 +45,7 @@ public class Global_url_twotr {
     public  static String Profile_image_id_verification=Base_Imgurl+"/userinfo/verification/id/";
     public  static String Profile_dashboard=Base_url +"class/dashboard/upcoming?page=1&size=10";
 
-
+public static  String Tutor_Schedule_update=Base_url+"class/upcoming/update/";
 
 
 }

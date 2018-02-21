@@ -109,8 +109,8 @@
         <activity
             android:name=".tutorfiles.ScheduleDetailPage"
             android:label="@string/title_activity_schedule_detail_page"
+            android:windowSoftInputMode="stateHidden"
             android:screenOrientation="portrait"
-
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".tutorfiles.Profile_Page"
