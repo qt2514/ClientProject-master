@@ -1,12 +1,10 @@
 package com.twotr.twotr.tutorfiles;
 
 import android.annotation.SuppressLint;
-
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -202,11 +200,10 @@ linear_layout.setVisibility(View.VISIBLE);
             StringRequest stringRequest = new StringRequest(Request.Method.POST, Global_url_twotr.Tutor_Schedule_update+Sid, new Response.Listener<String>() {
 
                 public void onResponse(String response) {
-                    Fragment fragment = new TutorSchedule();
-                    getSupportFragmentManager().beginTransaction()
-                            .replace(R.id.contentContainer, fragment, fragment.getClass().getSimpleName())
-                            .addToBackStack(null)
-                            .commit();
+                    startActivity(new Intent(ScheduleDetailPage.this,HomePage.class));
+//                    getSupportFragmentManager().beginTransaction()
+//                            .replace(R.id.contentContainer, fragment, fragment.getClass().getSimpleName())
+//                            .commit();
 
                 }
             }, new Response.ErrorListener() {

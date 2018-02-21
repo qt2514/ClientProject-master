@@ -22,6 +22,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.afollestad.materialdialogs.MaterialDialog;
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.VolleyLog;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.baoyz.swipemenulistview.SwipeMenu;
 import com.baoyz.swipemenulistview.SwipeMenuCreator;
 import com.baoyz.swipemenulistview.SwipeMenuItem;
@@ -30,6 +38,7 @@ import com.github.thunder413.datetimeutils.DateTimeUnits;
 import com.github.thunder413.datetimeutils.DateTimeUtils;
 import com.google.gson.Gson;
 import com.twotr.twotr.R;
+import com.twotr.twotr.globalpackfiles.Global_url_twotr;
 import com.wang.avi.AVLoadingIndicatorView;
 
 import org.json.JSONArray;
@@ -40,10 +49,13 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import pl.droidsonroids.gif.GifImageView;
 
@@ -61,6 +73,7 @@ private  String schedule_list_url;
     SharedPreferences Shared_user_details;
     public String Stoken;
 TextView nodatatextview;
+    Schedule_history_class adapter_history;
     GifImageView underser_gif;
     String[] upcomingmore = {
             "Reschedule",
@@ -72,8 +85,10 @@ TextView nodatatextview;
             "Delete"
 
     };
+    List<Schedule_history_list> milokilo;
     String navtab_list="upcoming";
-    List<Schedule_upcoming_list> ScheduleMode;
+
+    SwipeMenuCreator swipeMenuCreatorhostory;
     public static TutorSchedule newInstance() {
         return new TutorSchedule();
     }
@@ -557,7 +572,7 @@ catego.set_id(finalObject.getString("_id"));
             String monthformating=DateTimeUtils.formatWithPattern(startdate, "EEE, MMM dd");
             holder.TVmonth.setText(monthformating);
 
-                SwipeMenuCreator creator = new SwipeMenuCreator() {
+                 swipeMenuCreatorhostory = new SwipeMenuCreator() {
                     @Override
                     public void create(SwipeMenu menu) {
                         // create "open" item
@@ -595,10 +610,12 @@ catego.set_id(finalObject.getString("_id"));
                         menu.addMenuItem(review_sched);
                     }
                 };
-            LVschedule_history.setMenuCreator(creator);
+            LVschedule_history.setMenuCreator(swipeMenuCreatorhostory);
             LVschedule_history.setOnMenuItemClickListener(new SwipeMenuListView.OnMenuItemClickListener() {
                     @Override
-                    public boolean onMenuItemClick(int position, SwipeMenu menu, int index) {
+                    public boolean onMenuItemClick(int position, SwipeMenu menu, final int index) {
+                        final Schedule_history_list schedule_history_list = milokilo.get(position);
+
                         switch (index) {
                             case 0:
                                 new MaterialDialog.Builder(getActivity())
@@ -608,12 +625,25 @@ catego.set_id(finalObject.getString("_id"));
                                         .itemsCallback(new MaterialDialog.ListCallback() {
                                             @Override
                                             public void onSelection(MaterialDialog dialog, View view, int which, CharSequence text) {
+                                                switch (which)
+                                                {
+                                                    case 0:
+
+
+                                                        break;
+                                                    case 1:
+                                                        String id=schedule_history_list.get_id();
+                                                        delete_mylist(id);
+                                                        break;
+                                                }
+
+
                                             }
                                         })
                                         .show();
                                 break;
                             case 1:
-                                Toast.makeText(getActivity(), "Chat "+position, Toast.LENGTH_SHORT).show();
+                              //  Toast.makeText(getActivity(), "Chat "+position, Toast.LENGTH_SHORT).show();
                                 break;
                         }
                         return false;
@@ -664,7 +694,7 @@ catego.set_id(finalObject.getString("_id"));
                 String finalJson = buffer.toString();
                 JSONObject parentObject = new JSONObject(finalJson);
                 JSONArray parentArray = parentObject.getJSONArray("classes");
-                List<Schedule_history_list> milokilo = new ArrayList<>();
+           milokilo = new ArrayList<>();
                 Gson gson = new Gson();
                 for (int i = 0; i < parentArray.length(); i++) {
                     JSONObject finalObject = parentArray.getJSONObject(i);
@@ -720,10 +750,10 @@ catego.set_id(finalObject.getString("_id"));
                 LVschedule_history.setVisibility(View.VISIBLE);
                 nodatatextview.setVisibility(View.INVISIBLE);
                 underser_gif.setVisibility(View.INVISIBLE);
-                Schedule_history_class adapter = new Schedule_history_class(getActivity(), R.layout.schedule_list, Schedule_Mode_Class);
-                LVschedule_history.setAdapter(adapter);
+                 adapter_history = new Schedule_history_class(getActivity(), R.layout.schedule_list, Schedule_Mode_Class);
+                LVschedule_history.setAdapter(adapter_history);
 
-                adapter.notifyDataSetChanged();
+                adapter_history.notifyDataSetChanged();
 
             }
             else
@@ -735,7 +765,72 @@ catego.set_id(finalObject.getString("_id"));
         }
     }
 
+public void delete_mylist(String id)
+{
 
+    try {
+
+        RequestQueue requestQueue = Volley.newRequestQueue(getContext());
+        JSONObject jsonObjectall = new JSONObject();
+        jsonObjectall.put("null", "sd");
+        final String requestBody = jsonObjectall.toString();
+
+        StringRequest stringRequest = new StringRequest(Request.Method.DELETE, Global_url_twotr.Tutor_schedule_delete+id, new Response.Listener<String>() {
+
+            public void onResponse(String response) {
+               adapter_history.notifyDataSetChanged();
+             //   startActivity(new Intent(getActivity(),HomePage.class));
+//                    getSupportFragmentManager().beginTransaction()
+//                            .replace(R.id.contentContainer, fragment, fragment.getClass().getSimpleName())
+//                            .commit();
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+                Log.e("VOLLEY", error.toString());
+            }
+        }) {
+            @Override
+            public String getBodyContentType() {
+
+                return "application/json; charset=utf-8";
+            }
+
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                HashMap<String, String> headers = new HashMap<String, String>();
+                 headers.put("content-Type", "application/json");
+                headers.put("x-tutor-app-id", "tutor-app-android");
+                headers.put("authorization","Bearer "+Stoken);
+
+                return headers;
+
+            }
+
+            @Override
+            public byte[] getBody() throws AuthFailureError {
+                try {
+                    return requestBody == null ? null : requestBody.getBytes("utf-8");
+
+                } catch (UnsupportedEncodingException uee) {
+                    VolleyLog.wtf("Unsupported Encoding while trying to get the bytes of %s using %s", requestBody, "utf-8");
+                    return null;
+                }
+            }
+
+
+
+
+        };
+
+        requestQueue.add(stringRequest);
+    } catch (JSONException e) {
+        e.printStackTrace();
+    }
+
+}
 
 
 }

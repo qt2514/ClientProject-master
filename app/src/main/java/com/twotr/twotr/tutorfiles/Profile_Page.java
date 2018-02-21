@@ -11,6 +11,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.InputType;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -50,7 +51,7 @@ public class Profile_Page extends AppCompatActivity {
     ScrollView scrollview_personal,scrollView_educational,scrollview_professional;
     String s_profile;
     SharedPreferences Shared_user_details;
-    String Stoken;
+    String Stoken,Sid;
     TextView TVemailverify,TVmobileverify;
     AVLoadingIndicatorView avi;
     Context context;
@@ -71,7 +72,9 @@ public class Profile_Page extends AppCompatActivity {
     LinearLayoutManager HorizontalLayout,HorizontalLayoutsub ;
 
 
+    private Boolean mobile_firstTime = null;
 
+    private Boolean email_firstTime = null;
 
     Boolean isEducationCompleted, isProfessionalCompleted;
     @Override
@@ -104,7 +107,9 @@ TVheadernameshort=findViewById(R.id.prof_prof_name_short);
         scrollview_professional=findViewById(R.id.srcollview_professional);
         Shared_user_details=getSharedPreferences("user_detail_mode",0);
         Stoken=  Shared_user_details.getString("token", null);
- TVmajor=findViewById(R.id.profile_edu_major);
+        Sid=  Shared_user_details.getString("id", null);
+
+        TVmajor=findViewById(R.id.profile_edu_major);
  TVinsitute=findViewById(R.id.prof_edu_insitute);
  TVyear=findViewById(R.id.prof_edu_dyear);
 CIVprofimage=findViewById(R.id.image_profile);
@@ -220,7 +225,9 @@ CIVprofimage=findViewById(R.id.image_profile);
 TVemailverify.setOnClickListener(new View.OnClickListener() {
     @Override
     public void onClick(View v) {
+        email_verify();
         new MaterialDialog.Builder(Profile_Page.this)
+
                 .title("Email Verification")
                 .content("Verification Mail has been sent to your mail id.Please Check !")
                 .positiveText("Ok")
@@ -246,14 +253,15 @@ TVemailverify.setOnClickListener(new View.OnClickListener() {
 TVmobileverify.setOnClickListener(new View.OnClickListener() {
     @Override
     public void onClick(View v) {
+        mobile_verify();
         new MaterialDialog.Builder(Profile_Page.this)
                 .title("Enter Your OTP")
-                .content("This is Content")
+                .content("A verification sms has been sent to your mobile number")
                 .inputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_CLASS_NUMBER)
                 .input("Enter Your OTP","", new MaterialDialog.InputCallback() {
                     @Override
                     public void onInput(MaterialDialog dialog, CharSequence input) {
-                        // Do something
+                        mobile_verify_pass(input.toString());
                     }
                 }).show();
 
@@ -276,6 +284,11 @@ recyclerView.setHorizontalScrollBarEnabled(false);
         HorizontalLayoutsub = new LinearLayoutManager(Profile_Page.this, LinearLayoutManager.HORIZONTAL, false);
         recyclerViewsub.setLayoutManager(HorizontalLayoutsub);
         recyclerViewsub.setHorizontalScrollBarEnabled(false);
+
+
+
+
+
     }
 
 
@@ -453,5 +466,229 @@ TVexperi.setText(Sexperience);
 
         requestQueue.add(stringRequest);
     }
+    public void mobile_verify_send() {
+        RequestQueue requestQueue = Volley.newRequestQueue(this);
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, Global_url_twotr.Tutor_number_send, new Response.Listener<String>() {
 
+            public void onResponse(String response) {
+                Log.i("mssre",response);
+
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.i("msser",error.toString());
+            }
+        }) {
+            @Override
+            public String getBodyContentType() {
+
+                return "application/json; charset=utf-8";
+            }
+
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                HashMap<String, String> headers = new HashMap<String, String>();
+                headers.put("content-Type", "application/json");
+                headers.put("x-tutor-app-id", "tutor-app-android");
+                headers.put("authorization", "Bearer "+Stoken);
+
+
+                return headers;
+
+            }
+
+
+
+        };
+
+        requestQueue.add(stringRequest);
+    }
+    public void mobile_verify_resend() {
+        RequestQueue requestQueue = Volley.newRequestQueue(this);
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, Global_url_twotr.Tutor_number_resend, new Response.Listener<String>() {
+
+            public void onResponse(String response) {
+                Log.i("mssre",response);
+
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.i("msser",error.toString());
+            }
+        }) {
+            @Override
+            public String getBodyContentType() {
+
+                return "application/json; charset=utf-8";
+            }
+
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                HashMap<String, String> headers = new HashMap<String, String>();
+                headers.put("content-Type", "application/json");
+                headers.put("x-tutor-app-id", "tutor-app-android");
+                headers.put("authorization", "Bearer "+Stoken);
+
+
+                return headers;
+
+            }
+
+
+
+        };
+
+        requestQueue.add(stringRequest);
+    }
+
+    public void email_verify_send() {
+        RequestQueue requestQueue = Volley.newRequestQueue(this);
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, Global_url_twotr.Tutor_email_send, new Response.Listener<String>() {
+
+            public void onResponse(String response) {
+                Log.i("mssre",response);
+
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.i("msser",error.toString());
+            }
+        }) {
+            @Override
+            public String getBodyContentType() {
+
+                return "application/json; charset=utf-8";
+            }
+
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                HashMap<String, String> headers = new HashMap<String, String>();
+                headers.put("content-Type", "application/json");
+                headers.put("x-tutor-app-id", "tutor-app-android");
+                headers.put("authorization", "Bearer "+Stoken);
+
+
+                return headers;
+
+            }
+
+
+
+        };
+
+        requestQueue.add(stringRequest);
+    }
+    public void email_verify_resend() {
+        RequestQueue requestQueue = Volley.newRequestQueue(this);
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, Global_url_twotr.Tutor_email_resend, new Response.Listener<String>() {
+
+            public void onResponse(String response) {
+                Log.i("mssre",response);
+
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.i("msser",error.toString());
+            }
+        }) {
+            @Override
+            public String getBodyContentType() {
+
+                return "application/json; charset=utf-8";
+            }
+
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                HashMap<String, String> headers = new HashMap<String, String>();
+                headers.put("content-Type", "application/json");
+                headers.put("x-tutor-app-id", "tutor-app-android");
+                headers.put("authorization", "Bearer "+Stoken);
+
+
+                return headers;
+
+            }
+
+
+
+        };
+
+        requestQueue.add(stringRequest);
+    }
+    public void mobile_verify_pass(String otp) {
+        RequestQueue requestQueue = Volley.newRequestQueue(this);
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, Global_url_twotr.Tutor_number_send_otp_verify+Sid+"/"+otp, new Response.Listener<String>() {
+
+            public void onResponse(String response) {
+                TVmobileverify.setVisibility(View.INVISIBLE);
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.i("mssotper",error.toString());
+            }
+        }) {
+            @Override
+            public String getBodyContentType() {
+
+                return "application/json; charset=utf-8";
+            }
+
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                HashMap<String, String> headers = new HashMap<String, String>();
+                headers.put("content-Type", "application/json");
+                headers.put("x-tutor-app-id", "tutor-app-android");
+                headers.put("authorization", "Bearer "+Stoken);
+
+
+                return headers;
+
+            }
+
+
+
+        };
+
+        requestQueue.add(stringRequest);
+    }
+
+    public void mobile_verify() {
+        if (mobile_firstTime== null) {
+            SharedPreferences mPreferences = this.getSharedPreferences("mobile_firstTime", Context.MODE_PRIVATE);
+            mobile_firstTime = mPreferences.getBoolean("mobile_firstTime", true);
+            if (mobile_firstTime) {
+                SharedPreferences.Editor editor = mPreferences.edit();
+                editor.putBoolean("mobile_firstTime", false);
+                editor.apply();
+                mobile_verify_send();
+            } else
+            {
+                mobile_verify_resend();
+            }
+        }
+    }
+    public void email_verify() {
+        if (email_firstTime == null) {
+            SharedPreferences mPreferences = this.getSharedPreferences("email_firstTime", Context.MODE_PRIVATE);
+            email_firstTime = mPreferences.getBoolean("email_firstTime", true);
+            if (email_firstTime) {
+                SharedPreferences.Editor editor = mPreferences.edit();
+                editor.putBoolean("email_firstTime", false);
+                editor.apply();
+                email_verify_send();
+            } else
+            {
+                email_verify_resend();
+            }
+        }
+    }
 }

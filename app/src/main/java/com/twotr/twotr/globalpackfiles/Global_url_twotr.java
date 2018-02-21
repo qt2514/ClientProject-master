@@ -46,6 +46,24 @@ public class Global_url_twotr {
     public  static String Profile_dashboard=Base_url +"class/dashboard/upcoming?page=1&size=10";
 
 public static  String Tutor_Schedule_update=Base_url+"class/upcoming/update/";
+public static  String Tutor_schedule_delete=Base_url+"class/history/delete/";
+
+
+public static String Tutor_number_send=Base_url+"verify/sms/send";
+
+    public static String Tutor_number_resend=Base_url+"verify/sms/resend";
+
+    public static String Tutor_number_send_otp_verify=Base_url+"verify/sms/confirm/";
+
+    public static String Tutor_email_send=Base_url+"verify/email/send";
+
+
+    public static String Tutor_email_resend=Base_url+"verify/email/resend";
+
+    public static String Tutor_email_send_otp_verify=Base_url+"verify/email/confirm/";
+
+
+
 
 
 }

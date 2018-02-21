@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.support.annotation.IdRes;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
-import android.widget.Toast;
 
 import com.roughike.bottombar.BottomBar;
 import com.roughike.bottombar.OnTabSelectListener;
@@ -45,16 +44,10 @@ Boolean BisTeachingVerified,BisIdVerified,BisProfessionalCompleted,BisEducationC
         if (BisProfileCompleted)
 {
 
-        if (BisIdVerified) {
+        if (!BisIdVerified) {
 
-            Toast.makeText(this, "Welcome", Toast.LENGTH_SHORT).show();
-
-        }
-
-        else
-        {
             startActivity(new Intent(HomePage.this, Tutor_VerficationPage.class));
-finish();
+            finish();
         }
         }
 
