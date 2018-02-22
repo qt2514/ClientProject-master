@@ -64,5 +64,6 @@ dependencies {
     compile 'pl.droidsonroids.gif:android-gif-drawable:1.2.10'
     compile 'com.github.thunder413:DateTimeUtils:1.0'
     implementation 'com.afollestad.material-dialogs:commons:0.9.6.0'
+    compile 'me.zhanghai.android.materialratingbar:library:1.2.0'
 
 }

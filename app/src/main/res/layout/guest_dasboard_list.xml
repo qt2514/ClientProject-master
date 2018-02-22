@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_margin="8dp"
+        android:elevation="3dp"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:layout_width="match_parent"
+android:padding="10dp"
+            android:orientation="vertical"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+
+                android:layout_width="match_parent"
+              android:padding="5dp"
+
+                android:orientation="horizontal"
+                android:layout_height="wrap_content">
+
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/image_profileedit"
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
+                    android:layout_gravity="center"
+                    android:layout_margin="5dp"
+                    android:src="@drawable/profile_image_tutor" />
+
+<LinearLayout
+    android:layout_width="0dp"
+    android:orientation="vertical"
+    android:layout_weight="1"
+    android:layout_marginStart="20dp"
+    android:layout_height="wrap_content">
+   <TextView
+       android:layout_width="wrap_content"
+       android:text="Vignesh.S"
+       android:maxLines="1"
+android:textStyle="bold"
+       android:fontFamily="@font/montserrat"
+       android:textColor="@color/colorPrimaryDark"
+       android:textSize="16sp"
+     android:layout_margin="3dp"
+       android:layout_height="wrap_content" />
+
+
+    <me.zhanghai.android.materialratingbar.MaterialRatingBar
+        android:layout_width="wrap_content"
+        android:stepSize="1"
+        android:numStars="5"
+        android:layout_margin="3dp"
+        android:minHeight="18dp"
+        android:maxHeight="18dp"
+        android:layout_height="wrap_content"
+        style="@style/Widget.MaterialRatingBar.RatingBar" />
+</LinearLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_gravity="end|center"
+                    android:gravity="center|end"
+                    android:text="20 KWD"
+                    android:padding="10dp"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:layout_margin="5dp"
+                    android:background="@drawable/tab_curve_logocolor"
+                    android:textSize="14sp"
+                    android:fontFamily="@font/montserrat"
+                    android:layout_height="wrap_content" />
+
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1.3dp"
+            android:layout_margin="5dp"
+                android:background="#c4c4c4"/>
+
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:orientation="vertical"
+                android:padding="5dp"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+
+                    android:fontFamily="@font/montserrat"
+                  android:padding="2dp"
+                    android:text="Maths IV  1 on 1"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:orientation="horizontal"
+                    android:layout_gravity="center"
+
+                    android:layout_height="match_parent">
+                    <ImageView
+                        android:id="@+id/imageView3"
+                        android:layout_width="20dp"
+                        android:layout_margin="2dp"
+                        android:layout_gravity="center"
+                        android:layout_height="wrap_content"
+                        app:srcCompat="@drawable/ic_access_time_black_24dp" />
+<TextView
+    android:layout_width="wrap_content"
+    android:text="2 Hours - 2.30 PM | Nov 28"
+    android:layout_gravity="center"
+    android:layout_height="wrap_content" />
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+
+
+    </android.support.v7.widget.CardView>
+
+
+
+
+
+</RelativeLayout>

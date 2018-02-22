@@ -41,7 +41,6 @@
             android:name=".globalpackfiles.SplashActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
-
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -53,7 +52,6 @@
             android:name=".globalpackfiles.MainActivity"
             android:label="@string/title_activity_main"
             android:screenOrientation="portrait"
-
             android:theme="@style/AppTheme.NoActionBar" />
 
         <meta-data
@@ -63,8 +61,8 @@
         <activity
             android:name=".globalpackfiles.SignupActivity"
             android:label="@string/title_activity_signup"
-            android:screenOrientation="portrait"
             android:parentActivityName=".globalpackfiles.MainActivity"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
@@ -73,8 +71,8 @@
         <activity
             android:name=".globalpackfiles.SigninActivity"
             android:label="@string/title_activity_signin"
-            android:screenOrientation="portrait"
             android:parentActivityName=".globalpackfiles.MainActivity"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
@@ -99,8 +97,8 @@
 
         <activity
             android:name=".tutorfiles.Addmaptutor"
-            android:screenOrientation="portrait"
-            android:label="@string/title_activity_addmaptutor" />
+            android:label="@string/title_activity_addmaptutor"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".tutorfiles.ScheduleStart"
             android:label="@string/title_activity_schedule_start"
@@ -109,9 +107,9 @@
         <activity
             android:name=".tutorfiles.ScheduleDetailPage"
             android:label="@string/title_activity_schedule_detail_page"
-            android:windowSoftInputMode="stateHidden"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="stateHidden" />
         <activity
             android:name=".tutorfiles.Profile_Page"
             android:label="@string/title_activity_profile__page"
@@ -133,14 +131,12 @@
             android:name=".tutorfiles.Profile_Edit_Professional"
             android:label="@string/title_activity_profile__edit__professional"
             android:screenOrientation="portrait"
-
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="stateHidden" />
         <activity
             android:name=".tutorfiles.Schedule_ShowMap"
-            android:screenOrientation="portrait"
-
-            android:label="@string/title_activity_schedule__show_map" />
+            android:label="@string/title_activity_schedule__show_map"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".tutorfiles.Schedule_ShowSchedule"
             android:label="@string/title_activity_schedule__show_schedule"
@@ -173,6 +169,10 @@
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:screenOrientation="sensor"
             android:theme="@style/FinestWebViewTheme.Light" />
+        <activity
+            android:name=".guestfiles.GuestControlBoard"
+            android:label="@string/title_activity_guest_control_board"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

@@ -50,7 +50,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginBottom="50dp"
-
                 android:orientation="vertical">
                 <de.hdodenhof.circleimageview.CircleImageView
                     android:id="@+id/image_profileedit"
@@ -59,16 +58,6 @@
                     android:layout_gravity="center"
                     android:src="@drawable/profile_image_tutor" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/montserrat"
-                    android:text="First Name"
-                    android:textColor="@android:color/black"
-                    android:textSize="16sp"
-
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent" />
                 <EditText
                     android:id="@+id/per_prof_fname"
                     android:layout_width="match_parent"
@@ -85,14 +74,7 @@
                     android:textColorLink="@color/colorAccent"
                     />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/montserrat"
-                    android:text="Middle Name"
-                    android:layout_marginTop="10dp"
-                    android:textColor="@android:color/black"
-                    android:textSize="16sp" />
+
                 <EditText
                     android:id="@+id/per_prof_mname"
                     android:layout_width="match_parent"
@@ -110,14 +92,6 @@
                     app:layout_constraintStart_toStartOf="parent"/>
 
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/montserrat"
-                    android:text="Last Name"
-                    android:layout_marginTop="10dp"
-                    android:textColor="@android:color/black"
-                    android:textSize="16sp" />
                 <EditText
                     android:id="@+id/per_prof_lname"
                     android:layout_width="match_parent"
@@ -137,17 +111,7 @@
 
 
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/montserrat"
-                    android:text="Date of Birth"
-                    android:layout_marginTop="10dp"
 
-
-
-                    android:textColor="@android:color/black"
-                    android:textSize="16sp" />
                 <TextView
                     android:id="@+id/per_prof_dob"
                     android:layout_width="match_parent"
@@ -156,7 +120,7 @@
                    android:textSize="16sp"
                     android:layout_marginTop="5dp"
                     android:fontFamily="@font/montserrat"
-                    android:hint="27/03/1996"
+                    android:hint="Date of Birth"
                     android:textColor="@color/colorBlack"
                     android:padding="10dp"
                     android:singleLine="true"
@@ -164,16 +128,7 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"/>
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/montserrat"
-                    android:text="Mobile Number"
 
-
-                    android:layout_marginTop="10dp"
-                    android:textColor="@android:color/black"
-                    android:textSize="16sp" />
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="55dp"
@@ -185,7 +140,6 @@
                         android:background="@drawable/spiner_border"
                         android:gravity="center"
                         android:spinnerMode="dialog"
-
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_weight="3"
@@ -202,21 +156,13 @@
                         android:inputType="number"
                         android:padding="10dp"
                         android:imeOptions="actionDone"
-
                         android:maxLength="10"
                         android:singleLine="true"
                         android:textColor="@color/colorBlack"
                         android:textColorLink="@color/colorAccent"
                     />
                 </LinearLayout>
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/montserrat"
-                    android:text="Gender"
-                    android:layout_marginTop="10dp"
-                    android:textColor="@android:color/black"
-                    android:textSize="16sp" />
+
 
                 <Spinner
                     android:id="@+id/spinner_gender"
@@ -230,14 +176,7 @@
                     android:layout_centerHorizontal="true"
                     />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/montserrat"
-                    android:text="Time Zone "
-                    android:layout_marginTop="10dp"
-                    android:textColor="@android:color/black"
-                    android:textSize="16sp" />
+
                 <com.toptoche.searchablespinnerlibrary.SearchableSpinner
                     android:id="@+id/spinner_timezone"
                     android:background="@drawable/spiner_border"
@@ -248,15 +187,7 @@
                     android:layout_marginTop="5dp"
 
                     app:hintText="Select Time Zone"/>
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/montserrat"
-                    android:text="Subject"
 
-                    android:layout_marginTop="10dp"
-                    android:textColor="@android:color/black"
-                    android:textSize="16sp" />
                 <TextView
                     android:id="@+id/per_prof_subject"
                     android:layout_width="match_parent"
@@ -272,14 +203,7 @@
                     android:textColorLink="@color/colorAccent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"/>
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/montserrat"
-                    android:text="Grade"
-                    android:layout_marginTop="10dp"
-                    android:textColor="@android:color/black"
-                    android:textSize="16sp" />
+
                 <TextView
                     android:id="@+id/profile_gradespin"
                     android:layout_width="match_parent"
@@ -297,14 +221,6 @@
                     app:layout_constraintStart_toStartOf="parent"/>
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/montserrat"
-                    android:text="Address"
-                    android:layout_marginTop="10dp"
-                    android:textColor="@android:color/black"
-                    android:textSize="16sp" />
-                <TextView
                     android:id="@+id/per_prof_address"
                     android:layout_width="match_parent"
                     android:layout_height="55dp"
@@ -320,14 +236,7 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"/>
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/montserrat"
-                    android:text="City"
-                    android:layout_marginTop="10dp"
-                    android:textColor="@android:color/black"
-                    android:textSize="16sp" />
+
                 <EditText
                     android:id="@+id/per_prof_city"
                     android:layout_width="match_parent"
@@ -343,14 +252,6 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"/>
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/montserrat"
-                    android:text="Zip Code"
-                    android:layout_marginTop="10dp"
-                    android:textColor="@android:color/black"
-                    android:textSize="16sp" />
                 <EditText
                     android:id="@+id/per_prof_postal"
                     android:layout_width="match_parent"
@@ -366,20 +267,13 @@
                     android:textColorLink="@color/colorAccent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"/>
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/montserrat"
-                    android:text="Short Description"
-                    android:layout_marginTop="10dp"
-                    android:textColor="@android:color/black"
-                    android:textSize="16sp" />
+
                 <EditText
                     android:id="@+id/per_prof_description"
                     android:layout_width="match_parent"
                     android:layout_height="90dp"
                     android:background="@drawable/edittext_unselected"
-android:gravity="top"
+                    android:gravity="top"
                     android:layout_marginTop="5dp"
                     android:fontFamily="@font/montserrat"
                     android:hint="Short Description About You"
@@ -422,4 +316,9 @@ android:gravity="top"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+
+
+
+
 </RelativeLayout>

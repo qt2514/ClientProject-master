@@ -117,7 +117,6 @@ String Profile_update_url;
         et_per_city = findViewById(R.id.per_prof_city);
         et_per_zip = findViewById(R.id.per_prof_postal);
         TVsubject = findViewById(R.id.per_prof_subject);
-
         IVimage_profileedit = findViewById(R.id.image_profileedit);
         searchableSpinner_grade = findViewById(R.id.profile_gradespin);
         SStime_zone = findViewById(R.id.spinner_timezone);
@@ -399,35 +398,10 @@ imageView.setOnClickListener(new View.OnClickListener() {
              @Override
              public void onClick(View v) {
 
-//                 MultiSelectDialog multiSelectDialog = new MultiSelectDialog()
-//                         .title("Subject Name") //setting title for dialog
-//                         .titleSize(22)
-//                         .positiveText("Done")
-//                         .negativeText("Cancel")
-//                         .multiSelectList(subject_name) // the multi select model list with ids and name
-//                         .onSubmit(new MultiSelectDialog.SubmitCallbackListener() {
-//                             @Override
-//                             public void onSelected(ArrayList<Integer> selectedIds, ArrayList<String> selectedNames, String dataString) {
-//                                 //will return list of selected IDS
-//                                 for (int i = 0; i < selectedIds.size(); i++) {
-//                                     TVsubject.setText(dataString);
-//                                 //    Toast.makeText(Profile_Edit_Personal.this, dataString, Toast.LENGTH_SHORT).show();
-////                                     Toast.makeText(Profile_Edit_Personal.this, "Selected Ids : " + selectedIds.get(i) + "\n" +
-////                                             "Selected Names : " + selectedNames.get(i) + "\n" +
-////                                             "DataString : " + dataString, Toast.LENGTH_SHORT).show();
-//                                 }
-//                             }
-//
-//                             @Override
-//                             public void onCancel() {
-//                               //  Log.d(TAG,"Dialog cancelled");
-//                             }
-//                         });
-//
-//                 multiSelectDialog.show(getSupportFragmentManager(), "subject_select");
+
                  Intent intent = new Intent(Profile_Edit_Personal.this, MultiSubjectSpinner.class);
                  startActivityForResult(intent, SECOND_ACTIVITY_REQUEST_CODE);
-              //  startActivity(new Intent(Profile_Edit_Personal.this,MultiSubjectSpinner.class));
+
              }
          });
 
@@ -449,9 +423,6 @@ imageView.setOnClickListener(new View.OnClickListener() {
                                 for (int i = 0; i < selectedIds.size(); i++) {
                                     searchableSpinner_grade.setText(dataString);
 
-//                                    Toast.makeText(Profile_Edit_Personal.this, "Selected Ids : " + selectedIds.get(i) + "\n" +
-//                                            "Selected Names : " + selectedNames.get(i) + "\n" +
-//                                            "DataString : " + dataString, Toast.LENGTH_SHORT).show();
                                 }
 
 
@@ -683,74 +654,7 @@ et_per_fname.setOnFocusChangeListener(new View.OnFocusChangeListener() {
         requestQueue.add(stringRequest);
     }
 
-//    private void chooseImage() {
-//
-//        Intent i = new ImagePickerActivity.IntentBuilder(Profile_Edit_Personal.this)
-//                .crop()
-//                .useSourceImageAspectRatio()
-//                .saveIntermediateFile()
-//                .and()
-//                .build();
-//
-//        startActivityForResult(i, INTENT_REQUEST_GET_IMAGES);
-//
-//    }
 
-//    public void subject_name_list() {
-//
-//
-//        RequestQueue requestQueueq = Volley.newRequestQueue(this);
-//
-//        StringRequest stringRequest = new StringRequest(Request.Method.GET, Global_url_twotr.Profile_subject, new Response.Listener<String>() {
-//           @Override
-//            public void onResponse(String response) {
-//                try {
-//                    JSONObject jObj = new JSONObject(response);
-//                    JSONArray jsonArray = jObj.getJSONArray("subjects");
-//                    for (int i = 0; i < jsonArray.length(); i++) {
-//                        JSONObject jsonobject = jsonArray.getJSONObject(i);
-//                        String name = jsonobject.getString("title");
-//                     //  String id = jsonobject.getString("_id");
-//
-//                        subject_name.add(new MultiSelectModel(i,name));
-//                    }
-//
-//                } catch (JSONException e) {
-//                    e.printStackTrace();
-//                }
-//
-//            }
-//        }, new Response.ErrorListener() {
-//            @Override
-//            public void onErrorResponse(VolleyError error) {
-//
-//                Toast.makeText(Profile_Edit_Personal.this, error.toString(), Toast.LENGTH_SHORT).show();
-//            }
-//        }) {
-//            @Override
-//            public String getBodyContentType() {
-//
-//                return "application/json; charset=utf-8";
-//            }
-//
-//            @Override
-//            public Map<String, String> getHeaders() throws AuthFailureError {
-//                HashMap<String, String> headers = new HashMap<String, String>();
-//                // headers.put("Content-Type", "application/json");
-//                headers.put("x-tutor-app-id", "tutor-app-android");
-//                headers.put("Authorization", "Bearer "+Stoken);
-//
-//
-//                return headers;
-//
-//            }
-//
-//
-//
-//        };
-//
-//        requestQueueq.add(stringRequest);
-//    }
     public void time_zone() {
 
 

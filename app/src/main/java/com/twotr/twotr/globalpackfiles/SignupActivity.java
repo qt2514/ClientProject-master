@@ -250,7 +250,7 @@ public void signup_twotr(String sfull_name, String slast_name, String susername,
         jsonBody.put("firstName", sfull_name);
         jsonBody.put("lastName", slast_name);
         jsonBody.put("email", susername);
-        jsonBody.put("roles", jsonArray.put("tutor"));
+        jsonBody.put("roles", jsonArray.put(s_module));
         jsonBody.put("referredBy", sreferBy);
         jsonBody.put("password", spass_word);
         final String requestBody = jsonBody.toString();
@@ -260,8 +260,6 @@ public void signup_twotr(String sfull_name, String slast_name, String susername,
             public void onResponse(String response) {
                 avi.hide();
                 startActivity(new Intent(SignupActivity.this, SigninActivity.class));
-
-
 
             }
         }, new Response.ErrorListener() {

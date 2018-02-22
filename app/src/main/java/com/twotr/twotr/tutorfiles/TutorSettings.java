@@ -47,7 +47,6 @@ TextView TVtermsandcondi,TVabout;
         session = new SessionManager(getContext());
         Shared_user_details=this.getActivity().getSharedPreferences("user_detail_mode",0);
         editor = Shared_user_details.edit();
-
         TVprofile_link=view.findViewById(R.id.profile_link);
         TVsignout=view.findViewById(R.id.signout_settings);
         TVtermsandcondi=view.findViewById(R.id.termsandcondi_settings);
@@ -55,6 +54,7 @@ TextView TVtermsandcondi,TVabout;
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 getActivity(), drawer,  R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
+        drawer.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
         toggle.syncState();
         TVabout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -77,8 +77,6 @@ TextView TVtermsandcondi,TVabout;
 .show("https://www.twotr.com/about.html");
             }
         });
-
-
 
         TVtermsandcondi.setOnClickListener(new View.OnClickListener() {
             @Override

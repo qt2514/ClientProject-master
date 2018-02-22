@@ -51,7 +51,7 @@ public class Profile_Page extends AppCompatActivity {
     ScrollView scrollview_personal,scrollView_educational,scrollview_professional;
     String s_profile;
     SharedPreferences Shared_user_details;
-    String Stoken,Sid;
+    String Stoken,Sid,SfirstName,SmiddleName,SlastName;
     TextView TVemailverify,TVmobileverify;
     AVLoadingIndicatorView avi;
     Context context;
@@ -209,7 +209,11 @@ CIVprofimage=findViewById(R.id.image_profile);
             public void onClick(View v) {
                 if(s_profile.matches("personal")||s_profile.equals("personal"))
                 {
-                    startActivity(new Intent(Profile_Page.this,Profile_Edit_Personal.class));
+                    Intent intent = new Intent(Profile_Page.this, Profile_Edit_Personal.class);
+                    intent.putExtra("firstname", SfirstName);
+
+                    startActivity(intent);
+
                 }
                 else if(s_profile.matches("educational")||s_profile.equals("educational"))
                 {
@@ -344,9 +348,9 @@ recyclerView.setHorizontalScrollBarEnabled(false);
                     }
                     recyclerViewsub.setAdapter(RecyclerViewHorizontalAdaptersub);
                     JSONObject userprofile = jObj.getJSONObject("userProfile");
-                    String  SfirstName=userprofile.getString("firstName");
-                    String  SmiddleName=userprofile.getString("middleName");
-                    String  SlastName=userprofile.getString("lastName");
+                      SfirstName=userprofile.getString("firstName");
+                      SmiddleName=userprofile.getString("middleName");
+                      SlastName=userprofile.getString("lastName");
 
 //roles of tutor is left
 
