@@ -29,7 +29,7 @@ public class TutorSettings extends Fragment implements NavigationView.OnNavigati
 TextView TVprofile_link,TVsignout;
     DrawerLayout drawer;
 
-TextView TVtermsandcondi,TVabout;
+TextView TVtermsandcondi,TVabout,TVshare;
     private SessionManager session;
     SharedPreferences Shared_user_details;
     SharedPreferences.Editor editor;
@@ -51,6 +51,7 @@ TextView TVtermsandcondi,TVabout;
         TVsignout=view.findViewById(R.id.signout_settings);
         TVtermsandcondi=view.findViewById(R.id.termsandcondi_settings);
         TVabout=view.findViewById(R.id.about_settings);
+        TVshare=view.findViewById(R.id.shareapp);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 getActivity(), drawer,  R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
@@ -77,7 +78,18 @@ TextView TVtermsandcondi,TVabout;
 .show("https://www.twotr.com/about.html");
             }
         });
+TVshare.setOnClickListener(new View.OnClickListener() {
+    @Override
+    public void onClick(View v) {
 
+        Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
+        sharingIntent.setType("text/plain");
+        String shareBody = "I Love Twotr";
+        sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT,"TWOTR");
+        sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, shareBody);
+        startActivity(Intent.createChooser(sharingIntent, " This is about service"));
+    }
+});
         TVtermsandcondi.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

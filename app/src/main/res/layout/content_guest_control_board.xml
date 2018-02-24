@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -8,4 +8,64 @@
     tools:context="com.twotr.twotr.guestfiles.GuestControlBoard"
     tools:showIn="@layout/activity_guest_control_board">
 
-</android.support.constraint.ConstraintLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:id="@+id/top_relat"
+        android:gravity="top"
+        android:background="@color/colorPrimaryDark"
+        android:padding="10dp"
+        android:layout_height="wrap_content">
+
+
+        <EditText
+            android:id="@+id/subject_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:background="@drawable/search_bg_guest"
+            android:ems="13"
+            android:fontFamily="@font/montserrat"
+            android:gravity="start"
+            android:hint="Search your Keyword"
+            android:padding="5dp"
+            android:textColor="#fff"
+            android:textColorHint="@color/mdtp_white"
+            android:textSize="18sp" />
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/fab2"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignTop="@+id/subject_name"
+            app:backgroundTint="@color/colorPrimary"
+            app:elevation="4dp"
+            app:srcCompat="@drawable/ic_filter_results_button" />
+    </RelativeLayout>
+
+    <ListView
+        android:id="@+id/guset_subfil"
+        android:layout_below="@+id/top_relat"
+        android:background="@color/buttonColorSecondary"
+        android:layout_width="match_parent"
+        android:layout_marginBottom="63dp"
+    android:divider="@null"
+        android:dividerHeight="0dp"
+        android:layout_height="match_parent"/>
+
+
+
+    <com.wang.avi.AVLoadingIndicatorView
+        android:id="@+id/avi"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        style="@style/AVLoadingIndicatorView"
+        android:layout_centerHorizontal="true"
+        android:layout_centerInParent="true"
+        app:indicatorName="BallClipRotateMultipleIndicator"
+        app:indicatorColor="@color/colorPrimaryDark"
+        />
+
+
+</RelativeLayout>

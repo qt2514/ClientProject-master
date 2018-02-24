@@ -62,6 +62,8 @@ public static String Tutor_number_send=Base_url+"verify/sms/send";
 
     public static String Tutor_email_send_otp_verify=Base_url+"verify/email/confirm/";
 
+    public static String Guest_list_api=Base_url+"search/class?name=";
+
 
 
 

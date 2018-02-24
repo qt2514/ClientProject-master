@@ -65,5 +65,7 @@ dependencies {
     compile 'com.github.thunder413:DateTimeUtils:1.0'
     implementation 'com.afollestad.material-dialogs:commons:0.9.6.0'
     compile 'me.zhanghai.android.materialratingbar:library:1.2.0'
+    compile 'com.allattentionhere:fabulousfilter:0.0.5'
+    compile 'com.google.android:flexbox:0.3.2'
 
 }

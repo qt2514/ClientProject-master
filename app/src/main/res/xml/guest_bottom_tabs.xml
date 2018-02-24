@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<tabs>
+    <tab
+        id="@+id/tab_schedules"
+        icon="@drawable/schedule"
+        inActiveColor="@color/bottomcolor"
+        activeColor="@color/bottomactivetab"
+        barColorWhenSelected="#fff"
+        title="Schedule" />
+    <tab
+        id="@+id/tab_dashboard"
+        icon="@drawable/dashboard_bottom"
+        inActiveColor="@color/bottomcolor"
+        activeColor="@color/bottomactivetab"
+        barColorWhenSelected="#fff"
+        title="Dashboard" />
+    <tab
+        id="@+id/tab_create"
+        icon="@drawable/create"
+        inActiveColor="@color/bottomcolor"
+        activeColor="@color/bottomactivetab"
+        barColorWhenSelected="#fff"
+        title="Create" />
+    <tab
+        id="@+id/tab_settings"
+        icon="@drawable/setting"
+        inActiveColor="@color/bottomcolor"
+        activeColor="@color/bottomactivetab"
+        barColorWhenSelected="#fff"
+
+
+        title="Settings" />
+</tabs>

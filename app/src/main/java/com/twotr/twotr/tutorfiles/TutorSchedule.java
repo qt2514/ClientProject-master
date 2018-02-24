@@ -778,6 +778,8 @@ public void delete_mylist(String id)
         StringRequest stringRequest = new StringRequest(Request.Method.DELETE, Global_url_twotr.Tutor_schedule_delete+id, new Response.Listener<String>() {
 
             public void onResponse(String response) {
+                schedule_list_url = "http://twotr.com:5040/api/class/history?page=1&size=10" ;
+                new ScheduleAsyncListHistory().execute(schedule_list_url);
                adapter_history.notifyDataSetChanged();
              //   startActivity(new Intent(getActivity(),HomePage.class));
 //                    getSupportFragmentManager().beginTransaction()

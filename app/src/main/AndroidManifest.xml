@@ -172,7 +172,8 @@
         <activity
             android:name=".guestfiles.GuestControlBoard"
             android:label="@string/title_activity_guest_control_board"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:windowSoftInputMode="stateHidden"
+            android:theme="@style/AppTheme.NoActionBar"/>
     </application>
 
 </manifest>

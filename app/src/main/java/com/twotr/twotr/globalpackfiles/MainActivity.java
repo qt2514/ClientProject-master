@@ -15,12 +15,13 @@ import android.widget.TextView;
 
 import com.fujiyuu75.sequent.Sequent;
 import com.twotr.twotr.R;
+import com.twotr.twotr.guestfiles.GuestControlBoard;
 
 
 public class MainActivity extends AbsRuntimePermission {
 RelativeLayout layout;
 TextView signupbut;
-Button Bsignin;
+Button Bsignin,Bguest;
     private static final int REQUEST_PERMISSION = 10;
 
     Context context;
@@ -33,13 +34,11 @@ Button Bsignin;
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         context = getApplicationContext();
-
-
-
         layout =  findViewById(R.id.rel_layout);
        Sequent.origin(layout).anim(getApplicationContext(), com.fujiyuu75.sequent.Animation.FADE_IN_UP).start();
         signupbut=findViewById(R.id.sign_up);
         Bsignin=findViewById(R.id.main_signin);
+        Bguest=findViewById(R.id.main_guest);
         requestAppPermissions(new String[]{
                         Manifest.permission.READ_SMS,
 
@@ -67,7 +66,13 @@ CheckEnableGPS();
                 startActivity(new Intent(MainActivity.this, SignupActivity.class));
             }
         });
+Bguest.setOnClickListener(new View.OnClickListener() {
+    @Override
+    public void onClick(View v) {
+        startActivity(new Intent(MainActivity.this, GuestControlBoard.class));
 
+    }
+});
 
 
 

@@ -15,5 +15,8 @@
     <color name="buttonColorSecondarys">#bab9b9</color>
     <color name="bottomcolor">#bfbebe</color>
     <color name="bottomactivetab">#31a0a6</color>
+    <color name="coloryellow">#e6c314</color>
+    <color name="filters_chips">#b3e5fc</color>
+
 
 </resources>

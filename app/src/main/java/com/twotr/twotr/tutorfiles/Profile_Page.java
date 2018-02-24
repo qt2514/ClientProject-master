@@ -58,7 +58,7 @@ public class Profile_Page extends AppCompatActivity {
     TextView TVfirstname,TVmiddlename,TVlastname,TVgender,TVdob,TVaddress,TVpostalcode,TVmobile_number,TVemail,TVaboutme;
    TextView TVmajor,TVinsitute,TVyear;
    TextView TVtitle,TVproffinstitue,TVexperi;
-   TextView TVheadernamefull,TVheadernameshort;
+   TextView TVheadernamefull;
    CircleImageView CIVprofimage;
    ImageButton IB_back;
    GifImageView pendinggiflist;
@@ -102,7 +102,7 @@ public class Profile_Page extends AppCompatActivity {
 TVheadernamefull=findViewById(R.id.prof_prof_name);
 pendinggiflist=findViewById(R.id.nodatagif);
 pendingtextlist=findViewById(R.id.nodatatext);
-TVheadernameshort=findViewById(R.id.prof_prof_name_short);
+
         scrollView_educational=findViewById(R.id.srcollview_educational);
         scrollview_professional=findViewById(R.id.srcollview_professional);
         Shared_user_details=getSharedPreferences("user_detail_mode",0);
@@ -377,7 +377,7 @@ recyclerView.setHorizontalScrollBarEnabled(false);
                     TVemail.setText("");
                     TVaboutme.setText(Sdescription);
                     TVheadernamefull.setText(SfirstName+" "+SmiddleName+" "+SlastName);
-                    TVheadernameshort.setText(SfirstName +" "+SlastName);
+
 if (isEmailVerified)
 {
 
@@ -509,6 +509,7 @@ TVexperi.setText(Sexperience);
 
         requestQueue.add(stringRequest);
     }
+
     public void mobile_verify_resend() {
         RequestQueue requestQueue = Volley.newRequestQueue(this);
         StringRequest stringRequest = new StringRequest(Request.Method.GET, Global_url_twotr.Tutor_number_resend, new Response.Listener<String>() {

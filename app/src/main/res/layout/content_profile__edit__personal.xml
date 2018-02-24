@@ -71,6 +71,7 @@
                     android:inputType="textPersonName"
                     android:padding="10dp"
                     android:singleLine="true"
+
                     android:textColorLink="@color/colorAccent"
                     />
 
@@ -81,7 +82,7 @@
                     android:layout_height="55dp"
                     android:background="@drawable/edittext_unselected"
                     android:ems="10"
-                    android:layout_marginTop="5dp"
+                    android:layout_marginTop="10dp"
                     android:fontFamily="@font/montserrat"
                     android:hint="Middle Name"
                     android:inputType="textPersonName"
@@ -98,7 +99,7 @@
                     android:layout_height="55dp"
                     android:background="@drawable/edittext_unselected"
                     android:ems="10"
-                    android:layout_marginTop="5dp"
+                    android:layout_marginTop="10dp"
                     android:fontFamily="@font/montserrat"
                     android:hint="Last Name"
                     android:imeOptions="actionDone"
@@ -118,7 +119,7 @@
                     android:layout_height="55dp"
                     android:background="@drawable/edittext_unselected"
                    android:textSize="16sp"
-                    android:layout_marginTop="5dp"
+                    android:layout_marginTop="10dp"
                     android:fontFamily="@font/montserrat"
                     android:hint="Date of Birth"
                     android:textColor="@color/colorBlack"
@@ -133,7 +134,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="55dp"
                     android:weightSum="4"
-                    android:layout_marginTop="5dp"
+                    android:layout_marginTop="10dp"
                     android:orientation="horizontal">
                     <com.toptoche.searchablespinnerlibrary.SearchableSpinner
                         android:id="@+id/per_prof_ccode"
@@ -172,7 +173,7 @@
                     android:spinnerMode="dialog"
                     android:layout_width="match_parent"
                     android:layout_height="55dp"
-                    android:layout_marginTop="5dp"
+                    android:layout_marginTop="10dp"
                     android:layout_centerHorizontal="true"
                     />
 
@@ -184,7 +185,7 @@
                     android:spinnerMode="dialog"
                     android:layout_width="match_parent"
                     android:layout_height="55dp"
-                    android:layout_marginTop="5dp"
+                    android:layout_marginTop="10dp"
 
                     app:hintText="Select Time Zone"/>
 
@@ -194,7 +195,7 @@
                     android:layout_height="55dp"
                     android:background="@drawable/edittext_unselected"
                     android:textSize="18sp"
-                    android:layout_marginTop="5dp"
+                    android:layout_marginTop="10dp"
                     android:fontFamily="@font/montserrat"
                     android:hint="Subject"
                     android:textColor="@color/colorBlack"
@@ -210,7 +211,7 @@
                     android:layout_height="55dp"
                     android:background="@drawable/edittext_unselected"
                     android:textSize="18sp"
-                    android:layout_marginTop="5dp"
+                    android:layout_marginTop="10dp"
                     android:fontFamily="@font/montserrat"
                     android:hint="Grade"
                     android:textColor="@color/colorBlack"
@@ -243,7 +244,7 @@
                     android:layout_height="55dp"
                     android:background="@drawable/edittext_unselected"
                     android:ems="10"
-                    android:layout_marginTop="5dp"
+                    android:layout_marginTop="10dp"
                     android:fontFamily="@font/montserrat"
                     android:hint="Chennai"
                     android:padding="10dp"
@@ -258,7 +259,7 @@
                     android:layout_height="55dp"
                     android:background="@drawable/edittext_unselected"
                     android:ems="10"
-                    android:layout_marginTop="5dp"
+                    android:layout_marginTop="10dp"
                     android:fontFamily="@font/montserrat"
                     android:hint="600087"
                     android:inputType="number"
@@ -274,7 +275,7 @@
                     android:layout_height="90dp"
                     android:background="@drawable/edittext_unselected"
                     android:gravity="top"
-                    android:layout_marginTop="5dp"
+                    android:layout_marginTop="10dp"
                     android:fontFamily="@font/montserrat"
                     android:hint="Short Description About You"
                     android:padding="10dp"
