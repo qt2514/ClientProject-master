@@ -28,7 +28,7 @@
             android:fontFamily="@font/montserrat"
             android:gravity="start"
             android:hint="Search your Keyword"
-            android:padding="5dp"
+            android:padding="3dp"
             android:textColor="#fff"
             android:textColorHint="@color/mdtp_white"
             android:textSize="18sp" />
@@ -50,6 +50,7 @@
         android:background="@color/buttonColorSecondary"
         android:layout_width="match_parent"
         android:layout_marginBottom="63dp"
+
     android:divider="@null"
         android:dividerHeight="0dp"
         android:layout_height="match_parent"/>

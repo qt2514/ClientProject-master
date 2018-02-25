@@ -28,7 +28,7 @@
 
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="16dp"
         android:fontFamily="@font/montserrat"
         android:padding="5dp"
         android:text="TWOTR"
@@ -37,8 +37,9 @@
         android:textSize="28sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.502"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/signin_back" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <LinearLayout
         android:id="@+id/linearLayout"
@@ -135,7 +136,6 @@
     <LinearLayout
         android:id="@+id/linearLayout2"
         android:layout_width="wrap_content"
-
         android:layout_height="31dp"
         android:layout_marginTop="24dp"
         android:orientation="horizontal"
@@ -148,8 +148,8 @@
             android:layout_height="1dp"
             android:layout_gravity="center"
             android:layout_weight="1"
-            android:layout_marginStart="10dp"
-            android:layout_marginEnd="20dp"
+            android:layout_marginStart="70dp"
+            android:layout_marginEnd="10dp"
             android:background="@color/buttonColorSecondary"
             android:padding="2dp" />
 
@@ -168,8 +168,8 @@
             android:layout_height="1dp"
             android:layout_gravity="center"
             android:layout_weight="1"
-            android:layout_marginStart="20dp"
-            android:layout_marginEnd="10dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="70dp"
             android:background="@color/buttonColorSecondary"
             android:padding="2dp" />
     </LinearLayout>

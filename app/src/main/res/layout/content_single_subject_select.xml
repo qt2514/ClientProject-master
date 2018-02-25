@@ -32,7 +32,7 @@
             android:layout_alignBaseline="@+id/add_subject_list"
             android:layout_alignBottom="@+id/add_subject_list"
             android:layout_centerHorizontal="true"
-            android:background="@null"
+            android:background="@drawable/search_bg_guest"
             android:fontFamily="@font/montserrat"
             android:hint="Enter Your Subject Name"
             android:padding="10dp"
