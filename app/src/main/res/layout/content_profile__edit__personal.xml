@@ -198,7 +198,7 @@
                     android:layout_marginTop="10dp"
                     android:fontFamily="@font/montserrat"
                     android:hint="Subject"
-                    android:textColor="@color/colorBlack"
+                    android:textColor="@color/colorAccent"
                     android:padding="10dp"
                     android:singleLine="true"
                     android:textColorLink="@color/colorAccent"

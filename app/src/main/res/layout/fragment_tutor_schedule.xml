@@ -48,24 +48,37 @@
                 android:textSize="14sp" />
         </RelativeLayout>
 
-
+        <com.orangegangsters.github.swipyrefreshlayout.library.SwipyRefreshLayout
+            android:id="@+id/swipyrefreshlayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="10dp"
+            android:layout_below="@+id/top_rel_schedule"
+            app:srl_direction="top">
     <com.baoyz.swipemenulistview.SwipeMenuListView
         android:id="@+id/schedule_list"
         android:layout_width="match_parent"
         android:scrollbars="none"
         android:divider="@null"
-        android:layout_margin="10dp"
-        android:layout_below="@+id/top_rel_schedule"
         android:layout_height="match_parent"/>
+        </com.orangegangsters.github.swipyrefreshlayout.library.SwipyRefreshLayout>
+        <com.orangegangsters.github.swipyrefreshlayout.library.SwipyRefreshLayout
+            android:id="@+id/swipyrefreshlayout_history"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="10dp"
+            android:visibility="invisible"
+            android:layout_below="@+id/top_rel_schedule"
+            app:srl_direction="top">
         <com.baoyz.swipemenulistview.SwipeMenuListView
             android:id="@+id/schedule_list_history"
             android:layout_width="match_parent"
             android:scrollbars="none"
             android:divider="@null"
-            android:layout_margin="10dp"
             android:visibility="invisible"
             android:layout_below="@+id/top_rel_schedule"
             android:layout_height="match_parent"/>
+        </com.orangegangsters.github.swipyrefreshlayout.library.SwipyRefreshLayout>
         <pl.droidsonroids.gif.GifImageView
             android:id="@+id/nodatagif"
             android:layout_width="150dp"

@@ -7,10 +7,12 @@ import android.content.res.Configuration;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.util.ArrayMap;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.Layout;
@@ -23,12 +25,19 @@ import android.widget.AbsListView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.allattentionhere.fabulousfilter.AAH_FabulousFragment;
+import com.github.thunder413.datetimeutils.DateTimeUnits;
+import com.github.thunder413.datetimeutils.DateTimeUtils;
+
+import com.orangegangsters.github.swipyrefreshlayout.library.SwipyRefreshLayout;
+import com.orangegangsters.github.swipyrefreshlayout.library.SwipyRefreshLayoutDirection;
 import com.twotr.twotr.R;
 import com.twotr.twotr.globalpackfiles.Global_url_twotr;
+import com.twotr.twotr.globalpackfiles.MainActivity;
 import com.wang.avi.AVLoadingIndicatorView;
 
 import org.json.JSONArray;
@@ -57,15 +66,20 @@ String searchque="ameer";
     String[] aryGrade = {
     };
    public View ftview;
+   Schedule_class tutorpageadapter;
     EditText ETsubject_name;
     MyFabFragment dialogFrag;
     FloatingActionButton  fab2;
+    SwipyRefreshLayout swipyRefreshLayout;
+    ProgressBar footer;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_guest_control_board);
 listViewguest=findViewById(R.id.guset_subfil);
 ETsubject_name=findViewById(R.id.subject_name);
+      //  mSwipeRefreshLayout =  findViewById(R.id.activity_main_swipe_refresh_layout);
+        swipyRefreshLayout=findViewById(R.id.swipyrefreshlayout);
         avi=findViewById(R.id.avi);
         avi.hide();
         fab2 =  findViewById(R.id.fab2);
@@ -75,6 +89,7 @@ ETsubject_name=findViewById(R.id.subject_name);
         Sid=  Shared_user_details.getString("id", null);
         schedule_list_url = Global_url_twotr.Guest_list_api+searchque+"&page=1&size=10" ;
         new ScheduleAsyncList().execute(schedule_list_url);
+
         ETsubject_name.addTextChangedListener(new TextWatcher()
         {
             @Override
@@ -92,6 +107,7 @@ ETsubject_name=findViewById(R.id.subject_name);
             }
 
         });
+
         dialogFrag = MyFabFragment.newInstance();
         dialogFrag.setParentFab(fab2);
         fab2.setOnClickListener(new View.OnClickListener() {
@@ -101,31 +117,43 @@ ETsubject_name=findViewById(R.id.subject_name);
             }
         });
 
-//        listViewguest.setOnScrollListener(new EndlessScrollListener() {
-//            @Override
-//            public void onLoadMore(int page, int totalItemsCount) {
-//
-//
-//                schedule_list_url = Global_url_twotr.Guest_list_api+searchque+"&page=1&size="+page+"0" ;
-//                new ScheduleAsyncList().execute(schedule_list_url);
-//
-//
-//
-//            }
-//
-//        });
+
+         footer = new ProgressBar(this);
+        listViewguest.addFooterView(footer);
+//        listViewguest.setOnScrollListener(scrollListener);
+
+        listViewguest.setOnScrollListener(new EndlessScrollListener() {
+            @Override
+            public void onLoadMore(int page, int totalItemsCount) {
 
 
+                schedule_list_url = Global_url_twotr.Guest_list_api+searchque+"&page="+page+"&size=10" ;
+                new Newpageloading().execute(schedule_list_url);
+
+
+
+            }
+
+        });
+
+        swipyRefreshLayout.setOnRefreshListener(new SwipyRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh(SwipyRefreshLayoutDirection direction) {
+                schedule_list_url = Global_url_twotr.Guest_list_api+searchque+"&page=1&size=10" ;
+                       new ScheduleAsyncList().execute(schedule_list_url);
+                       swipyRefreshLayout.setRefreshing(false);
+            }
+        });
 
     }
 
 
 
     public class Schedule_class extends ArrayAdapter {
-        private List<Guest_list_parce> ScheduleModeList;
-        private int resource;
+        public List<Guest_list_parce> ScheduleModeList;
+        public int resource;
         Context context;
-        private LayoutInflater inflater;
+        public LayoutInflater inflater;
 
         Schedule_class(Context context, int resource, List<Guest_list_parce> objects) {
             super(context, resource, objects);
@@ -154,9 +182,10 @@ ETsubject_name=findViewById(R.id.subject_name);
             if (convertView == null) {
                 convertView = inflater.inflate(resource, null);
                 holder = new ViewHolder();
-
                 holder.TVsubjectname = convertView.findViewById(R.id.tutor_subject_name);
                 holder.TVtuttorname=convertView.findViewById(R.id.tutor_sub_name);
+                holder.TVtimetotal=convertView.findViewById(R.id.tutor_subject_time);
+                holder.TVprice=convertView.findViewById(R.id.tutor_subject_price);
 
                 convertView.setTag(holder);
             }//ino
@@ -164,42 +193,43 @@ ETsubject_name=findViewById(R.id.subject_name);
                 holder = (ViewHolder) convertView.getTag();
             }
            Guest_list_parce supl = ScheduleModeList.get(position);
-            holder.TVsubjectname.setText(supl.getSubject());
             holder.TVtuttorname.setText(supl.getCreatedByName());
+            String type_group=supl.getType();
+            if (type_group.equals("oneonone"))
+            {
+                type_group="1 to 1";
+            }
+            holder.TVsubjectname.setText(supl.getSubject()+"  "+ type_group);
 
-//            String type_group=supl.getType();
-//            if (type_group.equals("oneonone"))
-//            {
-//                type_group="1 to 1";
-//            }
 //            holder.TVtypemenbers.setText(type_group);
 //            holder.TVschedule_des.setText(supl.getDescription());
-//            holder.TVprice_schedule.setText(supl.getPrice());
-//            String Scompletestart=supl.getStart();
-//            String Scompleteend=supl.getEnd();
-//
-//            String startdate=Scompletestart.substring(0,10);
-//            String starttime=Scompletestart.substring(11,19);
-//            String enddate=Scompleteend.substring(0,10);
-//            String endtime=Scompleteend.substring(11,19);
-//            String time_sched=Scompletestart.substring(11,16);
-//            String datestart=startdate+ " "+starttime;
-//            String dateend=enddate+ " "+endtime;
-//            int diff = DateTimeUtils.getDateDiff(datestart,dateend, DateTimeUnits.HOURS);
-//            diff=Math.abs(diff);
-//            holder.TVhours.setText(diff+" hours - ");
-//            holder.TVtime_sched.setText(time_sched+" | ");
-//            String monthformating=DateTimeUtils.formatWithPattern(startdate, "EEE, MMM dd");
-//            holder.TVmonth.setText(monthformating);
+            holder.TVprice.setText(supl.getPrice()+" KWD");
+            String Scompletestart=supl.getStart();
+            String Scompleteend=supl.getEnd();
 
+            String startdate=Scompletestart.substring(0,10);
+            String starttime=Scompletestart.substring(11,19);
+            String enddate=Scompleteend.substring(0,10);
+            String endtime=Scompleteend.substring(11,19);
+            String time_sched=Scompletestart.substring(11,16);
+            String datestart=startdate+ " "+starttime;
+            String dateend=enddate+ " "+endtime;
+            int diff = DateTimeUtils.getDateDiff(datestart,dateend, DateTimeUnits.HOURS);
+            diff=Math.abs(diff);
+            String monthformating=DateTimeUtils.formatWithPattern(startdate, "EEE, MMM dd");
+
+            String completedate=diff+" hours - "+time_sched+" | "+monthformating;
+
+holder.TVtimetotal.setText(completedate);
 
             return convertView;
         }
 
         class ViewHolder {
-            private TextView TVsubjectname;
-            private TextView TVtypemenbers;
-            private TextView TVtuttorname;
+            public TextView TVsubjectname;
+            public TextView TVprice;
+            public TextView TVtimetotal;
+            public TextView TVtuttorname;
 
 
             //  private TextView TVstart_time;
@@ -317,8 +347,8 @@ DataInputStream inputStream;
             if ((ScheduleMode != null) && (ScheduleMode.size()>0))
             {
 
-                Schedule_class adapter = new Schedule_class(GuestControlBoard.this, R.layout.guest_dasboard_list, ScheduleMode);
-                listViewguest.setAdapter(adapter);
+                 tutorpageadapter = new Schedule_class(GuestControlBoard.this, R.layout.guest_dasboard_list, ScheduleMode);
+                listViewguest.setAdapter(tutorpageadapter);
 
                 avi.hide();
 //                listViewguest.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -354,7 +384,7 @@ DataInputStream inputStream;
 //                            startActivity(intent);
 //                        }
 //                    });
-                   adapter.notifyDataSetChanged();
+                tutorpageadapter.notifyDataSetChanged();
 
 
 
@@ -365,6 +395,172 @@ DataInputStream inputStream;
 
 
     }
+
+    @SuppressLint("StaticFieldLeak")
+    public class Newpageloading extends AsyncTask<String, String, List<Guest_list_parce>> {
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            avi.show();
+        }
+
+        @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+        @Override
+        protected List<Guest_list_parce> doInBackground(String... params) {
+            HttpURLConnection connection = null;
+            BufferedReader reader = null;
+            try {
+                URL url = new URL(params[0]);
+                DataOutputStream printout;
+                DataInputStream inputStream;
+                connection = (HttpURLConnection) url.openConnection();
+                connection.setDoInput (true);
+                connection.setDoOutput (true);
+                connection.setUseCaches (false);
+                connection.setRequestProperty("content-type","application/json");
+                connection.setRequestProperty("x-tutor-app-id","tutor-app-android");
+                connection.setRequestMethod("POST");
+                connection.connect();
+                JSONArray array2=new JSONArray(aryGrade);
+                JSONObject price=new JSONObject();
+                JSONObject auth=new JSONObject();
+                auth.put("grades",array2);
+                auth.put("isTutorOnly","false");
+                auth.put("type", "");
+                price.put("min",0);
+                price.put("max",1);
+                auth.put("price",price);
+                auth.put("ratings", "0");
+                auth.put("timezone", "Asia/Kuwait");
+
+
+                printout = new DataOutputStream(connection.getOutputStream ());
+                printout.writeBytes(auth.toString());
+                printout.flush ();
+                printout.close ();
+                InputStream stream = connection.getInputStream();
+                reader = new BufferedReader(new InputStreamReader(stream));
+                StringBuilder buffer = new StringBuilder();
+                String line = "";
+                while ((line = reader.readLine()) != null) {
+                    buffer.append(line);
+                }
+                String finalJson = buffer.toString();
+                JSONObject parentObject = new JSONObject(finalJson);
+                JSONArray parentArray = parentObject.getJSONArray("classes");
+                List<Guest_list_parce> milokilo = new ArrayList<>();
+                for (int i = 0; i < parentArray.length(); i++) {
+                    JSONObject finalObject = parentArray.getJSONObject(i);
+                    //
+                    Guest_list_parce catego = new Guest_list_parce();
+                    catego.setSubject(finalObject.getString("subject"));
+                    catego.setType(finalObject.getString("type"));
+                    catego.setDescription(finalObject.getString("description"));
+                    catego.setPrice(finalObject.getString("price"));
+                    catego.setStudentsCount(finalObject.getString("studentsCount"));
+                    catego.setMinPrice(finalObject.getString("minPrice"));
+                    catego.set_id(finalObject.getString("_id"));
+                    catego.setCreatedByName(finalObject.getString("createdByName"));
+                    JSONArray jsonArray1 = finalObject.getJSONArray("schedules");
+                    for (int j = 0; j < jsonArray1.length(); j++) {
+                        JSONObject jsonObject = jsonArray1.getJSONObject(j);
+                        catego.setStart(jsonObject.getString("start"));
+                        catego.setEnd(jsonObject.getString("end"));
+
+                        //  ListSubject.add(Skind);
+                    }
+//                    try {
+//                        JSONObject jlocati=finalObject.getJSONObject("location");
+//                        catego.setLat(jlocati.getString("lat"));
+//                        catego.setLng(jlocati.getString("lng"));
+//                    } catch (JSONException e) {
+//                        e.printStackTrace();
+//                    }
+
+                    milokilo.add(catego);
+                }
+                return milokilo;
+            } catch (JSONException | IOException e) {
+                e.printStackTrace();
+            } finally {
+                if (connection != null) {
+                    connection.disconnect();
+                }
+                try {
+                    if (reader != null) {
+                        reader.close();
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(final List<Guest_list_parce> ScheduleMode) {
+            super.onPostExecute(ScheduleMode);
+
+            if ((ScheduleMode != null) && (ScheduleMode.size()>0))
+            {
+
+            //    tutorpageadapter = new Schedule_class(GuestControlBoard.this, R.layout.guest_dasboard_list, ScheduleMode);
+                tutorpageadapter.addAll(ScheduleMode);
+                avi.hide();
+//                listViewguest.setAdapter(tutorpageadapter);
+//
+//                avi.hide();
+////                listViewguest.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+////                        @Override
+////                        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+////                            Guest_list_parce Guest_list_parce = ScheduleMode.get(position);
+////                            Intent intent = new Intent(GuestControlBoard.this, ScheduleDetailPage.class);
+////                            intent.putExtra("subject_name", Guest_list_parce.getSubject());
+////                            intent.putExtra("type_subject", Guest_list_parce.getType());
+////                            intent.putExtra("schedule_description", Guest_list_parce.getDescription());
+////                            intent.putExtra("latitude", Guest_list_parce.getLat());
+////                            intent.putExtra("longitude", Guest_list_parce.getLng());
+////                            intent.putExtra("schedule_price", Guest_list_parce.getPrice());
+////                            intent.putExtra("studentscount", Guest_list_parce.getStudentsCount());
+////                            intent.putExtra("minprice", Guest_list_parce.getMinPrice());
+////                            intent.putExtra("cateid",Guest_list_parce.get_id());
+////                            String Scompletestart = Guest_list_parce.getStart();
+////                            String Scompleteend = Guest_list_parce.getEnd();
+////
+////                            String startdate = Scompletestart.substring(0, 10);
+////                            String starttime = Scompletestart.substring(11, 19);
+////                            String enddate = Scompleteend.substring(0, 10);
+////                            String endtime = Scompleteend.substring(11, 19);
+////                            String time_sched = Scompletestart.substring(11, 16);
+////                            String datestart = startdate + " " + starttime;
+////                            String dateend = enddate + " " + endtime;
+////                            int diff = DateTimeUtils.getDateDiff(datestart, dateend, DateTimeUnits.HOURS);
+////                            diff = Math.abs(diff);
+////                            String shours = diff + " hours - ";
+////                            String stimsc = time_sched + " | ";
+////                            String smonth = DateTimeUtils.formatWithPattern(startdate, " MMMM dd");
+////                            intent.putExtra("hrschmon", shours + stimsc + smonth);
+////                            startActivity(intent);
+////                        }
+////                    });
+                tutorpageadapter.notifyDataSetChanged();
+
+
+
+            }
+            else
+            {
+                listViewguest.removeFooterView(footer);
+                avi.hide();
+            }
+
+
+        }
+
+
+
+    }
+
     @Override
     public void onResult(Object result) {
         Log.d("k9res", "onResult: " + result.toString());
@@ -441,73 +637,102 @@ DataInputStream inputStream;
     }
 
 
-//    public abstract class EndlessScrollListener implements AbsListView.OnScrollListener {
-//
-//        // The minimum amount of items to have below your current scroll position
-//        // before loading more.
-//        private int visibleThreshold = 2;
-//        // The current offset index of data you have loaded
-//        private int currentPage = 0;
-//        // The total number of items in the dataset after the last load
-//        private int previousTotalItemCount = 0;
-//        // True if we are still waiting for the last set of data to load.
-//        private boolean loading = true;
-//        // Sets the starting page index
-//        private int startingPageIndex = 0;
-//
-//        public EndlessScrollListener() {
-//        }
-//
-//        public EndlessScrollListener(int visibleThreshold) {
-//            this.visibleThreshold = visibleThreshold;
-//        }
-//
-//        public EndlessScrollListener(int visibleThreshold, int startPage) {
-//            this.visibleThreshold = visibleThreshold;
-//            this.startingPageIndex = startPage;
-//            this.currentPage = startPage;
-//        }
-//
-//        // This happens many times a second during a scroll, so be wary of the code you place here.
-//        // We are given a few useful parameters to help us work out if we need to load some more data,
-//        // but first we check if we are waiting for the previous load to finish.
-//        @Override
-//        public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
-//            // If the total item count is zero and the previous isn't, assume the
-//            // list is invalidated and should be reset back to initial state
-//            if (totalItemCount < previousTotalItemCount) {
-//                this.currentPage = this.startingPageIndex;
-//                this.previousTotalItemCount = totalItemCount;
-//                if (totalItemCount == 0) {
-//                    this.loading = true;
-//                }
-//            }
-//
-//            // If it’s still loading, we check to see if the dataset count has
-//            // changed, if so we conclude it has finished loading and update the current page
-//            // number and total item count.
-//            if (loading && (totalItemCount > previousTotalItemCount)) {
-//                loading = false;
-//                previousTotalItemCount = totalItemCount;
-//                currentPage++;
-//            }
-//
-//            // If it isn’t currently loading, we check to see if we have breached
-//            // the visibleThreshold and need to reload more data.
-//            // If we do need to reload some more data, we execute onLoadMore to fetch the data.
-//            if (!loading && (totalItemCount - visibleItemCount) <= (firstVisibleItem + visibleThreshold)) {
-//                onLoadMore(currentPage + 1, totalItemCount);
-//                loading = true;
-//            }
-//        }
-//
-//        // Defines the process for actually loading more data based on page
-//        public abstract void onLoadMore(int page, int totalItemsCount);
-//
+    public abstract class EndlessScrollListener implements AbsListView.OnScrollListener {
+
+        // The minimum amount of items to have below your current scroll position
+        // before loading more.
+        private int visibleThreshold = 1;
+        // The current offset index of data you have loaded
+        private int currentPage = 0;
+        // The total number of items in the dataset after the last load
+        private int previousTotalItemCount = 0;
+        // True if we are still waiting for the last set of data to load.
+        private boolean loading = true;
+        // Sets the starting page index
+        private int startingPageIndex = 0;
+
+        public EndlessScrollListener() {
+        }
+
+        public EndlessScrollListener(int visibleThreshold) {
+            this.visibleThreshold = visibleThreshold;
+        }
+
+        public EndlessScrollListener(int visibleThreshold, int startPage) {
+            this.visibleThreshold = visibleThreshold;
+            this.startingPageIndex = startPage;
+            this.currentPage = startPage;
+        }
+
+        // This happens many times a second during a scroll, so be wary of the code you place here.
+        // We are given a few useful parameters to help us work out if we need to load some more data,
+        // but first we check if we are waiting for the previous load to finish.
+        @Override
+        public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+            // If the total item count is zero and the previous isn't, assume the
+            // list is invalidated and should be reset back to initial state
+            if (totalItemCount < previousTotalItemCount) {
+                this.currentPage = this.startingPageIndex;
+                this.previousTotalItemCount = totalItemCount;
+                if (totalItemCount == 0) {
+                    this.loading = true;
+                }
+            }
+
+            // If it’s still loading, we check to see if the dataset count has
+            // changed, if so we conclude it has finished loading and update the current page
+            // number and total item count.
+            if (loading && (totalItemCount > previousTotalItemCount)) {
+                loading = false;
+                previousTotalItemCount = totalItemCount;
+                currentPage++;
+            }
+
+            // If it isn’t currently loading, we check to see if we have breached
+            // the visibleThreshold and need to reload more data.
+            // If we do need to reload some more data, we execute onLoadMore to fetch the data.
+            if (!loading && (totalItemCount - visibleItemCount) <= (firstVisibleItem + visibleThreshold)) {
+                onLoadMore(currentPage + 1, totalItemCount);
+                loading = true;
+            }
+        }
+
+        // Defines the process for actually loading more data based on page
+        public abstract void onLoadMore(int page, int totalItemsCount);
+
+        @Override
+        public void onScrollStateChanged(AbsListView view, int scrollState) {
+            // Don't take any action on changed
+
+        }
+    }
+
+
+//    private AbsListView.OnScrollListener scrollListener = new AbsListView.OnScrollListener() {
 //        @Override
 //        public void onScrollStateChanged(AbsListView view, int scrollState) {
-//            // Don't take any action on changed
 //
 //        }
+//
+//        @Override
+//        public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+//            int lastInScreen = firstVisibleItem + visibleItemCount;
+//            if(lastInScreen == totalItemCount && !isLoading){
+//                loadMoreItems(totalItemCount - 1);
+//                isLoading = true;
+//            }
+//        }
+//    };
+
+//
+//    private void refreshContent(){
+//        new Handler().postDelayed(new Runnable() {
+//            @Override
+//            public void run() {
+//                schedule_list_url = Global_url_twotr.Guest_list_api+searchque+"&page=1&size=10" ;
+//                new ScheduleAsyncList().execute(schedule_list_url);
+//                mSwipeRefreshLayout.setRefreshing(false);
+//            }
+//        });
 //    }
 }

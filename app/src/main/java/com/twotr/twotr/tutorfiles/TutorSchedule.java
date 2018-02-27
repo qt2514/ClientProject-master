@@ -15,9 +15,11 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -37,8 +39,11 @@ import com.baoyz.swipemenulistview.SwipeMenuListView;
 import com.github.thunder413.datetimeutils.DateTimeUnits;
 import com.github.thunder413.datetimeutils.DateTimeUtils;
 import com.google.gson.Gson;
+import com.orangegangsters.github.swipyrefreshlayout.library.SwipyRefreshLayout;
+import com.orangegangsters.github.swipyrefreshlayout.library.SwipyRefreshLayoutDirection;
 import com.twotr.twotr.R;
 import com.twotr.twotr.globalpackfiles.Global_url_twotr;
+import com.twotr.twotr.guestfiles.GuestControlBoard;
 import com.wang.avi.AVLoadingIndicatorView;
 
 import org.json.JSONArray;
@@ -73,7 +78,10 @@ private  String schedule_list_url;
     SharedPreferences Shared_user_details;
     public String Stoken;
 TextView nodatatextview;
+    SwipyRefreshLayout swipyRefreshLayout,swipyRefreshLayout_history;
+    ProgressBar footer;
     Schedule_history_class adapter_history;
+    Schedule_class adaptersa;
     GifImageView underser_gif;
     String[] upcomingmore = {
             "Reschedule",
@@ -107,8 +115,13 @@ TextView nodatatextview;
 LVschedule=view.findViewById(R.id.schedule_list);
 LVschedule_history=view.findViewById(R.id.schedule_list_history);
         avi=view.findViewById(R.id.avi);
+        footer = new ProgressBar(getContext());
+        LVschedule.addFooterView(footer);
+        LVschedule_history.addFooterView(footer);
+        swipyRefreshLayout=view.findViewById(R.id.swipyrefreshlayout);
+        swipyRefreshLayout_history=view.findViewById(R.id.swipyrefreshlayout_history);
 
-         schedule_list_url = "http://twotr.com:5040/api/class/upcoming?page=1&size=10" ;
+        schedule_list_url = "http://twotr.com:5040/api/class/upcoming?page=1&size=10" ;
         new ScheduleAsyncList().execute(schedule_list_url);
         SwipeMenuCreator creator = new SwipeMenuCreator() {
 
@@ -160,6 +173,8 @@ navtab_list="history";
 LVschedule.setVisibility(View.INVISIBLE);
 LVschedule_history.setVisibility(View.VISIBLE);
              Bhistory.setBackgroundResource(R.drawable.tab_selected);
+             swipyRefreshLayout.setVisibility(View.INVISIBLE);
+             swipyRefreshLayout_history.setVisibility(View.VISIBLE);
              Bupcoming.setBackgroundResource(R.drawable.tab_unselected_right);
              Bupcoming.setTextColor(getResources().getColor(R.color.mdtp_white));
              Bhistory.setTextColor(getResources().getColor(R.color.black));
@@ -174,6 +189,8 @@ LVschedule_history.setVisibility(View.VISIBLE);
              navtab_list="upcoming";
              LVschedule_history.setVisibility(View.INVISIBLE);
              LVschedule.setVisibility(View.VISIBLE);
+             swipyRefreshLayout.setVisibility(View.VISIBLE);
+             swipyRefreshLayout_history.setVisibility(View.INVISIBLE);
              Bupcoming.setBackgroundResource(R.drawable.tab_selected_right);
              Bhistory.setBackgroundResource(R.drawable.tab_unselected);
              Bupcoming.setTextColor(getResources().getColor(R.color.black));
@@ -186,6 +203,48 @@ LVschedule_history.setVisibility(View.VISIBLE);
 
          }
      });
+        swipyRefreshLayout.setOnRefreshListener(new SwipyRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh(SwipyRefreshLayoutDirection direction) {
+                schedule_list_url = "http://twotr.com:5040/api/class/upcoming?page=1&size=10" ;
+                new ScheduleAsyncList().execute(schedule_list_url);
+                swipyRefreshLayout.setRefreshing(false);
+            }
+        });
+        swipyRefreshLayout_history.setOnRefreshListener(new SwipyRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh(SwipyRefreshLayoutDirection direction) {
+                schedule_list_url = "http://twotr.com:5040/api/class/history?page=1&size=10" ;
+                new ScheduleAsyncListHistory().execute(schedule_list_url);
+
+                swipyRefreshLayout.setRefreshing(false);
+            }
+        });
+
+        LVschedule_history.setOnScrollListener(new EndlessScrollListener() {
+            @Override
+            public void onLoadMore(int page, int totalItemsCount) {
+
+
+                schedule_list_url = "http://twotr.com:5040/api/class/history?page="+page+"&size=10" ;
+                new ScheduleAsyncListHistoryadd().execute(schedule_list_url);
+
+            }
+
+        });
+        LVschedule_history.setOnScrollListener(new EndlessScrollListener() {
+            @Override
+            public void onLoadMore(int page, int totalItemsCount) {
+
+
+                schedule_list_url = "http://twotr.com:5040/api/class/upcoming?page="+page+"&size=10" ;
+                new ScheduleAsyncListadd().execute(schedule_list_url);
+
+
+
+            }
+
+        });
 
      return view;
     }
@@ -220,10 +279,10 @@ public class Schedule_class extends ArrayAdapter {
     @NonNull
     @Override
     public View getView(final int position, View convertView, @NonNull ViewGroup parent) {
-        final Schedule_class.ViewHolder holder;
+        final ViewHolder holder;
         if (convertView == null) {
             convertView = inflater.inflate(resource, null);
-            holder = new Schedule_class.ViewHolder();
+            holder = new ViewHolder();
 
             holder.TVsubjectname = convertView.findViewById(R.id.sub_name_sched);
             holder.TVtypemenbers = convertView.findViewById(R.id.group_one_title);
@@ -238,7 +297,7 @@ public class Schedule_class extends ArrayAdapter {
             convertView.setTag(holder);
         }//ino
         else {
-            holder = (Schedule_class.ViewHolder) convertView.getTag();
+            holder = (ViewHolder) convertView.getTag();
         }
         Schedule_upcoming_list supl = ScheduleModeList.get(position);
         holder.TVsubjectname.setText(supl.getSubject());
@@ -451,8 +510,8 @@ catego.set_id(finalObject.getString("_id"));
                 LVschedule.setVisibility(View.VISIBLE);
                 nodatatextview.setVisibility(View.INVISIBLE);
                 underser_gif.setVisibility(View.INVISIBLE);
-                Schedule_class adapter = new Schedule_class(getActivity(), R.layout.schedule_list, ScheduleMode);
-                LVschedule.setAdapter(adapter);
+                 adaptersa = new Schedule_class(getActivity(), R.layout.schedule_list, ScheduleMode);
+                LVschedule.setAdapter(adaptersa);
                 if (navtab_list.equals("upcoming")) {
                     Log.i("checksch",navtab_list);
                     LVschedule.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -488,7 +547,7 @@ catego.set_id(finalObject.getString("_id"));
                             startActivity(intent);
                         }
                     });
-                    adapter.notifyDataSetChanged();
+                    adaptersa.notifyDataSetChanged();
                 }
 
 
@@ -765,7 +824,213 @@ catego.set_id(finalObject.getString("_id"));
         }
     }
 
-public void delete_mylist(String id)
+
+    @SuppressLint("StaticFieldLeak")
+    public class ScheduleAsyncListHistoryadd extends AsyncTask<String, String, List<Schedule_history_list>> {
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            avi.show();
+        }
+        @Override
+        protected List<Schedule_history_list> doInBackground(String... params) {
+            HttpURLConnection connection = null;
+            BufferedReader reader = null;
+            try {
+                URL url = new URL(params[0]);
+                connection = (HttpURLConnection) url.openConnection();
+                connection.setRequestProperty("content-type","application/json");
+                connection.setRequestProperty("x-tutor-app-id","tutor-app-android");
+                connection.setRequestProperty("authorization","Bearer "+Stoken);
+                connection.setRequestMethod("GET");
+                connection.connect();
+                InputStream stream = connection.getInputStream();
+                reader = new BufferedReader(new InputStreamReader(stream));
+                StringBuilder buffer = new StringBuilder();
+                String line = "";
+                while ((line = reader.readLine()) != null) {
+                    buffer.append(line);
+                }
+                String finalJson = buffer.toString();
+                JSONObject parentObject = new JSONObject(finalJson);
+                JSONArray parentArray = parentObject.getJSONArray("classes");
+                milokilo = new ArrayList<>();
+                Gson gson = new Gson();
+                for (int i = 0; i < parentArray.length(); i++) {
+                    JSONObject finalObject = parentArray.getJSONObject(i);
+                    //
+                    Schedule_history_list catego = new Schedule_history_list();
+                    catego.setSubject(finalObject.getString("subject"));
+                    catego.setType(finalObject.getString("type"));
+                    catego.setDescription(finalObject.getString("description"));
+                    catego.setPrice(finalObject.getString("price"));
+                    catego.setStudentsCount(finalObject.getString("studentsCount"));
+                    catego.setMinPrice(finalObject.getString("minPrice"));
+                    catego.set_id(finalObject.getString("_id"));
+
+                    JSONArray jsonArray1 = finalObject.getJSONArray("schedules");
+                    for (int j = 0; j < jsonArray1.length(); j++) {
+                        JSONObject jsonObject = jsonArray1.getJSONObject(j);
+                        catego.setStart(jsonObject.getString("start"));
+                        catego.setEnd(jsonObject.getString("end"));
+
+                    }
+                    try {
+                        JSONObject jlocati=finalObject.getJSONObject("location");
+                        catego.setLat(jlocati.getString("lat"));
+                        catego.setLng(jlocati.getString("lng"));
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                    milokilo.add(catego);
+                }
+                return milokilo;
+            } catch (JSONException | IOException e) {
+                e.printStackTrace();
+            } finally {
+                if (connection != null) {
+                    connection.disconnect();
+                }
+                try {
+                    if (reader != null) {
+                        reader.close();
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+            return null;
+        }
+        @Override
+        protected void onPostExecute(final List<Schedule_history_list> Schedule_Mode_Class) {
+            super.onPostExecute(Schedule_Mode_Class);
+            avi.hide();
+            if ((Schedule_Mode_Class != null) && (Schedule_Mode_Class.size()>0))
+            {
+
+         //       adapter_history = new Schedule_history_class(getActivity(), R.layout.schedule_list, Schedule_Mode_Class);
+          adapter_history.addAll(Schedule_Mode_Class);
+          adapter_history.notifyDataSetChanged();
+
+            }
+
+        }
+    }
+
+
+    @SuppressLint("StaticFieldLeak")
+    public class ScheduleAsyncListadd extends AsyncTask<String, String, List<Schedule_upcoming_list>> {
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            avi.show();
+        }
+
+        @Override
+        protected List<Schedule_upcoming_list> doInBackground(String... params) {
+            HttpURLConnection connection = null;
+            BufferedReader reader = null;
+            try {
+                URL url = new URL(params[0]);
+                connection = (HttpURLConnection) url.openConnection();
+
+                connection.setRequestProperty("content-type","application/json");
+                connection.setRequestProperty("x-tutor-app-id","tutor-app-android");
+                connection.setRequestProperty("authorization","Bearer "+Stoken);
+                connection.setRequestMethod("GET");
+                connection.connect();
+                InputStream stream = connection.getInputStream();
+                reader = new BufferedReader(new InputStreamReader(stream));
+                StringBuilder buffer = new StringBuilder();
+                String line = "";
+                while ((line = reader.readLine()) != null) {
+                    buffer.append(line);
+                }
+                String finalJson = buffer.toString();
+                JSONObject parentObject = new JSONObject(finalJson);
+                JSONArray parentArray = parentObject.getJSONArray("classes");
+
+                List<Schedule_upcoming_list> milokilo = new ArrayList<>();
+                Gson gson = new Gson();
+                for (int i = 0; i < parentArray.length(); i++) {
+                    JSONObject finalObject = parentArray.getJSONObject(i);
+                    //
+                    Schedule_upcoming_list catego = new Schedule_upcoming_list();
+                    catego.setSubject(finalObject.getString("subject"));
+                    catego.setType(finalObject.getString("type"));
+                    catego.setDescription(finalObject.getString("description"));
+                    catego.setPrice(finalObject.getString("price"));
+                    catego.setStudentsCount(finalObject.getString("studentsCount"));
+                    catego.setMinPrice(finalObject.getString("minPrice"));
+                    catego.set_id(finalObject.getString("_id"));
+                    JSONArray jsonArray1 = finalObject.getJSONArray("schedules");
+                    for (int j = 0; j < jsonArray1.length(); j++) {
+                        JSONObject jsonObject = jsonArray1.getJSONObject(j);
+                        catego.setStart(jsonObject.getString("start"));
+                        catego.setEnd(jsonObject.getString("end"));
+
+                        //  ListSubject.add(Skind);
+                    }
+
+                    try {
+                        JSONObject jlocati=finalObject.getJSONObject("location");
+                        catego.setLat(jlocati.getString("lat"));
+                        catego.setLng(jlocati.getString("lng"));
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+
+                    milokilo.add(catego);
+                }
+                return milokilo;
+            } catch (JSONException | IOException e) {
+                e.printStackTrace();
+            } finally {
+                if (connection != null) {
+                    connection.disconnect();
+                }
+                try {
+                    if (reader != null) {
+                        reader.close();
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(final List<Schedule_upcoming_list> ScheduleMode) {
+            super.onPostExecute(ScheduleMode);
+            avi.hide();
+            if ((ScheduleMode != null) && (ScheduleMode.size()>0))
+            {
+                LVschedule.setVisibility(View.VISIBLE);
+                nodatatextview.setVisibility(View.INVISIBLE);
+                underser_gif.setVisibility(View.INVISIBLE);
+                adaptersa = new Schedule_class(getActivity(), R.layout.schedule_list, ScheduleMode);
+                LVschedule.setAdapter(adaptersa);
+
+                    adaptersa.notifyDataSetChanged();
+                }
+
+
+            }
+
+
+        }
+
+
+
+
+
+
+
+
+
+
+    public void delete_mylist(String id)
 {
 
     try {
@@ -821,10 +1086,6 @@ public void delete_mylist(String id)
                     return null;
                 }
             }
-
-
-
-
         };
 
         requestQueue.add(stringRequest);
@@ -833,6 +1094,74 @@ public void delete_mylist(String id)
     }
 
 }
+    public abstract class EndlessScrollListener implements AbsListView.OnScrollListener {
 
+        // The minimum amount of items to have below your current scroll position
+        // before loading more.
+        private int visibleThreshold = 1;
+        // The current offset index of data you have loaded
+        private int currentPage = 0;
+        // The total number of items in the dataset after the last load
+        private int previousTotalItemCount = 0;
+        // True if we are still waiting for the last set of data to load.
+        private boolean loading = true;
+        // Sets the starting page index
+        private int startingPageIndex = 0;
+
+        public EndlessScrollListener() {
+        }
+
+        public EndlessScrollListener(int visibleThreshold) {
+            this.visibleThreshold = visibleThreshold;
+        }
+
+        public EndlessScrollListener(int visibleThreshold, int startPage) {
+            this.visibleThreshold = visibleThreshold;
+            this.startingPageIndex = startPage;
+            this.currentPage = startPage;
+        }
+
+        // This happens many times a second during a scroll, so be wary of the code you place here.
+        // We are given a few useful parameters to help us work out if we need to load some more data,
+        // but first we check if we are waiting for the previous load to finish.
+        @Override
+        public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+            // If the total item count is zero and the previous isn't, assume the
+            // list is invalidated and should be reset back to initial state
+            if (totalItemCount < previousTotalItemCount) {
+                this.currentPage = this.startingPageIndex;
+                this.previousTotalItemCount = totalItemCount;
+                if (totalItemCount == 0) {
+                    this.loading = true;
+                }
+            }
+
+            // If it’s still loading, we check to see if the dataset count has
+            // changed, if so we conclude it has finished loading and update the current page
+            // number and total item count.
+            if (loading && (totalItemCount > previousTotalItemCount)) {
+                loading = false;
+                previousTotalItemCount = totalItemCount;
+                currentPage++;
+            }
+
+            // If it isn’t currently loading, we check to see if we have breached
+            // the visibleThreshold and need to reload more data.
+            // If we do need to reload some more data, we execute onLoadMore to fetch the data.
+            if (!loading && (totalItemCount - visibleItemCount) <= (firstVisibleItem + visibleThreshold)) {
+                onLoadMore(currentPage + 1, totalItemCount);
+                loading = true;
+            }
+        }
+
+        // Defines the process for actually loading more data based on page
+        public abstract void onLoadMore(int page, int totalItemsCount);
+
+        @Override
+        public void onScrollStateChanged(AbsListView view, int scrollState) {
+            // Don't take any action on changed
+
+        }
+    }
 
 }

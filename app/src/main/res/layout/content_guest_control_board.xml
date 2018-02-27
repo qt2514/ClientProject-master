@@ -44,18 +44,23 @@
             app:srcCompat="@drawable/ic_filter_results_button" />
     </RelativeLayout>
 
+    <com.orangegangsters.github.swipyrefreshlayout.library.SwipyRefreshLayout
+        android:id="@+id/swipyrefreshlayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="65dp"
+        android:layout_below="@+id/top_relat"
+        app:srl_direction="top">
     <ListView
         android:id="@+id/guset_subfil"
-        android:layout_below="@+id/top_relat"
         android:background="@color/buttonColorSecondary"
         android:layout_width="match_parent"
-        android:layout_marginBottom="63dp"
-
+        android:layout_marginBottom="65dp"
+android:padding="2dp"
     android:divider="@null"
         android:dividerHeight="0dp"
         android:layout_height="match_parent"/>
-
-
+    </com.orangegangsters.github.swipyrefreshlayout.library.SwipyRefreshLayout>
 
     <com.wang.avi.AVLoadingIndicatorView
         android:id="@+id/avi"

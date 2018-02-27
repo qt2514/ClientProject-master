@@ -105,16 +105,21 @@ android:layout_marginTop="5dp"
             android:backgroundTint="#fff" />
 
 </RelativeLayout>
+    <com.orangegangsters.github.swipyrefreshlayout.library.SwipyRefreshLayout
+        android:id="@+id/swipyrefreshlayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="10dp"
+        android:layout_below="@+id/list_dashboard"
+        app:srl_direction="top">
     <ListView
         android:id="@+id/dashboard_list"
         android:layout_width="match_parent"
         android:scrollbars="none"
         android:divider="@null"
-        android:layout_margin="10dp"
-        android:layout_below="@+id/list_dashboard"
         android:layout_height="match_parent"/>
 
-
+    </com.orangegangsters.github.swipyrefreshlayout.library.SwipyRefreshLayout>
 </RelativeLayout>
 
     <ImageView
