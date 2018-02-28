@@ -30,11 +30,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.allattentionhere.fabulousfilter.AAH_FabulousFragment;
+import com.bumptech.glide.util.Util;
 import com.github.thunder413.datetimeutils.DateTimeUnits;
 import com.github.thunder413.datetimeutils.DateTimeUtils;
 
 import com.orangegangsters.github.swipyrefreshlayout.library.SwipyRefreshLayout;
 import com.orangegangsters.github.swipyrefreshlayout.library.SwipyRefreshLayoutDirection;
+import com.squareup.picasso.Picasso;
 import com.twotr.twotr.R;
 import com.twotr.twotr.globalpackfiles.Global_url_twotr;
 import com.twotr.twotr.globalpackfiles.MainActivity;
@@ -65,25 +67,32 @@ String searchque="ameer";
     String Stoken,Sid;
     String[] aryGrade = {
     };
-   public View ftview;
    Schedule_class tutorpageadapter;
     EditText ETsubject_name;
     MyFabFragment dialogFrag;
     FloatingActionButton  fab2;
+    GuestData mData;
     SwipyRefreshLayout swipyRefreshLayout;
     ProgressBar footer;
+    private ArrayMap<String, List<String>> applied_filters = new ArrayMap<>();
+    List<GuestFilters> mList = new ArrayList<>();
+int amountmax=1;
+String typeofstu="";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_guest_control_board);
 listViewguest=findViewById(R.id.guset_subfil);
 ETsubject_name=findViewById(R.id.subject_name);
+
       //  mSwipeRefreshLayout =  findViewById(R.id.activity_main_swipe_refresh_layout);
         swipyRefreshLayout=findViewById(R.id.swipyrefreshlayout);
         avi=findViewById(R.id.avi);
         avi.hide();
         fab2 =  findViewById(R.id.fab2);
+        mData = guestfilterrows.getguest();
 
+        mList.addAll(mData.getAllMovies());
         Shared_user_details=getSharedPreferences("user_detail_mode",0);
         Stoken=  Shared_user_details.getString("token", null);
         Sid=  Shared_user_details.getString("id", null);
@@ -125,7 +134,6 @@ ETsubject_name=findViewById(R.id.subject_name);
         listViewguest.setOnScrollListener(new EndlessScrollListener() {
             @Override
             public void onLoadMore(int page, int totalItemsCount) {
-
 
                 schedule_list_url = Global_url_twotr.Guest_list_api+searchque+"&page="+page+"&size=10" ;
                 new Newpageloading().execute(schedule_list_url);
@@ -269,9 +277,9 @@ DataInputStream inputStream;
                 JSONObject auth=new JSONObject();
                 auth.put("grades",array2);
                 auth.put("isTutorOnly","false");
-                auth.put("type", "");
+                auth.put("type", typeofstu);
                 price.put("min",0);
-                price.put("max",1);
+                price.put("max",amountmax);
                 auth.put("price",price);
                 auth.put("ratings", "0");
                 auth.put("timezone", "Asia/Kuwait");
@@ -312,13 +320,19 @@ DataInputStream inputStream;
 
                         //  ListSubject.add(Skind);
                     }
-//                    try {
-//                        JSONObject jlocati=finalObject.getJSONObject("location");
-//                        catego.setLat(jlocati.getString("lat"));
-//                        catego.setLng(jlocati.getString("lng"));
-//                    } catch (JSONException e) {
-//                        e.printStackTrace();
-//                    }
+
+                    //                    try
+                    //                 {
+                    //                        JSONObject jlocati=finalObject.getJSONObject("location");
+                    //                        catego.setLat(jlocati.getString("lat"));
+                    //                         catego.setLng(jlocati.getString("lng"));
+                    //                 }
+                    //                    catch (JSONException e)
+                    //
+                    //                     {
+                    //                        e.printStackTrace();
+                    //                        }
+
 
                     milokilo.add(catego);
                 }
@@ -343,13 +357,12 @@ DataInputStream inputStream;
         @Override
         protected void onPostExecute(final List<Guest_list_parce> ScheduleMode) {
             super.onPostExecute(ScheduleMode);
-
+            avi.hide();
             if ((ScheduleMode != null) && (ScheduleMode.size()>0))
             {
 
                  tutorpageadapter = new Schedule_class(GuestControlBoard.this, R.layout.guest_dasboard_list, ScheduleMode);
                 listViewguest.setAdapter(tutorpageadapter);
-
                 avi.hide();
 //                listViewguest.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 //                        @Override
@@ -389,6 +402,10 @@ DataInputStream inputStream;
 
 
             }
+            else
+            {
+                avi.hide();
+            }
 
         }
 
@@ -426,9 +443,9 @@ DataInputStream inputStream;
                 JSONObject auth=new JSONObject();
                 auth.put("grades",array2);
                 auth.put("isTutorOnly","false");
-                auth.put("type", "");
+                auth.put("type", typeofstu);
                 price.put("min",0);
-                price.put("max",1);
+                price.put("max",amountmax);
                 auth.put("price",price);
                 auth.put("ratings", "0");
                 auth.put("timezone", "Asia/Kuwait");
@@ -500,7 +517,7 @@ DataInputStream inputStream;
         @Override
         protected void onPostExecute(final List<Guest_list_parce> ScheduleMode) {
             super.onPostExecute(ScheduleMode);
-
+            avi.hide();
             if ((ScheduleMode != null) && (ScheduleMode.size()>0))
             {
 
@@ -570,37 +587,68 @@ DataInputStream inputStream;
             if (result != null) {
                 ArrayMap<String, List<String>> applied_filters = (ArrayMap<String, List<String>>) result;
                 if (applied_filters.size() != 0) {
-                  //  List<SingleMovie> filteredList = mData.getAllMovies();
+                  List<GuestFilters> filteredList = mData.getAllMovies();
                     //iterate over arraymap
                     for (Map.Entry<String, List<String>> entry : applied_filters.entrySet()) {
                         Log.d("k9res", "entry.key: " + entry.getKey());
                         switch (entry.getKey()) {
-                            case "genre":
-                    //            filteredList = mData.getGenreFilteredMovies(entry.getValue(), filteredList);
+                            case "Type":
+                                filteredList = mData.getStypeFilteredMovies(entry.getValue(), filteredList);
+                                typeofstu=entry.getValue().toString();
+                                typeofstu=typeofstu.replaceAll("\\[", "").replaceAll("\\]","");
+                                Log.d("aac", "type: " + typeofstu);
+
                                 break;
-                            case "rating":
-                      //          filteredList = mData.getRatingFilteredMovies(entry.getValue(), filteredList);
+                            case "Rating":
+                                filteredList = mData.getRatingFilteredMovies(entry.getValue(), filteredList);
+                                Log.d("aac", "type: " + entry.getValue());
+
                                 break;
-                            case "year":
-                        //        filteredList = mData.getYearFilteredMovies(entry.getValue(), filteredList);
+                            case "Price":
+                                filteredList = mData.getPriceFilteredMovies(entry.getValue(), filteredList);
+                                String stringprice=entry.getValue().toString();
+                                stringprice=stringprice.replaceAll("\\[", "").replaceAll("\\]","");
+amountmax=Integer.valueOf(stringprice);
                                 break;
-                            case "quality":
-                          //      filteredList = mData.getQualityFilteredMovies(entry.getValue(), filteredList);
+                            case "Grade":
+                                filteredList = mData.getGradeFilteredMovies(entry.getValue(), filteredList);
+                                Log.d("aac", "type: " + entry.getValue());
+                                aryGrade= entry.getValue().toArray(new String[0]);
                                 break;
                         }
+
                     }
+
+                    schedule_list_url = Global_url_twotr.Guest_list_api+searchque+"&page=1&size=10" ;
+                    new ScheduleAsyncList().execute(schedule_list_url);
                  //   Log.d("k9res", "new size: " + filteredList.size());
-                 //   mList.clear();
-                   // mList.addAll(filteredList);
+//                   mList.clear();
+//                    mList.addAll(filteredList);
+
                    // mAdapter.notifyDataSetChanged();
 
-                } else {
+                }
+                else {
+                    Log.d("aac", "am here: " );
+
+                    typeofstu="";
+aryGrade= new String[]{};
+                    amountmax=1;
+                    schedule_list_url = Global_url_twotr.Guest_list_api+searchque+"&page=1&size=10" ;
+                    new ScheduleAsyncList().execute(schedule_list_url);
                     //mList.addAll(mData.getAllMovies());
                     //mAdapter.notifyDataSetChanged();
                 }
             }
             //handle result
         }
+    }
+    public ArrayMap<String, List<String>> getApplied_filters() {
+        return applied_filters;
+    }
+
+    public GuestData getmData() {
+        return mData;
     }
     @Override
     public void onConfigurationChanged(Configuration newConfig) {

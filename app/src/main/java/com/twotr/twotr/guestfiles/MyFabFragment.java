@@ -116,7 +116,7 @@ public class MyFabFragment extends AAH_FabulousFragment {
         @Override
         public Object instantiateItem(ViewGroup collection, int position) {
             LayoutInflater inflater = LayoutInflater.from(getContext());
-            ViewGroup layout = (ViewGroup) inflater.inflate(R.layout.filter_view, collection, false);
+            ViewGroup layout = (ViewGroup) inflater.inflate(R.layout.view_filters_sorters, collection, false);
             FlexboxLayout fbl = (FlexboxLayout) layout.findViewById(R.id.fbl);
 //            LinearLayout ll_scroll = (LinearLayout) layout.findViewById(R.id.ll_scroll);
 //            FrameLayout.LayoutParams lp = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, (int) (metrics.heightPixels-(104*metrics.density)));
@@ -178,18 +178,20 @@ public class MyFabFragment extends AAH_FabulousFragment {
         switch (filter_category) {
             case "Type":
          //   keys.add("heelo");
+                keys = ((GuestControlBoard) getActivity()).getmData().getUniqueStypeKeys();
+
                 break;
             case "Rating":
           //      keys.add("heelo");
-                //keys = ((MainActivity) getActivity()).getmData().getUniqueRatingKeys();
+                keys = ((GuestControlBoard) getActivity()).getmData().getUniqueRatingKeys();
                 break;
             case "Price":
             //    keys.add("heelo");
-                //keys = ((MainActivity) getActivity()).getmData().getUniqueYearKeys();
+                keys = ((GuestControlBoard) getActivity()).getmData().getUniquePriceKeys();
                 break;
             case "Grade":
             //    keys.add("heelo");
-               // keys = ((MainActivity) getActivity()).getmData().getUniqueQualityKeys();
+               keys = ((GuestControlBoard) getActivity()).getmData().getUniqueGradeKeys();
                 break;
         }
 
@@ -205,12 +207,12 @@ public class MyFabFragment extends AAH_FabulousFragment {
                     if (tv.getTag() != null && tv.getTag().equals("selected")) {
                         tv.setTag("unselected");
                         tv.setBackgroundResource(R.drawable.chip_unselected);
-                        //tv.setTextColor(ContextCompat.getColor(getContext(), R.color.filters_chips));
+                        tv.setTextColor(ContextCompat.getColor(getContext(), R.color.filters_chips));
                         removeFromSelectedMap(filter_category, finalKeys.get(finalI));
                     } else {
                         tv.setTag("selected");
                         tv.setBackgroundResource(R.drawable.chip_selected);
-                      //  tv.setTextColor(ContextCompat.getColor(getContext(), R.color.filters_header));
+                       tv.setTextColor(ContextCompat.getColor(getContext(), R.color.filters_header));
                         addToSelectedMap(filter_category, finalKeys.get(finalI));
                     }
                 }
@@ -226,10 +228,10 @@ public class MyFabFragment extends AAH_FabulousFragment {
             if (applied_filters != null && applied_filters.get(filter_category) != null && applied_filters.get(filter_category).contains(keys.get(finalI))) {
                 tv.setTag("selected");
                 tv.setBackgroundResource(R.drawable.chip_selected);
-               // tv.setTextColor(ContextCompat.getColor(getContext(), R.color.filters_header));
+                tv.setTextColor(ContextCompat.getColor(getContext(), R.color.filters_header));
             } else {
                 tv.setBackgroundResource(R.drawable.chip_unselected);
-                //tv.setTextColor(ContextCompat.getColor(getContext(), R.color.filters_chips));
+                tv.setTextColor(ContextCompat.getColor(getContext(), R.color.filters_chips));
             }
             textviews.add(tv);
 
