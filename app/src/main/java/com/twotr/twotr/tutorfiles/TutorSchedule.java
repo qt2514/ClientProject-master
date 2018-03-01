@@ -217,7 +217,7 @@ LVschedule_history.setVisibility(View.VISIBLE);
                 schedule_list_url = "http://twotr.com:5040/api/class/history?page=1&size=10" ;
                 new ScheduleAsyncListHistory().execute(schedule_list_url);
 
-                swipyRefreshLayout.setRefreshing(false);
+                swipyRefreshLayout_history.setRefreshing(false);
             }
         });
 
@@ -548,6 +548,8 @@ catego.set_id(finalObject.getString("_id"));
                         }
                     });
                     adaptersa.notifyDataSetChanged();
+                    LVschedule.removeFooterView(footer);
+
                 }
 
 
@@ -813,6 +815,7 @@ catego.set_id(finalObject.getString("_id"));
                 LVschedule_history.setAdapter(adapter_history);
 
                 adapter_history.notifyDataSetChanged();
+                LVschedule_history.removeFooterView(footer);
 
             }
             else
@@ -911,7 +914,14 @@ catego.set_id(finalObject.getString("_id"));
          //       adapter_history = new Schedule_history_class(getActivity(), R.layout.schedule_list, Schedule_Mode_Class);
           adapter_history.addAll(Schedule_Mode_Class);
           adapter_history.notifyDataSetChanged();
+                LVschedule_history.removeFooterView(footer);
 
+
+            }
+            else
+            {
+                LVschedule_history.removeFooterView(footer);
+                avi.hide();
             }
 
         }
@@ -1006,16 +1016,20 @@ catego.set_id(finalObject.getString("_id"));
             avi.hide();
             if ((ScheduleMode != null) && (ScheduleMode.size()>0))
             {
-                LVschedule.setVisibility(View.VISIBLE);
-                nodatatextview.setVisibility(View.INVISIBLE);
-                underser_gif.setVisibility(View.INVISIBLE);
-                adaptersa = new Schedule_class(getActivity(), R.layout.schedule_list, ScheduleMode);
-                LVschedule.setAdapter(adaptersa);
-
+//                LVschedule.setVisibility(View.VISIBLE);
+//                nodatatextview.setVisibility(View.INVISIBLE);
+//                underser_gif.setVisibility(View.INVISIBLE);
+//                adaptersa = new Schedule_class(getActivity(), R.layout.schedule_list, ScheduleMode);
+//                LVschedule.setAdapter(adaptersa);
+adaptersa.addAll(ScheduleMode);
                     adaptersa.notifyDataSetChanged();
                 }
 
-
+            else
+            {
+                LVschedule.removeFooterView(footer);
+                avi.hide();
+            }
             }
 
 

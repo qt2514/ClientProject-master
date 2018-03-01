@@ -98,8 +98,8 @@ imageViewloc=view.findViewById(R.id.dashboard_location);
         avi=view.findViewById(R.id.avi);
 
         LVtutordashboard=view.findViewById(R.id.dashboard_list);
-        footer = new ProgressBar(getContext());
-        LVtutordashboard.addFooterView(footer);
+//        footer = new ProgressBar(getContext());
+//        LVtutordashboard.addFooterView(footer);
         swipyRefreshLayout=view.findViewById(R.id.swipyrefreshlayout);
 
         new ScheduleAsyncList().execute(Global_url_twotr.Profile_dashboard);
@@ -119,7 +119,6 @@ imageViewloc=view.findViewById(R.id.dashboard_location);
             @Override
             public void onRefresh(SwipyRefreshLayoutDirection direction) {
                 new ScheduleAsyncList().execute(Global_url_twotr.Profile_dashboard);
-
                 swipyRefreshLayout.setRefreshing(false);
             }
         });

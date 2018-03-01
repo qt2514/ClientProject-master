@@ -2,6 +2,7 @@ package com.twotr.twotr.guestfiles;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.os.AsyncTask;
@@ -22,6 +23,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -40,6 +42,7 @@ import com.squareup.picasso.Picasso;
 import com.twotr.twotr.R;
 import com.twotr.twotr.globalpackfiles.Global_url_twotr;
 import com.twotr.twotr.globalpackfiles.MainActivity;
+import com.twotr.twotr.tutorfiles.ScheduleDetailPage;
 import com.wang.avi.AVLoadingIndicatorView;
 
 import org.json.JSONArray;
@@ -364,39 +367,39 @@ DataInputStream inputStream;
                  tutorpageadapter = new Schedule_class(GuestControlBoard.this, R.layout.guest_dasboard_list, ScheduleMode);
                 listViewguest.setAdapter(tutorpageadapter);
                 avi.hide();
-//                listViewguest.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//                        @Override
-//                        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//                            Guest_list_parce Guest_list_parce = ScheduleMode.get(position);
-//                            Intent intent = new Intent(GuestControlBoard.this, ScheduleDetailPage.class);
-//                            intent.putExtra("subject_name", Guest_list_parce.getSubject());
-//                            intent.putExtra("type_subject", Guest_list_parce.getType());
-//                            intent.putExtra("schedule_description", Guest_list_parce.getDescription());
-//                            intent.putExtra("latitude", Guest_list_parce.getLat());
-//                            intent.putExtra("longitude", Guest_list_parce.getLng());
-//                            intent.putExtra("schedule_price", Guest_list_parce.getPrice());
-//                            intent.putExtra("studentscount", Guest_list_parce.getStudentsCount());
-//                            intent.putExtra("minprice", Guest_list_parce.getMinPrice());
-//                            intent.putExtra("cateid",Guest_list_parce.get_id());
-//                            String Scompletestart = Guest_list_parce.getStart();
-//                            String Scompleteend = Guest_list_parce.getEnd();
-//
-//                            String startdate = Scompletestart.substring(0, 10);
-//                            String starttime = Scompletestart.substring(11, 19);
-//                            String enddate = Scompleteend.substring(0, 10);
-//                            String endtime = Scompleteend.substring(11, 19);
-//                            String time_sched = Scompletestart.substring(11, 16);
-//                            String datestart = startdate + " " + starttime;
-//                            String dateend = enddate + " " + endtime;
-//                            int diff = DateTimeUtils.getDateDiff(datestart, dateend, DateTimeUnits.HOURS);
-//                            diff = Math.abs(diff);
-//                            String shours = diff + " hours - ";
-//                            String stimsc = time_sched + " | ";
-//                            String smonth = DateTimeUtils.formatWithPattern(startdate, " MMMM dd");
-//                            intent.putExtra("hrschmon", shours + stimsc + smonth);
+                listViewguest.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                        @Override
+                        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+//              //              Guest_list_parce Guest_list_parce = ScheduleMode.get(position);
+//                    Intent intent = new Intent(GuestControlBoard.this, GuestActivityDetails.class);
+////                            intent.putExtra("subject_name", Guest_list_parce.getSubject());
+////                            intent.putExtra("type_subject", Guest_list_parce.getType());
+////                            intent.putExtra("schedule_description", Guest_list_parce.getDescription());
+////                            intent.putExtra("latitude", Guest_list_parce.getLat());
+////                            intent.putExtra("longitude", Guest_list_parce.getLng());
+////                            intent.putExtra("schedule_price", Guest_list_parce.getPrice());
+////                            intent.putExtra("studentscount", Guest_list_parce.getStudentsCount());
+////                            intent.putExtra("minprice", Guest_list_parce.getMinPrice());
+////                            intent.putExtra("cateid",Guest_list_parce.get_id());
+////                            String Scompletestart = Guest_list_parce.getStart();
+////                            String Scompleteend = Guest_list_parce.getEnd();
+////
+////                            String startdate = Scompletestart.substring(0, 10);
+////                            String starttime = Scompletestart.substring(11, 19);
+////                            String enddate = Scompleteend.substring(0, 10);
+////                            String endtime = Scompleteend.substring(11, 19);
+////                            String time_sched = Scompletestart.substring(11, 16);
+////                            String datestart = startdate + " " + starttime;
+////                            String dateend = enddate + " " + endtime;
+////                            int diff = DateTimeUtils.getDateDiff(datestart, dateend, DateTimeUnits.HOURS);
+////                            diff = Math.abs(diff);
+////                            String shours = diff + " hours - ";
+////                            String stimsc = time_sched + " | ";
+////                            String smonth = DateTimeUtils.formatWithPattern(startdate, " MMMM dd");
+////                            intent.putExtra("hrschmon", shours + stimsc + smonth);
 //                            startActivity(intent);
-//                        }
-//                    });
+                        }
+                    });
                 tutorpageadapter.notifyDataSetChanged();
 
 

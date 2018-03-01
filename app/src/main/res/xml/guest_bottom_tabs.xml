@@ -2,28 +2,28 @@
 <tabs>
     <tab
         id="@+id/tab_schedules"
-        icon="@drawable/schedule"
+        icon="@drawable/guestmenu"
         inActiveColor="@color/bottomcolor"
         activeColor="@color/bottomactivetab"
         barColorWhenSelected="#fff"
-        title="Schedule" />
+        title="Booked" />
     <tab
         id="@+id/tab_dashboard"
-        icon="@drawable/dashboard_bottom"
+        icon="@drawable/guestdashboard"
         inActiveColor="@color/bottomcolor"
         activeColor="@color/bottomactivetab"
         barColorWhenSelected="#fff"
         title="Dashboard" />
     <tab
         id="@+id/tab_create"
-        icon="@drawable/create"
+        icon="@drawable/guestsearch"
         inActiveColor="@color/bottomcolor"
         activeColor="@color/bottomactivetab"
         barColorWhenSelected="#fff"
-        title="Create" />
+        title="Discover" />
     <tab
         id="@+id/tab_settings"
-        icon="@drawable/setting"
+        icon="@drawable/guestsetting_1"
         inActiveColor="@color/bottomcolor"
         activeColor="@color/bottomactivetab"
         barColorWhenSelected="#fff"

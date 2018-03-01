@@ -12,8 +12,8 @@
     <RelativeLayout
     android:layout_width="match_parent"
     android:id="@+id/list_dashboard"
-        android:visibility="visible"
-    android:background="@color/colorPrimaryDark"
+        android:visibility="invisible"
+    android:background="@drawable/dashboard_imag"
     android:layout_height="250dp">
 <!--<TextView-->
     <!--android:layout_width="wrap_content"-->

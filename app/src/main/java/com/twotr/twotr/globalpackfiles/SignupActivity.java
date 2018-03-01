@@ -172,6 +172,14 @@ ETreferby=findViewById(R.id.referal_signup);
                             || ETlastname.getText().toString().equals(""))
                     {
                         sweetmessage="Please enter all fields";
+                        new SweetAlertDialog(SignupActivity.this, SweetAlertDialog.NORMAL_TYPE).setTitleText(sweetmessage)
+                                .setConfirmText("OK")
+                                .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                                    @Override
+                                    public void onClick(SweetAlertDialog sweetAlertDialog) {
+                                        sweetAlertDialog.dismiss();
+                                    }
+                                }).show();
 
                     }
                     else
@@ -179,17 +187,41 @@ ETreferby=findViewById(R.id.referal_signup);
                             if (ETfullname.getText().toString().equals(""))
                             {
                                 sweetmessage="Please Enter Your Full Name";
+                                new SweetAlertDialog(SignupActivity.this, SweetAlertDialog.NORMAL_TYPE).setTitleText(sweetmessage)
+                                        .setConfirmText("OK")
+                                        .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                                            @Override
+                                            public void onClick(SweetAlertDialog sweetAlertDialog) {
+                                                sweetAlertDialog.dismiss();
+                                            }
+                                        }).show();
 
                             } else {
 
                                 if (ETlastname.getText().toString().equals("")) {
                                     sweetmessage="Please Enter Your Last Name";
+                                    new SweetAlertDialog(SignupActivity.this, SweetAlertDialog.NORMAL_TYPE).setTitleText(sweetmessage)
+                                            .setConfirmText("OK")
+                                            .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                                                @Override
+                                                public void onClick(SweetAlertDialog sweetAlertDialog) {
+                                                    sweetAlertDialog.dismiss();
+                                                }
+                                            }).show();
 
                                 }
                                 else {
 
                                     if (ETusername.getText().toString().equals("")) {
                                        sweetmessage="Please Enter Your EmailId";
+                                        new SweetAlertDialog(SignupActivity.this, SweetAlertDialog.NORMAL_TYPE).setTitleText(sweetmessage)
+                                                .setConfirmText("OK")
+                                                .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                                                    @Override
+                                                    public void onClick(SweetAlertDialog sweetAlertDialog) {
+                                                        sweetAlertDialog.dismiss();
+                                                    }
+                                                }).show();
 
                                     }
                                     else {
@@ -199,6 +231,14 @@ ETreferby=findViewById(R.id.referal_signup);
                                             if(ETpassword.length()<6)
                                             {
                                                 sweetmessage="Please Enter 6 digit Password";
+                                                new SweetAlertDialog(SignupActivity.this, SweetAlertDialog.NORMAL_TYPE).setTitleText(sweetmessage)
+                                                        .setConfirmText("OK")
+                                                        .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                                                            @Override
+                                                            public void onClick(SweetAlertDialog sweetAlertDialog) {
+                                                                sweetAlertDialog.dismiss();
+                                                            }
+                                                        }).show();
                                             }
                                             else
                                             {
@@ -211,11 +251,18 @@ ETreferby=findViewById(R.id.referal_signup);
                                                 if (!Spass_word.equals(Sconfirm_pass))
                                                 {
                                                     sweetmessage = "Password Mismatch";
+                                                    new SweetAlertDialog(SignupActivity.this, SweetAlertDialog.NORMAL_TYPE).setTitleText(sweetmessage)
+                                                            .setConfirmText("OK")
+                                                            .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                                                                @Override
+                                                                public void onClick(SweetAlertDialog sweetAlertDialog) {
+                                                                    sweetAlertDialog.dismiss();
+                                                                }
+                                                            }).show();
                                                 }
                                                 else
                                                 {
                                                     avi.show();
-                                                    sweetmessage = "Thank you for Signup,Please Signin Now!";
                                                     signup_twotr(Sfull_name, Slast_name, Susername, Spass_word, SreferBy);
                                                 }
                                             }
@@ -223,19 +270,20 @@ ETreferby=findViewById(R.id.referal_signup);
                                         else
                                         {
                                             sweetmessage = "Please Check Your EmailId";
+                                            new SweetAlertDialog(SignupActivity.this, SweetAlertDialog.NORMAL_TYPE).setTitleText(sweetmessage)
+                                                    .setConfirmText("OK")
+                                                    .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                                                        @Override
+                                                        public void onClick(SweetAlertDialog sweetAlertDialog) {
+                                                            sweetAlertDialog.dismiss();
+                                                        }
+                                                    }).show();
                                         }
                                     }
                                 }
                             }
                         }
-                    new SweetAlertDialog(SignupActivity.this, SweetAlertDialog.NORMAL_TYPE).setTitleText(sweetmessage)
-                            .setConfirmText("OK")
-                            .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
-                                @Override
-                                public void onClick(SweetAlertDialog sweetAlertDialog) {
-                                    sweetAlertDialog.dismiss();
-                                }
-                            }).show();
+
                 }
             });
     }
@@ -259,7 +307,19 @@ public void signup_twotr(String sfull_name, String slast_name, String susername,
 
             public void onResponse(String response) {
                 avi.hide();
-                startActivity(new Intent(SignupActivity.this, SigninActivity.class));
+                sweetmessage = "Successfully Signed Up.";
+
+                new SweetAlertDialog(SignupActivity.this, SweetAlertDialog.NORMAL_TYPE).setTitleText(sweetmessage)
+                        .setContentText("Please Signin Now!")
+                        .setConfirmText("OK")
+                        .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                            @Override
+                            public void onClick(SweetAlertDialog sweetAlertDialog) {
+                                startActivity(new Intent(SignupActivity.this, SigninActivity.class));
+
+                                sweetAlertDialog.dismiss();
+                            }
+                        }).show();
 
             }
         }, new Response.ErrorListener() {
