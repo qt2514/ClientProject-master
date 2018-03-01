@@ -93,16 +93,16 @@ android:layout_marginTop="5dp"
         android:textSize="12sp"
         android:textColor="#fff" />
 
-
         <ImageView
             android:id="@+id/dashboard_location"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="20dp"
+            android:layout_height="30dp"
             android:visibility="invisible"
+            android:layout_marginTop="15dp"
             android:layout_below="@+id/subject_start_date"
             android:layout_centerHorizontal="true"
-            android:background="@drawable/ic_location_on_black_24dp"
-            android:backgroundTint="#fff" />
+            android:background="@drawable/twotr_pin"
+             />
 
 </RelativeLayout>
     <com.orangegangsters.github.swipyrefreshlayout.library.SwipyRefreshLayout
