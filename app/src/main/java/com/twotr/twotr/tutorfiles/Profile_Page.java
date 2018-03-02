@@ -348,6 +348,7 @@ recyclerView.setHorizontalScrollBarEnabled(false);
                     }
                     recyclerViewsub.setAdapter(RecyclerViewHorizontalAdaptersub);
                     JSONObject userprofile = jObj.getJSONObject("userProfile");
+
                       SfirstName=userprofile.getString("firstName");
                       SmiddleName=userprofile.getString("middleName");
                       SlastName=userprofile.getString("lastName");
