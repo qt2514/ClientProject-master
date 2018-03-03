@@ -55,7 +55,7 @@
                 android:layout_alignBottom="@+id/subject_name"
                 android:layout_toEndOf="@+id/subject_name"
                 android:fontFamily="@font/montserrat"
-                android:text=" (1 to 1)"
+                android:text=" (1 on 1)"
 
                 android:textColor="@color/colorwhite" />
 

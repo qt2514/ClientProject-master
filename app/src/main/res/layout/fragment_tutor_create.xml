@@ -21,29 +21,18 @@
             android:layout_centerHorizontal="true"
             android:textColor="#fff"
             android:layout_height="wrap_content" />
+
     </RelativeLayout>
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="60dp">
-        <TextView
-            android:id="@+id/type_search"
-            android:layout_width="match_parent"
-            android:layout_height="45dp"
-            android:layout_alignParentStart="true"
-            android:layout_margin="10dp"
-            android:background="@drawable/edittext_unselected"
-            android:padding="5dp"
-            android:textSize="17sp"
-            android:gravity="center"
-            android:fontFamily="@font/montserrat"
-            android:hint="@string/type_and_choose_subject"/>
         <LinearLayout
-            android:layout_below="@+id/type_search"
             android:layout_width="match_parent"
             android:weightSum="2"
-            android:layout_margin="10dp"
+            android:layout_margin="5dp"
+
             android:gravity="center"
             android:layout_height="40dp"
             android:id="@+id/linearLayout3">
@@ -51,8 +40,9 @@
                 android:id="@+id/one_to_one"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/tab_button_selected"
+                android:background="@drawable/tab_selected"
                 android:layout_weight="1"
+                android:layout_marginStart="40dp"
                 android:textColor="@android:color/white"
                 android:text="ONE ON ONE" />
             <Button
@@ -60,15 +50,31 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:background="@drawable/tab_button_unselected"
+                android:layout_marginEnd="40dp"
+                android:textColor="@color/mdtp_white"
+                android:background="@drawable/tab_unselected_right"
                 android:text="GROUP" />
         </LinearLayout>
+        <TextView
+            android:id="@+id/type_search"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:layout_alignParentStart="true"
+            android:layout_margin="5dp"
+            android:background="@drawable/edittext_unselected"
+            android:padding="5dp"
+            android:textSize="17sp"
+            android:gravity="center"
+            android:layout_below="@+id/linearLayout3"
+            android:fontFamily="@font/montserrat"
+            android:hint="@string/type_and_choose_subject"/>
+
 
         <EditText
             android:id="@+id/amount_create"
             android:layout_width="match_parent"
             android:layout_height="45dp"
-            android:layout_below="@+id/linearLayout3"
+            android:layout_below="@+id/type_search"
             android:layout_centerHorizontal="true"
             android:layout_margin="5dp"
             android:background="@drawable/edittext_unselected"
@@ -101,7 +107,7 @@ android:visibility="gone"
             android:fontFamily="@font/montserrat"
             android:background="@drawable/edittext_unselected"
             android:layout_below="@+id/amount_create"
-            android:hint="Select Grade"
+            android:hint="Select Grade Level"
             android:gravity="center"
             android:textSize="18sp"/>
         <!--<EditText-->

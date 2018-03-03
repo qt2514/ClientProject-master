@@ -8,7 +8,6 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-
         android:layout_height="match_parent">
 
         <RelativeLayout
@@ -24,7 +23,7 @@
             <Button
                 android:id="@+id/history_button"
                 android:layout_width="wrap_content"
-                android:layout_height="35dp"
+                android:layout_height="30dp"
                 android:background="@drawable/tab_unselected"
                 android:fontFamily="@font/montserrat"
                 android:padding="5dp"
@@ -36,7 +35,7 @@
             <Button
                 android:id="@+id/upcoming_button"
                 android:layout_width="wrap_content"
-                android:layout_height="35dp"
+                android:layout_height="30dp"
                 android:layout_alignParentTop="true"
                 android:layout_toEndOf="@+id/history_button"
                 android:background="@drawable/tab_selected_right"

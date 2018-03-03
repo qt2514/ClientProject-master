@@ -25,19 +25,26 @@
             android:backgroundTint="#fff"
             android:focusable="true" />
 
+
         <EditText
             android:id="@+id/serach_subject"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="80dp"
+            android:layout_toEndOf="@+id/back_ima_scedule"
 
+            android:gravity="center"
+            android:drawableStart="@drawable/ic_search_black_24dp"
+            android:drawableTint="@color/mdtp_white"
             android:layout_alignBaseline="@+id/add_subject_list"
             android:layout_alignBottom="@+id/add_subject_list"
             android:layout_centerHorizontal="true"
+            android:layout_marginStart="5dp"
+            android:layout_marginEnd="5dp"
+            android:layout_toStartOf="@+id/add_subject_list"
             android:background="@drawable/search_bg_guest"
             android:fontFamily="@font/montserrat"
             android:hint="Enter Your Subject Name"
-            android:padding="8dp"
+            android:padding="10dp"
             android:textColor="#fff"
             android:textColorHint="@color/colorwhite"
             android:textSize="15sp" />

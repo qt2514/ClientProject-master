@@ -304,7 +304,7 @@ public class Schedule_class extends ArrayAdapter {
         String type_group=supl.getType();
         if (type_group.equals("oneonone"))
         {
-            type_group="1 to 1";
+            type_group="1 on 1";
         }
         holder.TVtypemenbers.setText(type_group);
         holder.TVschedule_des.setText(supl.getDescription());
@@ -612,7 +612,7 @@ catego.set_id(finalObject.getString("_id"));
             String type_group=supl.getType();
             if (type_group.equals("oneonone"))
             {
-                type_group="1 to 1";
+                type_group="1 on 1";
             }
             holder.TVtypemenbers.setText(type_group);
             holder.TVschedule_des.setText(supl.getDescription());

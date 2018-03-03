@@ -129,7 +129,13 @@ listViewItems.clear();
 
             }
         });
-
+serach_text.setOnClickListener(new View.OnClickListener() {
+    @Override
+    public void onClick(View v) {
+        textViewadd.setVisibility(View.VISIBLE);
+        Bdone.setVisibility(View.VISIBLE);
+    }
+});
 
 
 
@@ -232,22 +238,21 @@ listViewItems.clear();
                     JSONObject jObj = new JSONObject(response);
                     JSONArray jsonArray = jObj.getJSONArray("subjects");
                     int totalrecords=jObj.getInt("totalRecords");
-                    if (totalrecords<1)
-                    {
-textViewadd.setVisibility(View.VISIBLE);
-Bdone.setVisibility(View.INVISIBLE);
-                    }
-                    else
-                    {
-                        Bdone.setVisibility(View.VISIBLE);
-                        textViewadd.setVisibility(View.INVISIBLE);
+//                    if (totalrecords<1)
+//                    {
+//textViewadd.setVisibility(View.VISIBLE);
+//Bdone.setVisibility(View.INVISIBLE);
+//                    }
+//                    else
+//                    {
+
                         for (int i = 0; i < jsonArray.length(); i++) {
                             JSONObject jsonobject = jsonArray.getJSONObject(i);
                             String name = jsonobject.getString("title");
                             String id = jsonobject.getString("_id");
                             listViewItems.add(new MultispinnerList(name,id));
 
-                        }
+//                        }
                     }
 
 

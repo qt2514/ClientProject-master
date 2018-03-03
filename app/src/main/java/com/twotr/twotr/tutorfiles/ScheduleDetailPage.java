@@ -118,7 +118,7 @@ Sminprice=(String) Bintent.get("minprice");
             TVhrscal.setText(hrschmon);
             if (type_subject.equals("oneonone"))
             {
-                type_subject="1 to 1";
+                type_subject="1 on 1";
                 TVstudentcount.setVisibility(View.INVISIBLE);
                 TVnoofstutext.setVisibility(View.INVISIBLE);
                 TVminamount.setVisibility(View.INVISIBLE);

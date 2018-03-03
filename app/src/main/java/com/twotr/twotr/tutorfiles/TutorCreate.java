@@ -177,10 +177,9 @@ String Ssubjectkind;
             @Override
             public void onClick(View v) {
                 typeofstudteach="oneonone";
-                Boneonone.setBackgroundResource(R.drawable.tab_button_selected);
-                Bgroup.setBackgroundResource(R.drawable.tab_button_unselected);
-                Boneonone.setTextColor(getResources().getColor(R.color.colorwhite));
-                Bgroup.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
+                Boneonone.setBackgroundResource(R.drawable.tab_selected);
+                Bgroup.setBackgroundResource(R.drawable.tab_unselected_right);
+
                 ETnofstudents.setVisibility(View.GONE);
                 ETtotalone.setVisibility(View.VISIBLE);
                 ETtotalamount.setVisibility(View.GONE);
@@ -196,10 +195,9 @@ String Ssubjectkind;
             @Override
             public void onClick(View v) {
                 typeofstudteach="group";
-                Bgroup.setBackgroundResource(R.drawable.tab_button_selected);
-                Boneonone.setBackgroundResource(R.drawable.tab_button_unselected);
-                Bgroup.setTextColor(getResources().getColor(R.color.colorwhite));
-                Boneonone.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
+                Bgroup.setBackgroundResource(R.drawable.tab_selected_right);
+                Boneonone.setBackgroundResource(R.drawable.tab_unselected);
+
                 ETnofstudents.setVisibility(View.VISIBLE);
                 ETtotalone.setVisibility(View.INVISIBLE);
                 ETtotalamount.setVisibility(View.VISIBLE);

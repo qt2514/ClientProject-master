@@ -24,9 +24,11 @@ import com.android.volley.toolbox.Volley;
 import com.ontbee.legacyforks.cn.pedant.SweetAlert.SweetAlertDialog;
 import com.twotr.twotr.R;
 import com.twotr.twotr.db_handlers.SessionManager;
+import com.twotr.twotr.studenttwotr.StudentHome;
 import com.twotr.twotr.tutorfiles.HomePage;
 import com.wang.avi.AVLoadingIndicatorView;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -216,7 +218,12 @@ public void signin_verif(String susername, String spass)
                     String firstName=jObj.getString("firstName");
                     String lastName=jObj.getString("lastName");
                     String username=jObj.getString("username");
-                    String roles=jObj.getString("roles");
+                    JSONArray jsonArray = jObj.getJSONArray("roles");
+
+                      String roles=String.valueOf(jsonArray.get(0));
+
+                        //   Number.add(String.valueOf(jsonArray.get(i)));
+
                     String referralCode=jObj.getString("referralCode");
 //                    JSONObject profilePicture = jObj.getJSONObject("profilePicture");
 //                    String profile_image=profilePicture.getString("url");
@@ -246,8 +253,17 @@ public void signin_verif(String susername, String spass)
                     editor.apply();
                     editor.commit();
                    avi.hide();
-                    startActivity(new Intent(SigninActivity.this, HomePage.class));
-                    finish();
+//
+//                   if (roles.equals("tutor"))
+//                   {
+                       startActivity(new Intent(SigninActivity.this, HubPlace.class));
+                       finish();
+//                   }
+//                   else {
+//                       startActivity(new Intent(SigninActivity.this, StudentHome.class));
+//                       finish();
+//                   }
+
                 }
                 catch (JSONException e) {
                     e.printStackTrace();

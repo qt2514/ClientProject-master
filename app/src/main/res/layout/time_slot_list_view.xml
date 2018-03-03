@@ -4,21 +4,22 @@
     android:layout_height="match_parent">
 
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="New Text"
         android:id="@+id/subjectname"
-        android:layout_alignParentTop="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:textSize="18sp"
-        android:fontFamily="@font/montserrat"
-        android:textStyle="bold"
-        android:ellipsize="end"
-    android:maxEms="22"
-    android:singleLine="true"
+        android:layout_alignParentTop="true"
         android:layout_marginStart="15dp"
-        android:layout_marginTop="15dp" />
+        android:layout_marginTop="15dp"
+        android:layout_toStartOf="@+id/checkBox"
+        android:fontFamily="@font/montserrat"
+        android:ellipsize="end"
+        android:maxEms="15"
+        android:singleLine="true"
+        android:text="New Text"
+        android:textSize="18sp"
+        android:textStyle="bold" />
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

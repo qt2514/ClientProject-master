@@ -25,7 +25,7 @@
     <string name="title_activity_addmaptutor">Map</string>
     <string name="title_activity_schedule_start">ScheduleStart</string>
     <string name="guest">Guest</string>
-    <string name="iamnew">I am New I`ll</string>
+    <string name="iamnew">I`m New I`ll</string>
     <string name="title_activity_schedule_detail_page">ScheduleDetailPAge</string>
     <string name="title_activity_sample_one">SampleOne</string>
 
@@ -50,4 +50,5 @@
     <string name="title_activity_single_subject_select">SingleSubjectSelect</string>
     <string name="title_activity_guest_control_board">GuestControlBoard</string>
     <string name="title_activity_guest_details">GuestActivityDetails</string>
+    <string name="title_activity_student_home">StudentHome</string>
 </resources>

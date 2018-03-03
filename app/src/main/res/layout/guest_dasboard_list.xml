@@ -74,14 +74,14 @@
 
                 <TextView
                     android:id="@+id/tutor_subject_price"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="80dp"
+                    android:layout_height="30dp"
                     android:layout_gravity="end|bottom"
                android:layout_margin="1dp"
                     android:background="@drawable/tab_curve_logocolor"
                     android:fontFamily="@font/montserrat"
-                    android:padding="4dp"
                     android:text="20 KWD"
+                    android:gravity="center"
                     android:textColor="@color/colorPrimaryDark"
                     android:textSize="14sp" />
 

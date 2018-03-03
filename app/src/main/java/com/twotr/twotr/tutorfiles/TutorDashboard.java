@@ -72,7 +72,6 @@ TextView textViewstartdate,textViewstarttime,textViewsubjectname,textViewsubject
 RelativeLayout relativeLayoutdashbord;
     SwipyRefreshLayout swipyRefreshLayout;
     ProgressBar footer;
-
     private CustomGauge CGgauge;
     public static TutorDashboard newInstance() {
         TutorDashboard fragment= new TutorDashboard();
@@ -186,7 +185,7 @@ holder.TVtime_sched=convertView.findViewById(R.id.time_sched);
             String type_group=supl.getType();
             if (type_group.equals("oneonone"))
             {
-                type_group="1 to 1";
+                type_group="1 on 1";
             }
             holder.TVtypemenbers.setText(type_group);
             holder.TVschedule_des.setText(supl.getDescription());
@@ -375,7 +374,7 @@ catego.setPrice(finalObject.getString("price"));
                         String subject_type=jsonObject.getString("type");
                         if (subject_type.equals("oneonone"))
                         {
-                            subject_type="1 to 1";
+                            subject_type="1 on 1";
                         }
 
                         try {

@@ -70,11 +70,11 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class Profile_Edit_Personal extends AppCompatActivity implements DatePickerDialog.OnDateSetListener {
     Spinner gender_sspinner;
     private EditText et_per_desc,et_per_fname,et_per_mname,et_per_lname,et_per_mobile,
-    et_per_city,et_per_zip;
+    et_per_city,et_per_address;
     DatePickerDialog dpd;
     Button Bsaveconti;
     public String Sid,Stoken,Sfirstname,Slastname,Susername,Smiddlename;
-    TextView et_per_dob,et_per_address,TVsubject,searchableSpinner_grade;
+    TextView et_per_dob,TVsubject,searchableSpinner_grade;
     int PLACE_AUTOCOMPLETE_REQUEST_CODE = 1;
     ImageButton IB_back;
     SearchableSpinner SStime_zone,SSmobilepin;
@@ -97,10 +97,10 @@ public class Profile_Edit_Personal extends AppCompatActivity implements DatePick
 String Profile_update_url;
     SharedPreferences.Editor editor;
     String Sdob,Sgender,Stimezone,Ssubjectkind,Smcode,Smobile_number,Saddline,Saddcity,
-        Saddstate,Saddzipcode,Scountry,Sdefaultcountry,Sdecription,Sgrade;
+        Saddstate,Scountry,Sdefaultcountry,Sdecription,Sgrade;
     Boolean Scantutor;
   //  Multipart multipart;
-    String sweetmessage,pin_selec,timezone_selec;
+    String sweetmessage,pin_selec,timezone_selec,Sroles;
     ImageView imageView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -115,7 +115,7 @@ String Profile_update_url;
         et_per_mobile = findViewById(R.id.per_prof_mobile);
         et_per_address = findViewById(R.id.per_prof_address);
         et_per_city = findViewById(R.id.per_prof_city);
-        et_per_zip = findViewById(R.id.per_prof_postal);
+      //  et_per_zip = findViewById(R.id.per_prof_postal);
         TVsubject = findViewById(R.id.per_prof_subject);
         IVimage_profileedit = findViewById(R.id.image_profileedit);
         searchableSpinner_grade = findViewById(R.id.profile_gradespin);
@@ -128,6 +128,7 @@ String Profile_update_url;
         Sfirstname = Shared_user_details.getString("firstName", null);
         Slastname = Shared_user_details.getString("lastName", null);
         Susername = Shared_user_details.getString("username", null);
+
         et_per_fname.setText(Sfirstname);
         et_per_lname.setText(Slastname);
         imageView = findViewById(R.id.upload_image);
@@ -365,7 +366,7 @@ if (et_per_address.getText().toString().equals(""))
                                                                 Saddline = et_per_address.getText().toString();
                                                                 Saddcity = et_per_city.getText().toString();
                                                                 Saddstate = et_per_city.getText().toString();
-                                                                Saddzipcode = et_per_zip.getText().toString();
+                                                              //  Saddzipcode = et_per_zip.getText().toString();
                                                                 Sdecription = et_per_desc.getText().toString();
                                                                 Sgender = gender_sspinner.getSelectedItem().toString();
                                                                 if (Sgender.equals("Male")) {
@@ -380,7 +381,7 @@ if (et_per_address.getText().toString().equals(""))
 
                                                                 personal_profile(Sdob, Sgender, Stimezone,
                                                                         Sgrade, Scantutor, Smcode, Smobile_number, Saddline, Saddcity,
-                                                                        Saddstate, Saddzipcode, Scountry, Sdefaultcountry, Sdecription);
+                                                                        Saddstate, Scountry, Sdefaultcountry, Sdecription);
                                                                 profile_name(Sfirstname, Smiddlename, Slastname);
 
 
@@ -537,20 +538,37 @@ et_per_fname.setOnFocusChangeListener(new View.OnFocusChangeListener() {
                 }
             }
         });
-        et_per_zip.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+
+
+
+        et_per_address.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 if (hasFocus)
                 {
-                    et_per_zip.setBackgroundResource( R.drawable.edittext_selected);
+                    et_per_address.setBackgroundResource( R.drawable.edittext_selected);
                 }
                 else
                 {
-                    et_per_zip.setBackgroundResource( R.drawable.edittext_unselected);
+                    et_per_address.setBackgroundResource( R.drawable.edittext_unselected);
 
                 }
             }
         });
+//        et_per_zip.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+//            @Override
+//            public void onFocusChange(View v, boolean hasFocus) {
+//                if (hasFocus)
+//                {
+//                    et_per_zip.setBackgroundResource( R.drawable.edittext_selected);
+//                }
+//                else
+//                {
+//                    et_per_zip.setBackgroundResource( R.drawable.edittext_unselected);
+//
+//                }
+//            }
+//        });
 
 
         et_per_dob.setOnClickListener(new View.OnClickListener() {
@@ -561,27 +579,30 @@ et_per_fname.setOnFocusChangeListener(new View.OnFocusChangeListener() {
                 dpd.setTitle("Date Of Birth");
             }
         });
-        et_per_address.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                try {
-                    AutocompleteFilter typeFilter = new AutocompleteFilter.Builder()
-                            .setCountry("KW")
-                            .build();
-
-                    Intent intent =
-                            new PlaceAutocomplete.IntentBuilder(PlaceAutocomplete.MODE_FULLSCREEN).setFilter(typeFilter)
-
-                                    .build(Profile_Edit_Personal.this);
-
-                    startActivityForResult(intent, PLACE_AUTOCOMPLETE_REQUEST_CODE);
-                } catch (GooglePlayServicesRepairableException e) {
-             //Testing
-                } catch (GooglePlayServicesNotAvailableException e) {
-                  //Testing
-                }
-            }
-        });
+//        et_per_address.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//
+//
+//
+////                try {
+////                    AutocompleteFilter typeFilter = new AutocompleteFilter.Builder()
+////                            .setCountry("KW")
+////                            .build();
+////
+////                    Intent intent =
+////                            new PlaceAutocomplete.IntentBuilder(PlaceAutocomplete.MODE_FULLSCREEN).setFilter(typeFilter)
+////
+////                                    .build(Profile_Edit_Personal.this);
+////
+////                    startActivityForResult(intent, PLACE_AUTOCOMPLETE_REQUEST_CODE);
+////                } catch (GooglePlayServicesRepairableException e) {
+////             //Testing
+////                } catch (GooglePlayServicesNotAvailableException e) {
+////                  //Testing
+////                }
+//            }
+//        });
 
 
         gender_sspinner =  findViewById(R.id.spinner_gender);
@@ -786,7 +807,7 @@ et_per_fname.setOnFocusChangeListener(new View.OnFocusChangeListener() {
                 assert addresses != null;
                 if (addresses.size() > 0) {
                     et_per_city.setText(addresses.get(0).getLocality());
-                 et_per_zip.setText(addresses.get(0).getPostalCode());
+               //  et_per_zip.setText(addresses.get(0).getPostalCode());
                Scountry= addresses.get(0).getCountryCode();
                 }
                 else {
@@ -866,7 +887,7 @@ TVsubject.setText(Ssubjectnamei);
     }
 
 
-    public void personal_profile(String sdob, String sgender, String stimezone, String sgrade, Boolean scantutor, String smcode, String smobile_number, String saddline, String saddcity, String saddstate, String saddzipcode, String scountry, String sdefaultcountry, String sdecription)
+    public void personal_profile(String sdob, String sgender, String stimezone, String sgrade, Boolean scantutor, String smcode, String smobile_number, String saddline, String saddcity, String saddstate, String scountry, String sdefaultcountry, String sdecription)
     {
         try {
 
@@ -924,9 +945,13 @@ TVsubject.setText(Ssubjectnamei);
 
                 jsonObject1.put("lineOne", saddline);
                 jsonObject1.put("lineTwo", " ");
-                jsonObject1.put("city", saddcity);
+                if (!saddcity.isEmpty())
+                {
+                    jsonObject1.put("city", saddcity);
+                }
+
                 jsonObject1.put("state", saddstate);
-                jsonObject1.put("zipCode", saddzipcode);
+                jsonObject1.put("zipCode", "60076");
                 jsonObject1.put("country", "KW");
                 jsonObjectall.put("address",jsonObject1);
 

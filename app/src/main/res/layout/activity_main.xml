@@ -26,7 +26,7 @@
         android:layout_above="@+id/main_guest"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="20dp"
-        android:background="@color/colorAccent"
+        android:background="@drawable/signin_butt"
         android:fontFamily="@font/montserrat"
         android:text="@string/sign_in"
         android:textAllCaps="false"
@@ -40,7 +40,7 @@
         android:layout_above="@+id/newcust"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="90dp"
-        android:background="@color/buttonColorSecondary"
+        android:background="@drawable/main_guest"
         android:fontFamily="@font/montserrat"
         android:text="@string/guest"
         android:textAllCaps="false"
@@ -80,11 +80,14 @@
         android:id="@+id/sign_up"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/main_guest"
-        android:layout_marginStart="7dp"
+android:layout_marginStart="5dp"
+        android:layout_alignBaseline="@+id/newcust"
+        android:layout_alignBottom="@+id/newcust"
         android:layout_toEndOf="@+id/newcust"
         android:fontFamily="@font/montserrat"
+        android:gravity="top"
         android:text="@string/sign_up"
-        android:textColor="@color/colorAccent" />
+        android:textColor="@color/colorAccent"
+        android:textSize="18sp" />
 
 </RelativeLayout>

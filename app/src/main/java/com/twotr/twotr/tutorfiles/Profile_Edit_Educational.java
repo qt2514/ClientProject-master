@@ -25,6 +25,9 @@ import com.quinny898.library.persistentsearch.SearchBox;
 import com.quinny898.library.persistentsearch.SearchResult;
 import com.twotr.twotr.R;
 import com.twotr.twotr.globalpackfiles.Global_url_twotr;
+import com.twotr.twotr.globalpackfiles.HubPlace;
+import com.twotr.twotr.globalpackfiles.SigninActivity;
+import com.twotr.twotr.studenttwotr.StudentHome;
 import com.wang.avi.AVLoadingIndicatorView;
 import com.whiteelephant.monthpicker.MonthPickerDialog;
 
@@ -51,7 +54,7 @@ TextView et_edu_startd,et_edu_enddate;
    // CheckBox Ccertitutor;
     SharedPreferences.Editor editor;
     AVLoadingIndicatorView avi;
-    String edulevel_elec,institute_selec,sweetmessage;
+    String edulevel_elec,institute_selec,sweetmessage,Sroles;
     RelativeLayout relativeLayoutins,relativeLayoutedu;
     SearchBox searchboxins,searchboxedu;
     ImageButton IB_back;
@@ -67,6 +70,7 @@ TextView et_edu_startd,et_edu_enddate;
         Stoken=  Shared_user_details.getString("token", null);
         BisProfessionalCompleted=  Shared_user_details.getBoolean("isProfessionalCompleted",false);
         BisEducationCompleted=  Shared_user_details.getBoolean("isEducationCompleted",false);
+        Sroles = Shared_user_details.getString("roles", null);
 
         avi=findViewById(R.id.avi);
         avi.hide();
@@ -114,8 +118,16 @@ textViewins=findViewById(R.id.per_edu_inst);
         textViewskipedu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(Profile_Edit_Educational.this, Profile_Edit_Professional.class));
-                finish();
+                                   if (Sroles.equals("tutor"))
+                   {
+                       startActivity(new Intent(Profile_Edit_Educational.this, Profile_Edit_Professional.class));
+                       finish();
+                   }
+                   else {
+                       startActivity(new Intent(Profile_Edit_Educational.this, StudentHome.class));
+                       finish();
+                   }
+
             }
         });
         searchboxedu.setMenuListener(new SearchBox.MenuListener(){
@@ -521,8 +533,15 @@ textViewins=findViewById(R.id.per_edu_inst);
                     editor.putBoolean("isEducationCompleted",true);
                     editor.commit();
                     avi.hide();
-                    startActivity(new Intent(Profile_Edit_Educational.this, Profile_Edit_Professional.class));
-                    finish();
+                    if (Sroles.equals("tutor"))
+                    {
+                        startActivity(new Intent(Profile_Edit_Educational.this, Profile_Edit_Professional.class));
+                        finish();
+                    }
+                    else {
+                        startActivity(new Intent(Profile_Edit_Educational.this, StudentHome.class));
+                        finish();
+                    }
 
 
                 }

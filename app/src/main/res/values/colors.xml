@@ -4,10 +4,10 @@
     <color name="colorPrimaryDark">#2b3139</color>
     <color name="colorPrimaryDarks">#181f29</color>
 
-    <color name="colorAccent">#65C8CD</color>
+    <color name="colorAccent">#48b9b9</color>
     <color name="colorRed">#cc1234</color>
 
-    <color name="buttonColorPrimary">#65C8CD</color>
+    <color name="buttonColorPrimary">#48b9b9</color>
     <color name="colorwhite">#FFFFFF</color>
     <color name="colorBlack">#000000</color>
 

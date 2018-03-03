@@ -177,7 +177,12 @@
         <activity
             android:name=".guestfiles.GuestActivityDetails"
             android:label="@string/title_activity_guest_details"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".studenttwotr.StudentHome"
+            android:label="@string/title_activity_student_home"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".globalpackfiles.HubPlace"></activity>
     </application>
 
 </manifest>

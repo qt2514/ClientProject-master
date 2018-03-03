@@ -56,7 +56,7 @@ ETreferby=findViewById(R.id.referal_signup);
 
         avi.hide();
 
-        s_module="tutor";
+        s_module="student";
 
         ETfullname.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
@@ -142,8 +142,11 @@ ETreferby=findViewById(R.id.referal_signup);
             @Override
             public void onClick(View v) {
                 s_module="tutor";
-                BTutor.setBackgroundColor(getResources().getColor(R.color.buttonColorPrimary));
-                BStudent.setBackgroundColor(getResources().getColor(R.color.buttonColorSecondary));
+                BTutor.setBackgroundResource(R.drawable.signup_heading);
+                BTutor.setTextColor(getResources().getColor(R.color.mdtp_white));
+                BStudent.setTextColor(getResources().getColor(R.color.black));
+
+                BStudent.setBackgroundResource(R.drawable.signup_heading_greay);
             }
         });
         BStudent.setOnClickListener(new View.OnClickListener() {
@@ -151,8 +154,10 @@ ETreferby=findViewById(R.id.referal_signup);
             @Override
             public void onClick(View v) {
                 s_module="student";
-                BStudent.setBackgroundColor(getResources().getColor(R.color.buttonColorPrimary));
-                BTutor.setBackgroundColor(getResources().getColor(R.color.buttonColorSecondary));
+                BStudent.setBackgroundResource(R.drawable.signup_heading);
+                BStudent.setTextColor(getResources().getColor(R.color.mdtp_white));
+                BTutor.setTextColor(getResources().getColor(R.color.black));
+                BTutor.setBackgroundResource(R.drawable.signup_heading_greay);
             }
         });
         IBsignup_back.setOnClickListener(new View.OnClickListener() {

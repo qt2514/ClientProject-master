@@ -125,9 +125,9 @@ android:layout_marginTop="5dp"
     <ImageView
         android:id="@+id/creadte_dashboard_image"
         android:background="@drawable/dashboard"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:visibility="invisible"
-        android:layout_height="match_parent" />
+        android:layout_height="wrap_content" />
 
     <com.wang.avi.AVLoadingIndicatorView
         android:id="@+id/avi"

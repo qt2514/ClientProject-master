@@ -208,7 +208,7 @@ ETsubject_name=findViewById(R.id.subject_name);
             String type_group=supl.getType();
             if (type_group.equals("oneonone"))
             {
-                type_group="1 to 1";
+                type_group="1 on 1";
             }
             holder.TVsubjectname.setText(supl.getSubject()+"  "+ type_group);
 

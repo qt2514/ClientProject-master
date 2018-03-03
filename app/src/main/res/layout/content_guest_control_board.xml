@@ -60,8 +60,18 @@ android:padding="2dp"
     android:divider="@null"
         android:dividerHeight="0dp"
         android:layout_height="match_parent"/>
+
     </com.orangegangsters.github.swipyrefreshlayout.library.SwipyRefreshLayout>
 
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+
+
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        app:srcCompat="@android:drawable/ic_dialog_email" />
     <com.wang.avi.AVLoadingIndicatorView
         android:id="@+id/avi"
         android:layout_width="120dp"
