@@ -305,7 +305,7 @@ android:id="@+id/profile_address"
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Grades"
+                android:text="Grade Level"
                 android:paddingLeft="17dp"
                 android:paddingRight="17dp"
                 android:textColor="@color/colorPrimaryDark"

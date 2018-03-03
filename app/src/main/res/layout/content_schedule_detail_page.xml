@@ -29,8 +29,8 @@
 
         <ImageView
             android:id="@+id/imageView3"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
+            android:layout_width="15dp"
+            android:layout_height="15dp"
 
             android:layout_alignBottom="@+id/hours_sched"
             android:layout_toEndOf="@+id/back_ima_scedule"
@@ -63,8 +63,8 @@
             android:id="@+id/subject_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-
-            android:layout_above="@+id/imageView3"
+            android:layout_above="@+id/hours_sched"
+            android:layout_marginBottom="11dp"
             android:layout_toEndOf="@+id/back_ima_scedule"
             android:fontFamily="@font/montserrat"
             android:padding="2dp"
@@ -236,6 +236,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+
             android:layout_margin="10dp"
             android:gravity="center">
 
@@ -243,7 +244,10 @@
                 android:id="@+id/schedule_show"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_alignBaseline="@+id/schedule_map"
+                android:layout_alignBottom="@+id/schedule_map"
                 android:layout_alignParentStart="true"
+                android:layout_marginStart="26dp"
                 android:layout_centerVertical="true"
                 android:background="@drawable/rounded_text"
                 android:fontFamily="@font/montserrat"
@@ -256,16 +260,16 @@
                 android:id="@+id/schedule_map"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignTop="@+id/schedule_show"
-                android:layout_marginStart="49dp"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="45dp"
                 android:layout_toEndOf="@+id/schedule_show"
                 android:background="@drawable/rounded_text"
                 android:fontFamily="@font/montserrat"
                 android:padding="5dp"
                 android:text="Show Map"
-                android:visibility="gone"
                 android:textAllCaps="false"
-                android:textColor="@android:color/white" />
+                android:textColor="@android:color/white"
+                android:visibility="gone" />
 
             <Button
                 android:id="@+id/map_update"
@@ -307,7 +311,7 @@ android:visibility="invisible"
         android:layout_alignParentStart="true"
         android:fontFamily="@font/montserrat"
         android:padding="3dp"
-        android:text="Material"
+        android:text="Study Material"
         android:textColor="@color/colorPrimaryDark"
         android:textSize="18sp"
         android:textStyle="bold" />
