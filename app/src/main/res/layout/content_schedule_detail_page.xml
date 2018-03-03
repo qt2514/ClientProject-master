@@ -361,24 +361,18 @@ android:layout_margin="5dp"
      android:fontFamily="@font/montserrat"
      android:textSize="14sp"
      android:gravity="center"
-
      android:text="Pre Class"
      android:textColor="@color/colorPrimaryDark"
      />
        <ImageButton
            android:layout_width="50dp"
-
            android:background="@drawable/ic_cloud_upload_black_24dp"
            android:layout_height="50dp" />
-
         </LinearLayout>
         <View
-
             android:layout_width="2dp"
             android:layout_height="match_parent"
-
             android:layout_margin="5dp"
-
             android:background="@color/buttonColorSecondary" />
 
         <LinearLayout
