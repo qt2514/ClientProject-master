@@ -214,7 +214,7 @@ ETsubject_name=findViewById(R.id.subject_name);
 
 //            holder.TVtypemenbers.setText(type_group);
 //            holder.TVschedule_des.setText(supl.getDescription());
-            holder.TVprice.setText(supl.getPrice()+" KWD");
+            holder.TVprice.setText(supl.getPrice()+" KD");
             String Scompletestart=supl.getStart();
             String Scompleteend=supl.getEnd();
 
@@ -228,9 +228,17 @@ ETsubject_name=findViewById(R.id.subject_name);
             int diff = DateTimeUtils.getDateDiff(datestart,dateend, DateTimeUnits.HOURS);
             diff=Math.abs(diff);
             String monthformating=DateTimeUtils.formatWithPattern(startdate, "EEE, MMM dd");
+            String completedate;
+if (diff>1)
+{
+     completedate=diff+" hours - "+time_sched+" | "+monthformating;
 
-            String completedate=diff+" hours - "+time_sched+" | "+monthformating;
+}
+else
+{
+     completedate=diff+" hour - "+time_sched+" | "+monthformating;
 
+}
 holder.TVtimetotal.setText(completedate);
 
             return convertView;

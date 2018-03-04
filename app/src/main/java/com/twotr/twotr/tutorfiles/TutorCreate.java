@@ -7,6 +7,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -57,7 +58,8 @@ public class TutorCreate extends Fragment {
     private TextView TVaddsched,TVaddmap;
     private TextView TVtypesearch;
     private static final int SECOND_ACTIVITY_REQUEST_CODE = 0;
-
+    List<String> starttime;
+    List<String> endtime;
     //SearchBox search;
     //String BaseSearchurl="http://twotr.com:5040/api/subject/search?key=";
     String search_result;
@@ -115,7 +117,9 @@ String Ssubjectkind;
 //            }
 //
 //        });
+        starttime=new ArrayList<>();
 
+        endtime=new ArrayList<>();
         TVtypesearch=view.findViewById(R.id.type_search);
         subject_grade_spinner();
 //        relativeLayout.setOnClickListener(new View.OnClickListener() {
@@ -290,6 +294,7 @@ String Ssubjectkind;
                     Intent intent = new Intent(getActivity(), ScheduleStart.class);
                     intent.putExtra("sub_name",Ssubject_name);
                     startActivity(intent);
+
                 }
             }
         });
@@ -337,7 +342,26 @@ String Sshortdesc=ETshortins.getText().toString();
             }
         });
 
+        TinyDB tinydb = new TinyDB(getContext());
+        starttimesched=   tinydb.getListString("starttime");
+        String lati= tinydb.getString("latitude");
+        if (!starttimesched.isEmpty())
+        {
+            TVaddsched.setText("Scheduled");
+           // TVaddsched.setBackground(getResources().getDrawable(R.drawable.tab_button_selected));
+        }
 
+        if (!lati.isEmpty())
+        {
+            TVaddmap.setText("Located");
+          //  TVaddmap.setBackground(getResources().getDrawable(R.drawable.tab_button_selected));
+
+        }
+
+        tinydb.putString("latitude","");
+        tinydb.putString("longitude","");
+        tinydb.putListString("starttime", (ArrayList<String>) starttime);
+        tinydb.putListString("endtime", (ArrayList<String>) endtime);
         return  view;
     }
 
@@ -401,6 +425,11 @@ String Sshortdesc=ETshortins.getText().toString();
                             .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
                                 @Override
                                 public void onClick(SweetAlertDialog sweetAlertDialog) {
+                                    TinyDB tinydb = new TinyDB(getContext());
+                                    tinydb.putString("latitude","");
+                                    tinydb.putString("longitude","");
+                                    tinydb.putListString("starttime", (ArrayList<String>) starttime);
+                                    tinydb.putListString("endtime", (ArrayList<String>) endtime);
                                     sweetAlertDialog.dismiss();
                                     Fragment mFragment = new TutorDashboard();
                                     getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.contentContainer, mFragment).commit();

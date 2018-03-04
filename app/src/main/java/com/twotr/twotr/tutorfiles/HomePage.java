@@ -11,13 +11,14 @@ import com.roughike.bottombar.BottomBar;
 import com.roughike.bottombar.OnTabSelectListener;
 import com.twotr.twotr.R;
 import com.twotr.twotr.db_handlers.SessionManager;
+import com.twotr.twotr.studenttwotr.StudentHome;
 
 public class HomePage extends AppCompatActivity {
 Boolean BisTeachingVerified,BisIdVerified,BisProfessionalCompleted,BisEducationCompleted,BisProfileCompleted,BisMobileVerified,BisEmailVerified;
     private SessionManager session;
     SharedPreferences Shared_user_details;
     SharedPreferences.Editor editor;
-    String Sid,Stoken,Sfirstname,Slastname,Susername;
+    String Sid,Stoken,Sfirstname,Slastname,Susername,Sroles;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,11 +37,17 @@ Boolean BisTeachingVerified,BisIdVerified,BisProfessionalCompleted,BisEducationC
         BisProfileCompleted=  Shared_user_details.getBoolean("isProfileCompleted",false);
         BisMobileVerified=  Shared_user_details.getBoolean("isMobileVerified",false);
         BisEmailVerified=   Shared_user_details.getBoolean("isEmailVerified",false);
+        Sroles=  Shared_user_details.getString("roles", null);
+
 //        if (session.isLoggedIn()) {
 //            Intent intent = new Intent(HomePage.this, MainActivity.class);
 //            startActivity(intent);
 //        }
-
+if (Sroles.equals("student"))
+{
+    startActivity(new Intent(HomePage.this, StudentHome.class));
+    finish();
+}
         if (BisProfileCompleted)
 {
 

@@ -202,7 +202,17 @@ String time_sched=Scompletestart.substring(11,16);
             String dateend=enddate+ " "+endtime;
             int diff = DateTimeUtils.getDateDiff(datestart,dateend, DateTimeUnits.HOURS);
             diff=Math.abs(diff);
-            holder.TVhours.setText(diff+" hours - ");
+            if (diff>1)
+            {
+                holder.TVhours.setText(diff+" hours - ");
+
+
+            }
+            else
+            {
+                holder.TVhours.setText(diff+" hour - ");
+
+            }
 holder.TVtime_sched.setText(time_sched+" | ");
 String monthformating=DateTimeUtils.formatWithPattern(startdate, "EEE, MMM dd");
 holder.TVmonth.setText(monthformating);

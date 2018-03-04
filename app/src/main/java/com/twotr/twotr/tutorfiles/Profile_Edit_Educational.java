@@ -392,9 +392,7 @@ textViewins=findViewById(R.id.per_edu_inst);
 
     }
     public void educational_list() {
-
         RequestQueue requestQueue = Volley.newRequestQueue(this);
-
         StringRequest stringRequest = new StringRequest(Request.Method.GET, Global_url_twotr.Profile_education_level, new Response.Listener<String>() {
 
             public void onResponse(String response) {

@@ -254,7 +254,7 @@ holder.subjectname.setOnClickListener(new View.OnClickListener() {
                     else
                     {
 //                        Bdone.setVisibility(View.VISIBLE);
-                        textViewadd.setVisibility(View.INVISIBLE);
+                        textViewadd.setVisibility(View.VISIBLE);
                         for (int i = 0; i < jsonArray.length(); i++) {
                             JSONObject jsonobject = jsonArray.getJSONObject(i);
                             String name = jsonobject.getString("title");

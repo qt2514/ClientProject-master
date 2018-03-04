@@ -88,7 +88,7 @@
             android:id="@+id/group_students"
             android:layout_width="match_parent"
             android:layout_height="45dp"
-            android:layout_below="@+id/linearLayout3"
+            android:layout_below="@+id/type_search"
             android:layout_centerHorizontal="true"
             android:layout_margin="5dp"
             android:background="@drawable/edittext_unselected"

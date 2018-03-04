@@ -124,8 +124,8 @@ Sminprice=(String) Bintent.get("minprice");
                 TVminamount.setVisibility(View.INVISIBLE);
                 TVminamounttex.setVisibility(View.INVISIBLE);
             }
-            TVminamounttex.setText(Sminprice);
-            TVprice_amount.setText(sched_price);
+            TVminamounttex.setText(Sminprice + " KD");
+            TVprice_amount.setText(sched_price+ " KD");
             TVtypesubject.setText(" "+ type_subject);
             TVsubject_name.setText(subname);
             ETsched_desc.setText(Sschedule_des);
@@ -156,6 +156,7 @@ But_updatemap.setOnClickListener(new View.OnClickListener() {
     public void onClick(View v) {
         Intent intent = new Intent(ScheduleDetailPage.this, Addmaptutor.class);
         startActivity(intent);
+
     }
 });
 

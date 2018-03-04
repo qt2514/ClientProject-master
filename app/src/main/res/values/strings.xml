@@ -8,7 +8,7 @@
     <string name="sign_up">Sign Up</string>
     <string name="confirm_password">Confirm Password</string>
     <string name="password">Password</string>
-    <string name="username">Email(Username)</string>
+    <string name="username">Email</string>
     <string name="student">Student</string>
     <string name="tutor">Tutor</string>
     <string name="forget_your_password">Forget your Password?</string>

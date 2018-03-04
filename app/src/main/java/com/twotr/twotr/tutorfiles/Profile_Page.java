@@ -28,6 +28,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.github.thunder413.datetimeutils.DateTimeUtils;
 import com.ontbee.legacyforks.cn.pedant.SweetAlert.SweetAlertDialog;
 import com.squareup.picasso.Picasso;
 import com.twotr.twotr.R;
@@ -347,13 +348,10 @@ recyclerView.setHorizontalScrollBarEnabled(false);
 
                     }
                     recyclerViewsub.setAdapter(RecyclerViewHorizontalAdaptersub);
-                    JSONObject userprofile = jObj.getJSONObject("userProfile");
 
-                      SfirstName=userprofile.getString("firstName");
-                      SmiddleName=userprofile.getString("middleName");
-                      SlastName=userprofile.getString("lastName");
 
 //roles of tutor is left
+                    JSONObject userprofile = jObj.getJSONObject("userProfile");
 
 
                     JSONObject verification = userprofile.getJSONObject("verification");
@@ -365,19 +363,27 @@ recyclerView.setHorizontalScrollBarEnabled(false);
                     Boolean isIdVerified=verification.getBoolean("isIdVerified");
                     Boolean isTeachingVerified=verification.getBoolean("isTeachingVerified");
 
+                    SfirstName=userprofile.getString("firstName");
+                    try {
+                        SlastName=userprofile.getString("lastName");
+                        SmiddleName=userprofile.getString("middleName");
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
 
 
                     TVfirstname.setText(SfirstName);
-                    TVmiddlename.setText(SmiddleName);
+                  //  TVmiddlename.setText(SmiddleName);
                     TVlastname.setText(SlastName);
                     TVgender.setText(Sgender);
-                    TVdob.setText(Sdob);
+                    String monthformating= DateTimeUtils.formatWithPattern(Sdob, "MMM dd, yyyy");
+                    TVdob.setText(monthformating);
                     TVaddress.setText(SlineOne);
                     TVpostalcode.setText(SzipCode);
                     TVmobile_number.setText(Snumber);
                     TVemail.setText("");
                     TVaboutme.setText(Sdescription);
-                    TVheadernamefull.setText(SfirstName+" "+SmiddleName+" "+SlastName);
+                    TVheadernamefull.setText(SfirstName+" "+SlastName);
 
 if (isEmailVerified)
 {

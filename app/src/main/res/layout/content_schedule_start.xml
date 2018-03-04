@@ -47,17 +47,17 @@
                 android:textColor="#fff"
                 android:textSize="18sp" />
 
-            <TextView
-                android:id="@+id/type_detail_subject"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignBaseline="@+id/subject_name"
-                android:layout_alignBottom="@+id/subject_name"
-                android:layout_toEndOf="@+id/subject_name"
-                android:fontFamily="@font/montserrat"
-                android:text=" (1 on 1)"
+            <!--<TextView-->
+                <!--android:id="@+id/type_detail_subject"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_alignBaseline="@+id/subject_name"-->
+                <!--android:layout_alignBottom="@+id/subject_name"-->
+                <!--android:layout_toEndOf="@+id/subject_name"-->
+                <!--android:fontFamily="@font/montserrat"-->
+                <!--android:text=" (1 on 1)"-->
 
-                android:textColor="@color/colorwhite" />
+                <!--android:textColor="@color/colorwhite" />-->
 
 
         </RelativeLayout>

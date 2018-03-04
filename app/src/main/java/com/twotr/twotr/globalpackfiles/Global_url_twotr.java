@@ -13,7 +13,7 @@ public class Global_url_twotr {
     public static String Profile_grades=Base_url +"userinfo/grades";
     public static String Profile_timezone=Base_url +"userinfo/timezones";
     public static String Profile_subject=Base_url +"subject/search?key=";
-    public static String Profile_education_level=Base_url +"userinfo/education/search?type=major&key";
+    public static String Profile_education_level=Base_url +"userinfo/education/search?type=major&key=";
     public static String Profile_institute_level=Base_url +"userinfo/education/search?type=institution&key=";
     public static String Profile_document_type=Base_url +"userinfo/documents";
     public static String User_Profile_education=Base_url +"userinfo/education/update";

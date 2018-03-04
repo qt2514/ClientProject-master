@@ -12,44 +12,28 @@
         android:id="@+id/top_relat"
         android:gravity="top"
         android:background="@color/colorPrimaryDark"
-        android:layout_height="80dp">
+        android:layout_height="60dp">
 
         <ImageButton
             android:id="@+id/back_ima_scedule"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="20dp"
+            android:layout_height="15dp"
+            android:layout_marginTop="10dp"
+
             android:layout_alignParentStart="true"
-            android:layout_centerVertical="true"
-            android:layout_marginStart="8dp"
-            android:background="@drawable/ic_back_page"
-            android:backgroundTint="#fff"
+            android:layout_alignTop="@+id/relativeLayout3"
+            android:layout_marginStart="4dp"
+            android:layout_marginEnd="5dp"
+            app:srcCompat="@drawable/ic_back_page"
+            android:background="@null"
+            android:tint="@color/mdtp_white"
             android:focusable="true" />
 
 
 
-        <ImageView
-            android:id="@+id/imageView3"
-            android:layout_width="15dp"
-            android:layout_height="15dp"
-
-            android:layout_alignBottom="@+id/hours_sched"
-            android:layout_toEndOf="@+id/back_ima_scedule"
-            android:background="@drawable/ic_access_time_black_24dp"
-            android:backgroundTint="@color/buttonColorSecondary" />
-
-        <TextView
-            android:id="@+id/hours_sched"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/back_ima_scedule"
-            android:layout_toEndOf="@+id/imageView3"
-            android:gravity="center"
-
-            android:textColor="@color/buttonColorSecondary" />
-
-
 
         <ImageView
+
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_alignParentEnd="true"
@@ -58,14 +42,19 @@
             android:background="@drawable/twotr_main"
 
             android:id="@+id/imageView2" />
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_marginTop="2dp"
+    android:layout_toStartOf="@+id/imageView2"
+    android:layout_toEndOf="@+id/back_ima_scedule"
+    android:layout_height="wrap_content"
+    android:id="@+id/relativeLayout3">
+
 
         <TextView
             android:id="@+id/subject_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_above="@+id/hours_sched"
-            android:layout_marginBottom="11dp"
-            android:layout_toEndOf="@+id/back_ima_scedule"
             android:fontFamily="@font/montserrat"
             android:padding="2dp"
             android:text="Subject Name"
@@ -83,6 +72,29 @@
             android:fontFamily="@font/montserrat"
             android:text=" (1 on 1)"
             android:textColor="@color/colorwhite" />
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_below="@+id/subject_name"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/imageView3"
+        android:layout_width="10dp"
+        android:layout_height="10dp"
+      android:layout_marginTop="6dp"
+        android:background="@drawable/ic_access_time_black_24dp"
+        android:backgroundTint="@color/colorAccent" />
+
+    <TextView
+        android:id="@+id/hours_sched"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toEndOf="@+id/imageView3"
+
+        android:textColor="@color/buttonColorSecondary" />
+</RelativeLayout>
+
+</RelativeLayout>
     </RelativeLayout>
 <ScrollView
     android:layout_width="match_parent"
@@ -233,10 +245,9 @@
         app:cardElevation="5dp">
 
         <RelativeLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-
             android:layout_margin="10dp"
             android:gravity="center">
 
@@ -244,11 +255,6 @@
                 android:id="@+id/schedule_show"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignBaseline="@+id/schedule_map"
-                android:layout_alignBottom="@+id/schedule_map"
-                android:layout_alignParentStart="true"
-                android:layout_marginStart="26dp"
-                android:layout_centerVertical="true"
                 android:background="@drawable/rounded_text"
                 android:fontFamily="@font/montserrat"
                 android:padding="5dp"
@@ -260,8 +266,7 @@
                 android:id="@+id/schedule_map"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_marginStart="45dp"
+            android:layout_marginStart="10dp"
                 android:layout_toEndOf="@+id/schedule_show"
                 android:background="@drawable/rounded_text"
                 android:fontFamily="@font/montserrat"
@@ -269,16 +274,15 @@
                 android:text="Show Map"
                 android:textAllCaps="false"
                 android:textColor="@android:color/white"
-                android:visibility="gone" />
+                android:visibility="invisible" />
 
             <Button
                 android:id="@+id/map_update"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
 android:visibility="invisible"
-                android:layout_below="@+id/schedule_map"
-                android:layout_marginStart="45dp"
-                android:layout_toEndOf="@+id/schedule_map"
+                android:layout_marginStart="10dp"
+                android:layout_toEndOf="@+id/schedule_show"
                 android:background="@drawable/rounded_text"
                 android:fontFamily="@font/montserrat"
                 android:padding="5dp"
@@ -311,7 +315,7 @@ android:visibility="invisible"
         android:layout_alignParentStart="true"
         android:fontFamily="@font/montserrat"
         android:padding="3dp"
-        android:text="Study Material"
+        android:text="Study Materials"
         android:textColor="@color/colorPrimaryDark"
         android:textSize="18sp"
         android:textStyle="bold" />

@@ -321,7 +321,7 @@ public void signup_twotr(String sfull_name, String slast_name, String susername,
                             @Override
                             public void onClick(SweetAlertDialog sweetAlertDialog) {
                                 startActivity(new Intent(SignupActivity.this, SigninActivity.class));
-
+finish();
                                 sweetAlertDialog.dismiss();
                             }
                         }).show();

@@ -122,6 +122,7 @@ public class SigninActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(SigninActivity.this,SignupActivity.class));
+                finish();
             }
         });
         IBsignin_back.setOnClickListener(new View.OnClickListener() {
@@ -180,7 +181,7 @@ public class SigninActivity extends AppCompatActivity {
                         else
                         {
                             avi.show();
-                                                      Susername=ETusername.getText().toString();
+                            Susername=ETusername.getText().toString();
                             Spass=ETpassword.getText().toString();
                             signin_verif(Susername,Spass);
                         }

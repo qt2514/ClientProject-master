@@ -321,7 +321,18 @@ public class Schedule_class extends ArrayAdapter {
         String dateend=enddate+ " "+endtime;
         int diff = DateTimeUtils.getDateDiff(datestart,dateend, DateTimeUnits.HOURS);
         diff=Math.abs(diff);
-        holder.TVhours.setText(diff+" hours - ");
+
+        if (diff>1)
+        {
+            holder.TVhours.setText(diff+" hours - ");
+
+
+        }
+        else
+        {
+            holder.TVhours.setText(diff+" hours - ");
+
+        }
         holder.TVtime_sched.setText(time_sched+" | ");
         String monthformating=DateTimeUtils.formatWithPattern(startdate, "EEE, MMM dd");
         holder.TVmonth.setText(monthformating);
