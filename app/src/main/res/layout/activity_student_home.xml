@@ -10,7 +10,11 @@
         android:id="@+id/contentContainer"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@+id/bottomBar_student" />
+        android:layout_above="@+id/bottomBar_student" >
+
+
+
+    </FrameLayout>
     <com.roughike.bottombar.BottomBar
         android:id="@+id/bottomBar_student"
         android:layout_width="match_parent"

@@ -342,7 +342,9 @@ if (!(stringend.isEmpty())) {
          TinyDB tinydb = new TinyDB(context);
          tinydb.putListString("starttime", (ArrayList<String>) starttime);
          tinydb.putListString("endtime", (ArrayList<String>) endtime);
-       onBackPressed();
+         Intent intent = new Intent();
+         setResult(RESULT_OK, intent);
+         finish();
 
      }
  });

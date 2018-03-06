@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -58,6 +59,9 @@ public class TutorCreate extends Fragment {
     private TextView TVaddsched,TVaddmap;
     private TextView TVtypesearch;
     private static final int SECOND_ACTIVITY_REQUEST_CODE = 0;
+    private static final int ADD_SUBJECT_RESULT = 1;
+    private static final int ADD_MAP_RESULT = 2;
+
     List<String> starttime;
     List<String> endtime;
     //SearchBox search;
@@ -76,6 +80,7 @@ public class TutorCreate extends Fragment {
     String typeofstudteach;
 Boolean Bisusersubject;
 Button add_subject;
+LinearLayout linearLayoutamount,linearLayoutaddsc,linearLayoutaddma;
     List<String> subjectnamelist;
     List<String> subjectnameid;
 String Ssubjectkind;
@@ -101,8 +106,12 @@ String Ssubjectkind;
        // relativeLayout=view.findViewById(R.id.searchnew);
         ImageView IVaddsch = view.findViewById(R.id.hint_sched);
         ImageView IVaddmap = view.findViewById(R.id.hint_map);
+        ImageView IVaddminamout= view.findViewById(R.id.hint_minamount);
         //search =  view.findViewById(R.id.searchbox);
         add_subject=view.findViewById(R.id.add_subject_create);
+        linearLayoutamount=view.findViewById(R.id.linear_amount);
+        linearLayoutaddsc=view.findViewById(R.id.add_sch);
+        linearLayoutaddma=view.findViewById(R.id.add_ma);
       //  search.setLogoText("Search Your Subject here");
         //search.enableVoiceRecognition(getActivity());
         starttimesched=new ArrayList<>();
@@ -187,7 +196,7 @@ String Ssubjectkind;
                 ETnofstudents.setVisibility(View.GONE);
                 ETtotalone.setVisibility(View.VISIBLE);
                 ETtotalamount.setVisibility(View.GONE);
-                ETminamount.setVisibility(View.GONE);
+                linearLayoutamount.setVisibility(View.GONE);
                 TVaddsched.setVisibility(View.VISIBLE);
                 TVaddmap.setVisibility(View.VISIBLE);
                 ETshortins.setVisibility(View.VISIBLE);
@@ -205,7 +214,7 @@ String Ssubjectkind;
                 ETnofstudents.setVisibility(View.VISIBLE);
                 ETtotalone.setVisibility(View.INVISIBLE);
                 ETtotalamount.setVisibility(View.VISIBLE);
-                ETminamount.setVisibility(View.VISIBLE);
+                linearLayoutamount.setVisibility(View.VISIBLE);
                 TVaddsched.setVisibility(View.VISIBLE);
                 TVaddmap.setVisibility(View.VISIBLE);
                 ETshortins.setVisibility(View.VISIBLE);
@@ -243,6 +252,36 @@ String Ssubjectkind;
             }
         });
 
+        IVaddminamout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                String genrate= UUID.randomUUID().toString();
+                new SpotlightView.Builder(getActivity())
+                        .introAnimationDuration(300)
+                        //.enableRevealAnimation(isRevealEnabled)
+                        .performClick(true)
+                        .fadeinTextDuration(300)
+                        .headingTvColor(Color.parseColor("#eb273f"))
+                        .headingTvSize(32)
+                        .headingTvText("Minimum Amount")
+                        .subHeadingTvColor(Color.parseColor("#ffffff"))
+                        .subHeadingTvSize(16)
+                        .subHeadingTvText("Minimum amount acceptable for entire group to be \n distributed evenly among all registered students")
+                        .maskColor(Color.parseColor("#dc000000"))
+                        .target(ETminamount)
+                        .lineAnimDuration(300)
+                        .lineAndArcColor(Color.parseColor("#eb273f"))
+                        .dismissOnTouch(true)
+                        .dismissOnBackPress(true)
+                        .enableDismissAfterShown(true)
+                        .usageId(genrate)
+                        .show();
+
+            }
+        });
+
+
         IVaddmap.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -276,7 +315,7 @@ String Ssubjectkind;
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), Addmaptutor.class);
-                startActivity(intent);
+                startActivityForResult(intent, ADD_MAP_RESULT);
             }
         });
 
@@ -293,7 +332,8 @@ String Ssubjectkind;
                 {
                     Intent intent = new Intent(getActivity(), ScheduleStart.class);
                     intent.putExtra("sub_name",Ssubject_name);
-                    startActivity(intent);
+                    startActivityForResult(intent, ADD_SUBJECT_RESULT);
+
 
                 }
             }
@@ -303,60 +343,67 @@ String Ssubjectkind;
             @Override
             public void onClick(View v) {
 
-               // String Ssubjectname=TVtypesearch.getText().toString();
+                String Ssubjectname=TVtypesearch.getText().toString();
                 String Sgroup=typeofstudteach;
                 String Sprice;
-                if (typeofstudteach.equals("group"))
-                {
-                     Sprice=ETtotalamount.getText().toString();
-                }
-                else
-                {
-                    Sprice=ETtotalone.getText().toString();
+
+                if (typeofstudteach.equals("group")) {
+                    Sprice = ETtotalamount.getText().toString();
+                } else {
+                    Sprice = ETtotalone.getText().toString();
 
                 }
 
+                if (!Ssubjectname.isEmpty()&&!Sprice.isEmpty()) {
 
-                String minprice=ETminamount.getText().toString();
-                if (minprice.isEmpty())
-                {
-                    minprice="10";
-                }
-String Snoofstudents=ETnofstudents.getText().toString();
-if (Snoofstudents.isEmpty())
+if (aryGrade.size()>0)
 {
-    Snoofstudents="1";
+    String minprice = ETminamount.getText().toString();
+    if (minprice.isEmpty()) {
+        minprice = "10";
+    }
+    String Snoofstudents = ETnofstudents.getText().toString();
+    if (Snoofstudents.isEmpty()) {
+        Snoofstudents = "1";
+    }
+
+    String Sshortdesc = ETshortins.getText().toString();
+    TinyDB tinydb = new TinyDB(getContext());
+    starttimesched = tinydb.getListString("starttime");
+    endtimesched = tinydb.getListString("endtime");
+    String lati = tinydb.getString("latitude");
+    String longi = tinydb.getString("longitude");
+
+
+    tutor_create(Sgroup, Sprice, Snoofstudents, Sshortdesc, lati, longi, minprice);
+
 }
-
-String Sshortdesc=ETshortins.getText().toString();
-
-                TinyDB tinydb = new TinyDB(getContext());
-                starttimesched=   tinydb.getListString("starttime");
-                endtimesched=  tinydb.getListString("endtime");
-          String lati= tinydb.getString("latitude");
-             String longi=tinydb.getString("longitude");
-
-
-                tutor_create(Sgroup,Sprice,Snoofstudents,Sshortdesc,lati,longi,minprice);
-
+else {
+    new SweetAlertDialog(getActivity(), SweetAlertDialog.NORMAL_TYPE).setTitleText("Please Select Grade Level")
+            .setConfirmText("OK")
+            .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                @Override
+                public void onClick(SweetAlertDialog sweetAlertDialog) {
+                    sweetAlertDialog.dismiss();
+                }
+            }).show();
+}
+                }
+                else {
+                    new SweetAlertDialog(getActivity(), SweetAlertDialog.NORMAL_TYPE).setTitleText("Please fill all Details")
+                            .setConfirmText("OK")
+                            .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                                @Override
+                                public void onClick(SweetAlertDialog sweetAlertDialog) {
+                                    sweetAlertDialog.dismiss();
+                                }
+                            }).show();
+                }
             }
         });
 
         TinyDB tinydb = new TinyDB(getContext());
-        starttimesched=   tinydb.getListString("starttime");
-        String lati= tinydb.getString("latitude");
-        if (!starttimesched.isEmpty())
-        {
-            TVaddsched.setText("Scheduled");
-           // TVaddsched.setBackground(getResources().getDrawable(R.drawable.tab_button_selected));
-        }
 
-        if (!lati.isEmpty())
-        {
-            TVaddmap.setText("Located");
-          //  TVaddmap.setBackground(getResources().getDrawable(R.drawable.tab_button_selected));
-
-        }
 
         tinydb.putString("latitude","");
         tinydb.putString("longitude","");
@@ -546,142 +593,6 @@ String Sshortdesc=ETshortins.getText().toString();
         requestQueue.add(stringRequest);
     }
 
-//    public void subject_spinner(String myapi) {
-//
-//
-//        RequestQueue requestQueue = Volley.newRequestQueue(getContext());
-//
-//        StringRequest stringRequest = new StringRequest(Request.Method.GET,myapi , new Response.Listener<String>() {
-//
-//            public void onResponse(String response) {
-//                try {
-//
-//                    JSONObject jObj = new JSONObject(response);
-//                    JSONArray jsonArray = jObj.getJSONArray("subjects");
-//
-//                    for (int i = 0; i < jsonArray.length(); i++) {
-//                        JSONObject jsonobject = jsonArray.getJSONObject(i);
-//
-//                        String name = jsonobject.getString("title");
-//
-//                        SearchResult option = new SearchResult(name, getResources().getDrawable(R.drawable.ic_local_library_black_24dp));
-//                        search.addSearchable(option);
-//
-////                        // String id = jsonobject.getString("_id");
-////
-////                        subject_name.add(new MultiSelectModel(i,name));
-//                    }
-//
-//
-//                } catch (JSONException e) {
-//                    e.printStackTrace();
-//                }
-//
-//            }
-//        }, new Response.ErrorListener() {
-//            @Override
-//            public void onErrorResponse(VolleyError error) {
-//
-//            }
-//        }) {
-//            @Override
-//            public String getBodyContentType() {
-//                return "application/json; charset=utf-8";
-//            }
-//            @Override
-//            public Map<String, String> getHeaders() throws AuthFailureError {
-//                HashMap<String, String> headers = new HashMap<String, String>();
-//                // headers.put("content-Type", "application/json");
-//                headers.put("x-tutor-app-id", "tutor-app-android");
-//                headers.put("authorization", "Bearer "+Stoken);
-//                return headers;
-//            }
-//        };
-//
-//        requestQueue.add(stringRequest);
-//    }
-//
-
-
-//
-//    public void user_subject(String usersubject)
-//    {
-//
-//        try {
-//
-//            RequestQueue requestQueue = Volley.newRequestQueue(getContext());
-//
-//            JSONObject jsonObjectall=new JSONObject();
-//            jsonObjectall.put("title",usersubject);
-//
-//            final String requestBody = jsonObjectall.toString();
-//            StringRequest stringRequest = new StringRequest(Request.Method.POST, Global_url_twotr.Profile_subject_create, new Response.Listener<String>() {
-//
-//                public void onResponse(String response) {
-//                    JSONObject jObj = null;
-//                    try {
-//                        jObj = new JSONObject(response);
-//                        String title = jObj.getString("title");
-//                        String createdBy = jObj.getString("createdBy");
-//                        String id = jObj.getString("_id");
-//                        String createdAt = jObj.getString("createdAt");
-//                        String isApproved = jObj.getString("isApproved");
-//                        // Ssubjectid=id;
-//
-//                    }
-//                    catch (JSONException e) {
-//                        e.printStackTrace();
-//                    }
-//
-//
-//                }
-//            }, new Response.ErrorListener() {
-//                @Override
-//                public void onErrorResponse(VolleyError error) {
-//
-//                    new SweetAlertDialog(getContext(), SweetAlertDialog.WARNING_TYPE).setTitleText("Server Error")
-//                            .setConfirmText("OK")
-//                            .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
-//                                @Override
-//                                public void onClick(SweetAlertDialog sweetAlertDialog) {
-//                                    sweetAlertDialog.dismiss();
-//                                }
-//                            }).show();
-//                }
-//            })
-//            {
-//                @Override
-//                public String getBodyContentType() {
-//
-//                    return "application/json; charset=utf-8";
-//                }
-//                @Override
-//                public Map<String, String> getHeaders() throws AuthFailureError {
-//                    HashMap<String, String> headers = new HashMap<String, String>();
-//                    // headers.put("content-Type", "application/json");
-//                    headers.put("x-tutor-app-id", "tutor-app-android");
-//                    headers.put("authorization", "Bearer "+Stoken);
-//                    return headers;
-//
-//                }
-//                @Override
-//                public byte[] getBody() throws AuthFailureError {
-//                    try {
-//                        return requestBody == null ? null : requestBody.getBytes("utf-8");
-//
-//                    } catch (UnsupportedEncodingException uee) {
-//                        VolleyLog.wtf("Unsupported Encoding while trying to get the bytes of %s using %s", requestBody, "utf-8");
-//                        return null;
-//                    }
-//                }
-//
-//            };
-//
-//            requestQueue.add(stringRequest);
-//        } catch (JSONException e) {
-//            e.printStackTrace();
-//        }
-//    }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -723,11 +634,49 @@ String Sshortdesc=ETshortins.getText().toString();
                 //Toast.makeText(context, "i got you", Toast.LENGTH_SHORT).show();
             }
         }
+        if (requestCode == ADD_SUBJECT_RESULT) {
+            if (resultCode == RESULT_OK) {
+                TinyDB tinydb = new TinyDB(getContext());
+                starttimesched=   tinydb.getListString("starttime");
+                if (!starttimesched.isEmpty())
+                {
+                    TVaddsched.setText("Scheduled");
+                    linearLayoutaddsc.setBackgroundColor(getResources().getColor(R.color.colorAccent));
+                    // TVaddsched.setBackground(getResources().getDrawable(R.drawable.tab_button_selected));
+                }
 
+                }
+
+
+                //   startendarray.put(obj);
+                //   }
+                //Toast.makeText(context, "i got you", Toast.LENGTH_SHORT).show();
+            }
+        if (requestCode == ADD_MAP_RESULT) {
+            if (resultCode == RESULT_OK) {
+                TinyDB tinydb = new TinyDB(getContext());
+
+                String lati= tinydb.getString("latitude");
+
+                if (!lati.isEmpty())
+                {
+                    TVaddmap.setText("Located");
+                    linearLayoutaddma.setBackgroundColor(getResources().getColor(R.color.colorAccent));
+
+                    //  TVaddmap.setBackground(getResources().getDrawable(R.drawable.tab_button_selected));
+
+                }
+            }
+
+            //   startendarray.put(obj);
+            //   }
+            //Toast.makeText(context, "i got you", Toast.LENGTH_SHORT).show();
+        }
+        }
     }
 
 
 
 
 
-}
+

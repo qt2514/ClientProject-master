@@ -14,19 +14,20 @@
         android:id="@+id/top_relat"
         android:gravity="top"
         android:background="@color/colorPrimaryDark"
-        android:layout_height="80dp">
+        android:layout_height="60dp">
 
         <ImageButton
             android:id="@+id/back_ima_scedule"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:focusable="true"
+            android:layout_width="30dp"
+            android:layout_height="25dp"
+            android:layout_marginTop="10dp"
             android:layout_alignParentStart="true"
-            android:layout_centerHorizontal="true"
-            android:layout_centerVertical="true"
-            android:layout_marginStart="19dp"
-            android:background="@drawable/ic_back_page"
-            android:backgroundTint="#fff" />
+            android:layout_marginStart="4dp"
+            android:layout_marginEnd="5dp"
+            app:srcCompat="@drawable/ic_back_page"
+            android:background="@null"
+            android:tint="@color/mdtp_white"
+            android:focusable="true" />
 
         <RelativeLayout
             android:layout_width="wrap_content"
@@ -40,7 +41,9 @@
                 android:id="@+id/subject_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-
+android:maxEms="9"
+                android:ellipsize="end"
+                android:singleLine="true"
                 android:fontFamily="@font/montserrat"
                 android:padding="2dp"
                 android:text="Subject Name"
@@ -110,7 +113,7 @@
             android:layout_centerVertical="true"
             android:layout_marginEnd="13dp"
             android:background="@drawable/twotr_main"
-            android:backgroundTint="@color/colorwhite" />
+            />
     </RelativeLayout>
     <devs.mulham.horizontalcalendar.HorizontalCalendarView
         android:id="@+id/calendarView"

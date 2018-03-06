@@ -14,18 +14,7 @@
         android:gravity="top"
         android:background="@color/colorPrimaryDark"
         android:layout_height="60dp">
-        <!--<ImageButton-->
-            <!--android:id="@+id/back_ima_scedule"-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:focusable="true"-->
-            <!--android:layout_alignParentStart="true"-->
-            <!--android:layout_alignTop="@+id/textView7"-->
-            <!--android:layout_centerHorizontal="true"-->
-            <!--android:layout_centerVertical="true"-->
-            <!--android:layout_marginStart="19dp"-->
-            <!--android:background="@drawable/ic_back_page"-->
-            <!--android:backgroundTint="#fff" />-->
+
         <TextView
             android:text="Verification"
             android:fontFamily="@font/montserrat"
@@ -60,30 +49,7 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="10dp"
                     android:orientation="vertical">
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/montserrat"
-                        android:text="Issued Country"
-                        android:textColor="@android:color/black"
-                        android:textSize="16sp"
 
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent" />
-                    <EditText
-                        android:id="@+id/prof_zone"
-                        android:layout_width="match_parent"
-                        android:layout_height="55dp"
-                        android:background="@drawable/edittext_unselected"
-                        android:ems="10"
-                        android:layout_marginTop="5dp"
-                        android:fontFamily="@font/montserrat"
-                        android:hint="Enter Your Issued Country"
-                        android:inputType="textPersonName"
-                        android:padding="10dp"
-                        android:singleLine="true"
-                        android:textColorLink="@color/colorAccent"
-                        />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -125,6 +91,32 @@
                         <!--android:textColorLink="@color/colorAccent"-->
                         <!--app:layout_constraintEnd_toEndOf="parent"-->
                         <!--app:layout_constraintStart_toStartOf="parent"/>-->
+
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/montserrat"
+                        android:text="Issued Country"
+                        android:textColor="@android:color/black"
+                        android:textSize="16sp"
+
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent" />
+                    <EditText
+                        android:id="@+id/prof_zone"
+                        android:layout_width="match_parent"
+                        android:layout_height="55dp"
+                        android:background="@drawable/edittext_unselected"
+                        android:ems="10"
+                        android:layout_marginTop="5dp"
+                        android:fontFamily="@font/montserrat"
+                        android:hint="Enter Your Issued Country"
+                        android:inputType="textPersonName"
+                        android:padding="10dp"
+                        android:singleLine="true"
+                        android:textColorLink="@color/colorAccent"
+                        />
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"

@@ -25,11 +25,11 @@
         title="Create" />
     <tab
         id="@+id/tab_settings"
-        icon="@drawable/setting"
+        icon="@drawable/account"
         inActiveColor="@color/bottomcolor"
         activeColor="@color/bottomactivetab"
         barColorWhenSelected="#fff"
 
 
-        title="Settings" />
+        title="Account" />
 </tabs>
