@@ -65,7 +65,7 @@ public class TutorCreate extends Fragment {
     List<String> starttime;
     List<String> endtime;
     //SearchBox search;
-    //String BaseSearchurl="http://twotr.com:5040/api/subject/search?key=";
+    //String BaseSearchurl="https://api.twotr.com/api/subject/search?key=";
     String search_result;
     public static TutorCreate newInstance() {
         return new TutorCreate();
@@ -151,7 +151,7 @@ String Ssubjectkind;
             @Override
             public void onClick(View v) {
                 MultiSelectDialog multiSelectDialog = new MultiSelectDialog()
-                        .title("Grade Level") //setting title for dialog
+                        .title("Grade Level") //setting_bot title for dialog
                         .titleSize(22)
                         .positiveText("Done")
                         .negativeText("Cancel")

@@ -96,7 +96,7 @@ public class TinyDB {
     /**
      * Creates the path for the image with name 'imageName' in DEFAULT_APP.. directory
      * @param imageName name of the image
-     * @return the full path of the image. If it failed to create directory, return empty string
+     * @return the full path of the image. If it failed to create_bot directory, return empty string
      */
     private String setupFullPath(String imageName) {
         File mFolder = new File(Environment.getExternalStorageDirectory(), DEFAULT_APP_IMAGEDATA_DIRECTORY);
@@ -169,11 +169,7 @@ public class TinyDB {
         return preferences.getInt(key, 0);
     }
 
-    /**
-     * Get parsed ArrayList of Integers from SharedPreferences at 'key'
-     * @param key SharedPreferences key
-     * @return ArrayList of Integers
-     */
+
     public ArrayList<Integer> getListInt(String key) {
         String[] myList = TextUtils.split(preferences.getString(key, ""), "‚‗‚");
         ArrayList<String> arrayToList = new ArrayList<String>(Arrays.asList(myList));
@@ -444,31 +440,7 @@ public class TinyDB {
         putListString(key, newList);
     }
 
-    /**
-     * Put ObJect any type into SharedPrefrences with 'key' and save
-     * @param key SharedPreferences key
-     * @param obj is the Object you want to put
-     */
-//    public void putObject(String key, Object obj){
-//    	checkForNullKey(key);
-//    	Gson gson = new Gson();
-//    	putString(key, gson.toJson(obj));
-//    }
-//
-//    public void putListObject(String key, ArrayList<Object> objArray){
-//    	checkForNullKey(key);
-//    	Gson gson = new Gson();
-//    	ArrayList<String> objStrings = new ArrayList<String>();
-//    	for(Object obj : objArray){
-//    		objStrings.add(gson.toJson(obj));
-//    	}
-//    	putListString(key, objStrings);
-//    }
 
-    /**
-     * Remove SharedPreferences item with 'key'
-     * @param key SharedPreferences key
-     */
     public void remove(String key) {
         preferences.edit().remove(key).apply();
     }

@@ -25,8 +25,7 @@ import com.quinny898.library.persistentsearch.SearchBox;
 import com.quinny898.library.persistentsearch.SearchResult;
 import com.twotr.twotr.R;
 import com.twotr.twotr.globalpackfiles.Global_url_twotr;
-import com.twotr.twotr.globalpackfiles.HubPlace;
-import com.twotr.twotr.globalpackfiles.SigninActivity;
+
 import com.twotr.twotr.studenttwotr.StudentHome;
 import com.wang.avi.AVLoadingIndicatorView;
 import com.whiteelephant.monthpicker.MonthPickerDialog;

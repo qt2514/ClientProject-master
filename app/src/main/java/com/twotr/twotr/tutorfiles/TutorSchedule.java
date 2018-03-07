@@ -66,9 +66,6 @@ import pl.droidsonroids.gif.GifImageView;
 
 import static android.content.Context.LAYOUT_INFLATER_SERVICE;
 
-/**
- * A simple {@link Fragment} subclass.
- */
 public class TutorSchedule extends Fragment {
     AVLoadingIndicatorView avi;
 
@@ -121,13 +118,13 @@ LVschedule_history=view.findViewById(R.id.schedule_list_history);
         swipyRefreshLayout=view.findViewById(R.id.swipyrefreshlayout);
         swipyRefreshLayout_history=view.findViewById(R.id.swipyrefreshlayout_history);
 
-        schedule_list_url = "http://twotr.com:5040/api/class/upcoming?page=1&size=10" ;
+        schedule_list_url = "https://api.twotr.com/api/class/upcoming?page=1&size=10" ;
         new ScheduleAsyncList().execute(schedule_list_url);
         SwipeMenuCreator creator = new SwipeMenuCreator() {
 
             @Override
             public void create(SwipeMenu menu) {
-                // create "open" item
+                // create_bot "open" item
                 SwipeMenuItem more_sched = new SwipeMenuItem(
                         getContext());
                 // set item background
@@ -146,7 +143,7 @@ LVschedule_history=view.findViewById(R.id.schedule_list_history);
                 // add to menu
                 menu.addMenuItem(more_sched);
 
-                // create "delete" item
+                // create_bot "delete" item
                 SwipeMenuItem review_sched = new SwipeMenuItem(
                         getContext());
                 // set item background
@@ -178,7 +175,7 @@ LVschedule_history.setVisibility(View.VISIBLE);
              Bupcoming.setBackgroundResource(R.drawable.tab_unselected_right);
              Bupcoming.setTextColor(getResources().getColor(R.color.mdtp_white));
              Bhistory.setTextColor(getResources().getColor(R.color.black));
-             schedule_list_url_history = "http://twotr.com:5040/api/class/history?page=1&size=10" ;
+             schedule_list_url_history = "https://api.twotr.com/api/class/history?page=1&size=10" ;
              new ScheduleAsyncListHistory().execute(schedule_list_url_history);
 
          }
@@ -197,7 +194,7 @@ LVschedule_history.setVisibility(View.VISIBLE);
              Bhistory.setTextColor(getResources().getColor(R.color.mdtp_white));
 //upcominglist(upcoming_url);
 
-              schedule_list_url = "http://twotr.com:5040/api/class/upcoming?page=1&size=10" ;
+              schedule_list_url = "https://api.twotr.com/api/class/upcoming?page=1&size=10" ;
              new ScheduleAsyncList().execute(schedule_list_url);
 
 
@@ -206,7 +203,7 @@ LVschedule_history.setVisibility(View.VISIBLE);
         swipyRefreshLayout.setOnRefreshListener(new SwipyRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh(SwipyRefreshLayoutDirection direction) {
-                schedule_list_url = "http://twotr.com:5040/api/class/upcoming?page=1&size=10" ;
+                schedule_list_url = "https://api.twotr.com/api/class/upcoming?page=1&size=10" ;
                 new ScheduleAsyncList().execute(schedule_list_url);
                 swipyRefreshLayout.setRefreshing(false);
             }
@@ -214,7 +211,7 @@ LVschedule_history.setVisibility(View.VISIBLE);
         swipyRefreshLayout_history.setOnRefreshListener(new SwipyRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh(SwipyRefreshLayoutDirection direction) {
-                schedule_list_url_history = "http://twotr.com:5040/api/class/history?page=1&size=10" ;
+                schedule_list_url_history = "https://api.twotr.com/api/class/history?page=1&size=10" ;
                 new ScheduleAsyncListHistory().execute(schedule_list_url_history);
 
                 swipyRefreshLayout_history.setRefreshing(false);
@@ -226,7 +223,7 @@ LVschedule_history.setVisibility(View.VISIBLE);
             public void onLoadMore(int page, int totalItemsCount) {
 
 
-                schedule_list_url_history = "http://twotr.com:5040/api/class/history?page="+page+"&size=10" ;
+                schedule_list_url_history = "https://api.twotr.com/api/class/history?page="+page+"&size=10" ;
                 new ScheduleAsyncListHistoryadd().execute(schedule_list_url_history);
 
             }
@@ -237,7 +234,7 @@ LVschedule_history.setVisibility(View.VISIBLE);
             public void onLoadMore(int page, int totalItemsCount) {
 
 
-                schedule_list_url = "http://twotr.com:5040/api/class/upcoming?page="+page+"&size=10" ;
+                schedule_list_url = "https://api.twotr.com/api/class/upcoming?page="+page+"&size=10" ;
                 new ScheduleAsyncListadd().execute(schedule_list_url);
 
 
@@ -341,7 +338,7 @@ public class Schedule_class extends ArrayAdapter {
 
         @Override
         public void create(SwipeMenu menu) {
-            // create "open" item
+            // create_bot "open" item
             SwipeMenuItem more_sched = new SwipeMenuItem(
                     getContext());
             // set item background
@@ -360,7 +357,7 @@ public class Schedule_class extends ArrayAdapter {
             // add to menu
             menu.addMenuItem(more_sched);
 
-            // create "delete" item
+            // create_bot "delete" item
             SwipeMenuItem review_sched = new SwipeMenuItem(
                     getContext());
             // set item background
@@ -647,7 +644,7 @@ catego.set_id(finalObject.getString("_id"));
                  swipeMenuCreatorhostory = new SwipeMenuCreator() {
                     @Override
                     public void create(SwipeMenu menu) {
-                        // create "open" item
+                        // create_bot "open" item
                         SwipeMenuItem more_sched = new SwipeMenuItem(
                                 getContext());
                         // set item background
@@ -664,7 +661,7 @@ catego.set_id(finalObject.getString("_id"));
                         more_sched.setTitleColor(Color.WHITE);
                         // add to menu
                         menu.addMenuItem(more_sched);
-                        // create "delete" item
+                        // create_bot "delete" item
                         SwipeMenuItem review_sched = new SwipeMenuItem(
                                 getContext());
                         // set item background
@@ -1068,7 +1065,7 @@ adaptersa.addAll(ScheduleMode);
         StringRequest stringRequest = new StringRequest(Request.Method.DELETE, Global_url_twotr.Tutor_schedule_delete+id, new Response.Listener<String>() {
 
             public void onResponse(String response) {
-                schedule_list_url_history = "http://twotr.com:5040/api/class/history?page=1&size=10" ;
+                schedule_list_url_history = "https://api.twotr.com/api/class/history?page=1&size=10" ;
                 new ScheduleAsyncListHistory().execute(schedule_list_url_history);
                adapter_history.notifyDataSetChanged();
              //   startActivity(new Intent(getActivity(),HomePage.class));

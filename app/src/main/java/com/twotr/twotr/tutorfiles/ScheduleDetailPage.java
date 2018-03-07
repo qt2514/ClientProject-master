@@ -191,11 +191,13 @@ linear_layout.setVisibility(View.VISIBLE);
             RequestQueue requestQueue = Volley.newRequestQueue(this);
             JSONObject jsonObjectall = new JSONObject();
             jsonObjectall.put("description", Sschedule_des);
-            JSONObject jsonObject2 = new JSONObject();
-            jsonObject2.put("lat", Slati);
-            jsonObject2.put("lng", Slongi);
-            jsonObjectall.put("location",jsonObject2);
+            if (!Slati.isEmpty()&&!Slongi.isEmpty()) {
+                JSONObject jsonObject2 = new JSONObject();
 
+                jsonObject2.put("lat", Slati);
+                jsonObject2.put("lng", Slongi);
+                jsonObjectall.put("location", jsonObject2);
+            }
             final String requestBody = jsonObjectall.toString();
 
             StringRequest stringRequest = new StringRequest(Request.Method.POST, Global_url_twotr.Tutor_Schedule_update+Sid, new Response.Listener<String>() {
@@ -223,7 +225,7 @@ linear_layout.setVisibility(View.VISIBLE);
                 @Override
                 public Map<String, String> getHeaders() throws AuthFailureError {
                     HashMap<String, String> headers = new HashMap<String, String>();
-                   headers.put("content-Type", "application/json");
+                 //  headers.put("content-Type", "application/json");
                     headers.put("x-tutor-app-id", "tutor-app-android");
                     headers.put("authorization","Bearer "+Stoken);
 

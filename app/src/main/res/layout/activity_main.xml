@@ -74,6 +74,8 @@
         android:layout_marginBottom="14dp"
         android:fontFamily="@font/montserrat"
         android:text="@string/iamnew"
+        android:textSize="16sp"
+
         android:textColor="#000" />
 
     <TextView
@@ -87,7 +89,9 @@ android:layout_marginStart="5dp"
         android:fontFamily="@font/montserrat"
         android:gravity="top"
         android:text="@string/sign_up"
+        android:textSize="16sp"
+
         android:textColor="@color/colorAccent"
-        android:textSize="18sp" />
+        />
 
 </RelativeLayout>

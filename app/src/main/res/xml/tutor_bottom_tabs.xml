@@ -13,23 +13,19 @@
         inActiveColor="@color/bottomcolor"
         activeColor="@color/bottomactivetab"
         barColorWhenSelected="#fff"
-
         title="Dashboard" />
     <tab
         id="@+id/tab_create"
-        icon="@drawable/create"
+        icon="@drawable/create_bot"
         inActiveColor="@color/bottomcolor"
         activeColor="@color/bottomactivetab"
         barColorWhenSelected="#fff"
-
         title="Create" />
     <tab
         id="@+id/tab_settings"
-        icon="@drawable/account"
+        icon="@drawable/setting_bot"
         inActiveColor="@color/bottomcolor"
         activeColor="@color/bottomactivetab"
         barColorWhenSelected="#fff"
-
-
         title="Account" />
 </tabs>

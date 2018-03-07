@@ -9,7 +9,6 @@
         android:id="@+id/drawer_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-
         tools:openDrawer="end">
         <android.support.design.widget.NavigationView
             android:id="@+id/nav_view"
@@ -42,9 +41,9 @@
                     android:layout_marginLeft="10dp"
                     android:orientation="horizontal">
                     <ImageView
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
-                        app:srcCompat="@drawable/ic_person_outline_black_24dp"
+                        android:layout_width="28dp"
+                        android:layout_height="28dp"
+                        app:srcCompat="@drawable/ic_profile_settings"
                         android:tint="@color/colorwhite"/>
                     <TextView
                         android:id="@+id/profile_link"
@@ -68,9 +67,9 @@
 
                     android:orientation="horizontal">
                     <ImageView
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
-                        app:srcCompat="@drawable/ic_star_border_black_24dp"
+                        android:layout_width="28dp"
+                        android:layout_height="28dp"
+                        app:srcCompat="@drawable/ic_star"
                         android:tint="@color/colorwhite"/>
                     <TextView
                         android:layout_width="match_parent"
@@ -92,9 +91,9 @@
 
                     android:orientation="horizontal">
                     <ImageView
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
-                        app:srcCompat="@drawable/ic_account_circle_black_24dp"
+                        android:layout_width="28dp"
+                        android:layout_height="28dp"
+                        app:srcCompat="@drawable/ic_profile_settings"
                         android:tint="@color/colorwhite"/>
                     <TextView
                         android:layout_width="match_parent"
@@ -116,9 +115,9 @@
 
                     android:orientation="horizontal">
                 <ImageView
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    app:srcCompat="@drawable/ic_schedule_black_24dp"
+                    android:layout_width="28dp"
+                    android:layout_height="28dp"
+                    app:srcCompat="@drawable/ic_reminder"
                     android:tint="@color/colorwhite"/>
                 <TextView
                     android:layout_width="match_parent"
@@ -146,9 +145,9 @@
 
                     android:orientation="horizontal">
                     <ImageView
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
-                        app:srcCompat="@drawable/ic_add_alert_black_24dp"
+                        android:layout_width="28dp"
+                        android:layout_height="28dp"
+                        app:srcCompat="@drawable/ic_notification"
                         android:tint="@color/colorwhite"/>
                     <TextView
                         android:layout_width="match_parent"
@@ -171,9 +170,9 @@
 
                     android:orientation="horizontal">
                     <ImageView
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
-                        app:srcCompat="@drawable/ic_language_black_24dp"
+                        android:layout_width="28dp"
+                        android:layout_height="28dp"
+                        app:srcCompat="@drawable/ic_language"
                         android:tint="@color/colorwhite"/>
                     <TextView
                         android:layout_width="match_parent"
@@ -190,6 +189,7 @@
 android:layout_marginLeft="10dp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_gravity="center"
 
                         />
                 </LinearLayout>
@@ -211,9 +211,9 @@ android:layout_marginLeft="10dp"
 
                     android:orientation="horizontal">
                     <ImageView
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
-                        app:srcCompat="@drawable/ic_back_page"
+                        android:layout_width="28dp"
+                        android:layout_height="28dp"
+                        app:srcCompat="@drawable/ic_signout"
                         android:tint="@color/colorwhite"/>
 
                     <TextView
@@ -240,8 +240,8 @@ android:layout_marginLeft="10dp"
 
             android:orientation="horizontal">
             <ImageView
-                android:layout_width="30dp"
-                android:layout_height="30dp"
+                android:layout_width="28dp"
+                android:layout_height="28dp"
                 app:srcCompat="@drawable/ic_share_black_24dp"
                 android:tint="@color/colorwhite"/>
             <TextView
@@ -266,9 +266,9 @@ android:layout_marginLeft="10dp"
 
                     android:orientation="horizontal">
                     <ImageView
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
-                        app:srcCompat="@drawable/ic_error_outline_black_24dp"
+                        android:layout_width="28dp"
+                        android:layout_height="28dp"
+                        app:srcCompat="@drawable/ic_about"
                         android:tint="@color/colorwhite"/>
                     <TextView
                         android:layout_width="match_parent"
@@ -293,10 +293,9 @@ android:id="@+id/about_settings"
 
                     android:orientation="horizontal">
                     <ImageView
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
-
-                        app:srcCompat="@drawable/ic_add_alert_black_24dp"
+                        android:layout_width="28dp"
+                        android:layout_height="28dp"
+                        app:srcCompat="@drawable/ic_terms"
                         android:tint="@color/colorwhite"/>
                     <TextView
                         android:layout_width="match_parent"

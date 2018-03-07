@@ -181,25 +181,26 @@ imageView.setOnClickListener(new View.OnClickListener() {
 
             }
         });
-        tgps = new TrackGPS(Profile_Edit_Personal.this);
-        Double latm = tgps.getLatitude();
-        Double lngm = tgps.getLongitude();
-        Geocoder gcd = new Geocoder(getApplicationContext(), Locale.getDefault());
-        List<Address> addresses = null;
-        try {
-            addresses = gcd.getFromLocation(latm, lngm, 1);
-        } catch (IOException e) {
-            e.printStackTrace();
 
-        }
-        assert addresses != null;
-        if (addresses.size() > 0) {
-            Sdefaultcountry= addresses.get(0).getCountryCode();
-         //   Toast.makeText(context, Sdefaultcountry, Toast.LENGTH_SHORT).show();
-        }
-        else {
-            Toast.makeText(context, "Location Not Found", Toast.LENGTH_SHORT).show();
-        }
+//        tgps = new TrackGPS(Profile_Edit_Personal.this);
+//        Double latm = tgps.getLatitude();
+//        Double lngm = tgps.getLongitude();
+//        Geocoder gcd = new Geocoder(getApplicationContext(), Locale.getDefault());
+//        List<Address> addresses = null;
+//        try {
+//            addresses = gcd.getFromLocation(latm, lngm, 1);
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//
+//        }
+//        assert addresses != null;
+//        if (addresses.size() > 0) {
+//            Sdefaultcountry= addresses.get(0).getCountryCode();
+//         //   Toast.makeText(context, Sdefaultcountry, Toast.LENGTH_SHORT).show();
+//        }
+//        else {
+//            Toast.makeText(context, "Location Not Found", Toast.LENGTH_SHORT).show();
+//        }
         SSmobilepin.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
@@ -340,7 +341,6 @@ imageView.setOnClickListener(new View.OnClickListener() {
 if (et_per_address.getText().toString().equals(""))
 
 {
-
     sweetmessage = "Please Fill Your Address";
     new SweetAlertDialog(Profile_Edit_Personal.this, SweetAlertDialog.NORMAL_TYPE).setTitleText(sweetmessage)
             .setConfirmText("OK")
@@ -350,41 +350,53 @@ if (et_per_address.getText().toString().equals(""))
                     sweetAlertDialog.dismiss();
                 }
             }).show();
-
 }
+
 
                                                                 else
                                                             {
-
-                                                                avi.show();
-                                                                Sdob = et_per_dob.getText().toString();
-                                                                Stimezone = SStime_zone.getSelectedItem().toString();
-
-                                                                Scantutor = false;
-                                                                Smcode = SSmobilepin.getSelectedItem().toString();
-                                                                Smobile_number = et_per_mobile.getText().toString();
-                                                                Saddline = et_per_address.getText().toString();
-                                                                Saddcity = et_per_city.getText().toString();
-                                                                Saddstate = et_per_city.getText().toString();
-                                                              //  Saddzipcode = et_per_zip.getText().toString();
-                                                                Sdecription = et_per_desc.getText().toString();
-                                                                Sgender = gender_sspinner.getSelectedItem().toString();
-                                                                if (Sgender.equals("Male")) {
-                                                                    Sgender = "male";
-                                                                } else {
-                                                                    Sgender = "female";
+                                                                if (et_per_city.getText().toString().isEmpty())
+                                                                {
+                                                                    sweetmessage = "Please Fill Your City";
+                                                                    new SweetAlertDialog(Profile_Edit_Personal.this, SweetAlertDialog.NORMAL_TYPE).setTitleText(sweetmessage)
+                                                                            .setConfirmText("OK")
+                                                                            .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                                                                                @Override
+                                                                                public void onClick(SweetAlertDialog sweetAlertDialog) {
+                                                                                    sweetAlertDialog.dismiss();
+                                                                                }
+                                                                            }).show();
                                                                 }
-                                                                Sgrade = searchableSpinner_grade.getText().toString().trim();
-                                                                Sfirstname = et_per_fname.getText().toString();
-                                                                Slastname = et_per_lname.getText().toString();
-                                                                Smiddlename = et_per_mname.getText().toString();
+else {
+                                                                    avi.show();
+                                                                    Sdob = et_per_dob.getText().toString();
+                                                                    Stimezone = SStime_zone.getSelectedItem().toString();
 
-                                                                personal_profile(Sdob, Sgender, Stimezone,
-                                                                        Sgrade, Scantutor, Smcode, Smobile_number, Saddline, Saddcity,
-                                                                        Saddstate, Scountry, Sdefaultcountry, Sdecription);
-                                                                profile_name(Sfirstname, Smiddlename, Slastname);
+                                                                    Scantutor = false;
+                                                                    Smcode = SSmobilepin.getSelectedItem().toString();
+                                                                    Smobile_number = et_per_mobile.getText().toString();
+                                                                    Saddline = et_per_address.getText().toString();
+                                                                    Saddcity = et_per_city.getText().toString();
+                                                                    Saddstate = et_per_city.getText().toString();
+                                                                    //  Saddzipcode = et_per_zip.getText().toString();
+                                                                    Sdecription = et_per_desc.getText().toString();
+                                                                    Sgender = gender_sspinner.getSelectedItem().toString();
+                                                                    if (Sgender.equals("Male")) {
+                                                                        Sgender = "male";
+                                                                    } else {
+                                                                        Sgender = "female";
+                                                                    }
+                                                                    Sgrade = searchableSpinner_grade.getText().toString().trim();
+                                                                    Sfirstname = et_per_fname.getText().toString();
+                                                                    Slastname = et_per_lname.getText().toString();
+                                                                    Smiddlename = et_per_mname.getText().toString();
 
+                                                                    personal_profile(Sdob, Sgender, Stimezone,
+                                                                            Sgrade, Scantutor, Smcode, Smobile_number, Saddline, Saddcity,
+                                                                            Saddstate, Scountry, Sdefaultcountry, Sdecription);
+                                                                    profile_name(Sfirstname, Smiddlename, Slastname);
 
+                                                                }
                                                             }
                                                         }
                                                     }
@@ -415,7 +427,7 @@ if (et_per_address.getText().toString().equals(""))
             @Override
             public void onClick(View v) {
                 MultiSelectDialog multiSelectDialog = new MultiSelectDialog()
-                        .title("Grade Level") //setting title for dialog
+                        .title("Grade Level") //setting_bot title for dialog
                         .titleSize(22)
                         .positiveText("Done")
                         .negativeText("Cancel")

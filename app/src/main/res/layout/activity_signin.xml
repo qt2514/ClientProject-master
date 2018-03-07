@@ -266,6 +266,7 @@
         android:fontFamily="@font/montserrat"
         android:text="@string/iamnew"
         android:textColor="#000"
+        android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="@+id/signin_button" />
 
@@ -282,7 +283,7 @@
         android:layout_toEndOf="@+id/newcust"
         android:fontFamily="@font/montserrat"
         android:text="@string/sign_up"
-        android:textSize="18sp"
+        android:textSize="16sp"
         android:textColor="@color/colorAccent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
