@@ -179,7 +179,7 @@
                 android:id="@+id/profile_edit"
                 android:layout_width="25dp"
                 android:layout_gravity="center"
-                android:visibility="invisible"
+                android:visibility="visible"
                 android:layout_height="25dp"
                 android:background="@drawable/ic_profile_edit_icon"
                 android:layout_weight="0.2"/>

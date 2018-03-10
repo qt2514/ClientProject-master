@@ -15,17 +15,7 @@
         android:visibility="invisible"
     android:background="@drawable/dashboard_imag"
     android:layout_height="250dp">
-<!--<TextView-->
-    <!--android:layout_width="wrap_content"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:text="Dashboard"-->
-    <!--android:textSize="15sp"-->
-    <!--android:fontFamily="@font/montserrat"-->
-    <!--android:gravity="center"-->
-    <!--android:textColor="#fff"-->
-    <!--android:layout_centerHorizontal="true"-->
 
-    <!--/>-->
     <pl.pawelkleczkowski.customgauge.CustomGauge
         android:id="@+id/gauge2"
         android:layout_width="190dp"
@@ -92,17 +82,30 @@ android:layout_marginTop="5dp"
         android:fontFamily="@font/montserrat"
         android:textSize="12sp"
         android:textColor="#fff" />
+<LinearLayout
+    android:layout_width="wrap_content"
+    android:layout_marginTop="10dp"
+    android:layout_below="@+id/subject_start_date"
+    android:layout_centerHorizontal="true"
+    android:orientation="horizontal"
+    android:layout_height="wrap_content">
+
 
         <ImageView
             android:id="@+id/dashboard_location"
-            android:layout_width="20dp"
-            android:layout_height="30dp"
-            android:visibility="invisible"
-            android:layout_marginTop="15dp"
-            android:layout_below="@+id/subject_start_date"
-            android:layout_centerHorizontal="true"
+            android:layout_width="25dp"
+            android:layout_height="35dp"
+            android:visibility="gone"
             android:background="@drawable/twotr_pin"
              />
+    <ImageView
+        android:id="@+id/dashborad_noloac"
+        android:layout_width="25dp"
+        android:layout_height="35dp"
+        android:visibility="gone"
+        android:background="@drawable/twotr_pin_noc"
+        />
+</LinearLayout>
 
 </RelativeLayout>
     <com.orangegangsters.github.swipyrefreshlayout.library.SwipyRefreshLayout

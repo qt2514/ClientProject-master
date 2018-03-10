@@ -79,19 +79,19 @@ public class StudentHome extends AppCompatActivity {
         }
 
 
-
-        FloatingActionButton fab =  findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                session.setLogin(false);
-                editor.clear();
-                editor.apply();
-                startActivity(new Intent(StudentHome.this, SigninActivity.class));
-                finish();
-
-            }
-        });
+//
+//        FloatingActionButton fab =  findViewById(R.id.fab);
+//        fab.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                session.setLogin(false);
+//                editor.clear();
+//                editor.apply();
+//                startActivity(new Intent(StudentHome.this, SigninActivity.class));
+//                finish();
+//
+//            }
+//        });
 
 
         bottomBar.setDefaultTab(R.id.tab_dashboard);
@@ -100,17 +100,17 @@ public class StudentHome extends AppCompatActivity {
             public void onTabSelected(@IdRes int tabId) {
                 android.support.v4.app.Fragment selectedFragment = null;
                 if (tabId == R.id.tab_schedules) {
-                    selectedFragment = TutorSchedule.newInstance();
+                   // selectedFragment = TutorSchedule.newInstance();
                 }
                 else if (tabId == R.id.tab_dashboard) {
-                    selectedFragment = TutorDashboard.newInstance();
+                   // selectedFragment = TutorDashboard.newInstance();
                 }
                 else if (tabId == R.id.tab_create) {
-                    selectedFragment = TutorCreate.newInstance();
+                  //  selectedFragment = TutorCreate.newInstance();
                 }
 
                 else if (tabId == R.id.tab_settings) {
-                    selectedFragment = TutorSettings.newInstance();
+                    selectedFragment = StudentSettings.newInstance();
 
                 }
                 FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();

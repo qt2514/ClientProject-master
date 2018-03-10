@@ -43,6 +43,7 @@ import com.orangegangsters.github.swipyrefreshlayout.library.SwipyRefreshLayout;
 import com.orangegangsters.github.swipyrefreshlayout.library.SwipyRefreshLayoutDirection;
 import com.twotr.twotr.R;
 import com.twotr.twotr.globalpackfiles.Global_url_twotr;
+import com.twotr.twotr.globalpackfiles.TinyDB;
 import com.twotr.twotr.guestfiles.GuestControlBoard;
 import com.wang.avi.AVLoadingIndicatorView;
 
@@ -92,7 +93,8 @@ TextView nodatatextview;
     };
     List<Schedule_history_list> milokilo;
     String navtab_list="upcoming";
-
+    List<String> starttimeschednew;
+    List<String> endtimeschednew;
     SwipeMenuCreator swipeMenuCreatorhostory;
     public static TutorSchedule newInstance() {
         return new TutorSchedule();
@@ -117,7 +119,8 @@ LVschedule_history=view.findViewById(R.id.schedule_list_history);
         LVschedule_history.addFooterView(footer);
         swipyRefreshLayout=view.findViewById(R.id.swipyrefreshlayout);
         swipyRefreshLayout_history=view.findViewById(R.id.swipyrefreshlayout_history);
-
+        starttimeschednew=new ArrayList<>();
+        endtimeschednew=new ArrayList<>();
         schedule_list_url = "https://api.twotr.com/api/class/upcoming?page=1&size=10" ;
         new ScheduleAsyncList().execute(schedule_list_url);
         SwipeMenuCreator creator = new SwipeMenuCreator() {
@@ -308,7 +311,6 @@ public class Schedule_class extends ArrayAdapter {
         holder.TVprice_schedule.setText(supl.getPrice());
         String Scompletestart=supl.getStart();
         String Scompleteend=supl.getEnd();
-
         String startdate=Scompletestart.substring(0,10);
         String starttime=Scompletestart.substring(11,19);
         String enddate=Scompleteend.substring(0,10);
@@ -472,14 +474,29 @@ public class Schedule_class extends ArrayAdapter {
 catego.setStudentsCount(finalObject.getString("studentsCount"));
 catego.setMinPrice(finalObject.getString("minPrice"));
 catego.set_id(finalObject.getString("_id"));
+                    TinyDB tinydb = new TinyDB(getContext());
+
                     JSONArray jsonArray1 = finalObject.getJSONArray("schedules");
                     for (int j = 0; j < jsonArray1.length(); j++) {
                         JSONObject jsonObject = jsonArray1.getJSONObject(j);
                         catego.setStart(jsonObject.getString("start"));
                         catego.setEnd(jsonObject.getString("end"));
+                          starttimeschednew.add(jsonObject.getString("start"));
 
-                        //  ListSubject.add(Skind);
                     }
+                    tinydb.putListString("starttimeschednew", (ArrayList<String>) starttimeschednew);
+
+                    for (int j = 0; j < jsonArray1.length(); j++) {
+                        JSONObject jsonObject = jsonArray1.getJSONObject(j);
+                        endtimeschednew.add(jsonObject.getString("end"));
+
+
+                    }
+                    tinydb.putListString("endtimeschednew", (ArrayList<String>) endtimeschednew);
+
+
+
+
 
                     try {
                         JSONObject jlocati=finalObject.getJSONObject("location");
@@ -951,7 +968,6 @@ catego.set_id(finalObject.getString("_id"));
             try {
                 URL url = new URL(params[0]);
                 connection = (HttpURLConnection) url.openConnection();
-
                 connection.setRequestProperty("content-type","application/json");
                 connection.setRequestProperty("x-tutor-app-id","tutor-app-android");
                 connection.setRequestProperty("authorization","Bearer "+Stoken);
@@ -986,7 +1002,6 @@ catego.set_id(finalObject.getString("_id"));
                         JSONObject jsonObject = jsonArray1.getJSONObject(j);
                         catego.setStart(jsonObject.getString("start"));
                         catego.setEnd(jsonObject.getString("end"));
-
                         //  ListSubject.add(Skind);
                     }
 

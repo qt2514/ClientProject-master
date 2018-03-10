@@ -195,7 +195,6 @@ context=this;
                                 String slongi=Double.toString(mCenterLatLong.longitude);
                         textlati.setText(slati);
                         textlongi.setText(slongi);
-
                         TinyDB tinydb = new TinyDB(context);
                           tinydb.putString("latitude",slati);
                          tinydb.putString("longitude",slongi);

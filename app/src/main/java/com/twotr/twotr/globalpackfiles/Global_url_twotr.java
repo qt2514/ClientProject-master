@@ -10,6 +10,8 @@ public class Global_url_twotr {
     public  static  String User_signin=Base_url +"auth/login";
 
 
+    public static String User_network=Base_url +"users/network";
+
     public static String Profile_grades=Base_url +"userinfo/grades";
     public static String Profile_timezone=Base_url +"userinfo/timezones";
     public static String Profile_subject=Base_url +"subject/search?key=";
@@ -65,6 +67,10 @@ public static String Tutor_number_send=Base_url+"verify/sms/send";
     public static String Guest_list_api=Base_url+"search/class?name=";
 
 
+    public static String Zahab_login="https://zahhab.com/Services/Service1.svc/ZahhabService/GetUserInfoByEmail";
+
+
+    public static String NetworkCreate=Base_url+"users/network/create";
 
 
 

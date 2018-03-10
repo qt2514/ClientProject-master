@@ -27,7 +27,7 @@
             android:ems="13"
             android:fontFamily="@font/montserrat"
             android:gravity="start"
-
+android:singleLine="true"
             android:hint="Search your Keyword"
             android:padding="8dp"
             android:textColor="#fff"

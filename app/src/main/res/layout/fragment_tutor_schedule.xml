@@ -8,6 +8,7 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
+        android:id="@+id/dsda"
         android:layout_height="match_parent">
 
         <RelativeLayout
@@ -26,7 +27,7 @@
                 android:layout_height="30dp"
                 android:background="@drawable/tab_unselected"
                 android:fontFamily="@font/montserrat"
-                android:padding="5dp"
+                android:padding="4dp"
                 android:text="History"
                 android:textAllCaps="false"
                 android:textColor="@color/colorwhite"
@@ -40,7 +41,7 @@
                 android:layout_toEndOf="@+id/history_button"
                 android:background="@drawable/tab_selected_right"
                 android:fontFamily="@font/montserrat"
-                android:padding="5dp"
+                android:padding="4dp"
                 android:text="Upcoming"
                 android:textAllCaps="false"
                 android:textColor="@color/black"

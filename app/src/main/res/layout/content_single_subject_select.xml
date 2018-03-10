@@ -30,8 +30,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_toEndOf="@+id/back_ima_scedule"
-
-            android:gravity="center"
+            android:gravity="start"
             android:drawableStart="@drawable/ic_search_black_24dp"
             android:drawableTint="@color/mdtp_white"
             android:layout_alignBaseline="@+id/add_subject_list"

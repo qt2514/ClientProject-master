@@ -21,12 +21,14 @@ import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.github.thunder413.datetimeutils.DateTimeUnits;
@@ -36,6 +38,7 @@ import com.orangegangsters.github.swipyrefreshlayout.library.SwipyRefreshLayout;
 import com.orangegangsters.github.swipyrefreshlayout.library.SwipyRefreshLayoutDirection;
 import com.twotr.twotr.R;
 import com.twotr.twotr.globalpackfiles.Global_url_twotr;
+import com.twotr.twotr.globalpackfiles.TinyDB;
 import com.twotr.twotr.guestfiles.GuestControlBoard;
 import com.wang.avi.AVLoadingIndicatorView;
 
@@ -47,6 +50,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
@@ -57,6 +61,7 @@ import java.util.Map;
 
 import pl.pawelkleczkowski.customgauge.CustomGauge;
 
+import static android.app.Activity.RESULT_OK;
 import static android.content.Context.LAYOUT_INFLATER_SERVICE;
 
 /**
@@ -67,10 +72,13 @@ public class TutorDashboard extends Fragment {
     ListView LVtutordashboard;
     SharedPreferences Shared_user_details;
     public String Stoken;
-ImageView imageView,imageViewloc;
+    String Slati,Slongi,Sid;
+ImageView imageView,imageViewloc,imageViewnoloc;
 TextView textViewstartdate,textViewstarttime,textViewsubjectname,textViewsubjecttype;
 RelativeLayout relativeLayoutdashbord;
     SwipyRefreshLayout swipyRefreshLayout;
+    private static final int ADD_MAP_RES = 4;
+
     ProgressBar footer;
     private CustomGauge CGgauge;
     public static TutorDashboard newInstance() {
@@ -88,6 +96,7 @@ RelativeLayout relativeLayoutdashbord;
         Stoken=  Shared_user_details.getString("token", null);
 imageView=view.findViewById(R.id.creadte_dashboard_image);
 imageViewloc=view.findViewById(R.id.dashboard_location);
+imageViewnoloc=view.findViewById(R.id.dashborad_noloac);
    CGgauge=view.findViewById(R.id.gauge2);
    textViewstartdate=view.findViewById(R.id.subject_start_date);
    textViewstarttime=view.findViewById(R.id.subject_start_time);
@@ -121,7 +130,7 @@ imageViewloc=view.findViewById(R.id.dashboard_location);
                 swipyRefreshLayout.setRefreshing(false);
             }
         });
-        signup_twotr();
+     dashboard_twotr();
            return view;
 
     }
@@ -341,19 +350,6 @@ catego.setPrice(finalObject.getString("price"));
                 imageView.setVisibility(View.INVISIBLE);
                 Schedule_class adapter = new Schedule_class(getActivity(), R.layout.schedule_list, ScheduleMode);
                 LVtutordashboard.setAdapter(adapter);
-//                LVtutordashboard.setOnItemClickListener( new AdapterView.OnItemClickListener() {
-//                    @Override
-//                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//                        Schedule_upcoming_list schedule_upcoming_list = ScheduleMode.get(position);
-//                        Intent intent = new Intent(getActivity(),ScheduleDetailPage.class);
-//                        intent.putExtra("subject_name",schedule_upcoming_list.getSubject());
-//                        intent.putExtra("type_subject",schedule_upcoming_list.getSubject());
-//                        intent.putExtra("schedule_description",schedule_upcoming_list.getDescription());
-//                        intent.putExtra("schedule_price",schedule_upcoming_list.getPrice());
-//
-//                        startActivity(intent);
-//                    }
-//                });
                 adapter.notifyDataSetChanged();
 
             }
@@ -367,7 +363,7 @@ catego.setPrice(finalObject.getString("price"));
     }
 
 
-    public void signup_twotr() {
+    public void dashboard_twotr() {
 
         RequestQueue requestQueue = Volley.newRequestQueue(getContext());
 
@@ -381,6 +377,7 @@ catego.setPrice(finalObject.getString("price"));
                         JSONArray parentArray = jObj.getJSONArray("classes");
                         JSONObject jsonObject = parentArray.getJSONObject(0);
                         String subject=jsonObject.getString("subject");
+                        Sid=jsonObject.getString("_id");
                         String subject_type=jsonObject.getString("type");
                         if (subject_type.equals("oneonone"))
                         {
@@ -395,10 +392,7 @@ catego.setPrice(finalObject.getString("price"));
                             imageViewloc.setOnClickListener(new View.OnClickListener() {
                                 @Override
                                 public void onClick(View v) {
-//                                    String uri = String.format(Locale.ENGLISH, "geo:%f,%f", Long.parseLong(lati),Long.parseLong( longi));
-//                                    Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(uri));
-//                                    getContext().startActivity(intent);
-                                    Uri gmmIntentUri = Uri.parse("geo:"+lati+","+longi+"");
+                                    Uri gmmIntentUri = Uri.parse("google.navigation:q="+lati+","+longi+"");
                                     Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
                                     mapIntent.setPackage("com.google.android.apps.maps");
                                     startActivity(mapIntent);
@@ -406,7 +400,15 @@ catego.setPrice(finalObject.getString("price"));
                             });
 
                         } catch (JSONException e) {
-                            e.printStackTrace();
+                            imageViewnoloc.setVisibility(View.VISIBLE);
+
+                            imageViewnoloc.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    Intent intent = new Intent(getActivity(), Addmaptutor.class);
+                                    startActivityForResult(intent, ADD_MAP_RES);
+                                }
+                            });
                         }
 
                         JSONObject schedule=jsonObject.getJSONObject("schedule");
@@ -432,7 +434,6 @@ textViewstarttime.setText(endtime);
 diff=Math.abs(diff);
 
                          int   hordiff=24-diff;
-
 
 
                        CGgauge.setValue(hordiff);
@@ -549,7 +550,7 @@ diff=Math.abs(diff);
 
         // This happens many times a second during a scroll, so be wary of the code you place here.
         // We are given a few useful parameters to help us work out if we need to load some more data,
-        // but first we check if we are waiting for the previous load to finish.
+        // but first we check if we are waiting for the previous load to finish`.
         @Override
         public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
             // If the total item count is zero and the previous isn't, assume the
@@ -589,7 +590,90 @@ diff=Math.abs(diff);
 
         }
     }
+    public void update_schedule() {
+
+        try {
+
+            RequestQueue requestQueue = Volley.newRequestQueue(getContext());
+            JSONObject jsonObjectall = new JSONObject();
+            if (!Slati.isEmpty()&&!Slongi.isEmpty()) {
+                JSONObject jsonObject2 = new JSONObject();
+                jsonObject2.put("lat", Slati);
+                jsonObject2.put("lng", Slongi);
+                jsonObjectall.put("location", jsonObject2);
+            }
+            final String requestBody = jsonObjectall.toString();
+
+            StringRequest stringRequest = new StringRequest(Request.Method.POST, Global_url_twotr.Tutor_Schedule_update+Sid, new Response.Listener<String>() {
+
+                public void onResponse(String response) {
+
+                   startActivity(new Intent(getActivity(),HomePage.class));
+getActivity().finish();
+                }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+
+                    Log.e("VOLLEY", error.toString());
+                }
+            }) {
+                @Override
+                public String getBodyContentType() {
+
+                    return "application/json; charset=utf-8";
+                }
+
+                @Override
+                public Map<String, String> getHeaders() throws AuthFailureError {
+                    HashMap<String, String> headers = new HashMap<String, String>();
+                    //  headers.put("content-Type", "application/json");
+                    headers.put("x-tutor-app-id", "tutor-app-android");
+                    headers.put("authorization","Bearer "+Stoken);
+
+                    return headers;
+
+                }
+
+                @Override
+                public byte[] getBody() throws AuthFailureError {
+                    try {
+                        return requestBody == null ? null : requestBody.getBytes("utf-8");
+
+                    } catch (UnsupportedEncodingException uee) {
+                        VolleyLog.wtf("Unsupported Encoding while trying to get the bytes of %s using %s", requestBody, "utf-8");
+                        return null;
+                    }
+                }
 
 
 
+
+            };
+
+            requestQueue.add(stringRequest);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+
+
+        if (requestCode == ADD_MAP_RES) {
+            if (resultCode == RESULT_OK) {
+                TinyDB tinydb = new TinyDB(getContext());
+                Slati= tinydb.getString("latitude");
+                Slongi=tinydb.getString("longitude");
+                update_schedule();
+            }
+
+            //   startendarray.put(obj);
+            //   }
+            //Toast.makeText(context, "i got you", Toast.LENGTH_SHORT).show();
+        }
+    }
 }

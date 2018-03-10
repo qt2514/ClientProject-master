@@ -52,8 +52,9 @@ public class Profile_Page extends AppCompatActivity {
     ScrollView scrollview_personal,scrollView_educational,scrollview_professional;
     String s_profile;
     SharedPreferences Shared_user_details;
-    String Stoken,Sid,SfirstName,SmiddleName,SlastName;
+    String Stoken,Sid,SfirstName,SmiddleName,SlastName,Sdob,Sdescription,SlineOne,SzipCode,Snumber,Scode;
     TextView TVemailverify,TVmobileverify;
+    String  Sgender;
     AVLoadingIndicatorView avi;
     Context context;
     TextView TVfirstname,TVmiddlename,TVlastname,TVgender,TVdob,TVaddress,TVpostalcode,TVmobile_number,TVemail,TVaboutme;
@@ -67,16 +68,11 @@ public class Profile_Page extends AppCompatActivity {
     List<String> Listgrade ;
     List<String> ListSubject ;
     RecyclerView recyclerView,recyclerViewsub;
-
     RecyclerView.LayoutManager RecyclerViewLayoutManager,RecyclerViewLayoutManagersub;
     RecyclerViewAdapter RecyclerViewHorizontalAdapter,RecyclerViewHorizontalAdaptersub;
     LinearLayoutManager HorizontalLayout,HorizontalLayoutsub ;
-
-
     private Boolean mobile_firstTime = null;
-
     private Boolean email_firstTime = null;
-
     Boolean isEducationCompleted, isProfessionalCompleted;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -100,9 +96,9 @@ public class Profile_Page extends AppCompatActivity {
         TVaboutme=findViewById(R.id.profile_description);
         TVemailverify=findViewById(R.id.profile_email_verify);
         TVmobileverify=findViewById(R.id.profile_mobile_verify);
-TVheadernamefull=findViewById(R.id.prof_prof_name);
-pendinggiflist=findViewById(R.id.nodatagif);
-pendingtextlist=findViewById(R.id.nodatatext);
+    TVheadernamefull=findViewById(R.id.prof_prof_name);
+    pendinggiflist=findViewById(R.id.nodatagif);
+    pendingtextlist=findViewById(R.id.nodatatext);
 
         scrollView_educational=findViewById(R.id.srcollview_educational);
         scrollview_professional=findViewById(R.id.srcollview_professional);
@@ -210,8 +206,17 @@ CIVprofimage=findViewById(R.id.image_profile);
             public void onClick(View v) {
                 if(s_profile.matches("personal")||s_profile.equals("personal"))
                 {
-                    Intent intent = new Intent(Profile_Page.this, Profile_Edit_Personal.class);
+                    Intent intent = new Intent(Profile_Page.this, Profile_Update_Personal.class);
                     intent.putExtra("firstname", SfirstName);
+intent.putExtra("lastname",SlastName);
+                    intent.putExtra("gender",Sgender);
+                    intent.putExtra("dob",Sdob);
+                    intent.putExtra("descrip",Sdescription);
+                    intent.putExtra("addres",SlineOne);
+                    intent.putExtra("zipcode",SzipCode);
+                    intent.putExtra("monumber",Snumber);
+                    intent.putExtra("mcode",Scode);
+                   // intent.putExtra("gender",Sgender);
 
                     startActivity(intent);
 
@@ -312,24 +317,24 @@ recyclerView.setHorizontalScrollBarEnabled(false);
                     String createdAt = jObj.getString("createdAt");
 
                     JSONObject profile = jObj.getJSONObject("profileInfo");
-                    String Sdob =profile.getString("dob");
-                    String  Sgender=profile.getString("gender");
+                     Sdob =profile.getString("dob");
+                      Sgender=profile.getString("gender");
                     String Stimezone =profile.getString("timezone");
                     String Scantutor =profile.getString("canTutor");
                     String  SdefaultCountry=profile.getString("defaultCountry");
-                    String  Sdescription=profile.getString("description");
+                      Sdescription=profile.getString("description");
 
 
                     JSONObject paddress = profile.getJSONObject("address");
-                    String  SlineOne=paddress.getString("lineOne");
+                      SlineOne=paddress.getString("lineOne");
                     String  Scity=paddress.getString("city");
                     String  Sstate=paddress.getString("state");
-                    String  SzipCode=paddress.getString("zipCode");
+                      SzipCode=paddress.getString("zipCode");
                     String  Scountry=paddress.getString("country");
 
                     JSONObject pmonum = profile.getJSONObject("mobileNumber");
-                    String  Scode=pmonum.getString("code");
-                    String  Snumber=pmonum.getString("number");
+                      Scode=pmonum.getString("code");
+                      Snumber=pmonum.getString("number");
 
                     JSONArray jsonArray = profile.getJSONArray("gradeLevel");
                     for (int i = 0; i < jsonArray.length(); i++) {
@@ -373,7 +378,7 @@ recyclerView.setHorizontalScrollBarEnabled(false);
 
 
                     TVfirstname.setText(SfirstName);
-                  //  TVmiddlename.setText(SmiddleName);
+                   TVmiddlename.setText(SmiddleName);
                     TVlastname.setText(SlastName);
                     TVgender.setText(Sgender);
                     String monthformating= DateTimeUtils.formatWithPattern(Sdob, "MMM dd, yyyy");
@@ -397,39 +402,56 @@ if (isMobileVerified)
 
 }
 
-    JSONObject educationinfo = jObj.getJSONObject("educationInfo");
-    JSONArray jsonArray2 = educationinfo.getJSONArray("degrees");
-    for (int i = 0; i < jsonArray2.length(); i++) {
-        JSONObject jsonObjectedu = jsonArray2.getJSONObject(i);
-        String Smajor =jsonObjectedu.getString("major");
-        String Sinstitution =jsonObjectedu.getString("institution");
-        String SfieldOfStudy =jsonObjectedu.getString("fieldOfStudy");
-        String SstartYear =jsonObjectedu.getString("startYear");
-        String SendYear =jsonObjectedu.getString("endYear");
-        Boolean SisStudyingCurrently =jsonObjectedu.getBoolean("isStudyingCurrently");
+                    try {
+                        JSONObject educationinfo = jObj.getJSONObject("educationInfo");
+                        JSONArray jsonArray2 = educationinfo.getJSONArray("degrees");
+                        for (int i = 0; i < jsonArray2.length(); i++) {
+                            JSONObject jsonObjectedu = jsonArray2.getJSONObject(i);
+                            String Smajor =jsonObjectedu.getString("major");
+                            String Sinstitution =jsonObjectedu.getString("institution");
+                            String SfieldOfStudy =jsonObjectedu.getString("fieldOfStudy");
+                            String SstartYear =jsonObjectedu.getString("startYear");
+                            String SendYear =jsonObjectedu.getString("endYear");
+                            Boolean SisStudyingCurrently =jsonObjectedu.getBoolean("isStudyingCurrently");
 
-        TVmajor.setText(Smajor);
-        TVinsitute.setText(Sinstitution);
-        TVyear.setText(SstartYear+"-"+SendYear);
-    }
+                            TVmajor.setText(Smajor);
+                            TVinsitute.setText(Sinstitution);
+                            TVyear.setText(SstartYear+"-"+SendYear);
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
 
-                    JSONObject professionalInfo = jObj.getJSONObject("professionalInfo");
-String Stitle=professionalInfo.getString("title");
-                    String SinstitutionName=professionalInfo.getString("institutionName");
-                    String Sexperience=professionalInfo.getString("experience");
+                    try {
+                        JSONObject professionalInfo = jObj.getJSONObject("professionalInfo");
+                        String Stitle=professionalInfo.getString("title");
+                        String SinstitutionName=professionalInfo.getString("institutionName");
+                        String Sexperience=professionalInfo.getString("experience");
 
-TVtitle.setText(Stitle);
-                    TVproffinstitue.setText(SinstitutionName);
-TVexperi.setText(Sexperience);
-                    JSONObject profilePicture = userprofile.getJSONObject("profilePicture");
-                    String  Smime=profilePicture.getString("mime");
-                        String  Surl=Global_url_twotr.Image_Base_url+profilePicture.getString("url");
+                        TVtitle.setText(Stitle);
+                        TVproffinstitue.setText(SinstitutionName);
+                        TVexperi.setText(Sexperience);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                    String  Surl= null;
+                    try {
+                        JSONObject profilePicture = userprofile.getJSONObject("profilePicture");
+                        String profileimage = profilePicture.getString("url");
+
+                        Surl = Global_url_twotr.Image_Base_url+profileimage;
+
                         Picasso
                                 .with(context)
                                 .load(Surl)
                                 .fit()
                                 .centerCrop()
                                 .into(CIVprofimage);
+
+
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
 
 
 

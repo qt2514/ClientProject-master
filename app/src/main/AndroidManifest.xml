@@ -182,7 +182,12 @@
             android:name=".studenttwotr.StudentHome"
             android:label="@string/title_activity_student_home"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".globalpackfiles.HubPlace"></activity>
+        <activity android:name=".globalpackfiles.HubPlace" />
+        <activity
+            android:name=".tutorfiles.Profile_Update_Personal"
+            android:label="@string/title_activity_profile__update__personal"
+            android:windowSoftInputMode="stateHidden"
+            android:theme="@style/AppTheme.NoActionBar" />
     </application>
 
 </manifest>

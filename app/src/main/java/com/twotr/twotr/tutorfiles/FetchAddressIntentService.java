@@ -24,8 +24,7 @@ public class FetchAddressIntentService extends IntentService {
     public FetchAddressIntentService() {
         super(TAG);
     }
-
-
+    
     @Override
     protected void onHandleIntent(Intent intent) {
         String errorMessage = "";

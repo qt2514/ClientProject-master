@@ -403,8 +403,6 @@ else {
         });
 
         TinyDB tinydb = new TinyDB(getContext());
-
-
         tinydb.putString("latitude","");
         tinydb.putString("longitude","");
         tinydb.putListString("starttime", (ArrayList<String>) starttime);

@@ -31,7 +31,9 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class ScheduleDetailPage extends AppCompatActivity {
@@ -44,6 +46,7 @@ Button But_showmap,But_showschedule,But_updatemap,Bupdate_details;
 Context context;
     SharedPreferences Shared_user_details;
     public String Stoken;
+
     @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,6 +70,7 @@ TVminamount=findViewById(R.id.min_amount);
 Bupdate_details=findViewById(R.id.update_details);
 TVminamounttex=findViewById(R.id.min_price_amount);
 context=this;
+
         Shared_user_details=getSharedPreferences("user_detail_mode",0);
         Stoken=  Shared_user_details.getString("token", null);
         IB_back.setOnClickListener(new View.OnClickListener() {
@@ -91,14 +95,7 @@ context=this;
                // startActivity(new Intent(ScheduleDetailPage.this,Schedule_ShowMap.class));//
             }
         });
-        But_showschedule.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
 
-                Toast.makeText(ScheduleDetailPage.this, "Coming Soon", Toast.LENGTH_SHORT).show();
-                //   startActivity(new Intent(ScheduleDetailPage.this,Schedule_ShowSchedule.class));
-            }
-        });
         ETsched_desc.setEnabled(false);
         Intent intent = getIntent();
         Bundle Bintent = intent.getExtras();
@@ -119,10 +116,17 @@ Sminprice=(String) Bintent.get("minprice");
             if (type_subject.equals("oneonone"))
             {
                 type_subject="1 on 1";
-                TVstudentcount.setVisibility(View.INVISIBLE);
-                TVnoofstutext.setVisibility(View.INVISIBLE);
-                TVminamount.setVisibility(View.INVISIBLE);
-                TVminamounttex.setVisibility(View.INVISIBLE);
+                TVstudentcount.setVisibility(View.GONE);
+                TVnoofstutext.setVisibility(View.GONE);
+                TVminamount.setVisibility(View.GONE);
+                TVminamounttex.setVisibility(View.GONE);
+            }
+            else
+            {
+                TVstudentcount.setVisibility(View.VISIBLE);
+                TVnoofstutext.setVisibility(View.VISIBLE);
+                TVminamount.setVisibility(View.VISIBLE);
+                TVminamounttex.setVisibility(View.VISIBLE);
             }
             TVminamounttex.setText(Sminprice + " KD");
             TVprice_amount.setText(sched_price+ " KD");
@@ -138,7 +142,17 @@ Sminprice=(String) Bintent.get("minprice");
             {
                 But_showmap.setVisibility(View.VISIBLE);
             }
+
         }
+
+        But_showschedule.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                //          Toast.makeText(ScheduleDetailPage.this, "Coming Soon", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(ScheduleDetailPage.this,Schedule_ShowSchedule.class));
+            }
+        });
         IBedit_sched.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -204,10 +218,6 @@ linear_layout.setVisibility(View.VISIBLE);
 
                 public void onResponse(String response) {
                     startActivity(new Intent(ScheduleDetailPage.this,HomePage.class));
-//                    getSupportFragmentManager().beginTransaction()
-//                            .replace(R.id.contentContainer, fragment, fragment.getClass().getSimpleName())
-//                            .commit();
-
                 }
             }, new Response.ErrorListener() {
                 @Override

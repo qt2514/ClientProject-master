@@ -3,8 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context="com.twotr.twotr.tutorfiles.TutorSettings">
-
+    tools:context="com.twotr.twotr.studenttwotr.StudentSettings">
     <android.support.v4.widget.DrawerLayout
         android:id="@+id/drawer_layout"
         android:layout_width="match_parent"
@@ -21,7 +20,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_gravity="top"
-               android:background="@drawable/settingsprofile"/>
+                android:background="@drawable/settingsprofile"/>
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -36,7 +35,7 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                   android:id="@+id/mypro"
+                    android:id="@+id/mypro"
                     android:layout_marginTop="20dp"
                     android:layout_marginLeft="10dp"
                     android:orientation="horizontal">
@@ -61,7 +60,7 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-
+android:visibility="invisible"
                     android:layout_marginTop="65dp"
                     android:layout_marginLeft="10dp"
 
@@ -87,6 +86,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="110dp"
+                    android:visibility="invisible"
+
                     android:layout_marginStart="10dp"
 
                     android:orientation="horizontal">
@@ -111,42 +112,48 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="160dp"
+                    android:visibility="invisible"
+
                     android:layout_marginLeft="10dp"
 
                     android:orientation="horizontal">
-                <ImageView
-                    android:layout_width="22dp"
-                    android:layout_height="27dp"
-                    app:srcCompat="@drawable/ic_reminder"
-                    android:tint="@color/colorwhite"/>
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Reminders"
-                    android:fontFamily="@font/montserrat"
-                    android:padding="5dp"
+                    <ImageView
+                        android:layout_width="22dp"
+                        android:layout_height="27dp"
+                        app:srcCompat="@drawable/ic_reminder"
+                        android:tint="@color/colorwhite"/>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Reminders"
+                        android:fontFamily="@font/montserrat"
+                        android:padding="5dp"
 
-                    android:textSize="15sp"
-                    android:layout_marginLeft="10dp"
-                    android:textColor="@color/colorwhite"
-                    android:layout_gravity="center"/>
+                        android:textSize="15sp"
+                        android:layout_marginLeft="10dp"
+                        android:textColor="@color/colorwhite"
+                        android:layout_gravity="center"/>
                     <Switch
                         android:id="@+id/switch1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="30dp"
-                     />
+                        />
                 </LinearLayout>
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="210dp"
+                    android:visibility="invisible"
+
                     android:layout_marginStart="10dp"
 
                     android:orientation="horizontal">
                     <ImageView
                         android:layout_width="22dp"
                         android:layout_height="27dp"
+                        android:visibility="invisible"
+
                         app:srcCompat="@drawable/ic_notification"
                         android:tint="@color/colorwhite"/>
                     <TextView
@@ -166,6 +173,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="260dp"
+                    android:visibility="invisible"
+
                     android:layout_marginLeft="10dp"
 
                     android:orientation="horizontal">
@@ -186,132 +195,132 @@
                         android:textColor="@color/colorwhite"
                         android:layout_gravity="center"/>
                     <Switch
-android:layout_marginLeft="10dp"
+                        android:layout_marginLeft="10dp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
 
                         />
                 </LinearLayout>
-<RelativeLayout
-    android:layout_width="match_parent"
-    android:layout_below="@+id/lia"
-    android:layout_alignParentBottom="true"
-    android:layout_height="wrap_content">
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:orientation="vertical"
-        android:layout_alignParentBottom="true"
-        android:layout_height="wrap_content">
-                <LinearLayout
+                <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-
-                    android:layout_marginStart="10dp"
-
-                    android:orientation="horizontal">
-                    <ImageView
-                        android:layout_width="22dp"
-                        android:layout_height="27dp"
-                        app:srcCompat="@drawable/ic_signout"
-                        android:tint="@color/colorwhite"/>
-
-                    <TextView
-                        android:id="@+id/signout_settings"
+                    android:layout_below="@+id/lia"
+                    android:layout_alignParentBottom="true"
+                    android:layout_height="wrap_content">
+                    <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:padding="5dp"
+                        android:orientation="vertical"
+                        android:layout_alignParentBottom="true"
+                        android:layout_height="wrap_content">
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
 
-                        android:layout_marginLeft="10dp"
-                        android:fontFamily="@font/montserrat"
-                        android:text="Signout"
-                        android:textColor="@color/colorwhite"
-                        android:textSize="15sp" />
+                            android:layout_marginStart="10dp"
 
-                </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+                            <ImageView
+                                android:layout_width="22dp"
+                                android:layout_height="27dp"
+                                app:srcCompat="@drawable/ic_signout"
+                                android:tint="@color/colorwhite"/>
 
-            android:layout_marginTop="20dp"
+                            <TextView
+                                android:id="@+id/signout_settings"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:padding="5dp"
 
-            android:layout_marginStart="10dp"
+                                android:layout_marginLeft="10dp"
+                                android:fontFamily="@font/montserrat"
+                                android:text="Signout"
+                                android:textColor="@color/colorwhite"
+                                android:textSize="15sp" />
 
-            android:orientation="horizontal">
-            <ImageView
-                android:layout_width="22dp"
-                android:layout_height="27dp"
-                app:srcCompat="@drawable/ic_share_black_24dp"
-                android:tint="@color/colorwhite"/>
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Share"
-                android:padding="5dp"
-                android:id="@+id/shareapp"
-                android:textSize="15sp"
-                android:fontFamily="@font/montserrat"
-                android:layout_marginLeft="10dp"
-                android:textColor="@color/colorwhite"
-                android:layout_gravity="center"/>
+                        </LinearLayout>
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
 
-        </LinearLayout>
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
+                            android:layout_marginTop="20dp"
 
-                    android:layout_marginStart="10dp"
+                            android:layout_marginStart="10dp"
 
-                    android:orientation="horizontal">
-                    <ImageView
-                        android:layout_width="22dp"
-                        android:layout_height="27dp"
-                        app:srcCompat="@drawable/ic_about"
-                        android:tint="@color/colorwhite"/>
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="About"
-                        android:fontFamily="@font/montserrat"
-                        android:padding="5dp"
-android:id="@+id/about_settings"
-                        android:textSize="15sp"
-                        android:layout_marginStart="10dp"
-                        android:textColor="@color/colorwhite"
-                        android:layout_gravity="center"/>
+                            android:orientation="horizontal">
+                            <ImageView
+                                android:layout_width="22dp"
+                                android:layout_height="27dp"
+                                app:srcCompat="@drawable/ic_share_black_24dp"
+                                android:tint="@color/colorwhite"/>
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="Share"
+                                android:padding="5dp"
+                                android:id="@+id/shareapp"
+                                android:textSize="15sp"
+                                android:fontFamily="@font/montserrat"
+                                android:layout_marginLeft="10dp"
+                                android:textColor="@color/colorwhite"
+                                android:layout_gravity="center"/>
 
-                </LinearLayout>
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                        </LinearLayout>
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="20dp"
 
-                    android:layout_marginTop="20dp"
+                            android:layout_marginStart="10dp"
 
-                    android:layout_marginStart="10dp"
+                            android:orientation="horizontal">
+                            <ImageView
+                                android:layout_width="22dp"
+                                android:layout_height="27dp"
+                                app:srcCompat="@drawable/ic_about"
+                                android:tint="@color/colorwhite"/>
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="About"
+                                android:fontFamily="@font/montserrat"
+                                android:padding="5dp"
+                                android:id="@+id/about_settings"
+                                android:textSize="15sp"
+                                android:layout_marginStart="10dp"
+                                android:textColor="@color/colorwhite"
+                                android:layout_gravity="center"/>
 
-                    android:orientation="horizontal">
-                    <ImageView
-                        android:layout_width="22dp"
-                        android:layout_height="27dp"
-                        app:srcCompat="@drawable/ic_terms"
-                        android:tint="@color/colorwhite"/>
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Terms and Conditions"
-android:padding="5dp"
-                        android:id="@+id/termsandcondi_settings"
-                        android:textSize="15sp"
-                        android:fontFamily="@font/montserrat"
-                        android:layout_marginLeft="10dp"
-                        android:textColor="@color/colorwhite"
-                        android:layout_gravity="center"/>
+                        </LinearLayout>
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
 
-                </LinearLayout>
-    </LinearLayout>
-</RelativeLayout>
+                            android:layout_marginTop="20dp"
+
+                            android:layout_marginStart="10dp"
+
+                            android:orientation="horizontal">
+                            <ImageView
+                                android:layout_width="22dp"
+                                android:layout_height="27dp"
+                                app:srcCompat="@drawable/ic_terms"
+                                android:tint="@color/colorwhite"/>
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="Terms and Conditions"
+                                android:padding="5dp"
+                                android:id="@+id/termsandcondi_settings"
+                                android:textSize="15sp"
+                                android:fontFamily="@font/montserrat"
+                                android:layout_marginLeft="10dp"
+                                android:textColor="@color/colorwhite"
+                                android:layout_gravity="center"/>
+
+                        </LinearLayout>
+                    </LinearLayout>
+                </RelativeLayout>
             </RelativeLayout>
         </android.support.design.widget.NavigationView>
     </android.support.v4.widget.DrawerLayout>
