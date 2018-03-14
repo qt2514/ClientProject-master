@@ -46,7 +46,7 @@ import java.util.Map;
 public class MultiSubjectSpinner extends AppCompatActivity {
     List<MultispinnerList> listViewItems;
     SharedPreferences Shared_user_details;
-String Stoken;
+String Stoken,Sroles;
     ListView listViewWithCheckBox;
     EditText serach_text;
     TextView textViewadd;
@@ -66,7 +66,9 @@ AVLoadingIndicatorView avi;
          listViewWithCheckBox = findViewById(R.id.listView);
         Shared_user_details=getSharedPreferences("user_detail_mode",0);
         Stoken=  Shared_user_details.getString("token", null);
-serach_text=findViewById(R.id.serach_subject);
+        Sroles=  Shared_user_details.getString("roles", null);
+
+        serach_text=findViewById(R.id.serach_subject);
 textViewadd=findViewById(R.id.add_subject_list);
         avi = findViewById(R.id.avi);
 avi.hide();
@@ -88,6 +90,13 @@ context=this;
             }
         });
 
+        if (Sroles.equals("student"))
+        {
+            textViewadd.setVisibility(View.GONE);
+        }
+        else {
+            textViewadd.setVisibility(View.VISIBLE);
+        }
 Bdone.setOnClickListener(new View.OnClickListener() {
     @Override
     public void onClick(View v) {
@@ -132,7 +141,6 @@ listViewItems.clear();
 serach_text.setOnClickListener(new View.OnClickListener() {
     @Override
     public void onClick(View v) {
-        textViewadd.setVisibility(View.VISIBLE);
         Bdone.setVisibility(View.VISIBLE);
     }
 });

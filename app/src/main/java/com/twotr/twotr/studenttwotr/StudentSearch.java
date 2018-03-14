@@ -18,6 +18,10 @@ public class StudentSearch extends Fragment {
     public StudentSearch() {
         // Required empty public constructor
     }
+    public static StudentSearch newInstance() {
+        StudentSearch fragment= new StudentSearch();
+        return fragment;
+    }
 
 
     @Override

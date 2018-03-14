@@ -344,7 +344,7 @@ catego.setPrice(finalObject.getString("price"));
         protected void onPostExecute(final List<Schedule_upcoming_list> ScheduleMode) {
             super.onPostExecute(ScheduleMode);
             avi.hide();
-            if ((ScheduleMode != null) && (ScheduleMode.size()>0))
+            if ((ScheduleMode != null) && (ScheduleMode.size()>0)&& getActivity()!=null)
             {
                 relativeLayoutdashbord.setVisibility(View.VISIBLE);
                 imageView.setVisibility(View.INVISIBLE);

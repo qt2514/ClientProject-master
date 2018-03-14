@@ -2,6 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/listback"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context="com.twotr.twotr.tutorfiles.TutorDashboard">
 <RelativeLayout
@@ -119,6 +120,8 @@ android:layout_marginTop="5dp"
         android:id="@+id/dashboard_list"
         android:layout_width="match_parent"
         android:scrollbars="none"
+        android:background="@color/listback"
+
         android:divider="@null"
         android:layout_height="match_parent"/>
 

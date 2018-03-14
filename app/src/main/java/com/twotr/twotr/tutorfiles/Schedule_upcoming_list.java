@@ -3,6 +3,9 @@ package com.twotr.twotr.tutorfiles;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by vignesh2514 on 30/1/18.
  */
@@ -26,27 +29,8 @@ public class Schedule_upcoming_list implements Parcelable {
     private Boolean isActive;
 private String subject;
 private  String minPrice;
-
-    public Schedule_upcoming_list() {
-        this.totalRecords = totalRecords;
-        this._id = _id;
-        this.subjectId = subjectId;
-        this.type = type;
-        this.studentsCount = studentsCount;
-        this.price = price;
-        this.description = description;
-        this.createdBy = createdBy;
-        this.createdAt = createdAt;
-        this.lat = lat;
-        this.lng = lng;
-        this.isUserSubject = isUserSubject;
-        this.start = start;
-        this.end = end;
-        this.classId = classId;
-        this.isActive = isActive;
-        this.subject = subject;
-        this.minPrice = minPrice;
-    }
+    private ArrayList<String> startli;
+    private ArrayList<String> endli;
 
     public String getTotalRecords() {
         return totalRecords;
@@ -192,8 +176,47 @@ private  String minPrice;
         this.minPrice = minPrice;
     }
 
+    public ArrayList<String> getStartli() {
+        return startli;
+    }
+
+    public void setStartli(ArrayList<String> startli) {
+        this.startli = startli;
+    }
+
+    public ArrayList<String> getEndli() {
+        return endli;
+    }
+
+    public void setEndli(ArrayList<String> endli) {
+        this.endli = endli;
+    }
+
     public static Creator<Schedule_upcoming_list> getCREATOR() {
         return CREATOR;
+    }
+
+    public Schedule_upcoming_list() {
+        this.totalRecords = totalRecords;
+        this._id = _id;
+        this.subjectId = subjectId;
+        this.type = type;
+        this.studentsCount = studentsCount;
+        this.price = price;
+        this.description = description;
+        this.createdBy = createdBy;
+        this.createdAt = createdAt;
+        this.lat = lat;
+        this.lng = lng;
+        this.isUserSubject = isUserSubject;
+        this.start = start;
+        this.end = end;
+        this.classId = classId;
+        this.isActive = isActive;
+        this.subject = subject;
+        this.minPrice = minPrice;
+        this.startli = startli;
+        this.endli = endli;
     }
 
     protected Schedule_upcoming_list(Parcel in) {
@@ -217,6 +240,25 @@ private  String minPrice;
         isActive = tmpIsActive == 0 ? null : tmpIsActive == 1;
         subject = in.readString();
         minPrice = in.readString();
+        startli = in.createStringArrayList();
+        endli = in.createStringArrayList();
+    }
+
+    public static final Creator<Schedule_upcoming_list> CREATOR = new Creator<Schedule_upcoming_list>() {
+        @Override
+        public Schedule_upcoming_list createFromParcel(Parcel in) {
+            return new Schedule_upcoming_list(in);
+        }
+
+        @Override
+        public Schedule_upcoming_list[] newArray(int size) {
+            return new Schedule_upcoming_list[size];
+        }
+    };
+
+    @Override
+    public int describeContents() {
+        return 0;
     }
 
     @Override
@@ -239,22 +281,7 @@ private  String minPrice;
         dest.writeByte((byte) (isActive == null ? 0 : isActive ? 1 : 2));
         dest.writeString(subject);
         dest.writeString(minPrice);
+        dest.writeStringList(startli);
+        dest.writeStringList(endli);
     }
-
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    public static final Creator<Schedule_upcoming_list> CREATOR = new Creator<Schedule_upcoming_list>() {
-        @Override
-        public Schedule_upcoming_list createFromParcel(Parcel in) {
-            return new Schedule_upcoming_list(in);
-        }
-
-        @Override
-        public Schedule_upcoming_list[] newArray(int size) {
-            return new Schedule_upcoming_list[size];
-        }
-    };
 }

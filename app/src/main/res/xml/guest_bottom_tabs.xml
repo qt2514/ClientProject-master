@@ -4,18 +4,19 @@
         id="@+id/tab_schedules"
         icon="@drawable/guestmenu"
         inActiveColor="@color/bottomcolor"
+
         activeColor="@color/bottomactivetab"
         barColorWhenSelected="#fff"
         title="Booked" />
     <tab
-        id="@+id/tab_dashboard"
+        id="@+id/tab_create"
         icon="@drawable/guestdashboard"
         inActiveColor="@color/bottomcolor"
         activeColor="@color/bottomactivetab"
         barColorWhenSelected="#fff"
         title="Dashboard" />
     <tab
-        id="@+id/tab_create"
+        id="@+id/tab_dashboard"
         icon="@drawable/guestsearch"
         inActiveColor="@color/bottomcolor"
         activeColor="@color/bottomactivetab"
@@ -27,7 +28,5 @@
         inActiveColor="@color/bottomcolor"
         activeColor="@color/bottomactivetab"
         barColorWhenSelected="#fff"
-
-
-        title="Settings" />
+        title="Account" />
 </tabs>

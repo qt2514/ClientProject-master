@@ -16,7 +16,15 @@
         android:padding="10dp"
         android:layout_height="wrap_content">
 
-
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/fab2"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignTop="@+id/subject_name"
+            android:layout_margin="3dp"
+            app:backgroundTint="@color/colorPrimaryDark"
+            app:srcCompat="@drawable/ic_filter_results_button" />
         <EditText
             android:id="@+id/subject_name"
             android:layout_width="wrap_content"
@@ -25,26 +33,20 @@
             android:layout_centerVertical="true"
             android:background="@drawable/search_bg_guest"
             android:ems="13"
+            android:layout_marginStart="50dp"
+            android:layout_toEndOf="@+id/fab2"
             android:fontFamily="@font/montserrat"
             android:gravity="start"
-android:singleLine="true"
+            android:inputType="textCapSentences"
+            android:singleLine="true"
             android:hint="Search your Keyword"
-            android:padding="8dp"
+            android:padding="5dp"
             android:textColor="#fff"
             android:textColorHint="@color/mdtp_white"
-            android:textSize="18sp" />
+            android:textSize="16sp" />
 
-        <android.support.design.widget.FloatingActionButton
-            android:id="@+id/fab2"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_alignParentEnd="true"
-            android:layout_alignTop="@+id/subject_name"
-            app:backgroundTint="@color/colorPrimary"
-            app:elevation="4dp"
-            app:srcCompat="@drawable/ic_filter_results_button" />
+
     </RelativeLayout>
-
     <com.orangegangsters.github.swipyrefreshlayout.library.SwipyRefreshLayout
         android:id="@+id/swipyrefreshlayout"
         android:layout_width="match_parent"
@@ -54,9 +56,10 @@ android:singleLine="true"
         app:srl_direction="top">
     <ListView
         android:id="@+id/guset_subfil"
-        android:background="@color/buttonColorSecondary"
+        android:background="@color/listback"
         android:layout_width="match_parent"
     android:padding="2dp"
+        android:layout_marginTop="6dp"
     android:divider="@null"
         android:dividerHeight="0dp"
         android:layout_height="match_parent"/>
@@ -73,6 +76,7 @@ android:singleLine="true"
         android:layout_centerInParent="true"
         app:indicatorName="BallClipRotateMultipleIndicator"
         app:indicatorColor="@color/colorPrimaryDark"
+
         />
 
 

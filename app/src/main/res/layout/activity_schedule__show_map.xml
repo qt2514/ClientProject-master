@@ -10,75 +10,89 @@
         android:id="@+id/top_relat"
         android:gravity="top"
         android:background="@color/colorPrimaryDark"
-        android:layout_height="80dp">
+        android:layout_height="60dp">
 
         <ImageButton
             android:id="@+id/back_ima_scedule"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="30dp"
+            android:layout_height="25dp"
+            android:layout_marginTop="10dp"
             android:layout_alignParentStart="true"
-            android:layout_centerVertical="true"
-            android:layout_marginStart="8dp"
-            android:background="@drawable/ic_back_page"
-            android:backgroundTint="#fff"
+            android:layout_alignTop="@+id/relativeLayout3"
+            android:layout_marginStart="4dp"
+            android:layout_marginEnd="5dp"
+            app:srcCompat="@drawable/ic_back_page"
+            android:background="@null"
+            android:tint="@color/mdtp_white"
             android:focusable="true" />
 
 
-        <ImageView
-            android:id="@+id/imageView3"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-
-            android:layout_alignBottom="@+id/hours_sched"
-            android:layout_toEndOf="@+id/back_ima_scedule"
-            android:background="@drawable/ic_access_time_black_24dp"
-            android:backgroundTint="@color/buttonColorSecondary" />
-
-        <TextView
-            android:id="@+id/hours_sched"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/back_ima_scedule"
-            android:layout_toEndOf="@+id/imageView3"
-            android:gravity="center"
-android:fontFamily="@font/montserrat"
-            android:textColor="@color/buttonColorSecondary" />
-
 
 
         <ImageView
+
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
             android:layout_marginEnd="13dp"
-            android:background="@drawable/twotr_main"
-
+            android:background="@drawable/guestdashboard"
+android:backgroundTint="@color/colorAccent"
             android:id="@+id/imageView2" />
-
-        <TextView
-            android:id="@+id/subject_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-
-            android:layout_above="@+id/imageView3"
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_marginTop="2dp"
+            android:layout_toStartOf="@+id/imageView2"
             android:layout_toEndOf="@+id/back_ima_scedule"
-            android:fontFamily="@font/montserrat"
-            android:padding="2dp"
-            android:text="Subject Name"
-            android:textColor="#fff"
-            android:textSize="18sp" />
-
-        <TextView
-            android:id="@+id/type_detail_subject"
-            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignBaseline="@+id/subject_name"
-            android:layout_alignBottom="@+id/subject_name"
-            android:layout_toEndOf="@+id/subject_name"
-            android:fontFamily="@font/montserrat"
-            android:text=" (1 on 1)"
-            android:textColor="@color/colorwhite" />
+            android:id="@+id/relativeLayout3">
+            <TextView
+                android:id="@+id/subject_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/montserrat"
+                android:padding="2dp"
+                android:maxEms="9"
+                android:singleLine="true"
+                android:ellipsize="end"
+                android:text="Subject Name"
+                android:textColor="#fff"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/type_detail_subject"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBaseline="@+id/subject_name"
+                android:layout_alignBottom="@+id/subject_name"
+                android:textSize="12sp"
+                android:layout_toEndOf="@+id/subject_name"
+                android:fontFamily="@font/montserrat"
+                android:text=" (1 on 1)"
+                android:textColor="@color/colorwhite" />
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_below="@+id/subject_name"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:id="@+id/imageView3"
+                    android:layout_width="10dp"
+                    android:layout_height="10dp"
+                    android:layout_marginTop="6dp"
+                    android:background="@drawable/ic_access_time_black_24dp"
+                    android:backgroundTint="@color/colorAccent" />
+
+                <TextView
+                    android:id="@+id/hours_sched"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toEndOf="@+id/imageView3"
+
+                    android:textColor="@color/buttonColorSecondary" />
+            </RelativeLayout>
+
+        </RelativeLayout>
     </RelativeLayout>
 
     <fragment xmlns:android="http://schemas.android.com/apk/res/android"

@@ -38,8 +38,8 @@
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
             android:layout_marginEnd="13dp"
-            android:background="@drawable/twotr_main"
-
+            android:background="@drawable/guestdashboard"
+android:backgroundTint="@color/colorAccent"
             android:id="@+id/imageView2" />
 <RelativeLayout
     android:layout_width="match_parent"
@@ -286,7 +286,7 @@ android:textSize="12sp"
                 android:layout_toStartOf="@+id/edit_desc_sched"
                 android:background="@null"
                 android:ems="10"
-                android:inputType="textMultiLine" />
+                android:inputType="textMultiLine|textCapSentences" />
 
             <ImageButton
                 android:id="@+id/edit_desc_sched"

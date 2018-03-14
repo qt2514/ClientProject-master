@@ -1,6 +1,7 @@
 package com.twotr.twotr.guestfiles;
 
 import android.annotation.SuppressLint;
+
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -8,15 +9,13 @@ import android.content.res.Configuration;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Handler;
+import android.support.annotation.IdRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.util.ArrayMap;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
-import android.text.Layout;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -29,20 +28,17 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
-
 import com.allattentionhere.fabulousfilter.AAH_FabulousFragment;
-import com.bumptech.glide.util.Util;
 import com.github.thunder413.datetimeutils.DateTimeUnits;
 import com.github.thunder413.datetimeutils.DateTimeUtils;
-
+import com.ontbee.legacyforks.cn.pedant.SweetAlert.SweetAlertDialog;
 import com.orangegangsters.github.swipyrefreshlayout.library.SwipyRefreshLayout;
 import com.orangegangsters.github.swipyrefreshlayout.library.SwipyRefreshLayoutDirection;
+import com.roughike.bottombar.BottomBar;
+import com.roughike.bottombar.OnTabSelectListener;
 import com.squareup.picasso.Picasso;
 import com.twotr.twotr.R;
 import com.twotr.twotr.globalpackfiles.Global_url_twotr;
-import com.twotr.twotr.globalpackfiles.MainActivity;
-import com.twotr.twotr.tutorfiles.ScheduleDetailPage;
 import com.wang.avi.AVLoadingIndicatorView;
 
 import org.json.JSONArray;
@@ -61,11 +57,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
+
 public class GuestControlBoard extends AppCompatActivity implements AAH_FabulousFragment.Callbacks, AAH_FabulousFragment.AnimationListener{
 ListView listViewguest;
     AVLoadingIndicatorView avi;
 String schedule_list_url;
-String searchque="ameer";
+String searchque="a";
     SharedPreferences Shared_user_details;
     String Stoken,Sid;
     String[] aryGrade = {
@@ -79,15 +78,17 @@ String searchque="ameer";
     ProgressBar footer;
     private ArrayMap<String, List<String>> applied_filters = new ArrayMap<>();
     List<GuestFilters> mList = new ArrayList<>();
-int amountmax=1;
+int amountmax=1000;
 String typeofstu="";
+    BottomBar bottomBar;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_guest_control_board);
-listViewguest=findViewById(R.id.guset_subfil);
-ETsubject_name=findViewById(R.id.subject_name);
-
+        bottomBar =  findViewById(R.id.bottomBar);
+        listViewguest=findViewById(R.id.guset_subfil);
+        ETsubject_name=findViewById(R.id.subject_name);
       //  mSwipeRefreshLayout =  findViewById(R.id.activity_main_swipe_refresh_layout);
         swipyRefreshLayout=findViewById(R.id.swipyrefreshlayout);
         avi=findViewById(R.id.avi);
@@ -101,6 +102,56 @@ ETsubject_name=findViewById(R.id.subject_name);
         Sid=  Shared_user_details.getString("id", null);
         schedule_list_url = Global_url_twotr.Guest_list_api+searchque+"&page=1&size=10" ;
         new ScheduleAsyncList().execute(schedule_list_url);
+//
+        bottomBar.setDefaultTab(R.id.tab_dashboard);
+        bottomBar.setOnTabSelectListener(new OnTabSelectListener() {
+            @Override
+            public void onTabSelected(@IdRes int tabId) {
+
+                if (tabId == R.id.tab_schedules) {
+                    new SweetAlertDialog(GuestControlBoard.this, SweetAlertDialog.NORMAL_TYPE)
+                            .setTitleText("Signin Required!")
+                            .setContentText("Sorry! We are not able to show this Content.Authentication is required! So you need to login your Twotr or Social Accounts")
+                            .setConfirmText("OK")
+                            .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                                @Override
+                                public void onClick(SweetAlertDialog sweetAlertDialog) {
+                                    sweetAlertDialog.dismiss();
+                                }
+                            }).show();
+                }
+                else if (tabId == R.id.tab_create) {
+                    new SweetAlertDialog(GuestControlBoard.this, SweetAlertDialog.NORMAL_TYPE)
+                            .setTitleText("Signin Required!")
+                            .setContentText("Sorry! We are not able to show this Content.Authentication is required! So you need to login your Twotr or Social Accounts")
+                            .setConfirmText("OK")
+                            .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                                @Override
+                                public void onClick(SweetAlertDialog sweetAlertDialog) {
+                                    sweetAlertDialog.dismiss();
+                                }
+                            }).show();
+                }
+                else if (tabId == R.id.tab_dashboard) {
+//                    selectedFragment = StudentDashboard.newInstance();
+                }
+
+                else if (tabId == R.id.tab_settings) {
+                    new SweetAlertDialog(GuestControlBoard.this, SweetAlertDialog.NORMAL_TYPE)
+                            .setTitleText("Signin Required!")
+
+                            .setContentText("Sorry! We are not able to show this Content.Authentication is required! So you need to login your Twotr or Social Accounts")
+                            .setConfirmText("OK")
+                            .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                                @Override
+                                public void onClick(SweetAlertDialog sweetAlertDialog) {
+                                    sweetAlertDialog.dismiss();
+                                }
+                            }).show();
+                }
+
+            }
+        });
 
         ETsubject_name.addTextChangedListener(new TextWatcher()
         {
@@ -197,7 +248,7 @@ ETsubject_name=findViewById(R.id.subject_name);
                 holder.TVtuttorname=convertView.findViewById(R.id.tutor_sub_name);
                 holder.TVtimetotal=convertView.findViewById(R.id.tutor_subject_time);
                 holder.TVprice=convertView.findViewById(R.id.tutor_subject_price);
-
+holder.newimage=convertView.findViewById(R.id.tutor_subject_image);
                 convertView.setTag(holder);
             }//ino
             else {
@@ -241,6 +292,17 @@ else
 }
 holder.TVtimetotal.setText(completedate);
 
+
+
+                Picasso
+                        .with(context)
+                        .load(Global_url_twotr.Image_Base_url+supl.getUrl())
+                        .fit()
+                        .error(getResources().getDrawable(R.drawable.profile_image_tutor))
+                        .centerCrop()
+                        .into( holder.newimage);
+
+
             return convertView;
         }
 
@@ -250,7 +312,7 @@ holder.TVtimetotal.setText(completedate);
             public TextView TVtimetotal;
             public TextView TVtuttorname;
 
-
+public CircleImageView newimage;
             //  private TextView TVstart_time;
 
 
@@ -263,7 +325,7 @@ holder.TVtimetotal.setText(completedate);
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            avi.show();
+
         }
 
         @RequiresApi(api = Build.VERSION_CODES.KITKAT)
@@ -320,31 +382,51 @@ DataInputStream inputStream;
                     catego.setDescription(finalObject.getString("description"));
                     catego.setPrice(finalObject.getString("price"));
                     catego.setStudentsCount(finalObject.getString("studentsCount"));
-                    catego.setMinPrice(finalObject.getString("minPrice"));
+                    try {
+                        catego.setMinPrice(finalObject.getString("minPrice"));
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
                     catego.set_id(finalObject.getString("_id"));
+                    catego.setCreatedBy(finalObject.getString("createdBy"));
+
+
                     catego.setCreatedByName(finalObject.getString("createdByName"));
                     JSONArray jsonArray1 = finalObject.getJSONArray("schedules");
+                    ArrayList<String> starttimeschednew =new ArrayList<>();
+                    ArrayList<String> endtimeschednew=new ArrayList<>();
                     for (int j = 0; j < jsonArray1.length(); j++) {
                         JSONObject jsonObject = jsonArray1.getJSONObject(j);
                         catego.setStart(jsonObject.getString("start"));
                         catego.setEnd(jsonObject.getString("end"));
 
-                        //  ListSubject.add(Skind);
+                        starttimeschednew.add(jsonObject.getString("start"));
+                        endtimeschednew.add(jsonObject.getString("end"));
+
                     }
+                    catego.setStartli(starttimeschednew);
+                    catego.setEndli(endtimeschednew);
 
-                    //                    try
-                    //                 {
-                    //                        JSONObject jlocati=finalObject.getJSONObject("location");
-                    //                        catego.setLat(jlocati.getString("lat"));
-                    //                         catego.setLng(jlocati.getString("lng"));
-                    //                 }
-                    //                    catch (JSONException e)
-                    //
-                    //                     {
-                    //                        e.printStackTrace();
-                    //                        }
+                                        try
+                                     {
+                                            JSONObject jlocati=finalObject.getJSONObject("location");
+                                            catego.setLat(jlocati.getString("lat"));
+                                             catego.setLng(jlocati.getString("lng"));
+                                     }
+                                        catch (JSONException e)
+
+                                         {
+                                            e.printStackTrace();
+                                            }
 
 
+                    try {
+                        JSONObject profilePicture = finalObject.getJSONObject("profilePicture");
+                        catego.setUrl( profilePicture.getString("url"));
+
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
                     milokilo.add(catego);
                 }
                 return milokilo;
@@ -368,7 +450,6 @@ DataInputStream inputStream;
         @Override
         protected void onPostExecute(final List<Guest_list_parce> ScheduleMode) {
             super.onPostExecute(ScheduleMode);
-            avi.hide();
             if ((ScheduleMode != null) && (ScheduleMode.size()>0))
             {
 
@@ -378,34 +459,39 @@ DataInputStream inputStream;
                 listViewguest.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                         @Override
                         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//              //              Guest_list_parce Guest_list_parce = ScheduleMode.get(position);
-//                    Intent intent = new Intent(GuestControlBoard.this, GuestActivityDetails.class);
-////                            intent.putExtra("subject_name", Guest_list_parce.getSubject());
-////                            intent.putExtra("type_subject", Guest_list_parce.getType());
-////                            intent.putExtra("schedule_description", Guest_list_parce.getDescription());
-////                            intent.putExtra("latitude", Guest_list_parce.getLat());
-////                            intent.putExtra("longitude", Guest_list_parce.getLng());
-////                            intent.putExtra("schedule_price", Guest_list_parce.getPrice());
-////                            intent.putExtra("studentscount", Guest_list_parce.getStudentsCount());
-////                            intent.putExtra("minprice", Guest_list_parce.getMinPrice());
-////                            intent.putExtra("cateid",Guest_list_parce.get_id());
-////                            String Scompletestart = Guest_list_parce.getStart();
-////                            String Scompleteend = Guest_list_parce.getEnd();
-////
-////                            String startdate = Scompletestart.substring(0, 10);
-////                            String starttime = Scompletestart.substring(11, 19);
-////                            String enddate = Scompleteend.substring(0, 10);
-////                            String endtime = Scompleteend.substring(11, 19);
-////                            String time_sched = Scompletestart.substring(11, 16);
-////                            String datestart = startdate + " " + starttime;
-////                            String dateend = enddate + " " + endtime;
-////                            int diff = DateTimeUtils.getDateDiff(datestart, dateend, DateTimeUnits.HOURS);
-////                            diff = Math.abs(diff);
-////                            String shours = diff + " hours - ";
-////                            String stimsc = time_sched + " | ";
-////                            String smonth = DateTimeUtils.formatWithPattern(startdate, " MMMM dd");
-////                            intent.putExtra("hrschmon", shours + stimsc + smonth);
-//                            startActivity(intent);
+                           Guest_list_parce schedule_upcoming_list = ScheduleMode.get(position);
+                    Intent intent = new Intent(GuestControlBoard.this, GuestActivityDetails.class);
+                            intent.putExtra("subject_name", schedule_upcoming_list.getSubject());
+                            intent.putExtra("type_subject", schedule_upcoming_list.getType());
+                            intent.putExtra("schedule_description", schedule_upcoming_list.getDescription());
+                            intent.putExtra("latitude", schedule_upcoming_list.getLat());
+                            intent.putExtra("longitude", schedule_upcoming_list.getLng());
+                            intent.putExtra("schedule_price", schedule_upcoming_list.getPrice());
+                            intent.putExtra("studentscount", schedule_upcoming_list.getStudentsCount());
+                            intent.putExtra("minprice", schedule_upcoming_list.getMinPrice());
+                            intent.putExtra("cateid",schedule_upcoming_list.get_id());
+                            intent.putExtra("createdby",schedule_upcoming_list.getCreatedBy());
+                            intent.putExtra("createdbyname",schedule_upcoming_list.getCreatedByName());
+                            intent.putStringArrayListExtra("starttime",schedule_upcoming_list.getStartli());
+                            intent.putStringArrayListExtra("endtime", schedule_upcoming_list.getEndli());
+                            intent.putExtra("imgurl",schedule_upcoming_list.getUrl());
+                            String Scompletestart = schedule_upcoming_list.getStart();
+                            String Scompleteend = schedule_upcoming_list.getEnd();
+                            String startdate = Scompletestart.substring(0, 10);
+                            String starttime = Scompletestart.substring(11, 19);
+                            String enddate = Scompleteend.substring(0, 10);
+                            String endtime = Scompleteend.substring(11, 19);
+                            String time_sched = Scompletestart.substring(11, 16);
+                            String datestart = startdate + " " + starttime;
+                            String dateend = enddate + " " + endtime;
+                            int diff = DateTimeUtils.getDateDiff(datestart, dateend, DateTimeUnits.HOURS);
+                            diff = Math.abs(diff);
+                            String shours = diff + " hours - ";
+                            String stimsc = time_sched + " | ";
+                            String smonth = DateTimeUtils.formatWithPattern(startdate, " MMMM dd");
+                            intent.putExtra("hrschmon", shours + stimsc + smonth);
+                            startActivity(intent);
+
                         }
                     });
                 tutorpageadapter.notifyDataSetChanged();
@@ -593,7 +679,9 @@ DataInputStream inputStream;
     public void onResult(Object result) {
         Log.d("k9res", "onResult: " + result.toString());
         if (result.toString().equalsIgnoreCase("swiped_down")) {
+
             //do something or nothing
+
         } else {
             if (result != null) {
                 ArrayMap<String, List<String>> applied_filters = (ArrayMap<String, List<String>>) result;
@@ -627,16 +715,16 @@ amountmax=Integer.valueOf(stringprice);
                                 aryGrade= entry.getValue().toArray(new String[0]);
                                 break;
                         }
-
+                        schedule_list_url = Global_url_twotr.Guest_list_api+searchque+"&page=1&size=10" ;
+                        new ScheduleAsyncList().execute(schedule_list_url);
+                        Log.d("pagecheck", "new size: " + filteredList.size());
                     }
 
-                    schedule_list_url = Global_url_twotr.Guest_list_api+searchque+"&page=1&size=10" ;
-                    new ScheduleAsyncList().execute(schedule_list_url);
-                 //   Log.d("k9res", "new size: " + filteredList.size());
+
 //                   mList.clear();
 //                    mList.addAll(filteredList);
 
-                   // mAdapter.notifyDataSetChanged();
+                 //mAdapter.notifyDataSetChanged();
 
                 }
                 else {

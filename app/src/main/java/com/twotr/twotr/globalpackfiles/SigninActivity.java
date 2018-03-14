@@ -31,6 +31,7 @@ import com.android.volley.toolbox.Volley;
 import com.ontbee.legacyforks.cn.pedant.SweetAlert.SweetAlertDialog;
 import com.twotr.twotr.R;
 import com.twotr.twotr.db_handlers.SessionManager;
+import com.twotr.twotr.guestfiles.GuestControlBoard;
 import com.twotr.twotr.studenttwotr.StudentHome;
 import com.twotr.twotr.tutorfiles.HomePage;
 import com.twotr.twotr.tutorfiles.Profile_Page;
@@ -84,11 +85,11 @@ linearLayoutfacebook=findViewById(R.id.facebook_layout);
             @Override
             public void onClick(View v) {
                 new MaterialDialog.Builder(SigninActivity.this)
-                        .content("Please Enter your Zahhab Email id")
+                        .content("Please Enter your Zahhab email ID")
                         .inputType(InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS)
                         .icon(getResources().getDrawable(R.drawable.zahhab_logo))
                         .title("")
-                        .input("Email Id","", new MaterialDialog.InputCallback() {
+                        .input("email ID","", new MaterialDialog.InputCallback() {
                             @Override
                             public void onInput(MaterialDialog dialog, CharSequence input) {
                              String   SemailPattern = "^[_A-Za-z0-9-]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
@@ -332,11 +333,13 @@ public void signin_verif(String susername, String spass)
                             public void onClick(SweetAlertDialog sweetAlertDialog) {
                                 sweetAlertDialog.dismiss();
                             }
-                        }).show();            }
+                        }).show();
+
+
+            }
         }) {
             @Override
             public String getBodyContentType() {
-
                 return "application/json; charset=utf-8";
             }
 
@@ -394,57 +397,73 @@ public void signin_verif(String susername, String spass)
                     try {
                        JSONObject jObj = new JSONObject(response);
                         Log.i("repis",response);
-                        String errorCode=jObj.getString("errorCode");
-                        String message=jObj.getString("message");
-                        String description=jObj.getString("description");
-if (errorCode.equals("300404"))
-{
-    avi.show();
-zahhabcheck(email,sntype);
-}
-else
-{
-    String id=jObj.getString("_id");
-    String token=jObj.getString("token");
-    String firstName=jObj.getString("firstName");
-    String lastName=jObj.getString("lastName");
-    String username=jObj.getString("username");
-    JSONArray jsonArray = jObj.getJSONArray("roles");
+                        String errorCode= null;
+                        try {
+                            errorCode = jObj.getString("errorCode");
+                            String message=jObj.getString("message");
+                            String description=jObj.getString("description");
+                            if (errorCode.equals("300404"))
+                            {
+                                avi.show();
+                                zahhabcheck(email,sntype);
+                            }
+                            if (errorCode.equals("300405"))
+                            {
+                                new SweetAlertDialog(SigninActivity.this, SweetAlertDialog.NORMAL_TYPE)
+                                        .setTitleText("Email Verification!")
+                                        .setContentText(description)
+                                        .setConfirmText("OK")
+                                        .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                                            @Override
+                                            public void onClick(SweetAlertDialog sweetAlertDialog) {
+                                                sweetAlertDialog.dismiss();
+                                            }
+                                        }).show();
+                            }
+                        } catch (JSONException e) {
 
-    String roles=String.valueOf(jsonArray.get(0));
+                            String id=jObj.getString("_id");
+                            String token=jObj.getString("token");
+                            String firstName=jObj.getString("firstName");
+                            String lastName=jObj.getString("lastName");
+                            String username=jObj.getString("username");
+                            JSONArray jsonArray = jObj.getJSONArray("roles");
+                            String roles=String.valueOf(jsonArray.get(0));
+                            String referralCode=jObj.getString("referralCode");
+                            JSONObject verification = jObj.getJSONObject("verification");
+                            boolean isTeachingVerified=verification.getBoolean("isTeachingVerified");
+                            boolean isIdVerified=verification.getBoolean("isIdVerified");
+                            boolean isProfessionalCompleted=verification.getBoolean("isProfessionalCompleted");
+                            boolean isEducationCompleted=verification.getBoolean("isEducationCompleted");
+                            boolean isProfileCompleted=verification.getBoolean("isProfileCompleted");
+                            boolean isMobileVerified=verification.getBoolean("isMobileVerified");
+                            boolean isEmailVerified=verification.getBoolean("isEmailVerified");
+                            editor = Shared_user_details.edit();
+                            editor.putString("id",id);
+                            editor.putString("token",token);
+                            editor.putString("firstName",firstName);
+                            editor.putString("lastName",lastName);
+                            editor.putString("username",username);
+                            editor.putString("roles",roles);
+                            editor.putString("referralCode",referralCode);
+                            editor.putBoolean("isTeachingVerified",isTeachingVerified);
+                            editor.putBoolean("isIdVerified",isIdVerified);
+                            editor.putBoolean("isProfessionalCompleted",isProfessionalCompleted);
+                            editor.putBoolean("isEducationCompleted",isEducationCompleted);
+                            editor.putBoolean("isProfileCompleted",isProfileCompleted);
+                            editor.putBoolean("isMobileVerified",isMobileVerified);
+                            editor.putBoolean("isEmailVerified",isEmailVerified);
+                            editor.apply();
+                            editor.commit();
+                            avi.hide();
 
-    String referralCode=jObj.getString("referralCode");
+                            startActivity(new Intent(SigninActivity.this, HubPlace.class));
+                            finish();
 
-    JSONObject verification = jObj.getJSONObject("verification");
-    boolean isTeachingVerified=verification.getBoolean("isTeachingVerified");
-    boolean isIdVerified=verification.getBoolean("isIdVerified");
-    boolean isProfessionalCompleted=verification.getBoolean("isProfessionalCompleted");
-    boolean isEducationCompleted=verification.getBoolean("isEducationCompleted");
-    boolean isProfileCompleted=verification.getBoolean("isProfileCompleted");
-    boolean isMobileVerified=verification.getBoolean("isMobileVerified");
-    boolean isEmailVerified=verification.getBoolean("isEmailVerified");
-    editor = Shared_user_details.edit();
-    editor.putString("id",id);
-    editor.putString("token",token);
-    editor.putString("firstName",firstName);
-    editor.putString("lastName",lastName);
-    editor.putString("username",username);
-    editor.putString("roles",roles);
-    editor.putString("referralCode",referralCode);
-    editor.putBoolean("isTeachingVerified",isTeachingVerified);
-    editor.putBoolean("isIdVerified",isIdVerified);
-    editor.putBoolean("isProfessionalCompleted",isProfessionalCompleted);
-    editor.putBoolean("isEducationCompleted",isEducationCompleted);
-    editor.putBoolean("isProfileCompleted",isProfileCompleted);
-    editor.putBoolean("isMobileVerified",isMobileVerified);
-    editor.putBoolean("isEmailVerified",isEmailVerified);
-    editor.apply();
-    editor.commit();
-    avi.hide();
 
-    startActivity(new Intent(SigninActivity.this, HubPlace.class));
-    finish();
-}
+                        }
+
+
 
 
 

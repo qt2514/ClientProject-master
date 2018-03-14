@@ -79,20 +79,6 @@ public class StudentHome extends AppCompatActivity {
         }
 
 
-//
-//        FloatingActionButton fab =  findViewById(R.id.fab);
-//        fab.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                session.setLogin(false);
-//                editor.clear();
-//                editor.apply();
-//                startActivity(new Intent(StudentHome.this, SigninActivity.class));
-//                finish();
-//
-//            }
-//        });
-
 
         bottomBar.setDefaultTab(R.id.tab_dashboard);
         bottomBar.setOnTabSelectListener(new OnTabSelectListener() {
@@ -100,13 +86,13 @@ public class StudentHome extends AppCompatActivity {
             public void onTabSelected(@IdRes int tabId) {
                 android.support.v4.app.Fragment selectedFragment = null;
                 if (tabId == R.id.tab_schedules) {
-                   // selectedFragment = TutorSchedule.newInstance();
-                }
-                else if (tabId == R.id.tab_dashboard) {
-                   // selectedFragment = TutorDashboard.newInstance();
+                   selectedFragment = StudentBookings.newInstance();
                 }
                 else if (tabId == R.id.tab_create) {
-                  //  selectedFragment = TutorCreate.newInstance();
+                    selectedFragment = StudentSearch.newInstance();
+                }
+                else if (tabId == R.id.tab_dashboard) {
+                    selectedFragment = StudentDashboard.newInstance();
                 }
 
                 else if (tabId == R.id.tab_settings) {
@@ -120,5 +106,11 @@ public class StudentHome extends AppCompatActivity {
         });
 
     }
-
+    @Override
+    public void onBackPressed() {
+        Intent a = new Intent(Intent.ACTION_MAIN);
+        a.addCategory(Intent.CATEGORY_HOME);
+        a.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(a);
+    }
 }

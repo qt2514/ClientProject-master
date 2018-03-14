@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.twotr.twotr.R;
+import com.twotr.twotr.tutorfiles.TutorDashboard;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -18,7 +19,10 @@ public class StudentBookings extends Fragment {
     public StudentBookings() {
         // Required empty public constructor
     }
-
+    public static StudentBookings newInstance() {
+        StudentBookings fragment= new StudentBookings();
+        return fragment;
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

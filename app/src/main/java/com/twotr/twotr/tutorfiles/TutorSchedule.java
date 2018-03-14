@@ -9,6 +9,7 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -55,6 +56,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.Serializable;
 import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -93,8 +95,7 @@ TextView nodatatextview;
     };
     List<Schedule_history_list> milokilo;
     String navtab_list="upcoming";
-    List<String> starttimeschednew;
-    List<String> endtimeschednew;
+
     SwipeMenuCreator swipeMenuCreatorhostory;
     public static TutorSchedule newInstance() {
         return new TutorSchedule();
@@ -119,8 +120,7 @@ LVschedule_history=view.findViewById(R.id.schedule_list_history);
         LVschedule_history.addFooterView(footer);
         swipyRefreshLayout=view.findViewById(R.id.swipyrefreshlayout);
         swipyRefreshLayout_history=view.findViewById(R.id.swipyrefreshlayout_history);
-        starttimeschednew=new ArrayList<>();
-        endtimeschednew=new ArrayList<>();
+
         schedule_list_url = "https://api.twotr.com/api/class/upcoming?page=1&size=10" ;
         new ScheduleAsyncList().execute(schedule_list_url);
         SwipeMenuCreator creator = new SwipeMenuCreator() {
@@ -462,6 +462,7 @@ public class Schedule_class extends ArrayAdapter {
                 JSONArray parentArray = parentObject.getJSONArray("classes");
 
                 List<Schedule_upcoming_list> milokilo = new ArrayList<>();
+
                 Gson gson = new Gson();
                 for (int i = 0; i < parentArray.length(); i++) {
                     JSONObject finalObject = parentArray.getJSONObject(i);
@@ -474,26 +475,30 @@ public class Schedule_class extends ArrayAdapter {
 catego.setStudentsCount(finalObject.getString("studentsCount"));
 catego.setMinPrice(finalObject.getString("minPrice"));
 catego.set_id(finalObject.getString("_id"));
-                    TinyDB tinydb = new TinyDB(getContext());
+                   // TinyDB tinydb = new TinyDB(getContext());
 
                     JSONArray jsonArray1 = finalObject.getJSONArray("schedules");
+                    ArrayList<String> starttimeschednew =new ArrayList<>();
+                    ArrayList<String> endtimeschednew=new ArrayList<>();
                     for (int j = 0; j < jsonArray1.length(); j++) {
                         JSONObject jsonObject = jsonArray1.getJSONObject(j);
                         catego.setStart(jsonObject.getString("start"));
                         catego.setEnd(jsonObject.getString("end"));
-                          starttimeschednew.add(jsonObject.getString("start"));
 
-                    }
-                    tinydb.putListString("starttimeschednew", (ArrayList<String>) starttimeschednew);
-
-                    for (int j = 0; j < jsonArray1.length(); j++) {
-                        JSONObject jsonObject = jsonArray1.getJSONObject(j);
+                        starttimeschednew.add(jsonObject.getString("start"));
                         endtimeschednew.add(jsonObject.getString("end"));
 
-
                     }
-                    tinydb.putListString("endtimeschednew", (ArrayList<String>) endtimeschednew);
+                    catego.setStartli(starttimeschednew);
+                    catego.setEndli(endtimeschednew);
 
+//                   // tinydb.putListString("starttimeschednew", (ArrayList<String>) starttimeschednew);
+//                    for (int j = 0; j < jsonArray1.length(); j++) {
+//                        JSONObject jsonObject = jsonArray1.getJSONObject(j);
+//
+//
+//                    }
+                   // tinydb.putListString("endtimeschednew", (ArrayList<String>) endtimeschednew);
 
 
 
@@ -530,7 +535,7 @@ catego.set_id(finalObject.getString("_id"));
         protected void onPostExecute(final List<Schedule_upcoming_list> ScheduleMode) {
             super.onPostExecute(ScheduleMode);
             avi.hide();
-            if ((ScheduleMode != null) && (ScheduleMode.size()>0))
+            if ((ScheduleMode != null) && (ScheduleMode.size()>0)&&getActivity()!=null)
             {
                 LVschedule.setVisibility(View.VISIBLE);
                 nodatatextview.setVisibility(View.INVISIBLE);
@@ -538,7 +543,7 @@ catego.set_id(finalObject.getString("_id"));
                  adaptersa = new Schedule_class(getActivity(), R.layout.schedule_list, ScheduleMode);
                 LVschedule.setAdapter(adaptersa);
                 if (navtab_list.equals("upcoming")) {
-                    Log.i("checksch",navtab_list);
+
                     LVschedule.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                         @Override
                         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -553,9 +558,10 @@ catego.set_id(finalObject.getString("_id"));
                             intent.putExtra("studentscount", schedule_upcoming_list.getStudentsCount());
                             intent.putExtra("minprice", schedule_upcoming_list.getMinPrice());
                             intent.putExtra("cateid",schedule_upcoming_list.get_id());
+                            intent.putStringArrayListExtra("starttime",schedule_upcoming_list.getStartli());
+                            intent.putStringArrayListExtra("endtime", schedule_upcoming_list.getEndli());
                             String Scompletestart = schedule_upcoming_list.getStart();
                             String Scompleteend = schedule_upcoming_list.getEnd();
-
                             String startdate = Scompletestart.substring(0, 10);
                             String starttime = Scompletestart.substring(11, 19);
                             String enddate = Scompleteend.substring(0, 10);

@@ -60,6 +60,8 @@ public static String Tutor_number_send=Base_url+"verify/sms/send";
     public static String Tutor_email_send=Base_url+"verify/email/send";
 
 
+
+
     public static String Tutor_email_resend=Base_url+"verify/email/resend";
 
     public static String Tutor_email_send_otp_verify=Base_url+"verify/email/confirm/";
@@ -72,6 +74,6 @@ public static String Tutor_number_send=Base_url+"verify/sms/send";
 
     public static String NetworkCreate=Base_url+"users/network/create";
 
-
+public static String Guest_profile_details=Base_url+"userinfo/basic/public/";
 
 }

@@ -9,18 +9,18 @@
 
     <include
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:id="@+id/include"
-        android:layout_above="@+id/bottomBar"
+android:layout_above="@+id/bottomBar"
         layout="@layout/content_guest_control_board" />
 
     <com.roughike.bottombar.BottomBar
         android:id="@+id/bottomBar"
         android:layout_width="match_parent"
         android:layout_height="60dp"
+        android:layout_gravity="bottom"
         android:layout_alignParentBottom="true"
         app:bb_tabXmlResource="@xml/guest_bottom_tabs"
-        app:layout_anchor="@+id/include"
         app:layout_anchorGravity="bottom|center" />
 
 </RelativeLayout>

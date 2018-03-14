@@ -46,6 +46,8 @@ Button But_showmap,But_showschedule,But_updatemap,Bupdate_details;
 Context context;
     SharedPreferences Shared_user_details;
     public String Stoken;
+    ArrayList<String> starttimee;
+    ArrayList<String> endtime;
 
     @SuppressLint("SetTextI18n")
     @Override
@@ -55,12 +57,12 @@ Context context;
         IBedit_sched=findViewById(R.id.edit_desc_sched);
         TVsubject_name=findViewById(R.id.subject_name);
         TVtypesubject=findViewById(R.id.type_detail_subject);
+        TVhrscal=findViewById(R.id.hours_sched);
         ETsched_desc=findViewById(R.id.schedule_descripti);
         TVprice_amount=findViewById(R.id.price_amount);
         IBpre_post=findViewById(R.id.add_pre_post);
         TVstudentcount=findViewById(R.id.stu_count_sched);
         linear_layout=findViewById(R.id.post_pre_linear);
-        TVhrscal=findViewById(R.id.hours_sched);
         But_showmap=findViewById(R.id.schedule_map);
         But_showschedule=findViewById(R.id.schedule_show);
         IB_back=findViewById(R.id.back_ima_scedule);
@@ -70,6 +72,8 @@ TVminamount=findViewById(R.id.min_amount);
 Bupdate_details=findViewById(R.id.update_details);
 TVminamounttex=findViewById(R.id.min_price_amount);
 context=this;
+starttimee= new ArrayList<>();
+        endtime= new ArrayList<>();
 
         Shared_user_details=getSharedPreferences("user_detail_mode",0);
         Stoken=  Shared_user_details.getString("token", null);
@@ -97,7 +101,7 @@ context=this;
         });
 
         ETsched_desc.setEnabled(false);
-        Intent intent = getIntent();
+        final Intent intent = getIntent();
         Bundle Bintent = intent.getExtras();
         if(Bintent != null)
         {
@@ -112,6 +116,9 @@ Sminprice=(String) Bintent.get("minprice");
             String sched_price = (String) Bintent.get("schedule_price");
              hrschmon = (String) Bintent.get("hrschmon");
              Sid=(String) Bintent.get("cateid");
+             starttimee= Bintent.getStringArrayList("starttime");
+            endtime= Bintent.getStringArrayList("endtime");
+
             TVhrscal.setText(hrschmon);
             if (type_subject.equals("oneonone"))
             {
@@ -148,9 +155,15 @@ Sminprice=(String) Bintent.get("minprice");
         But_showschedule.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+Intent intentshow=new Intent(ScheduleDetailPage.this,Schedule_ShowSchedule.class);
+intentshow.putExtra("subjectname",subname);
+intentshow.putExtra("typesub",type_subject);
+intentshow.putExtra("hrstot",hrschmon);
+intentshow.putStringArrayListExtra("starttime",starttimee);
+intentshow.putStringArrayListExtra("endtime",endtime);
+startActivity(intentshow);
                 //          Toast.makeText(ScheduleDetailPage.this, "Coming Soon", Toast.LENGTH_SHORT).show();
-                startActivity(new Intent(ScheduleDetailPage.this,Schedule_ShowSchedule.class));
+              //  startActivity(new Intent(ScheduleDetailPage.this,Schedule_ShowSchedule.class));
             }
         });
         IBedit_sched.setOnClickListener(new View.OnClickListener() {

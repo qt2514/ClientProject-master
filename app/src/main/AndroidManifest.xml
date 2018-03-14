@@ -173,7 +173,7 @@
             android:name=".guestfiles.GuestControlBoard"
             android:label="@string/title_activity_guest_control_board"
             android:theme="@style/AppTheme.NoActionBar"
-            android:windowSoftInputMode="stateHidden" />
+            android:windowSoftInputMode="stateHidden|adjustResize|adjustPan" />
         <activity
             android:name=".guestfiles.GuestActivityDetails"
             android:label="@string/title_activity_guest_details"
@@ -181,13 +181,18 @@
         <activity
             android:name=".studenttwotr.StudentHome"
             android:label="@string/title_activity_student_home"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="stateHidden|adjustResize|adjustPan" />
         <activity android:name=".globalpackfiles.HubPlace" />
         <activity
             android:name=".tutorfiles.Profile_Update_Personal"
             android:label="@string/title_activity_profile__update__personal"
-            android:windowSoftInputMode="stateHidden"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="stateHidden" />
+        <activity
+            android:name=".guestfiles.GuestProfile"
+            android:label="@string/title_activity_guest_profile"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

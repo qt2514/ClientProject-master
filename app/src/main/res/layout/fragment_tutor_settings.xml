@@ -61,7 +61,7 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-
+android:visibility="invisible"
                     android:layout_marginTop="65dp"
                     android:layout_marginLeft="10dp"
 
@@ -88,6 +88,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="110dp"
                     android:layout_marginStart="10dp"
+                    android:visibility="invisible"
 
                     android:orientation="horizontal">
                     <ImageView
@@ -112,6 +113,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="160dp"
                     android:layout_marginLeft="10dp"
+                    android:visibility="invisible"
 
                     android:orientation="horizontal">
                 <ImageView
@@ -142,6 +144,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="210dp"
                     android:layout_marginStart="10dp"
+                    android:visibility="invisible"
 
                     android:orientation="horizontal">
                     <ImageView
@@ -155,6 +158,8 @@
                         android:text="Notification Settings"
                         android:fontFamily="@font/montserrat"
                         android:padding="5dp"
+
+
                         android:textSize="15sp"
                         android:layout_marginStart="10dp"
                         android:textColor="@color/colorwhite"
@@ -167,6 +172,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="260dp"
                     android:layout_marginLeft="10dp"
+                    android:visibility="invisible"
 
                     android:orientation="horizontal">
                     <ImageView

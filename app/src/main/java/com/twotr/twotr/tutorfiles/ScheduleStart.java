@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.twotr.twotr.R;
 import com.twotr.twotr.globalpackfiles.TinyDB;
@@ -17,14 +18,13 @@ import com.wdullaer.materialdatetimepicker.time.TimePickerDialog;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import devs.mulham.horizontalcalendar.HorizontalCalendar;
 import devs.mulham.horizontalcalendar.utils.HorizontalCalendarListener;
 
 public class ScheduleStart extends AppCompatActivity  implements TimePickerDialog.OnTimeSetListener{
-
-    HorizontalCalendar horizontalCalendar;
     TextView TVsub_name;
     TimePickerDialog tpd;
     LinearLayout linearLayout2,linearLayout3,linearLayout4,linearLayout5;
@@ -44,8 +44,8 @@ public class ScheduleStart extends AppCompatActivity  implements TimePickerDialo
     List<String> endtime4;
     List<String> endtime5;
     String selectedDateStr;
-Button buttonaddtime;
-Context context;
+    Button buttonaddtime;
+    Context context;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,20 +55,20 @@ Context context;
         final Calendar startDate = Calendar.getInstance();
         startDate.add(Calendar.DATE, 0);
         Calendar now = Calendar.getInstance();
-         tpd = TimePickerDialog.newInstance(
+        tpd = TimePickerDialog.newInstance(
                 ScheduleStart.this,
                 now.get(Calendar.HOUR_OF_DAY),
                 now.get(Calendar.MINUTE),
-                 now.get(Calendar.SECOND),
-                 true
+                now.get(Calendar.SECOND),
+                true
         );
         tpd.setThemeDark(true);
         tpd.vibrate(true);
 
-context=ScheduleStart.this;
+        context=ScheduleStart.this;
 
         TVsub_name=findViewById(R.id.subject_name);
-textViewstart=findViewById(R.id.start_time_slot);
+        textViewstart=findViewById(R.id.start_time_slot);
 
         textViewstart2=findViewById(R.id.start_time_slot2);
         textViewstart3=findViewById(R.id.start_time_slot3);
@@ -95,35 +95,36 @@ textViewstart=findViewById(R.id.start_time_slot);
         textViewaddmore=findViewById(R.id.add_more_schedule);
         textViewcancel=findViewById(R.id.cancel_schedule);
 
-buttonaddtime=findViewById(R.id.add_time_slots);
+        buttonaddtime=findViewById(R.id.add_time_slots);
 
         imageButtonclose2=findViewById(R.id.time_slot_close2);
         imageButtonclose3=findViewById(R.id.time_slot_close3);
         imageButtonclose4=findViewById(R.id.time_slot_close4);
         imageButtonclose5=findViewById(R.id.time_slot_close5);
 
-imageButton=findViewById(R.id.time_slot_close);
+        imageButton=findViewById(R.id.time_slot_close);
         starttime=new ArrayList<>();
-         starttime2=new ArrayList<>();
-      starttime3=new ArrayList<>();
-       starttime4=new ArrayList<>();
+        starttime2=new ArrayList<>();
+        starttime3=new ArrayList<>();
+        starttime4=new ArrayList<>();
         starttime5=new ArrayList<>();
-         endtime=new ArrayList<>();
-         endtime2=new ArrayList<>();
-         endtime3=new ArrayList<>();
-       endtime4=new ArrayList<>();
+        endtime=new ArrayList<>();
+        endtime2=new ArrayList<>();
+        endtime3=new ArrayList<>();
+        endtime4=new ArrayList<>();
         endtime5=new ArrayList<>();
         final Calendar defaultSelectedDate = Calendar.getInstance();
-        horizontalCalendar = new HorizontalCalendar.Builder(this, R.id.calendarView)
+        HorizontalCalendar horizontalCalendar = new HorizontalCalendar.Builder(this, R.id.calendarView)
                 .range(startDate, endDate)
-                .datesNumberOnScreen(6)
+                .datesNumberOnScreen(5)
                 .defaultSelectedDate(defaultSelectedDate)
                 .build();
-selectedDateStr=DateFormat.format("yyyy-MM-dd", defaultSelectedDate).toString();
+        selectedDateStr=DateFormat.format("yyyy-MM-dd", defaultSelectedDate).toString();
         horizontalCalendar.setCalendarListener(new HorizontalCalendarListener() {
             @Override
             public void onDateSelected(Calendar date, int position) {
-                 selectedDateStr = DateFormat.format("yyyy-MM-dd", date).toString();
+                selectedDateStr = DateFormat.format("yyyy-MM-dd", date).toString();
+
 
             }
         });

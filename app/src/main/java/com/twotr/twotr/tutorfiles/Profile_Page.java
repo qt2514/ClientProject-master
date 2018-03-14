@@ -52,7 +52,7 @@ public class Profile_Page extends AppCompatActivity {
     ScrollView scrollview_personal,scrollView_educational,scrollview_professional;
     String s_profile;
     SharedPreferences Shared_user_details;
-    String Stoken,Sid,SfirstName,SmiddleName,SlastName,Sdob,Sdescription,SlineOne,SzipCode,Snumber,Scode;
+    String Stoken,Sid,SfirstName,SmiddleName,SlastName,Sdob,Sdescription,SlineOne,SzipCode,Snumber,Scode,Sroles;
     TextView TVemailverify,TVmobileverify;
     String  Sgender;
     AVLoadingIndicatorView avi;
@@ -105,6 +105,7 @@ public class Profile_Page extends AppCompatActivity {
         Shared_user_details=getSharedPreferences("user_detail_mode",0);
         Stoken=  Shared_user_details.getString("token", null);
         Sid=  Shared_user_details.getString("id", null);
+        Sroles=  Shared_user_details.getString("roles", null);
 
         TVmajor=findViewById(R.id.profile_edu_major);
  TVinsitute=findViewById(R.id.prof_edu_insitute);
@@ -129,7 +130,16 @@ CIVprofimage=findViewById(R.id.image_profile);
         ListSubject= new ArrayList<String>();
 
         gettallprofiledetails();
+
+        if (Sroles.equals("student"))
+        {
+            but_professional.setVisibility(View.INVISIBLE);
+        }
+        else {
+            but_professional.setVisibility(View.VISIBLE);
+        }
         s_profile="personal";
+
         but_personal.setTextColor(getResources().getColor(R.color.buttonColorPrimary));
         but_personal.setOnClickListener(new View.OnClickListener() {
             @RequiresApi(api = Build.VERSION_CODES.M)
@@ -311,26 +321,26 @@ recyclerView.setHorizontalScrollBarEnabled(false);
                 try {
                     avi.hide();
                     JSONObject jObj = new JSONObject(response);
-                    String id = jObj.getString("_id");
-                    String userId = jObj.getString("userId");
-                    String updatedAt = jObj.getString("updatedAt");
-                    String createdAt = jObj.getString("createdAt");
+                  //  String id = jObj.getString("_id");
+                   // String userId = jObj.getString("userId");
+                  //  String updatedAt = jObj.getString("updatedAt");
+                  //  String createdAt = jObj.getString("createdAt");
 
                     JSONObject profile = jObj.getJSONObject("profileInfo");
                      Sdob =profile.getString("dob");
                       Sgender=profile.getString("gender");
-                    String Stimezone =profile.getString("timezone");
-                    String Scantutor =profile.getString("canTutor");
-                    String  SdefaultCountry=profile.getString("defaultCountry");
+             //       String Stimezone =profile.getString("timezone");
+               //     String Scantutor =profile.getString("canTutor");
+                //    String  SdefaultCountry=profile.getString("defaultCountry");
                       Sdescription=profile.getString("description");
 
 
                     JSONObject paddress = profile.getJSONObject("address");
                       SlineOne=paddress.getString("lineOne");
-                    String  Scity=paddress.getString("city");
-                    String  Sstate=paddress.getString("state");
+               //     String  Scity=paddress.getString("city");
+                 //   String  Sstate=paddress.getString("state");
                       SzipCode=paddress.getString("zipCode");
-                    String  Scountry=paddress.getString("country");
+                  //  String  Scountry=paddress.getString("country");
 
                     JSONObject pmonum = profile.getJSONObject("mobileNumber");
                       Scode=pmonum.getString("code");

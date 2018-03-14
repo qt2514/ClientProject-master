@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="com.twotr.twotr.tutorfiles.Profile_Page"
-    tools:showIn="@layout/activity_profile_page">
+    tools:context="com.twotr.twotr.guestfiles.GuestProfile"
+    tools:showIn="@layout/activity_guest_profile">
+
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -89,47 +89,17 @@
                         android:transformPivotX="0dp"
                         android:transformPivotY="0dp"
 
-                    />
+                        />
 
-                    <!--<RatingBar-->
-                        <!--android:id="@+id/servpdet_ratingbar"-->
-                        <!--style="?android:attr/ratingBarStyleIndicator"-->
-                        <!--android:layout_width="wrap_content"-->
-                        <!--android:layout_height="wrap_content"-->
-                        <!--android:clickable="false"-->
-                        <!--android:focusable="false"-->
-                        <!--android:numStars="5"-->
-                        <!--android:progressBackgroundTint="@color/colorwhite"-->
-                        <!--android:progressTint="@color/buttonColorPrimary"-->
-                        <!--android:rating="3"-->
-                        <!--android:scaleX=".4"-->
-                        <!--android:scaleY=".4"-->
-                        <!--android:secondaryProgressTint="@color/colorwhite"-->
-                        <!--android:transformPivotX="150dp"-->
-                        <!--android:transformPivotY="0dp" />-->
+                    <!--android:transformPivotY="0dp" />-->
                 </RelativeLayout>
 
             </LinearLayout>
 
-            <!--<ImageView-->
-                <!--android:layout_width="30dp"-->
-                <!--android:layout_height="30dp"-->
-
-                <!--android:layout_marginBottom="5dp"-->
-                <!--android:layout_marginLeft="60dp"-->
-                <!--android:background="@drawable/twotr_main" />-->
         </LinearLayout>
 
     </RelativeLayout>
-    <!--<ScrollView-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_below="@+id/top_relat"-->
-    <!--android:layout_height="match_parent">-->
 
-    <!--<LinearLayout-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:orientation="horizontal"-->
-    <!--android:layout_height="match_parent">-->
 
     <RelativeLayout
         android:id="@+id/mid_relat"
@@ -153,36 +123,6 @@
                 android:textSize="13sp"
                 android:textColor="@color/colorwhite"
                 android:layout_weight="1"/>
-            <Button
-                android:id="@+id/prof_nut_educational"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@color/transparent"
-                android:text="Educational"
-                android:textAllCaps="false"
-                android:textSize="13sp"
-
-                android:textColor="@color/colorwhite"
-                android:layout_weight="1.4"/>
-            <Button
-                android:id="@+id/prof_but_professional"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@color/transparent"
-                android:text="Professional"
-                android:textAllCaps="false"
-                android:textSize="13sp"
-
-                android:textColor="@color/colorwhite"
-                android:layout_weight="1.4"/>
-            <Button
-                android:id="@+id/profile_edit"
-                android:layout_width="25dp"
-                android:layout_gravity="center"
-                android:visibility="invisible"
-                android:layout_height="25dp"
-                android:background="@drawable/ic_profile_edit_icon"
-                android:layout_weight="0.2"/>
         </LinearLayout>
 
     </RelativeLayout>
@@ -191,7 +131,7 @@
         android:layout_width="match_parent"
         android:layout_below="@+id/mid_relat"
         android:layout_height="match_parent"
->
+        >
 
         <include layout="@layout/profile_personal_relat" />
 
@@ -199,28 +139,7 @@
 
 
 
-    <ScrollView
-        android:id="@+id/srcollview_educational"
-        android:visibility="invisible"
-        android:layout_width="match_parent"
-        android:layout_below="@+id/mid_relat"
-        android:layout_height="match_parent">
 
-        <include layout="@layout/profile_educational_relat" />
-
-    </ScrollView>
-
-
-    <ScrollView
-        android:id="@+id/srcollview_professional"
-        android:visibility="invisible"
-        android:layout_width="match_parent"
-        android:layout_below="@+id/mid_relat"
-        android:layout_height="match_parent">
-
-        <include layout="@layout/profile_professional_relat" />
-
-    </ScrollView>
 
     <com.wang.avi.AVLoadingIndicatorView
         android:id="@+id/avi"
@@ -240,28 +159,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-    <pl.droidsonroids.gif.GifImageView
-        android:id="@+id/nodatagif"
-        android:layout_width="150dp"
-        android:visibility="invisible"
-        android:layout_height="150dp"
-        android:layout_centerHorizontal="true"
-        android:layout_alignStart="@+id/avi"
-        android:layout_centerVertical="true"
-        android:src="@drawable/pendinglistgif" />
 
-    <TextView
-        android:id="@+id/nodatatext"
-        android:layout_width="wrap_content"
-        android:layout_below="@+id/nodatagif"
-        android:visibility="invisible"
-        android:text="Press Edit and Complete Info"
-        android:layout_centerHorizontal="true"
 
-        android:layout_centerVertical="true"
-        android:textColor="@color/colorPrimaryDark"
-        android:textSize="18sp"
-        android:layout_margin="5dp"
-        android:fontFamily="@font/montserrat"
-        android:layout_height="wrap_content" />
+
 </RelativeLayout>

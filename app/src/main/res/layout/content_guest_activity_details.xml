@@ -57,7 +57,7 @@
                     android:layout_gravity="start|center"
                     android:layout_marginLeft="7dp"
                     android:fontFamily="@font/montserrat"
-                    android:text="Ameer"
+
                     android:textColor="@color/colorwhite"
                     android:textSize="16sp" />
                 <RelativeLayout
@@ -112,15 +112,18 @@
 
             </LinearLayout>
 
-            <!--<ImageView-->
-            <!--android:layout_width="30dp"-->
-            <!--android:layout_height="30dp"-->
-
-            <!--android:layout_marginBottom="5dp"-->
-            <!--android:layout_marginLeft="60dp"-->
-            <!--android:background="@drawable/twotr_main" />-->
         </LinearLayout>
 
+        <ImageView
+
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="13dp"
+            android:background="@drawable/guestdashboard"
+            android:backgroundTint="@color/colorAccent"
+            android:id="@+id/imageView2" />
     </RelativeLayout>
     <devs.mulham.horizontalcalendar.HorizontalCalendarView
         android:id="@+id/calendarView"
@@ -130,58 +133,205 @@
         android:background="#fff"
         app:textColorSelected="@color/colorPrimary"/>
 
-    <!--<RelativeLayout-->
-    <!--android:layout_width="wrap_content"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:layout_alignParentStart="true"-->
-    <!--android:layout_centerVertical="true">-->
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:id="@+id/relaymast"
+        android:padding="10dp"
+        android:visibility="invisible"
+        android:layout_centerHorizontal="true"
+        >
 
-    <!--<android.support.v7.widget.CardView-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:layout_centerInParent="true"-->
-    <!--android:layout_margin="30dp"-->
-    <!--android:elevation="9dp"-->
-    <!--android:padding="10dp"-->
-    <!--app:cardCornerRadius="6dp"-->
-    <!--app:cardElevation="3dp"-->
+        <android.support.v7.widget.CardView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:elevation="10dp"
 
-    <!--&gt;-->
+            app:cardCornerRadius="5dp"
+            app:cardElevation="3dp"
+            >
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:orientation="vertical"
+                    android:gravity="center"
+                    android:layout_gravity="center"
+                    android:layout_margin="5dp"
+                    android:padding="5dp"
+                    android:layout_height="wrap_content">
+                    <LinearLayout
+                        android:id="@+id/linlay1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_margin="5dp"
+                        android:visibility="gone"
 
-    <!--<ScrollView-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="match_parent">-->
+                        android:orientation="horizontal"
+                        android:weightSum="2">
+                        <TextView
+                            android:id="@+id/starttime1"
+                            android:layout_width="wrap_content"
+
+                            android:layout_margin="5dp"
+                            android:padding="5dp"
+                            android:fontFamily="@font/montserrat"
+                            android:textSize="14sp"
+                            android:background="@drawable/border_less_main"
+                            android:layout_height="wrap_content" />
+                        <TextView
+                            android:id="@+id/endtime1"
+                            android:layout_width="wrap_content"
+
+                            android:layout_margin="5dp"
+                            android:padding="5dp"
+                            android:background="@drawable/border_less_main"
+
+                            android:fontFamily="@font/montserrat"
+                            android:textSize="14sp"
+                            android:layout_height="wrap_content" />
+                    </LinearLayout>
+                    <LinearLayout
+                        android:id="@+id/linlay2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_margin="5dp"
+                        android:visibility="gone"
+                        android:orientation="horizontal"
+                        android:weightSum="2">
+                        <TextView
+                            android:id="@+id/starttime2"
+                            android:layout_width="wrap_content"
+
+                            android:layout_margin="5dp"
+                            android:padding="5dp"
+                            android:fontFamily="@font/montserrat"
+                            android:background="@drawable/border_less_main"
+
+                            android:textSize="14sp"
+                            android:layout_height="wrap_content" />
+                        <TextView
+                            android:id="@+id/endtime2"
+                            android:layout_width="wrap_content"
+
+                            android:layout_margin="5dp"
+                            android:padding="5dp"
+                            android:fontFamily="@font/montserrat"
+                            android:background="@drawable/border_less_main"
+
+                            android:textSize="14sp"
+                            android:layout_height="wrap_content" />
+                    </LinearLayout>
+                    <LinearLayout
+                        android:id="@+id/linlay3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_margin="5dp"
+                        android:visibility="gone"
+                        android:orientation="horizontal"
+                        android:weightSum="2">
+                        <TextView
+                            android:id="@+id/starttime3"
+                            android:layout_width="wrap_content"
+
+                            android:layout_margin="5dp"
+                            android:padding="5dp"
+                            android:fontFamily="@font/montserrat"
+                            android:background="@drawable/border_less_main"
+
+                            android:textSize="14sp"
+                            android:layout_height="wrap_content" />
+                        <TextView
+                            android:id="@+id/endtime3"
+                            android:layout_width="wrap_content"
+
+                            android:layout_margin="5dp"
+                            android:padding="5dp"
+                            android:fontFamily="@font/montserrat"
+                            android:background="@drawable/border_less_main"
+
+                            android:textSize="14sp"
+                            android:layout_height="wrap_content" />
+                    </LinearLayout>
+                    <LinearLayout
+                        android:id="@+id/linlay4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_margin="5dp"
+                        android:visibility="gone"
+                        android:orientation="horizontal"
+                        android:weightSum="2">
+                        <TextView
+                            android:id="@+id/starttime4"
+                            android:layout_width="wrap_content"
+
+                            android:layout_margin="5dp"
+                            android:padding="5dp"
+                            android:fontFamily="@font/montserrat"
+                            android:background="@drawable/border_less_main"
+
+                            android:textSize="14sp"
+                            android:layout_height="wrap_content" />
+                        <TextView
+                            android:id="@+id/endtime4"
+                            android:layout_width="wrap_content"
+
+                            android:layout_margin="5dp"
+                            android:padding="5dp"
+                            android:fontFamily="@font/montserrat"
+                            android:background="@drawable/border_less_main"
+
+                            android:textSize="14sp"
+                            android:layout_height="wrap_content" />
+                    </LinearLayout>
+                    <LinearLayout
+                        android:id="@+id/linlay5"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_margin="5dp"
+                        android:visibility="gone"
+                        android:orientation="horizontal"
+                        android:weightSum="2">
+                        <TextView
+                            android:id="@+id/starttime5"
+                            android:layout_width="wrap_content"
+
+                            android:layout_margin="5dp"
+                            android:padding="5dp"
+                            android:fontFamily="@font/montserrat"
+                            android:background="@drawable/border_less_main"
+
+                            android:textSize="14sp"
+                            android:layout_height="wrap_content" />
+                        <TextView
+                            android:id="@+id/endtime5"
+                            android:layout_width="wrap_content"
+
+                            android:layout_margin="5dp"
+                            android:padding="5dp"
+                            android:fontFamily="@font/montserrat"
+                            android:background="@drawable/border_less_main"
+
+                            android:textSize="14sp"
+                            android:layout_height="wrap_content" />
+                    </LinearLayout>
+                    <Button
+                        android:layout_width="wrap_content"
+                        android:id="@+id/map_show"
+                        android:textAllCaps="false"
+                        android:visibility="gone"
+                        android:text="Show Map"
+                        android:background="@drawable/signin_butt"
+                        android:textColor="@color/mdtp_white"
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
+
+            </ScrollView>
 
 
-    <!--<LinearLayout-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="match_parent"-->
-    <!--android:layout_margin="5dp"-->
-    <!--android:orientation="vertical"-->
-    <!--android:weightSum="2">-->
-
-    <!--<GridView-->
-    <!--android:id="@+id/home_gridview"-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="match_parent"-->
-    <!--android:layout_below="@+id/gridview_schowschedule"-->
-
-    <!--android:layout_margin="6dp"-->
-    <!--android:layout_marginTop="5dp"-->
-    <!--android:horizontalSpacing="2dp"-->
-    <!--android:numColumns="2"-->
-    <!--android:scrollbars="none"-->
-    <!--android:verticalSpacing="3dp" />-->
-
-
-    <!--<Button-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="50dp"-->
-    <!--android:background="@color/colorPrimary"-->
-    <!--android:text="Edit Time Slots"-->
-    <!--android:textColor="@color/buttonColorPrimary" />-->
-    <!--</LinearLayout>-->
-    <!--</ScrollView>-->
-    <!--</android.support.v7.widget.CardView>-->
-    <!--</RelativeLayout>-->
+        </android.support.v7.widget.CardView>
+    </RelativeLayout>
 </RelativeLayout>

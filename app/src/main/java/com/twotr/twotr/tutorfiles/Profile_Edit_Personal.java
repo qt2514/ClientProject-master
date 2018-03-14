@@ -128,6 +128,7 @@ String Profile_update_url;
         Sfirstname = Shared_user_details.getString("firstName", null);
         Slastname = Shared_user_details.getString("lastName", null);
         Susername = Shared_user_details.getString("username", null);
+        Sroles=  Shared_user_details.getString("roles", null);
 
         et_per_fname.setText(Sfirstname);
         et_per_lname.setText(Slastname);
@@ -150,6 +151,9 @@ String Profile_update_url;
 //                Profile_update_url= Global_url_twotr.Base_url +"userinfo/basic/update";
 //
 //            }
+
+
+
         Calendar now = Calendar.getInstance();
          dpd = DatePickerDialog.newInstance(
                 Profile_Edit_Personal.this,
