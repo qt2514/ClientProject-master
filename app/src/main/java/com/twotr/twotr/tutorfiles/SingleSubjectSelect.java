@@ -72,7 +72,7 @@ public class SingleSubjectSelect extends AppCompatActivity {
         subjectnamelist=new ArrayList<>();
         subjectnameid=new ArrayList<>();
         listViewItems = new ArrayList<MultispinnerList>();
-        String usersubjectname="https://api.twotr.com/api/userinfo/basic/profile";
+        String usersubjectname="http://twotr.com:5040/api/userinfo/basic/profile";
         subject_name_list(usersubjectname);
 
 //        listViewWithCheckBox.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -120,7 +120,7 @@ public class SingleSubjectSelect extends AppCompatActivity {
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 listViewItems.clear();
                 String subcharname=  s.toString();
-                subject_name_list("https://api.twotr.com/api/subject/search?key="+subcharname);
+                subject_name_list("http://twotr.com:5040/api/subject/search?key="+subcharname);
 
             }
 

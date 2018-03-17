@@ -65,7 +65,7 @@ public class TutorCreate extends Fragment {
     List<String> starttime;
     List<String> endtime;
     //SearchBox search;
-    //String BaseSearchurl="https://api.twotr.com/api/subject/search?key=";
+    //String BaseSearchurl="http://twotr.com:5040/api/subject/search?key=";
     String search_result;
     public static TutorCreate newInstance() {
         return new TutorCreate();

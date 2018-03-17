@@ -77,7 +77,8 @@ context=this;
         subjectnamelist=new ArrayList<>();
         subjectnameid=new ArrayList<>();
         listViewItems = new ArrayList<MultispinnerList>();
-
+        String usersubjectname="http://twotr.com:5040/api/userinfo/basic/profile";
+        subject_name_list(usersubjectname);
         listViewWithCheckBox.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
             @Override
@@ -128,8 +129,8 @@ textViewadd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
 listViewItems.clear();
-               String subcharname=  s.toString();
-                subject_name_list(subcharname);
+                String subcharname=  s.toString();
+                subject_name_list("http://twotr.com:5040/api/subject/search?key="+subcharname);
 
             }
 
@@ -217,6 +218,7 @@ serach_text.setOnClickListener(new View.OnClickListener() {
                 }
             });
 
+
             return convertView;
         }
 
@@ -239,13 +241,13 @@ serach_text.setOnClickListener(new View.OnClickListener() {
 
         RequestQueue requestQueueq = Volley.newRequestQueue(this);
 
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, Global_url_twotr.Profile_subject+subject_name, new Response.Listener<String>() {
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, subject_name, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 try {
                     JSONObject jObj = new JSONObject(response);
                     JSONArray jsonArray = jObj.getJSONArray("subjects");
-                    int totalrecords=jObj.getInt("totalRecords");
+
 //                    if (totalrecords<1)
 //                    {
 //textViewadd.setVisibility(View.VISIBLE);

@@ -192,6 +192,22 @@
         <activity
             android:name=".guestfiles.GuestProfile"
             android:label="@string/title_activity_guest_profile"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".tutorfiles.SubscriptionActivity"
+            android:label="@string/title_activity_subscription"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".tutorfiles.SubscriptionDetail"
+            android:label="@string/title_activity_subscription_detail"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".tutorfiles.Profile_update_educational"
+            android:label="@string/title_activity_profile_update_educational"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".tutorfiles.Profile_Update_Professional"
+            android:label="@string/title_activity_profile__update__professional"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 

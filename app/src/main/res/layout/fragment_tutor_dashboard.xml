@@ -120,9 +120,10 @@ android:layout_marginTop="5dp"
         android:id="@+id/dashboard_list"
         android:layout_width="match_parent"
         android:scrollbars="none"
+        android:divider="@null"
+
         android:background="@color/listback"
 
-        android:divider="@null"
         android:layout_height="match_parent"/>
 
     </com.orangegangsters.github.swipyrefreshlayout.library.SwipyRefreshLayout>

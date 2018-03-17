@@ -657,6 +657,7 @@ et_per_fname.setOnFocusChangeListener(new View.OnFocusChangeListener() {
                 try {
                     JSONArray jObj = new JSONArray(response);
                     for (int i = 0; i < jObj.length(); i++) {
+
                             ASgrade.add(new MultiSelectModel(i,String.valueOf(jObj.get(i))));
                     }
 
@@ -912,31 +913,19 @@ TVsubject.setText(Ssubjectnamei);
             JSONObject jsonBody = new JSONObject();
 
             JSONArray array = new JSONArray();
-            JSONObject jsonObject = new JSONObject();
 
-            try {
-                if ((subjectnamelist != null) && (subjectnamelist.size() > 0)) {
-                    for (int i = 0; i < subjectnamelist.size(); i++) {
-                        // JSONObject jsonObject = new JSONObject();
+            for (int i = 0; i < subjectnameid.size(); i++) {
+                // JSONObject jsonObject = new JSONObject();
+                JSONObject jsonObject = new JSONObject();
 
-                        try {
-
-                            jsonObject.put("kind", Ssubjectkind);
-                            jsonObject.put("id", subjectnameid.get(i));
-
-
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                }
                 jsonObject.put("kind", Ssubjectkind);
-                jsonObject.put("id", subjectnameid.get(0));
-            } catch (JSONException e1) {
-                e1.printStackTrace();
-            }
+                jsonObject.put("id", subjectnameid.get(i));
+                array.put(jsonObject);
 
-            array.put(jsonObject);
+
+
+
+            }
 
             JSONArray array2=new JSONArray(aryGrade);
             //array2.put(Sgrade);

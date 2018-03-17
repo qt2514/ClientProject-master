@@ -621,42 +621,7 @@ DataInputStream inputStream;
             //    tutorpageadapter = new Schedule_class(GuestControlBoard.this, R.layout.guest_dasboard_list, ScheduleMode);
                 tutorpageadapter.addAll(ScheduleMode);
                 avi.hide();
-//                listViewguest.setAdapter(tutorpageadapter);
-//
-//                avi.hide();
-////                listViewguest.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-////                        @Override
-////                        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-////                            Guest_list_parce Guest_list_parce = ScheduleMode.get(position);
-////                            Intent intent = new Intent(GuestControlBoard.this, ScheduleDetailPage.class);
-////                            intent.putExtra("subject_name", Guest_list_parce.getSubject());
-////                            intent.putExtra("type_subject", Guest_list_parce.getType());
-////                            intent.putExtra("schedule_description", Guest_list_parce.getDescription());
-////                            intent.putExtra("latitude", Guest_list_parce.getLat());
-////                            intent.putExtra("longitude", Guest_list_parce.getLng());
-////                            intent.putExtra("schedule_price", Guest_list_parce.getPrice());
-////                            intent.putExtra("studentscount", Guest_list_parce.getStudentsCount());
-////                            intent.putExtra("minprice", Guest_list_parce.getMinPrice());
-////                            intent.putExtra("cateid",Guest_list_parce.get_id());
-////                            String Scompletestart = Guest_list_parce.getStart();
-////                            String Scompleteend = Guest_list_parce.getEnd();
-////
-////                            String startdate = Scompletestart.substring(0, 10);
-////                            String starttime = Scompletestart.substring(11, 19);
-////                            String enddate = Scompleteend.substring(0, 10);
-////                            String endtime = Scompleteend.substring(11, 19);
-////                            String time_sched = Scompletestart.substring(11, 16);
-////                            String datestart = startdate + " " + starttime;
-////                            String dateend = enddate + " " + endtime;
-////                            int diff = DateTimeUtils.getDateDiff(datestart, dateend, DateTimeUnits.HOURS);
-////                            diff = Math.abs(diff);
-////                            String shours = diff + " hours - ";
-////                            String stimsc = time_sched + " | ";
-////                            String smonth = DateTimeUtils.formatWithPattern(startdate, " MMMM dd");
-////                            intent.putExtra("hrschmon", shours + stimsc + smonth);
-////                            startActivity(intent);
-////                        }
-////                    });
+
                 tutorpageadapter.notifyDataSetChanged();
 
 
@@ -855,31 +820,5 @@ aryGrade= new String[]{};
     }
 
 
-//    private AbsListView.OnScrollListener scrollListener = new AbsListView.OnScrollListener() {
-//        @Override
-//        public void onScrollStateChanged(AbsListView view, int scrollState) {
-//
-//        }
-//
-//        @Override
-//        public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
-//            int lastInScreen = firstVisibleItem + visibleItemCount;
-//            if(lastInScreen == totalItemCount && !isLoading){
-//                loadMoreItems(totalItemCount - 1);
-//                isLoading = true;
-//            }
-//        }
-//    };
 
-//
-//    private void refreshContent(){
-//        new Handler().postDelayed(new Runnable() {
-//            @Override
-//            public void run() {
-//                schedule_list_url = Global_url_twotr.Guest_list_api+searchque+"&page=1&size=10" ;
-//                new ScheduleAsyncList().execute(schedule_list_url);
-//                mSwipeRefreshLayout.setRefreshing(false);
-//            }
-//        });
-//    }
 }

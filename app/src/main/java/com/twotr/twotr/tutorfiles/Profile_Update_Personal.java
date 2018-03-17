@@ -43,6 +43,7 @@ import com.google.android.gms.location.places.Place;
 import com.google.android.gms.location.places.ui.PlaceAutocomplete;
 import com.google.android.gms.maps.model.LatLng;
 import com.ontbee.legacyforks.cn.pedant.SweetAlert.SweetAlertDialog;
+import com.squareup.picasso.Picasso;
 import com.toptoche.searchablespinnerlibrary.SearchableSpinner;
 import com.twotr.twotr.R;
 import com.twotr.twotr.globalpackfiles.Global_url_twotr;
@@ -84,7 +85,7 @@ public class Profile_Update_Personal extends AppCompatActivity implements DatePi
     ImageView IVupload_image ;
     CircleImageView IVimage_profileedit;
     private static final int SECOND_ACTIVITY_REQUEST_CODE = 0;
-
+String Surl;
     SharedPreferences Shared_user_details;
     AVLoadingIndicatorView avi;
     final ArrayList<MultiSelectModel> subject_name= new ArrayList<>();
@@ -92,6 +93,13 @@ public class Profile_Update_Personal extends AppCompatActivity implements DatePi
     ArrayList aryGrade=new ArrayList();
     List<String> subjectnamelist;
     List<String> subjectnameid;
+    ArrayList<Integer> Listgradeint;
+    ArrayList<String> ListSubjectid ;
+    ArrayList<String> ListSubject ;
+    ArrayList<String> ListGrade ;
+
+    ArrayList<String> NewListGrade ;
+
 
     Context context;
     //  ArrayList<Uri> path = new ArrayList<>();
@@ -127,6 +135,13 @@ public class Profile_Update_Personal extends AppCompatActivity implements DatePi
         Shared_user_details = getSharedPreferences("user_detail_mode", 0);
         Sid = Shared_user_details.getString("id", null);
         Stoken = Shared_user_details.getString("token", null);
+
+        Listgradeint=new ArrayList<>();
+        ListSubjectid= new ArrayList<String>();
+        ListSubject= new ArrayList<String>();
+        ListGrade= new ArrayList<String>();
+        NewListGrade= new ArrayList<String>();
+
         Intent intent = getIntent();
         Bundle Bintent = intent.getExtras();
         if(Bintent != null)
@@ -140,15 +155,14 @@ public class Profile_Update_Personal extends AppCompatActivity implements DatePi
             Smobile_number=(String) Bintent.get("monumber");
             Sdob= DateTimeUtils.formatWithPattern(Sdob, "dd/MM/yyyy");
             Scode=(String) Bintent.get("mcode");
+            Surl=(String) Bintent.get("imageurl");
+            ListGrade=Bintent.getStringArrayList("gradelevel");
+            ListSubjectid=Bintent.getStringArrayList("subid");
+            ListSubject=Bintent.getStringArrayList("subname");
+
             
         }
-        et_per_fname.setText(Sfirstname);
-        et_per_lname.setText(Slastname);
-        et_per_mname.setText(Sgender);
-        et_per_dob.setText(Sdob);
-        et_per_desc.setText(Sdecription);
-        et_per_mobile.setText(Smobile_number);
-      et_per_address.setText(Saddline);
+
         imageView = findViewById(R.id.upload_image);
         avi = findViewById(R.id.avi);
         avi.hide();
@@ -158,6 +172,34 @@ public class Profile_Update_Personal extends AppCompatActivity implements DatePi
         mobile_zone();
         AStime_zone = new ArrayList<String>();
         ASmobile_zone = new ArrayList<String>();
+       // subjectnamelist = ListSubject;
+     //   subjectnameid = ListSubjectid;
+        StringBuilder builder = new StringBuilder();
+        // JSONArray startendarray=new JSONArray();
+        for (int i = 0; i < ListSubject.size(); i++) {
+
+            builder.append("").append(ListSubject.get(i)).append(",");
+
+        }
+        try {
+            Picasso
+                    .with(context)
+                    .load(Surl)
+                    .fit()
+                    .error(getResources().getDrawable(R.drawable.profile_image_tutor))
+                    .centerCrop()
+                    .into(IVimage_profileedit);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        et_per_fname.setText(Sfirstname);
+        et_per_lname.setText(Slastname);
+        et_per_dob.setText(Sdob);
+        et_per_desc.setText(Sdecription);
+        et_per_mobile.setText(Smobile_number);
+        et_per_address.setText(Saddline);
+
+        TVsubject.setText(builder);
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
         //  if (!prefs.getBoolean("firstTime", false)) {
         Profile_update_url= Global_url_twotr.Base_url +"userinfo/basic/update";
@@ -443,11 +485,29 @@ public class Profile_Update_Personal extends AppCompatActivity implements DatePi
         searchableSpinner_grade.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+
+//                ArrayList<Integer> results = new ArrayList<>();
+//
+//// Loop arrayList2 items
+//                for (Person person2 : arrayList2) {
+//                    // Loop arrayList1 items
+//                    boolean found = false;
+//                    for (Person person1 : arrayList1) {
+//                        if (person2.id == person1.id) {
+//                            found = true;
+//                        }
+//                    }
+//                    if (!found) {
+//                        results.add(person2.id);
+//                    }
+//                }
                 MultiSelectDialog multiSelectDialog = new MultiSelectDialog()
                         .title("Grade Level") //setting_bot title for dialog
                         .titleSize(22)
                         .positiveText("Done")
                         .negativeText("Cancel")
+                        .preSelectIDsList(Listgradeint)
                         .multiSelectList(ASgrade) // the multi select model list with ids and name
                         .onSubmit(new MultiSelectDialog.SubmitCallbackListener() {
                             @Override
@@ -462,6 +522,7 @@ public class Profile_Update_Personal extends AppCompatActivity implements DatePi
 
 
                             }
+
 
                             @Override
                             public void onCancel() {
@@ -670,9 +731,23 @@ public class Profile_Update_Personal extends AppCompatActivity implements DatePi
                 try {
                     JSONArray jObj = new JSONArray(response);
                     for (int i = 0; i < jObj.length(); i++) {
-                        ASgrade.add(new MultiSelectModel(i,String.valueOf(jObj.get(i))));
-                    }
 
+
+                        ASgrade.add(new MultiSelectModel(i,String.valueOf(jObj.get(i))));
+                        NewListGrade.add(String.valueOf(jObj.get(i)));
+                    }
+                    for (int i = 0; i < NewListGrade.size(); i++) {
+                        for (int j = 0; j < ListGrade.size(); j++) {
+
+                            if (NewListGrade.get(i).toString().equals(ListGrade.get(j).toString())) {
+                                ListGrade.remove(j);
+                                Listgradeint.add(i);
+                                j = -1;
+
+                            }
+
+                        }
+                    }
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -884,6 +959,7 @@ public class Profile_Update_Personal extends AppCompatActivity implements DatePi
                 if (Ssubjectkind.equals("Subject")) {
                     subjectnamelist = tinydb.getListString("subjectnamelist");
                     subjectnameid = tinydb.getListString("subjectnameid");
+                    Log.i("asass",subjectnameid.toString());
                     StringBuilder builder = new StringBuilder();
                     // JSONArray startendarray=new JSONArray();
                     for (int i = 0; i < subjectnamelist.size(); i++) {
@@ -925,31 +1001,26 @@ public class Profile_Update_Personal extends AppCompatActivity implements DatePi
             JSONObject jsonBody = new JSONObject();
 
             JSONArray array = new JSONArray();
-            JSONObject jsonObject = new JSONObject();
 
-            try {
-                if ((subjectnamelist != null) && (subjectnamelist.size() > 0)) {
-                    for (int i = 0; i < subjectnamelist.size(); i++) {
+
+
+                    for (int i = 0; i < subjectnameid.size(); i++) {
                         // JSONObject jsonObject = new JSONObject();
-
-                        try {
+                        JSONObject jsonObject = new JSONObject();
 
                             jsonObject.put("kind", Ssubjectkind);
                             jsonObject.put("id", subjectnameid.get(i));
+                            array.put(jsonObject);
 
 
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
+
+
                     }
-                }
-                jsonObject.put("kind", Ssubjectkind);
-                jsonObject.put("id", subjectnameid.get(0));
-            } catch (JSONException e1) {
-                e1.printStackTrace();
-            }
 
-            array.put(jsonObject);
+
+
+
+
 
             JSONArray array2=new JSONArray(aryGrade);
             //array2.put(Sgrade);

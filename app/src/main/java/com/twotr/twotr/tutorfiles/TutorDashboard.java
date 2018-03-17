@@ -438,49 +438,6 @@ diff=Math.abs(diff);
 
                        CGgauge.setValue(hordiff);
 
-//                        DateTimeUtils obj = new DateTimeUtils();
-//                        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
-//
-//                        try {
-//                            Date date1 = simpleDateFormat.parse(date);
-//                            Date date2 = simpleDateFormat.parse(dateend);
-//
-//
-//                                //milliseconds
-//                                long different = date2.getTime() - date1.getTime();
-//
-//                                System.out.println("startDate : " + date1);
-//                                System.out.println("endDate : "+ date2);
-//                                System.out.println("different : " + different);
-//
-//                                long secondsInMilli = 1000;
-//                                long minutesInMilli = secondsInMilli * 60;
-//                                long hoursInMilli = minutesInMilli * 60;
-//                                long daysInMilli = hoursInMilli * 24;
-//
-//                                long elapsedDays = different / daysInMilli;
-//                                different = different % daysInMilli;
-//
-//                                long elapsedHours = different / hoursInMilli;
-//                                different = different % hoursInMilli;
-//
-//                                long elapsedMinutes = different / minutesInMilli;
-//                                different = different % minutesInMilli;
-//
-//                                long elapsedSeconds = different / secondsInMilli;
-//
-//                                System.out.printf(
-//                                        "%d days, %d hours, %d minutes, %d seconds%n",
-//                                        elapsedDays, elapsedHours, elapsedMinutes, elapsedSeconds);
-//
-//                        } catch (ParseException e) {
-//                            e.printStackTrace();
-//                        }
-
-//1 minute = 60 seconds
-//1 hour = 60 x 60 = 3600
-//1 day = 3600 x 24 = 86400
-
 
                     } catch (JSONException e) {
                         e.printStackTrace();

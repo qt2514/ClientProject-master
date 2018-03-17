@@ -26,7 +26,7 @@ import com.twotr.twotr.globalpackfiles.SigninActivity;
  * A simple {@link Fragment} subclass.
  */
 public class TutorSettings extends Fragment implements NavigationView.OnNavigationItemSelectedListener {
-TextView TVprofile_link,TVsignout;
+TextView TVprofile_link,TVsignout,TVsubscribe;
     DrawerLayout drawer;
 
 TextView TVtermsandcondi,TVabout,TVshare;
@@ -49,6 +49,7 @@ TextView TVtermsandcondi,TVabout,TVshare;
         editor = Shared_user_details.edit();
         TVprofile_link=view.findViewById(R.id.profile_link);
         TVsignout=view.findViewById(R.id.signout_settings);
+        TVsubscribe=view.findViewById(R.id.subscribe_das);
         TVtermsandcondi=view.findViewById(R.id.termsandcondi_settings);
         TVabout=view.findViewById(R.id.about_settings);
         TVshare=view.findViewById(R.id.shareapp);
@@ -76,6 +77,12 @@ TextView TVtermsandcondi,TVabout,TVshare;
                         .gradientDivider(false)
                         .setCustomAnimations(R.anim.activity_open_enter, R.anim.activity_open_exit, R.anim.activity_close_enter, R.anim.activity_close_exit)
 .show("https://www.twotr.com/about.html");
+            }
+        });
+        TVsubscribe.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getActivity(),SubscriptionActivity.class));
             }
         });
 TVshare.setOnClickListener(new View.OnClickListener() {

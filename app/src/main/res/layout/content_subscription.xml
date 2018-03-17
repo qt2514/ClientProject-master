@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="com.twotr.twotr.tutorfiles.SubscriptionActivity"
+    tools:showIn="@layout/activity_subscription">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:id="@+id/top_relat"
+        android:background="@color/colorPrimaryDark"
+        android:layout_height="60dp">
+        <TextView
+            android:text="Subscription"
+            android:fontFamily="@font/montserrat"
+            android:layout_width="wrap_content"
+            android:textSize="15sp"
+            android:padding="2dp"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true"
+            android:textColor="#fff"
+            android:layout_height="wrap_content" />
+
+    </RelativeLayout>
+<ListView
+    android:id="@+id/subs_list"
+    android:layout_below="@+id/top_relat"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:scrollbars="none"
+    android:divider="@null"
+    android:background="@color/listback"
+    >
+
+
+</ListView>
+
+</RelativeLayout>

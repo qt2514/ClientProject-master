@@ -5,6 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/mdtp_white"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="com.twotr.twotr.tutorfiles.Profile_Page"
     tools:showIn="@layout/activity_profile_page">
@@ -179,7 +180,7 @@
                 android:id="@+id/profile_edit"
                 android:layout_width="25dp"
                 android:layout_gravity="center"
-                android:visibility="invisible"
+                android:visibility="visible"
                 android:layout_height="25dp"
                 android:background="@drawable/ic_profile_edit_icon"
                 android:layout_weight="0.2"/>

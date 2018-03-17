@@ -65,8 +65,11 @@ public class Profile_Page extends AppCompatActivity {
    ImageButton IB_back;
    GifImageView pendinggiflist;
    TextView pendingtextlist;
-    List<String> Listgrade ;
-    List<String> ListSubject ;
+    ArrayList<String> Listgrade ;
+    ArrayList<Integer> Listgradeint;
+    ArrayList<String> ListSubject ;
+    ArrayList<String> ListSubjectid ;
+    String  Surl= null;
     RecyclerView recyclerView,recyclerViewsub;
     RecyclerView.LayoutManager RecyclerViewLayoutManager,RecyclerViewLayoutManagersub;
     RecyclerViewAdapter RecyclerViewHorizontalAdapter,RecyclerViewHorizontalAdaptersub;
@@ -74,6 +77,15 @@ public class Profile_Page extends AppCompatActivity {
     private Boolean mobile_firstTime = null;
     private Boolean email_firstTime = null;
     Boolean isEducationCompleted, isProfessionalCompleted;
+    String Smajor ;
+    String Sinstitution ;
+    String SfieldOfStudy ;
+    String SstartYear ;
+    String SendYear ;
+    String Stitle;
+    String SinstitutionName;
+    String Sexperience;
+    Boolean SisStudyingCurrently;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -128,7 +140,9 @@ CIVprofimage=findViewById(R.id.image_profile);
         avi=findViewById(R.id.avi);
        Listgrade= new ArrayList<String>();
         ListSubject= new ArrayList<String>();
+        ListSubjectid= new ArrayList<String>();
 
+        Listgradeint=new ArrayList<>();
         gettallprofiledetails();
 
         if (Sroles.equals("student"))
@@ -226,18 +240,35 @@ intent.putExtra("lastname",SlastName);
                     intent.putExtra("zipcode",SzipCode);
                     intent.putExtra("monumber",Snumber);
                     intent.putExtra("mcode",Scode);
-                   // intent.putExtra("gender",Sgender);
-
+                   intent.putIntegerArrayListExtra("gradelevelint",Listgradeint);
+                    intent.putStringArrayListExtra("subid",ListSubjectid);
+                    intent.putStringArrayListExtra("subname",ListSubject);
+                    intent.putStringArrayListExtra("gradelevel",Listgrade);
+intent.putExtra("imageurl",Surl);
                     startActivity(intent);
 
                 }
                 else if(s_profile.matches("educational")||s_profile.equals("educational"))
                 {
-                    startActivity(new Intent(Profile_Page.this,Profile_Edit_Educational.class));
+                    Intent intentin=new Intent(Profile_Page.this,Profile_update_educational.class);
+                    intentin.putExtra("smajor",Smajor);
+                    intentin.putExtra("sinstitution",Sinstitution);
+                    intentin.putExtra("sfieldOfStudy",SfieldOfStudy);
+                    intentin.putExtra("sstartYear",SstartYear);
+                    intentin.putExtra("sendYear",SendYear);
+
+                    startActivity(intentin);
+
                 }
                 else if(s_profile.matches("professional")||s_profile.equals("professional"))
                 {
-                    startActivity(new Intent(Profile_Page.this,Profile_Edit_Professional.class));
+                    Intent intentinprof=new Intent(Profile_Page.this,Profile_Update_Professional.class);
+                    intentinprof.putExtra("stitle",Stitle);
+                    intentinprof.putExtra("sinstitutionName",SinstitutionName);
+                    intentinprof.putExtra("sexperience",Sexperience);
+
+                    startActivity(intentinprof);
+
                 }
             }
         });
@@ -350,8 +381,9 @@ recyclerView.setHorizontalScrollBarEnabled(false);
                     for (int i = 0; i < jsonArray.length(); i++) {
 
                         Listgrade.add(String.valueOf(jsonArray.get(i)));
-                     //   Number.add(String.valueOf(jsonArray.get(i)));
+                   Listgradeint.add(i);
                     }
+
                     recyclerView.setAdapter(RecyclerViewHorizontalAdapter);
 
                     JSONArray jsonArray1 = profile.getJSONArray("subjectIds");
@@ -360,8 +392,10 @@ recyclerView.setHorizontalScrollBarEnabled(false);
                         String Skind =jsonObject.getString("title");
                         String Sid =jsonObject.getString("_id");
                         ListSubject.add(Skind);
+                        ListSubjectid.add(Sid);
 
                     }
+
                     recyclerViewsub.setAdapter(RecyclerViewHorizontalAdaptersub);
 
 
@@ -417,11 +451,11 @@ if (isMobileVerified)
                         JSONArray jsonArray2 = educationinfo.getJSONArray("degrees");
                         for (int i = 0; i < jsonArray2.length(); i++) {
                             JSONObject jsonObjectedu = jsonArray2.getJSONObject(i);
-                            String Smajor =jsonObjectedu.getString("major");
-                            String Sinstitution =jsonObjectedu.getString("institution");
-                            String SfieldOfStudy =jsonObjectedu.getString("fieldOfStudy");
-                            String SstartYear =jsonObjectedu.getString("startYear");
-                            String SendYear =jsonObjectedu.getString("endYear");
+                             Smajor =jsonObjectedu.getString("major");
+                             Sinstitution =jsonObjectedu.getString("institution");
+                             SfieldOfStudy =jsonObjectedu.getString("fieldOfStudy");
+                             SstartYear =jsonObjectedu.getString("startYear");
+                             SendYear =jsonObjectedu.getString("endYear");
                             Boolean SisStudyingCurrently =jsonObjectedu.getBoolean("isStudyingCurrently");
 
                             TVmajor.setText(Smajor);
@@ -434,9 +468,9 @@ if (isMobileVerified)
 
                     try {
                         JSONObject professionalInfo = jObj.getJSONObject("professionalInfo");
-                        String Stitle=professionalInfo.getString("title");
-                        String SinstitutionName=professionalInfo.getString("institutionName");
-                        String Sexperience=professionalInfo.getString("experience");
+                         Stitle=professionalInfo.getString("title");
+                         SinstitutionName=professionalInfo.getString("institutionName");
+                         Sexperience=professionalInfo.getString("experience");
 
                         TVtitle.setText(Stitle);
                         TVproffinstitue.setText(SinstitutionName);
@@ -444,7 +478,7 @@ if (isMobileVerified)
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
-                    String  Surl= null;
+
                     try {
                         JSONObject profilePicture = userprofile.getJSONObject("profilePicture");
                         String profileimage = profilePicture.getString("url");
