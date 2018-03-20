@@ -32,6 +32,14 @@ private  String minPrice;
     private ArrayList<String> startli;
     private ArrayList<String> endli;
 
+    private ArrayList<String> prename;
+    private ArrayList<String> preurl;
+    private ArrayList<String> preid;
+
+    private ArrayList<String> posname;
+    private ArrayList<String> posurl;
+    private ArrayList<String> posid;
+
     public String getTotalRecords() {
         return totalRecords;
     }
@@ -192,6 +200,54 @@ private  String minPrice;
         this.endli = endli;
     }
 
+    public ArrayList<String> getPrename() {
+        return prename;
+    }
+
+    public void setPrename(ArrayList<String> prename) {
+        this.prename = prename;
+    }
+
+    public ArrayList<String> getPreurl() {
+        return preurl;
+    }
+
+    public void setPreurl(ArrayList<String> preurl) {
+        this.preurl = preurl;
+    }
+
+    public ArrayList<String> getPreid() {
+        return preid;
+    }
+
+    public void setPreid(ArrayList<String> preid) {
+        this.preid = preid;
+    }
+
+    public ArrayList<String> getPosname() {
+        return posname;
+    }
+
+    public void setPosname(ArrayList<String> posname) {
+        this.posname = posname;
+    }
+
+    public ArrayList<String> getPosurl() {
+        return posurl;
+    }
+
+    public void setPosurl(ArrayList<String> posurl) {
+        this.posurl = posurl;
+    }
+
+    public ArrayList<String> getPosid() {
+        return posid;
+    }
+
+    public void setPosid(ArrayList<String> posid) {
+        this.posid = posid;
+    }
+
     public static Creator<Schedule_upcoming_list> getCREATOR() {
         return CREATOR;
     }
@@ -217,6 +273,12 @@ private  String minPrice;
         this.minPrice = minPrice;
         this.startli = startli;
         this.endli = endli;
+        this.prename = prename;
+        this.preurl = preurl;
+        this.preid = preid;
+        this.posname = posname;
+        this.posurl = posurl;
+        this.posid = posid;
     }
 
     protected Schedule_upcoming_list(Parcel in) {
@@ -242,23 +304,12 @@ private  String minPrice;
         minPrice = in.readString();
         startli = in.createStringArrayList();
         endli = in.createStringArrayList();
-    }
-
-    public static final Creator<Schedule_upcoming_list> CREATOR = new Creator<Schedule_upcoming_list>() {
-        @Override
-        public Schedule_upcoming_list createFromParcel(Parcel in) {
-            return new Schedule_upcoming_list(in);
-        }
-
-        @Override
-        public Schedule_upcoming_list[] newArray(int size) {
-            return new Schedule_upcoming_list[size];
-        }
-    };
-
-    @Override
-    public int describeContents() {
-        return 0;
+        prename = in.createStringArrayList();
+        preurl = in.createStringArrayList();
+        preid = in.createStringArrayList();
+        posname = in.createStringArrayList();
+        posurl = in.createStringArrayList();
+        posid = in.createStringArrayList();
     }
 
     @Override
@@ -283,5 +334,28 @@ private  String minPrice;
         dest.writeString(minPrice);
         dest.writeStringList(startli);
         dest.writeStringList(endli);
+        dest.writeStringList(prename);
+        dest.writeStringList(preurl);
+        dest.writeStringList(preid);
+        dest.writeStringList(posname);
+        dest.writeStringList(posurl);
+        dest.writeStringList(posid);
     }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    public static final Creator<Schedule_upcoming_list> CREATOR = new Creator<Schedule_upcoming_list>() {
+        @Override
+        public Schedule_upcoming_list createFromParcel(Parcel in) {
+            return new Schedule_upcoming_list(in);
+        }
+
+        @Override
+        public Schedule_upcoming_list[] newArray(int size) {
+            return new Schedule_upcoming_list[size];
+        }
+    };
 }

@@ -374,6 +374,7 @@ android:layout_margin="5dp"
      android:textColor="@color/colorPrimaryDark"
      />
        <ImageButton
+           android:id="@+id/preclass_upload"
            android:layout_width="50dp"
            android:background="@drawable/ic_cloud_upload_black_24dp"
            android:layout_height="50dp" />
@@ -404,7 +405,8 @@ android:layout_margin="5dp"
                 />
             <ImageButton
                 android:layout_width="50dp"
-android:id="@+id/show_pre_post"
+android:id="@+id/post_upload"
+
                 android:background="@drawable/ic_cloud_upload_black_24dp"
                 android:layout_height="50dp" />
 

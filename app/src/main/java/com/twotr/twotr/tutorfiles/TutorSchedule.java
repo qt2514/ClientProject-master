@@ -492,6 +492,10 @@ catego.set_id(finalObject.getString("_id"));
                     catego.setStartli(starttimeschednew);
                     catego.setEndli(endtimeschednew);
 
+
+
+
+
 //                   // tinydb.putListString("starttimeschednew", (ArrayList<String>) starttimeschednew);
 //                    for (int j = 0; j < jsonArray1.length(); j++) {
 //                        JSONObject jsonObject = jsonArray1.getJSONObject(j);
@@ -500,7 +504,44 @@ catego.set_id(finalObject.getString("_id"));
 //                    }
                    // tinydb.putListString("endtimeschednew", (ArrayList<String>) endtimeschednew);
 
+                    try {
+                        JSONObject materialsjs=finalObject.getJSONObject("materials");
+                        JSONArray postmat = materialsjs.getJSONArray("post");
+                        JSONArray premat = materialsjs.getJSONArray("pre");
+                        ArrayList<String> mprename =new ArrayList<>();
+                        ArrayList<String> mpreurl =new ArrayList<>();
+                        ArrayList<String> mpreid =new ArrayList<>();
+                        ArrayList<String> mposname =new ArrayList<>();
+                        ArrayList<String> mposurl =new ArrayList<>();
+                        ArrayList<String> mposid =new ArrayList<>();
+                        for (int j = 0; j < postmat.length(); j++) {
+                            JSONObject posObject = postmat.getJSONObject(j);
 
+                            mposname.add(posObject.getString("name"));
+                            mposurl.add(posObject.getString("url"));
+                            mposid.add(posObject.getString("_id"));
+
+                        }
+                        catego.setPosname(mposname);
+                        catego.setPosurl(mposurl);
+                        catego.setPosid(mposid);
+                        for (int j = 0; j < premat.length(); j++) {
+                            JSONObject preObject = premat.getJSONObject(j);
+
+                            mprename.add(preObject.getString("name"));
+                            mpreurl.add(preObject.getString("url"));
+                            mpreid.add(preObject.getString("_id"));
+
+                        }
+                        catego.setPrename(mprename);
+                        catego.setPreurl(mpreurl);
+                        catego.setPreid(mpreid);
+
+
+
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
 
 
                     try {
@@ -543,7 +584,6 @@ catego.set_id(finalObject.getString("_id"));
                  adaptersa = new Schedule_class(getActivity(), R.layout.schedule_list, ScheduleMode);
                 LVschedule.setAdapter(adaptersa);
                 if (navtab_list.equals("upcoming")) {
-
                     LVschedule.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                         @Override
                         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -560,6 +600,12 @@ catego.set_id(finalObject.getString("_id"));
                             intent.putExtra("cateid",schedule_upcoming_list.get_id());
                             intent.putStringArrayListExtra("starttime",schedule_upcoming_list.getStartli());
                             intent.putStringArrayListExtra("endtime", schedule_upcoming_list.getEndli());
+                            intent.putStringArrayListExtra("prename",schedule_upcoming_list.getPrename());
+                            intent.putStringArrayListExtra("preurl", schedule_upcoming_list.getPreurl());
+                            intent.putStringArrayListExtra("preid",schedule_upcoming_list.getPreid());
+                            intent.putStringArrayListExtra("posname", schedule_upcoming_list.getPosname());
+                            intent.putStringArrayListExtra("posurl",schedule_upcoming_list.getPosurl());
+                            intent.putStringArrayListExtra("posid", schedule_upcoming_list.getPosid());
                             String Scompletestart = schedule_upcoming_list.getStart();
                             String Scompleteend = schedule_upcoming_list.getEnd();
                             String startdate = Scompletestart.substring(0, 10);

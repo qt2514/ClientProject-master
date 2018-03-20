@@ -55,8 +55,7 @@ public class GuestActivityDetails extends AppCompatActivity {
     String checkstarttime,checkstarttime2,checkstarttime3,checkstarttime4,checkstarttime5,checkendtime,checkendtime2,checkendtime3
             ,checkendtime4,checkendtime5;
     RelativeLayout relativeLayout;
-    TextView textView,textView2,textView3,textView4,textView5,textViewend,textViewend2,textViewend3,textViewend4,textViewend5,
-            TVsubject_name,TVtypesubject,TVhrscal,Tvprofname;
+    TextView textView,textView2,textView3,textView4,textView5,textViewend,textViewend2,textViewend3,textViewend4,textViewend5,Tvprofname;
     LinearLayout linearLayout,linearLayout2,linearLayout3,linearLayout4,linearLayout5,linearLayouthead;
     String selectedDateStr ;
     String checkselectdate;
@@ -75,7 +74,7 @@ public class GuestActivityDetails extends AppCompatActivity {
     String bbc4;
     String aac5 ;
     String bbc5;
-    String subjectname,subjecttype,subjecttime,Slati,Slongi,Susername,Screateid,Simageurl;
+    String subjectname,subjecttype,subjecttime,Slati,Slongi,Susername,Screateid,Simageurl,checkevendate,reccoeventdate;
     Button Bmap_show;
 CircleImageView profileimage;
     @Override
@@ -171,6 +170,27 @@ Tvprofname.setText(Susername);
         horizontalCalendar = new HorizontalCalendar.Builder(this, R.id.calendarView)
                 .range(startDate, endDate)
                 .datesNumberOnScreen(5)
+                .defaultSelectedDate(defaultSelectedDate)
+                .addEvents(new CalendarEventsPredicate() {
+                    @Override
+                    public List<CalendarEvent> events(Calendar date) {
+
+                        List<CalendarEvent> events = new ArrayList<>();
+
+                        checkevendate=DateFormat.format("MM-dd-yyyy", date).toString();
+
+                        Sstarttime = starttimeschednew.get(0);
+                        reccoeventdate = DateTimeUtils.formatWithPattern(Sstarttime, "MM-dd-yyyy");
+                        if (checkevendate.matches(reccoeventdate)) {
+
+                            events.add(new CalendarEvent(getResources().getColor(R.color.colorPrimaryDark), "event"));
+
+                        }
+
+
+                        return events;
+                    }
+                })
                 .build();
 
         horizontalCalendar.setCalendarListener(new HorizontalCalendarListener() {
@@ -209,14 +229,14 @@ Tvprofname.setText(Susername);
 
                     }
 
-                    if (!Slongi.isEmpty())
-                    {
-                        Bmap_show.setVisibility(View.VISIBLE);
-                    }
-                    else
-                    {
-                        Bmap_show.setVisibility(View.GONE);
-                    }
+//                    if (!Slongi.isEmpty())
+//                    {
+//                        Bmap_show.setVisibility(View.VISIBLE);
+//                    }
+//                    else
+//                    {
+//                        Bmap_show.setVisibility(View.GONE);
+//                    }
 
 
 
@@ -268,14 +288,14 @@ Tvprofname.setText(Susername);
                         relativeLayout.setVisibility(View.INVISIBLE);
 
                     }
-                    if (!Slongi.isEmpty())
-                    {
-                        Bmap_show.setVisibility(View.VISIBLE);
-                    }
-                    else
-                    {
-                        Bmap_show.setVisibility(View.GONE);
-                    }
+//                    if (!Slongi.isEmpty())
+//                    {
+//                        Bmap_show.setVisibility(View.VISIBLE);
+//                    }
+//                    else
+//                    {
+//                        Bmap_show.setVisibility(View.GONE);
+//                    }
 
 
 
@@ -343,14 +363,14 @@ Tvprofname.setText(Susername);
                         relativeLayout.setVisibility(View.INVISIBLE);
 
                     }
-                    if (!Slongi.isEmpty())
-                    {
-                        Bmap_show.setVisibility(View.VISIBLE);
-                    }
-                    else
-                    {
-                        Bmap_show.setVisibility(View.GONE);
-                    }
+//                    if (!Slongi.isEmpty())
+//                    {
+//                        Bmap_show.setVisibility(View.VISIBLE);
+//                    }
+//                    else
+//                    {
+//                        Bmap_show.setVisibility(View.GONE);
+//                    }
 
 
                 }
@@ -434,14 +454,14 @@ Tvprofname.setText(Susername);
 
                     }
 
-                    if (!Slongi.isEmpty())
-                    {
-                        Bmap_show.setVisibility(View.VISIBLE);
-                    }
-                    else
-                    {
-                        Bmap_show.setVisibility(View.GONE);
-                    }
+//                    if (!Slongi.isEmpty())
+//                    {
+//                        Bmap_show.setVisibility(View.VISIBLE);
+//                    }
+//                    else
+//                    {
+//                        Bmap_show.setVisibility(View.GONE);
+//                    }
 
 
                 }
@@ -535,15 +555,15 @@ Tvprofname.setText(Susername);
                         relativeLayout.setVisibility(View.INVISIBLE);
 
                     }
-                    if (!Slongi.isEmpty())
-                    {
-                        Bmap_show.setVisibility(View.VISIBLE);
-                    }
-                    else
-                    {
-                        Bmap_show.setVisibility(View.GONE);
-                    }
-
+//                    if (!Slongi.isEmpty())
+//                    {
+//                        Bmap_show.setVisibility(View.VISIBLE);
+//                    }
+//                    else
+//                    {
+//                        Bmap_show.setVisibility(View.GONE);
+//                    }
+//
 
                 }
                 else

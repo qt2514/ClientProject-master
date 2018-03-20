@@ -13,7 +13,7 @@ public class AppUtils {
 
         public static final int FAILURE_RESULT = 1;
 
-        public static final String PACKAGE_NAME = "your package name";
+        public static final String PACKAGE_NAME = "com.twotr.twotr";
 
         public static final String RECEIVER = PACKAGE_NAME + ".RECEIVER";
 

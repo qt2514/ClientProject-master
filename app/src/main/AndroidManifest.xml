@@ -208,6 +208,10 @@
         <activity
             android:name=".tutorfiles.Profile_Update_Professional"
             android:label="@string/title_activity_profile__update__professional"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".tutorfiles.TutorMaterialUpload"
+            android:label="@string/title_activity_tutor_material_upload"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 

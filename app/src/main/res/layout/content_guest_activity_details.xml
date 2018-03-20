@@ -26,13 +26,14 @@
             android:background="@drawable/ic_back_page"
             android:backgroundTint="#fff" />
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:gravity="center|start"
             android:weightSum="4"
             android:layout_marginTop="9dp"
             android:orientation="horizontal"
             android:layout_marginLeft="50dp"
+
             android:id="@+id/linearLayout5">
 
             <de.hdodenhof.circleimageview.CircleImageView

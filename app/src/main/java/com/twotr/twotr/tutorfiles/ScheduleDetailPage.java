@@ -48,7 +48,9 @@ Context context;
     public String Stoken;
     ArrayList<String> starttimee;
     ArrayList<String> endtime;
-
+    ArrayList<String> prename,preurl,preid;
+    ArrayList<String> posname,posurl,posid;
+ImageButton preclassup,postclassup;
     @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,6 +65,8 @@ Context context;
         IBpre_post=findViewById(R.id.add_pre_post);
         TVstudentcount=findViewById(R.id.stu_count_sched);
         linear_layout=findViewById(R.id.post_pre_linear);
+        preclassup=findViewById(R.id.preclass_upload);
+        postclassup=findViewById(R.id.post_upload);
         But_showmap=findViewById(R.id.schedule_map);
         But_showschedule=findViewById(R.id.schedule_show);
         IB_back=findViewById(R.id.back_ima_scedule);
@@ -74,7 +78,12 @@ TVminamounttex=findViewById(R.id.min_price_amount);
 context=this;
 starttimee= new ArrayList<>();
         endtime= new ArrayList<>();
-
+        prename= new ArrayList<>();
+        preurl= new ArrayList<>();
+        preid= new ArrayList<>();
+        posname= new ArrayList<>();
+        posurl= new ArrayList<>();
+        posid= new ArrayList<>();
         Shared_user_details=getSharedPreferences("user_detail_mode",0);
         Stoken=  Shared_user_details.getString("token", null);
         IB_back.setOnClickListener(new View.OnClickListener() {
@@ -118,6 +127,13 @@ Sminprice=(String) Bintent.get("minprice");
              Sid=(String) Bintent.get("cateid");
              starttimee= Bintent.getStringArrayList("starttime");
             endtime= Bintent.getStringArrayList("endtime");
+            prename= Bintent.getStringArrayList("prename");
+            preurl= Bintent.getStringArrayList("preurl");
+            preid= Bintent.getStringArrayList("preid");
+            posname= Bintent.getStringArrayList("posname");
+            posurl= Bintent.getStringArrayList("posurl");
+            posid= Bintent.getStringArrayList("posid");
+
 
             TVhrscal.setText(hrschmon);
             if (type_subject.equals("oneonone"))
@@ -166,11 +182,38 @@ startActivity(intentshow);
               //  startActivity(new Intent(ScheduleDetailPage.this,Schedule_ShowSchedule.class));
             }
         });
+
+        preclassup.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent tutormaterial=new Intent(ScheduleDetailPage.this,TutorMaterialUpload.class);
+                tutormaterial.putExtra("classtype","pre/");
+                tutormaterial.putExtra("classtypetest","Pre Class Materials");
+                tutormaterial.putStringArrayListExtra("prename",prename);
+                tutormaterial.putStringArrayListExtra("preurl", preurl);
+                tutormaterial.putStringArrayListExtra("preid",preid);
+
+                tutormaterial.putExtra("calid",Sid);
+       startActivity(tutormaterial);
+            }
+        });
+        postclassup.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent tutormaterial=new Intent(ScheduleDetailPage.this,TutorMaterialUpload.class);
+                tutormaterial.putExtra("classtype","post/");
+                tutormaterial.putExtra("classtypetest","Post Class Materials");
+                tutormaterial.putStringArrayListExtra("posname", posname);
+                tutormaterial.putStringArrayListExtra("posurl",posurl);
+                tutormaterial.putStringArrayListExtra("posid", posid);
+                tutormaterial.putExtra("calid",Sid);
+                startActivity(tutormaterial);
+            }
+        });
         IBedit_sched.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 ETsched_desc.setEnabled(true);
-
                 But_showmap.setVisibility(View.GONE);
                 Bupdate_details.setVisibility(View.VISIBLE);
 But_updatemap.setVisibility(View.VISIBLE);
@@ -210,6 +253,8 @@ linear_layout.setVisibility(View.VISIBLE);
             }
         });
     }
+
+
 
     public void update_schedule() {
 

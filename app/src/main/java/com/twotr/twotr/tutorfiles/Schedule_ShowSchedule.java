@@ -2,9 +2,11 @@ package com.twotr.twotr.tutorfiles;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.format.DateFormat;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
@@ -21,7 +23,9 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 
+import java.util.Date;
 import java.util.List;
+import java.util.Random;
 
 import devs.mulham.horizontalcalendar.HorizontalCalendar;
 import devs.mulham.horizontalcalendar.model.CalendarEvent;
@@ -58,7 +62,7 @@ ImageButton IB_back;
     String bbc4;
     String aac5 ;
     String bbc5;
-  String subjectname,subjecttype,subjecttime;
+  String subjectname,subjecttype,subjecttime,checkevendate,reccoeventdate;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,7 +92,6 @@ ImageButton IB_back;
         starttimeschednew=new ArrayList<>();
         endtimeschednew=new ArrayList<>();
         context=Schedule_ShowSchedule.this;
-
 
         final Intent intent = getIntent();
         Bundle Bintent = intent.getExtras();
@@ -122,10 +125,32 @@ int s= starttimeschednew.size();
         Calendar endDate = Calendar.getInstance();
         endDate.add(Calendar.DATE, 25);
         final Calendar defaultSelectedDate = Calendar.getInstance();
-        horizontalCalendar = new HorizontalCalendar.Builder(this, R.id.calendarView)
+
+
+                horizontalCalendar = new HorizontalCalendar.Builder(this, R.id.calendarView)
                 .range(startDate, endDate)
                 .datesNumberOnScreen(5)
-              .defaultSelectedDate(defaultSelectedDate)
+                        .defaultSelectedDate(defaultSelectedDate)
+.addEvents(new CalendarEventsPredicate() {
+    @Override
+    public List<CalendarEvent> events(Calendar date) {
+
+        List<CalendarEvent> events = new ArrayList<>();
+
+        checkevendate=DateFormat.format("MM-dd-yyyy", date).toString();
+
+            Sstarttime = starttimeschednew.get(0);
+            reccoeventdate = DateTimeUtils.formatWithPattern(Sstarttime, "MM-dd-yyyy");
+            if (checkevendate.matches(reccoeventdate)) {
+
+                events.add(new CalendarEvent(getResources().getColor(R.color.colorPrimaryDark), "event"));
+
+            }
+
+
+            return events;
+    }
+})
                 .build();
 
         horizontalCalendar.setCalendarListener(new HorizontalCalendarListener() {

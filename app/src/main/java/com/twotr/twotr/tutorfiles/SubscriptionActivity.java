@@ -16,6 +16,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -45,18 +46,28 @@ public class SubscriptionActivity extends AppCompatActivity {
     AVLoadingIndicatorView avi;
     SharedPreferences Shared_user_details;
     public String Stoken;
-    ListView Lsubs_list;
-    List<String> gradelevel;
 
+    ListView Lsubs_list;
+
+    List<String> gradelevel;
+    ImageButton IB_back;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_subscription);
         Lsubs_list=findViewById(R.id.subs_list);
+        IB_back=findViewById(R.id.back_ima_scedule);
         avi=findViewById(R.id.avi);
         Shared_user_details=getSharedPreferences("user_detail_mode",0);
         Stoken=  Shared_user_details.getString("token", null);
-        new ScheduleAsyncList().execute(Global_url_twotr.Tutor_subscription+"page=1&size=20");
+        new ScheduleAsyncList().execute(Global_url_twotr.Tutor_subscription+"page=1&size=10");
+        IB_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+
     }
 
 
@@ -99,10 +110,6 @@ public class SubscriptionActivity extends AppCompatActivity {
                 holder.TVdescription = convertView.findViewById(R.id.descrip_subs);
                 holder.TVprice = convertView.findViewById(R.id.price_subs);
                 holder.IMagesubs = convertView.findViewById(R.id.image_subs);
-
-
-
-
                 //     holder.TVstart_time = convertView.findViewById(R.id.hours_sched);
 
                 convertView.setTag(holder);

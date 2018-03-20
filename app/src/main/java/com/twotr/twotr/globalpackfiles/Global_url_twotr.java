@@ -78,4 +78,7 @@ public static String Guest_profile_details=Base_url+"userinfo/basic/public/";
 
 public static String Tutor_subscription=Base_url+"subscription/list?";
 
+
+public static String Tutor_material_upload=Base_url+"files/class/";
+
 }
