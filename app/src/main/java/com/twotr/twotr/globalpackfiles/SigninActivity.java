@@ -2,10 +2,7 @@ package com.twotr.twotr.globalpackfiles;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.os.Build;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
 import android.text.InputType;
 import android.util.Log;
@@ -18,7 +15,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -31,10 +27,6 @@ import com.android.volley.toolbox.Volley;
 import com.ontbee.legacyforks.cn.pedant.SweetAlert.SweetAlertDialog;
 import com.twotr.twotr.R;
 import com.twotr.twotr.db_handlers.SessionManager;
-import com.twotr.twotr.guestfiles.GuestControlBoard;
-import com.twotr.twotr.studenttwotr.StudentHome;
-import com.twotr.twotr.tutorfiles.HomePage;
-import com.twotr.twotr.tutorfiles.Profile_Page;
 import com.wang.avi.AVLoadingIndicatorView;
 
 import org.json.JSONArray;
@@ -55,7 +47,7 @@ public class SigninActivity extends AppCompatActivity {
     private SessionManager session;
     SharedPreferences Shared_user_details;
     SharedPreferences.Editor editor;
-    TextView TVstart_here;
+    TextView TVstart_here,TVforget_pass;
     ImageView Ivfacebook;
     String sweetmessage;
     ImageView IVfacebook_signin,IVtwitter_signi,IVzhaab_signin;
@@ -79,7 +71,41 @@ linearLayoutfacebook=findViewById(R.id.facebook_layout);
         IVfacebook_signin=findViewById(R.id.facebook_signin);
         IVtwitter_signi=findViewById(R.id.twitter_signin);
         IVzhaab_signin=findViewById(R.id.zhahab_signin);
+TVforget_pass=findViewById(R.id.forgetpass_signin);
 
+TVforget_pass.setOnClickListener(new View.OnClickListener() {
+    @Override
+    public void onClick(View v) {
+        new MaterialDialog.Builder(SigninActivity.this)
+                .title("Please Enter your email ID")
+                .inputType(InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS)
+                .input("email ID","", new MaterialDialog.InputCallback() {
+                            @Override
+                            public void onInput(MaterialDialog dialog, CharSequence input) {
+                                String   SemailPattern = "^[_A-Za-z0-9-]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
+                                if (input.toString().matches(SemailPattern))
+                                {
+                                    forgotpasscheck(input.toString());
+                                }
+                                else
+                                {
+                                    sweetmessage = "Please Check Your EmailId";
+                                    new SweetAlertDialog(SigninActivity.this, SweetAlertDialog.NORMAL_TYPE).setTitleText(sweetmessage)
+                                            .setConfirmText("OK")
+                                            .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                                                @Override
+                                                public void onClick(SweetAlertDialog sweetAlertDialog) {
+                                                    sweetAlertDialog.dismiss();
+                                                }
+                                            }).show();
+                                }
+
+
+                            }
+                        }
+                ).show();
+    }
+});
 
         linearLayoutzahaab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -325,6 +351,7 @@ public void signin_verif(String susername, String spass)
             @Override
             public void onErrorResponse(VolleyError error) {
                 avi.hide();
+
                 Log.i("checkerror",String.valueOf(error));
                 new SweetAlertDialog(SigninActivity.this, SweetAlertDialog.WARNING_TYPE).setTitleText("Please Enter Proper Credentials!")
                         .setConfirmText("OK")
@@ -588,7 +615,7 @@ public void signin_verif(String susername, String spass)
                 @Override
                 public Map<String, String> getHeaders() throws AuthFailureError {
                     HashMap<String, String> headers = new HashMap<String, String>();
-                        //               headers.put("content-Type", "application/json");
+
                     headers.put("AccessKey", "98918ce0-2a15-4e25-99bf-2e6b79a48eb6");
                     headers.put("authorization", "ZahhabService**2017!sab");
 
@@ -615,7 +642,7 @@ public void signin_verif(String susername, String spass)
         }
     }
 
-@RequiresApi(api = Build.VERSION_CODES.KITKAT)
+
 public void networkcreate(String firstname, String lastname, final String email,String sroles, String password, String referdby, String stype, String sresponse)
 {
     try {
@@ -734,5 +761,75 @@ public void networkcreate(String firstname, String lastname, final String email,
         e.printStackTrace();
     }
 }
+
+
+    public void forgotpasscheck(final String email) {
+
+        try {
+
+
+            RequestQueue requestQueue = Volley.newRequestQueue(this);
+
+            JSONObject jsonBody = new JSONObject();
+            jsonBody.put("email", email);
+            final String requestBody = jsonBody.toString();
+
+            StringRequest stringRequest = new StringRequest(Request.Method.POST, Global_url_twotr.Tutor_forgot_password, new Response.Listener<String>() {
+
+                public void onResponse(String response) {
+                    avi.hide();
+
+                    try {
+                        JSONObject jObj = new JSONObject(response);
+Log.i("jobjres",jObj.toString());
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+
+                }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    avi.hide();
+
+                    Log.e("VOLLEY", error.toString());
+                }
+            }) {
+                @Override
+                public String getBodyContentType() {
+
+                    return "application/json; charset=utf-8";
+                }
+
+                @Override
+                public Map<String, String> getHeaders() throws AuthFailureError {
+                    HashMap<String, String> headers = new HashMap<String, String>();
+                    //                   headers.put("content-Type", "application/json");
+                    headers.put("x-tutor-app-id", "tutor-app-android");
+                    return headers;
+
+                }
+
+                @Override
+                public byte[] getBody() throws AuthFailureError {
+                    try {
+                        return requestBody == null ? null : requestBody.getBytes("utf-8");
+
+                    } catch (UnsupportedEncodingException uee) {
+                        VolleyLog.wtf("Unsupported Encoding while trying to get the bytes of %s using %s", requestBody, "utf-8");
+                        return null;
+                    }
+                }
+
+
+
+
+            };
+
+            requestQueue.add(stringRequest);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
 }
 

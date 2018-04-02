@@ -8,6 +8,7 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,11 +22,13 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.android.volley.AuthFailureError;
+import com.android.volley.NetworkResponse;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.VolleyLog;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.twotr.twotr.R;
@@ -77,7 +80,7 @@ context=this;
         subjectnamelist=new ArrayList<>();
         subjectnameid=new ArrayList<>();
         listViewItems = new ArrayList<MultispinnerList>();
-        String usersubjectname="http://twotr.com:5040/api/userinfo/basic/profile";
+        String usersubjectname="https://api.twotr.com/api/userinfo/basic/profile";
         subject_name_list(usersubjectname);
         listViewWithCheckBox.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
@@ -130,7 +133,7 @@ textViewadd.setOnClickListener(new View.OnClickListener() {
             public void onTextChanged(CharSequence s, int start, int before, int count) {
 listViewItems.clear();
                 String subcharname=  s.toString();
-                subject_name_list("http://twotr.com:5040/api/subject/search?key="+subcharname);
+                subject_name_list("https://api.twotr.com/api/subject/search?key="+subcharname);
 
             }
 
@@ -355,6 +358,59 @@ avi.show();
                 @Override
                 public void onErrorResponse(VolleyError error) {
 avi.hide();
+
+                    NetworkResponse networkResponse = error.networkResponse;
+                    if (networkResponse != null && networkResponse.data != null) {
+                        try {
+                            JSONObject jsonObject=new JSONObject(new String(networkResponse.data));
+                            String message=jsonObject.getString("message");
+                            Log.i("jiokoj",message);
+                            if (message.equals("invalid_token"))
+                            {
+                                HashMap params = new HashMap();
+                                params.put("token", Stoken);
+
+                                JSONObject parameters = new JSONObject(params);
+
+                                JsonObjectRequest jsonRequest = new JsonObjectRequest(Request.Method.POST, Global_url_twotr.Tutor_token_Reset, parameters, new Response.Listener<JSONObject>() {
+                                    @Override
+                                    public void onResponse(JSONObject response) {
+                                        Log.i("igotres",response.toString());
+                                        //TODO: handle success
+                                    }
+                                }, new Response.ErrorListener() {
+                                    @Override
+                                    public void onErrorResponse(VolleyError error) {
+                                        error.printStackTrace();
+                                        //TODO: handle failure
+                                    }
+                                })
+
+                                {
+                                    @Override
+                                    public String getBodyContentType() {
+
+                                        return "application/json; charset=utf-8";
+                                    }
+
+                                    @Override
+                                    public Map<String, String> getHeaders() throws AuthFailureError {
+                                        HashMap<String, String> headers = new HashMap<String, String>();
+                                        // headers.put("content-Type", "application/json");
+                                        headers.put("x-tutor-app-id", "tutor-app-android");
+
+                                        return headers;
+
+                                    }};
+
+                                Volley.newRequestQueue(MultiSubjectSpinner.this).add(jsonRequest);
+
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+
+                    }
              //       Toast.makeText(context, "Please add subject again", Toast.LENGTH_SHORT).show();
                 }
             })

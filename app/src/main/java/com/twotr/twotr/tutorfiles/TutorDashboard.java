@@ -21,14 +21,15 @@ import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
+import com.android.volley.NetworkResponse;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.VolleyLog;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.github.thunder413.datetimeutils.DateTimeUnits;
@@ -39,7 +40,6 @@ import com.orangegangsters.github.swipyrefreshlayout.library.SwipyRefreshLayoutD
 import com.twotr.twotr.R;
 import com.twotr.twotr.globalpackfiles.Global_url_twotr;
 import com.twotr.twotr.globalpackfiles.TinyDB;
-import com.twotr.twotr.guestfiles.GuestControlBoard;
 import com.wang.avi.AVLoadingIndicatorView;
 
 import org.json.JSONArray;
@@ -104,25 +104,16 @@ imageViewnoloc=view.findViewById(R.id.dashborad_noloac);
    textViewsubjecttype=view.findViewById(R.id.subject_type);
    relativeLayoutdashbord=view.findViewById(R.id.list_dashboard);
         avi=view.findViewById(R.id.avi);
-
         LVtutordashboard=view.findViewById(R.id.dashboard_list);
-//        footer = new ProgressBar(getContext());
-//        LVtutordashboard.addFooterView(footer);
         swipyRefreshLayout=view.findViewById(R.id.swipyrefreshlayout);
-
         new ScheduleAsyncList().execute(Global_url_twotr.Profile_dashboard);
-
         LVtutordashboard.setOnScrollListener(new EndlessScrollListener() {
             @Override
             public void onLoadMore(int page, int totalItemsCount) {
-
                 new ScheduleAsyncList().execute(Global_url_twotr.Profile_dashboard);
-
-
             }
 
         });
-
         swipyRefreshLayout.setOnRefreshListener(new SwipyRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh(SwipyRefreshLayoutDirection direction) {
@@ -572,6 +563,110 @@ getActivity().finish();
                 @Override
                 public void onErrorResponse(VolleyError error) {
 
+                    NetworkResponse networkResponse = error.networkResponse;
+                    if (networkResponse != null && networkResponse.data != null) {
+                        try {
+                            JSONObject jsonObject=new JSONObject(new String(networkResponse.data));
+                            String message=jsonObject.getString("message");
+                            Log.i("jiokoj",message);
+                            if (message.equals("invalid_token"))
+                            {
+                                HashMap params = new HashMap();
+                                params.put("token", Stoken);
+
+                                JSONObject parameters = new JSONObject(params);
+
+                                JsonObjectRequest jsonRequest = new JsonObjectRequest(Request.Method.POST, Global_url_twotr.Tutor_token_Reset, parameters, new Response.Listener<JSONObject>() {
+                                    @Override
+                                    public void onResponse(JSONObject response) {
+                                        Log.i("igotres",response.toString());
+                                        //TODO: handle success
+                                    }
+                                }, new Response.ErrorListener() {
+                                    @Override
+                                    public void onErrorResponse(VolleyError error) {
+
+                                        NetworkResponse networkResponse = error.networkResponse;
+                                        if (networkResponse != null && networkResponse.data != null) {
+                                            try {
+                                                JSONObject jsonObject=new JSONObject(new String(networkResponse.data));
+                                                String message=jsonObject.getString("message");
+                                                Log.i("jiokoj",message);
+                                                if (message.equals("invalid_token"))
+                                                {
+                                                    HashMap params = new HashMap();
+                                                    params.put("token", Stoken);
+
+                                                    JSONObject parameters = new JSONObject(params);
+
+                                                    JsonObjectRequest jsonRequest = new JsonObjectRequest(Request.Method.POST, Global_url_twotr.Tutor_token_Reset, parameters, new Response.Listener<JSONObject>() {
+                                                        @Override
+                                                        public void onResponse(JSONObject response) {
+                                                            Log.i("igotres",response.toString());
+                                                            //TODO: handle success
+                                                        }
+                                                    }, new Response.ErrorListener() {
+                                                        @Override
+                                                        public void onErrorResponse(VolleyError error) {
+                                                            error.printStackTrace();
+                                                            //TODO: handle failure
+                                                        }
+                                                    })
+
+                                                    {
+                                                        @Override
+                                                        public String getBodyContentType() {
+
+                                                            return "application/json; charset=utf-8";
+                                                        }
+
+                                                        @Override
+                                                        public Map<String, String> getHeaders() throws AuthFailureError {
+                                                            HashMap<String, String> headers = new HashMap<String, String>();
+                                                            // headers.put("content-Type", "application/json");
+                                                            headers.put("x-tutor-app-id", "tutor-app-android");
+
+                                                            return headers;
+
+                                                        }};
+
+                                                    Volley.newRequestQueue(getContext()).add(jsonRequest);
+
+
+                                                }
+                                            } catch (JSONException e) {
+                                                e.printStackTrace();
+                                            }
+
+                                        }
+                                    }
+                                })
+
+                                {
+                                    @Override
+                                    public String getBodyContentType() {
+
+                                        return "application/json; charset=utf-8";
+                                    }
+
+                                    @Override
+                                    public Map<String, String> getHeaders() throws AuthFailureError {
+                                        HashMap<String, String> headers = new HashMap<String, String>();
+                                        // headers.put("content-Type", "application/json");
+                                        headers.put("x-tutor-app-id", "tutor-app-android");
+
+                                        return headers;
+
+                                    }};
+
+                                Volley.newRequestQueue(getContext()).add(jsonRequest);
+
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+
+                    }
                     Log.e("VOLLEY", error.toString());
                 }
             }) {

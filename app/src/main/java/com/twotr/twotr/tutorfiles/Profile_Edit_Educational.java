@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -13,11 +14,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
+import com.android.volley.NetworkResponse;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.VolleyLog;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.ontbee.legacyforks.cn.pedant.SweetAlert.SweetAlertDialog;
@@ -25,7 +28,6 @@ import com.quinny898.library.persistentsearch.SearchBox;
 import com.quinny898.library.persistentsearch.SearchResult;
 import com.twotr.twotr.R;
 import com.twotr.twotr.globalpackfiles.Global_url_twotr;
-
 import com.twotr.twotr.studenttwotr.StudentHome;
 import com.wang.avi.AVLoadingIndicatorView;
 import com.whiteelephant.monthpicker.MonthPickerDialog;
@@ -528,7 +530,7 @@ textViewins=findViewById(R.id.per_edu_inst);
                 public void onResponse(String response) {
                     editor = Shared_user_details.edit();
                     editor.putBoolean("isEducationCompleted",true);
-                    editor.commit();
+                    editor.apply();
                     avi.hide();
                     if (Sroles.equals("tutor"))
                     {
@@ -547,6 +549,58 @@ textViewins=findViewById(R.id.per_edu_inst);
                 public void onErrorResponse(VolleyError error) {
                     avi.hide();
 
+                    NetworkResponse networkResponse = error.networkResponse;
+                    if (networkResponse != null && networkResponse.data != null) {
+                        try {
+                            JSONObject jsonObject=new JSONObject(new String(networkResponse.data));
+                            String message=jsonObject.getString("message");
+                            Log.i("jiokoj",message);
+                            if (message.equals("invalid_token"))
+                            {
+                                HashMap params = new HashMap();
+                                params.put("token", Stoken);
+
+                                JSONObject parameters = new JSONObject(params);
+
+                                JsonObjectRequest jsonRequest = new JsonObjectRequest(Request.Method.POST, Global_url_twotr.Tutor_token_Reset, parameters, new Response.Listener<JSONObject>() {
+                                    @Override
+                                    public void onResponse(JSONObject response) {
+                                        Log.i("igotres",response.toString());
+                                        //TODO: handle success
+                                    }
+                                }, new Response.ErrorListener() {
+                                    @Override
+                                    public void onErrorResponse(VolleyError error) {
+                                        error.printStackTrace();
+                                        //TODO: handle failure
+                                    }
+                                })
+
+                                {
+                                    @Override
+                                    public String getBodyContentType() {
+
+                                        return "application/json; charset=utf-8";
+                                    }
+
+                                    @Override
+                                    public Map<String, String> getHeaders() throws AuthFailureError {
+                                        HashMap<String, String> headers = new HashMap<String, String>();
+                                        // headers.put("content-Type", "application/json");
+                                        headers.put("x-tutor-app-id", "tutor-app-android");
+
+                                        return headers;
+
+                                    }};
+
+                                Volley.newRequestQueue(Profile_Edit_Educational.this).add(jsonRequest);
+
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+
+                    }
                     new SweetAlertDialog(Profile_Edit_Educational.this, SweetAlertDialog.WARNING_TYPE).setTitleText("Server Error")
                             .setConfirmText("OK")
                             .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {

@@ -4,24 +4,23 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.android.volley.AuthFailureError;
+import com.android.volley.NetworkResponse;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.VolleyLog;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.ontbee.legacyforks.cn.pedant.SweetAlert.SweetAlertDialog;
@@ -299,7 +298,7 @@ int iexperi=Integer.valueOf(tvexperince_year.getText().toString());
                 public void onResponse(String response) {
                     editor = Shared_user_details.edit();
                     editor.putBoolean("isProfessionalCompleted",true);
-                    editor.commit();
+                    editor.apply();
                     avi.hide();
 
                     startActivity(new Intent(Profile_Update_Professional.this, HomePage.class));
@@ -312,6 +311,58 @@ int iexperi=Integer.valueOf(tvexperince_year.getText().toString());
                 public void onErrorResponse(VolleyError error) {
                     avi.hide();
 
+                    NetworkResponse networkResponse = error.networkResponse;
+                    if (networkResponse != null && networkResponse.data != null) {
+                        try {
+                            JSONObject jsonObject=new JSONObject(new String(networkResponse.data));
+                            String message=jsonObject.getString("message");
+                            Log.i("jiokoj",message);
+                            if (message.equals("invalid_token"))
+                            {
+                                HashMap params = new HashMap();
+                                params.put("token", Stoken);
+
+                                JSONObject parameters = new JSONObject(params);
+
+                                JsonObjectRequest jsonRequest = new JsonObjectRequest(Request.Method.POST, Global_url_twotr.Tutor_token_Reset, parameters, new Response.Listener<JSONObject>() {
+                                    @Override
+                                    public void onResponse(JSONObject response) {
+                                        Log.i("igotres",response.toString());
+                                        //TODO: handle success
+                                    }
+                                }, new Response.ErrorListener() {
+                                    @Override
+                                    public void onErrorResponse(VolleyError error) {
+                                        error.printStackTrace();
+                                        //TODO: handle failure
+                                    }
+                                })
+
+                                {
+                                    @Override
+                                    public String getBodyContentType() {
+
+                                        return "application/json; charset=utf-8";
+                                    }
+
+                                    @Override
+                                    public Map<String, String> getHeaders() throws AuthFailureError {
+                                        HashMap<String, String> headers = new HashMap<String, String>();
+                                        // headers.put("content-Type", "application/json");
+                                        headers.put("x-tutor-app-id", "tutor-app-android");
+
+                                        return headers;
+
+                                    }};
+
+                                Volley.newRequestQueue(Profile_Update_Professional.this).add(jsonRequest);
+
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+
+                    }
                     new SweetAlertDialog(Profile_Update_Professional.this, SweetAlertDialog.NORMAL_TYPE).setTitleText("Server Error")
                             .setConfirmText("OK")
                             .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {

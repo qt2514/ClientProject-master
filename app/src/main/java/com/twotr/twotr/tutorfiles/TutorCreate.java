@@ -7,7 +7,6 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -65,7 +64,7 @@ public class TutorCreate extends Fragment {
     List<String> starttime;
     List<String> endtime;
     //SearchBox search;
-    //String BaseSearchurl="http://twotr.com:5040/api/subject/search?key=";
+    //String BaseSearchurl="https://api.twotr.com/api/subject/search?key=";
     String search_result;
     public static TutorCreate newInstance() {
         return new TutorCreate();

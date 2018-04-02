@@ -31,7 +31,7 @@ String Stoken;
     SearchResult searchResult;
     SearchBox search;
 
-    String BaseSearchurl="http://twotr.com:5040/api/subject/search?key=";
+    String BaseSearchurl="https://api.twotr.com/api/subject/search?key=";
     String search_result;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,7 +42,7 @@ String Stoken;
         Stoken=  Shared_user_details.getString("token", null);
 
         search.setLogoText("Earch Your Subject here");
-        subject_spinner("http://twotr.com:5040/api/userinfo/basic/profile");
+        subject_spinner("https://api.twotr.com/api/userinfo/basic/profile");
         search.setMenuListener(new SearchBox.MenuListener(){
 
             @Override

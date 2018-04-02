@@ -24,6 +24,7 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.VolleyLog;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.ontbee.legacyforks.cn.pedant.SweetAlert.SweetAlertDialog;
@@ -278,6 +279,58 @@ public class Tutor_VerficationPage extends AppCompatActivity {
                 public void onErrorResponse(VolleyError error) {
                     avi.hide();
 
+                    NetworkResponse networkResponse = error.networkResponse;
+                    if (networkResponse != null && networkResponse.data != null) {
+                        try {
+                            JSONObject jsonObject=new JSONObject(new String(networkResponse.data));
+                            String message=jsonObject.getString("message");
+                            Log.i("jiokoj",message);
+                            if (message.equals("invalid_token"))
+                            {
+                                HashMap params = new HashMap();
+                                params.put("token", Stoken);
+
+                                JSONObject parameters = new JSONObject(params);
+
+                                JsonObjectRequest jsonRequest = new JsonObjectRequest(Request.Method.POST, Global_url_twotr.Tutor_token_Reset, parameters, new Response.Listener<JSONObject>() {
+                                    @Override
+                                    public void onResponse(JSONObject response) {
+                                        Log.i("igotres",response.toString());
+                                        //TODO: handle success
+                                    }
+                                }, new Response.ErrorListener() {
+                                    @Override
+                                    public void onErrorResponse(VolleyError error) {
+                                        error.printStackTrace();
+                                        //TODO: handle failure
+                                    }
+                                })
+
+                                {
+                                    @Override
+                                    public String getBodyContentType() {
+
+                                        return "application/json; charset=utf-8";
+                                    }
+
+                                    @Override
+                                    public Map<String, String> getHeaders() throws AuthFailureError {
+                                        HashMap<String, String> headers = new HashMap<String, String>();
+                                        // headers.put("content-Type", "application/json");
+                                        headers.put("x-tutor-app-id", "tutor-app-android");
+
+                                        return headers;
+
+                                    }};
+
+                                Volley.newRequestQueue(Tutor_VerficationPage.this).add(jsonRequest);
+
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+
+                    }
                     new SweetAlertDialog(Tutor_VerficationPage.this, SweetAlertDialog.WARNING_TYPE).setTitleText("Server Error")
                             .setConfirmText("OK")
                             .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
