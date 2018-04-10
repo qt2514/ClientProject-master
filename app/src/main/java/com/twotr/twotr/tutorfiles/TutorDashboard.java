@@ -16,6 +16,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.ArrayAdapter;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
@@ -37,6 +38,7 @@ import com.github.thunder413.datetimeutils.DateTimeUtils;
 import com.google.gson.Gson;
 import com.orangegangsters.github.swipyrefreshlayout.library.SwipyRefreshLayout;
 import com.orangegangsters.github.swipyrefreshlayout.library.SwipyRefreshLayoutDirection;
+import com.squareup.picasso.Picasso;
 import com.twotr.twotr.R;
 import com.twotr.twotr.globalpackfiles.Global_url_twotr;
 import com.twotr.twotr.globalpackfiles.TinyDB;
@@ -47,6 +49,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -59,6 +63,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import de.hdodenhof.circleimageview.CircleImageView;
 import pl.pawelkleczkowski.customgauge.CustomGauge;
 
 import static android.app.Activity.RESULT_OK;
@@ -69,16 +74,16 @@ import static android.content.Context.LAYOUT_INFLATER_SERVICE;
  */
 public class TutorDashboard extends Fragment {
     AVLoadingIndicatorView avi;
-    ListView LVtutordashboard;
+    ListView LVtutordashboard,LVNotification_view;
     SharedPreferences Shared_user_details;
     public String Stoken;
     String Slati,Slongi,Sid;
 ImageView imageView,imageViewloc,imageViewnoloc;
 TextView textViewstartdate,textViewstarttime,textViewsubjectname,textViewsubjecttype;
-RelativeLayout relativeLayoutdashbord;
+RelativeLayout relativeLayoutdashbord,notificationpanel;
     SwipyRefreshLayout swipyRefreshLayout;
     private static final int ADD_MAP_RES = 4;
-
+ImageButton IBnotification_view,IBnotification_close;
     ProgressBar footer;
     private CustomGauge CGgauge;
     public static TutorDashboard newInstance() {
@@ -103,8 +108,12 @@ imageViewnoloc=view.findViewById(R.id.dashborad_noloac);
    textViewsubjectname=view.findViewById(R.id.dashboard_subject_name);
    textViewsubjecttype=view.findViewById(R.id.subject_type);
    relativeLayoutdashbord=view.findViewById(R.id.list_dashboard);
+   LVNotification_view=view.findViewById(R.id.notification_listview);
+   IBnotification_close=view.findViewById(R.id.close_notification);
+   notificationpanel=view.findViewById(R.id.notification_masterpanel);
         avi=view.findViewById(R.id.avi);
         LVtutordashboard=view.findViewById(R.id.dashboard_list);
+        IBnotification_view=view.findViewById(R.id.notification_dashboard_load);
         swipyRefreshLayout=view.findViewById(R.id.swipyrefreshlayout);
         new ScheduleAsyncList().execute(Global_url_twotr.Profile_dashboard);
         LVtutordashboard.setOnScrollListener(new EndlessScrollListener() {
@@ -114,6 +123,7 @@ imageViewnoloc=view.findViewById(R.id.dashborad_noloac);
             }
 
         });
+       new NotifiAsyncList().execute(Global_url_twotr.Tutor_Notification+"?page=1&size=20");
         swipyRefreshLayout.setOnRefreshListener(new SwipyRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh(SwipyRefreshLayoutDirection direction) {
@@ -122,6 +132,24 @@ imageViewnoloc=view.findViewById(R.id.dashborad_noloac);
             }
         });
      dashboard_twotr();
+
+     IBnotification_view.setOnClickListener(new View.OnClickListener() {
+         @Override
+         public void onClick(View v) {
+             notificationpanel.setVisibility(View.VISIBLE);
+             IBnotification_view.setVisibility(View.GONE);
+         }
+     });
+
+        IBnotification_close.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                notificationpanel.setVisibility(View.GONE);
+                IBnotification_view.setVisibility(View.VISIBLE);
+
+
+            }
+        });
            return view;
 
     }
@@ -728,4 +756,228 @@ getActivity().finish();
             //Toast.makeText(context, "i got you", Toast.LENGTH_SHORT).show();
         }
     }
+
+
+
+    public class Notification_class extends ArrayAdapter {
+        private List<Notification_global_class> NotificationModeList;
+        private int resource;
+        Context context;
+        private LayoutInflater inflater;
+
+        Notification_class(Context context, int resource, List<Notification_global_class> objects) {
+            super(context, resource, objects);
+            NotificationModeList = objects;
+            this.context = context;
+            this.resource = resource;
+            inflater = (LayoutInflater) getActivity().getSystemService(LAYOUT_INFLATER_SERVICE);
+        }
+
+        @Override
+        public int getViewTypeCount() {
+            return 1;
+        }
+
+        @Override
+        public int getItemViewType(int position) {
+            return position;
+        }
+
+
+        @NonNull
+        @Override
+        public View getView(final int position, View convertView, @NonNull ViewGroup parent) {
+            final ViewHolder holder;
+            if (convertView == null) {
+                convertView = inflater.inflate(resource, null);
+                holder = new ViewHolder();
+holder.TVnotify_subject=convertView.findViewById(R.id.notification_subject);
+holder.TVnotify_name=convertView.findViewById(R.id.notification_name);
+holder.TVnotify_status=convertView.findViewById(R.id.status_notification);
+holder.CIVnotify_iame=convertView.findViewById(R.id.notification_image);
+
+                convertView.setTag(holder);
+            }//ino
+            else {
+                holder = (ViewHolder) convertView.getTag();
+            }
+            Notification_global_class ngc = NotificationModeList.get(position);
+holder.TVnotify_subject.setText("Subject : "+ngc.getSubject_name());
+holder.TVnotify_name.setText(ngc.getStud_firstName()+" "+ngc.getStud_lastName());
+String Status_record;
+if (ngc.getNotifi_isAccepted())
+{
+    Status_record="Accepted";
+    holder.TVnotify_status.setText("Status : "+Status_record);
+
+}
+            else if (ngc.getNotifi_isConfirmed())
+            {
+                Status_record="Confirmed";
+                holder.TVnotify_status.setText("Status : "+Status_record);
+
+            }
+            else if (ngc.getNotifi_isPending())
+            {
+                Status_record="Pending";
+                holder.TVnotify_status.setText("Status : "+Status_record);
+
+            }
+            else
+            {
+                Status_record="Rejected";
+                holder.TVnotify_status.setText("Status : "+Status_record);
+
+            }
+
+            Picasso
+                    .with(context)
+                    .load(Global_url_twotr.Image_Base_url+ngc.getProfile_Picture())
+                    .fit()
+                    .error(getResources().getDrawable(R.drawable.profile_image_tutor))
+                    .centerCrop()
+                    .into( holder.CIVnotify_iame);
+            return convertView;
+        }
+
+        class ViewHolder {
+            private CircleImageView CIVnotify_iame;
+            private TextView TVnotify_name;
+            private TextView TVnotify_subject;
+            private TextView TVnotify_status;
+
+
+
+        }
+    }
+
+
+
+    @SuppressLint("StaticFieldLeak")
+    public class NotifiAsyncList extends AsyncTask<String, String, List<Notification_global_class>> {
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            avi.show();
+        }
+
+        @Override
+        protected List<Notification_global_class> doInBackground(String... params) {
+            HttpURLConnection connection = null;
+            BufferedReader reader = null;
+            try {
+                URL url = new URL(params[0]);
+                DataOutputStream printout;
+                DataInputStream inputStream;
+                connection = (HttpURLConnection) url.openConnection();
+                connection.setDoInput (true);
+                connection.setDoOutput (true);
+                connection.setUseCaches (false);
+                connection.setRequestProperty("content-type","application/json");
+                connection.setRequestProperty("x-tutor-app-id","tutor-app-android");
+                connection.setRequestProperty("authorization", "Bearer "+Stoken);
+
+                connection.setRequestMethod("POST");
+                connection.connect();
+
+
+                JSONObject auth=new JSONObject();
+
+                auth.put("status", "");
+
+
+                printout = new DataOutputStream(connection.getOutputStream ());
+                printout.writeBytes(auth.toString());
+                printout.flush ();
+                printout.close ();
+                InputStream stream = connection.getInputStream();
+                reader = new BufferedReader(new InputStreamReader(stream));
+                StringBuilder buffer = new StringBuilder();
+                String line = "";
+                while ((line = reader.readLine()) != null) {
+                    buffer.append(line);
+                }
+                String finalJson = buffer.toString();
+                JSONObject parentObject = new JSONObject(finalJson);
+                JSONArray parentArray = parentObject.getJSONArray("notifications");
+
+                List<Notification_global_class> milokilo = new ArrayList<>();
+
+                for (int i = 0; i < parentArray.length(); i++) {
+
+                    JSONObject finalObject = parentArray.getJSONObject(i);
+                    //
+                    Notification_global_class nofi_json = new Notification_global_class();
+                    nofi_json.setClassId(finalObject.getString("classId"));
+                    nofi_json.setIsActive(finalObject.getString("isActive"));
+                    nofi_json.setSubjectId(finalObject.getString("subjectId"));
+                    nofi_json.setSubject_name(finalObject.getString("subject"));
+                    JSONObject student_details = finalObject.getJSONObject("student");
+                    nofi_json.setStud_firstName(student_details.getString("firstName"));
+                    nofi_json.setStud_lastName(student_details.getString("lastName"));
+                    JSONObject student_profile_image = student_details.getJSONObject("profilePicture");
+                    nofi_json.setProfile_Picture(student_profile_image.getString("url"));
+                    JSONObject notification_details = finalObject.getJSONObject("notification");
+                    nofi_json.setNotifi_isConfirmed(notification_details.getBoolean("isConfirmed"));
+                    nofi_json.setNotifi_isRejected(notification_details.getBoolean("isRejected"));
+                    nofi_json.setNotifi_isAccepted(notification_details.getBoolean("isAccepted"));
+                    nofi_json.setNotifi_isPending(notification_details.getBoolean("isPending"));
+                    JSONArray jsonArray1 = notification_details.getJSONArray("schedules");
+
+                    for (int j = 0; j < jsonArray1.length(); j++) {
+                        JSONObject jsonObject = jsonArray1.getJSONObject(j);
+                        nofi_json.setSched_start(jsonObject.getString("start"));
+                        nofi_json.setSched_end(jsonObject.getString("end"));
+
+
+                    }
+
+
+
+
+                    milokilo.add(nofi_json);
+
+
+
+                }
+
+                return milokilo;
+            } catch (JSONException | IOException e) {
+                e.printStackTrace();
+            } finally {
+                if (connection != null) {
+                    connection.disconnect();
+                }
+                try {
+                    if (reader != null) {
+                        reader.close();
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(final List<Notification_global_class> NotificationMode) {
+            super.onPostExecute(NotificationMode);
+            avi.hide();
+            if ((NotificationMode != null) && (NotificationMode.size()>0)&& getActivity()!=null)
+            {
+                IBnotification_view.setVisibility(View.VISIBLE);
+
+
+                Notification_class adapter = new Notification_class(getActivity(), R.layout.notificationlist, NotificationMode);
+                LVNotification_view.setAdapter(adapter);
+                adapter.notifyDataSetChanged();
+            }
+
+else {
+                IBnotification_view.setVisibility(View.GONE);
+            }
+
+        }
+    }
+
 }

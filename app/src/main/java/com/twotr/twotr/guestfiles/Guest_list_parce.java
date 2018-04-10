@@ -32,6 +32,14 @@ public class Guest_list_parce implements Parcelable {
     private String createdByName;
     private ArrayList<String> startli;
     private ArrayList<String> endli;
+    private ArrayList<String> groupKey;
+    private ArrayList<String> availableCount;
+    private ArrayList<String> slotPrice;
+    private ArrayList<String> isAvailable;
+
+
+    private ArrayList<String> sche_classId;
+    private ArrayList<String> sche_id;
 private  String url;
 
     public String getTotalRecords() {
@@ -202,6 +210,54 @@ private  String url;
         this.endli = endli;
     }
 
+    public ArrayList<String> getGroupKey() {
+        return groupKey;
+    }
+
+    public void setGroupKey(ArrayList<String> groupKey) {
+        this.groupKey = groupKey;
+    }
+
+    public ArrayList<String> getAvailableCount() {
+        return availableCount;
+    }
+
+    public void setAvailableCount(ArrayList<String> availableCount) {
+        this.availableCount = availableCount;
+    }
+
+    public ArrayList<String> getSlotPrice() {
+        return slotPrice;
+    }
+
+    public void setSlotPrice(ArrayList<String> slotPrice) {
+        this.slotPrice = slotPrice;
+    }
+
+    public ArrayList<String> getIsAvailable() {
+        return isAvailable;
+    }
+
+    public void setIsAvailable(ArrayList<String> isAvailable) {
+        this.isAvailable = isAvailable;
+    }
+
+    public ArrayList<String> getSche_classId() {
+        return sche_classId;
+    }
+
+    public void setSche_classId(ArrayList<String> sche_classId) {
+        this.sche_classId = sche_classId;
+    }
+
+    public ArrayList<String> getSche_id() {
+        return sche_id;
+    }
+
+    public void setSche_id(ArrayList<String> sche_id) {
+        this.sche_id = sche_id;
+    }
+
     public String getUrl() {
         return url;
     }
@@ -236,6 +292,12 @@ private  String url;
         this.createdByName = createdByName;
         this.startli = startli;
         this.endli = endli;
+        this.groupKey = groupKey;
+        this.availableCount = availableCount;
+        this.slotPrice = slotPrice;
+        this.isAvailable = isAvailable;
+        this.sche_classId = sche_classId;
+        this.sche_id = sche_id;
         this.url = url;
     }
 
@@ -263,6 +325,12 @@ private  String url;
         createdByName = in.readString();
         startli = in.createStringArrayList();
         endli = in.createStringArrayList();
+        groupKey = in.createStringArrayList();
+        availableCount = in.createStringArrayList();
+        slotPrice = in.createStringArrayList();
+        isAvailable = in.createStringArrayList();
+        sche_classId = in.createStringArrayList();
+        sche_id = in.createStringArrayList();
         url = in.readString();
     }
 
@@ -289,6 +357,12 @@ private  String url;
         dest.writeString(createdByName);
         dest.writeStringList(startli);
         dest.writeStringList(endli);
+        dest.writeStringList(groupKey);
+        dest.writeStringList(availableCount);
+        dest.writeStringList(slotPrice);
+        dest.writeStringList(isAvailable);
+        dest.writeStringList(sche_classId);
+        dest.writeStringList(sche_id);
         dest.writeString(url);
     }
 

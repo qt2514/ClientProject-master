@@ -9,8 +9,6 @@ import com.twotr.twotr.R;
 import com.twotr.twotr.db_handlers.SessionManager;
 import com.twotr.twotr.studenttwotr.StudentHome;
 import com.twotr.twotr.tutorfiles.HomePage;
-import com.twotr.twotr.tutorfiles.Profile_Edit_Personal;
-import com.twotr.twotr.tutorfiles.Tutor_VerficationPage;
 
 public class HubPlace extends Activity {
     SharedPreferences Shared_user_details;
@@ -30,6 +28,9 @@ public class HubPlace extends Activity {
 //        }
 
         assert Sroles != null;
+        if(session.isLoggedIn())
+            {
+
         if (Sroles.equals("tutor"))
         {
 
@@ -44,6 +45,7 @@ public class HubPlace extends Activity {
             startActivity(new Intent(HubPlace.this, StudentHome.class));
             finish();
 
+        }
         }
 
     }

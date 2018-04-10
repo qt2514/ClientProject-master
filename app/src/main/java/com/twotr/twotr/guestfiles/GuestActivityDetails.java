@@ -2,42 +2,53 @@ package com.twotr.twotr.guestfiles;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Bundle;
-import android.support.annotation.IdRes;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.support.v4.app.FragmentTransaction;
+import android.support.annotation.NonNull;
+import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.text.format.DateFormat;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.github.thunder413.datetimeutils.DateTimeUtils;
-import com.roughike.bottombar.BottomBar;
-import com.roughike.bottombar.OnTabSelectListener;
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.VolleyLog;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+import com.ontbee.legacyforks.cn.pedant.SweetAlert.SweetAlertDialog;
 import com.squareup.picasso.Picasso;
 import com.twotr.twotr.R;
 import com.twotr.twotr.globalpackfiles.Global_url_twotr;
-import com.twotr.twotr.studenttwotr.StudentBookings;
-import com.twotr.twotr.studenttwotr.StudentDashboard;
-import com.twotr.twotr.studenttwotr.StudentSearch;
-import com.twotr.twotr.studenttwotr.StudentSettings;
-import com.twotr.twotr.tutorfiles.ScheduleDetailPage;
+import com.twotr.twotr.globalpackfiles.SigninActivity;
 import com.twotr.twotr.tutorfiles.Schedule_ShowMap;
-import com.twotr.twotr.tutorfiles.Schedule_ShowSchedule;
-import com.wdullaer.materialdatetimepicker.time.TimePickerDialog;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.UnsupportedEncodingException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import devs.mulham.horizontalcalendar.HorizontalCalendar;
@@ -47,81 +58,87 @@ import devs.mulham.horizontalcalendar.utils.HorizontalCalendarListener;
 
 public class GuestActivityDetails extends AppCompatActivity {
     HorizontalCalendar horizontalCalendar;
-    TimePickerDialog tpd;
     List<String> starttimeschednew;
     List<String> endtimeschednew;
     Context context;
-    String Sstarttime,Sstarttime2,Sstarttime3,Sstarttime4,Sstarttime5,Sendtime,Sendtime2,Sendtime3,Sendtime4,Sendtime5;
-    String checkstarttime,checkstarttime2,checkstarttime3,checkstarttime4,checkstarttime5,checkendtime,checkendtime2,checkendtime3
-            ,checkendtime4,checkendtime5;
+    Schedule_class adapter;
+    ArrayList<String> startdatearr=new ArrayList<String>();
+    String Sstarttime;
+    String checkstarttime;
     RelativeLayout relativeLayout;
-    TextView textView,textView2,textView3,textView4,textView5,textViewend,textViewend2,textViewend3,textViewend4,textViewend5,Tvprofname;
-    LinearLayout linearLayout,linearLayout2,linearLayout3,linearLayout4,linearLayout5,linearLayouthead;
+    TextView Tvprofname;
+    LinearLayout linearLayouthead;
     String selectedDateStr ;
-    String checkselectdate;
-    String checkselectdate2;
-    String checkselectdate3;
-    String checkselectdate4;
-    String checkselectdate5;
     ImageButton IB_back;
-    String aac ;
-    String bbc;
-    String aac2;
-    String bbc2;
-    String aac3;
-    String bbc3;
-    String aac4 ;
-    String bbc4;
-    String aac5 ;
-    String bbc5;
-    String subjectname,subjecttype,subjecttime,Slati,Slongi,Susername,Screateid,Simageurl,checkevendate,reccoeventdate;
+    String subjectname,subjecttype,subjecttime,Slati,Slongi,Susername,Screateid,Simageurl,checkevendate,groupdate;
     Button Bmap_show;
 CircleImageView profileimage;
+    List<String> groupKeynew ;
+    List<String> isAvailablenew;
+    List<String> slotnew;
+    List<String> availableCountnew ;
+    List<String> schcalssid;
+    List<String> schid ;
+Button Bslotprice;
+    SharedPreferences Shared_user_details;
+    String Sroles,Stoken;
+    ListView LVlistingravit;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_guest_details);
 
-        linearLayout=findViewById(R.id.linlay1);
-        linearLayout2=findViewById(R.id.linlay2);
-        linearLayout3=findViewById(R.id.linlay3);
-        linearLayout4=findViewById(R.id.linlay4);
-        linearLayout5=findViewById(R.id.linlay5);
         relativeLayout=findViewById(R.id.relaymast);
-        textView=findViewById(R.id.starttime1);
-        textView2=findViewById(R.id.starttime2);
-        textView3=findViewById(R.id.starttime3);
-        textView4=findViewById(R.id.starttime4);
-        textView5=findViewById(R.id.starttime5);
-        textViewend=findViewById(R.id.endtime1);
-        textViewend2=findViewById(R.id.endtime2);
-        textViewend3=findViewById(R.id.endtime3);
-        textViewend4=findViewById(R.id.endtime4);
-        textViewend5=findViewById(R.id.endtime5);
+
         linearLayouthead=findViewById(R.id.linearLayout5);
 Bmap_show=findViewById(R.id.map_show);
+Bslotprice=findViewById(R.id.slotpricebook);
         IB_back=findViewById(R.id.back_ima_scedule);
 Tvprofname=findViewById(R.id.prof_prof_name);
 profileimage=findViewById(R.id.image_profile);
+LVlistingravit=findViewById(R.id.listingravit);
         starttimeschednew=new ArrayList<>();
         endtimeschednew=new ArrayList<>();
+        groupKeynew =new ArrayList<>();
+        isAvailablenew=new ArrayList<>();
+        slotnew =new ArrayList<>();
+      availableCountnew =new ArrayList<>();
+        schcalssid =new ArrayList<>();
+        schid=new ArrayList<>();
+
+
+
         context=GuestActivityDetails.this;
+
+        Shared_user_details=getSharedPreferences("user_detail_mode",0);
+        Sroles=  Shared_user_details.getString("roles", null);
+        Stoken=  Shared_user_details.getString("token", null);
+
         final Intent intent = getIntent();
         Bundle Bintent = intent.getExtras();
         if(Bintent != null) {
             starttimeschednew= Bintent.getStringArrayList("starttime");
             endtimeschednew= Bintent.getStringArrayList("endtime");
+            isAvailablenew= Bintent.getStringArrayList("isAvailable");
+            groupKeynew= Bintent.getStringArrayList("groupKey");
+            slotnew= Bintent.getStringArrayList("slotPrice");
+            availableCountnew= Bintent.getStringArrayList("availableCount");
             subjectname= Bintent.getString("subjectname");
             subjecttype= Bintent.getString("typesub");
             subjecttime= Bintent.getString("hrstot");
             Slati= Bintent.getString("latitude");
             Slongi= Bintent.getString("longitude");
-Susername=Bintent.getString("createdbyname");
+            schcalssid=Bintent.getStringArrayList("schclassid");
+            schid=Bintent.getStringArrayList("sch_id");
+
+            Susername=Bintent.getString("createdbyname");
 Screateid=Bintent.getString("createdby");
+
             Simageurl=Bintent.getString("imgurl");
 
 
         }
+
         Picasso
                 .with(context)
                 .load(Global_url_twotr.Image_Base_url+Simageurl)
@@ -161,9 +178,10 @@ Tvprofname.setText(Susername);
             }
         });
 
+
+
         Calendar startDate = Calendar.getInstance();
         startDate.add(Calendar.DATE, 0);
-
         Calendar endDate = Calendar.getInstance();
         endDate.add(Calendar.DATE, 25);
         final Calendar defaultSelectedDate = Calendar.getInstance();
@@ -174,407 +192,275 @@ Tvprofname.setText(Susername);
                 .addEvents(new CalendarEventsPredicate() {
                     @Override
                     public List<CalendarEvent> events(Calendar date) {
-
                         List<CalendarEvent> events = new ArrayList<>();
+for (String a:groupKeynew) {
+    checkevendate=DateFormat.format("dd-MM-yyyy", date).toString();
+    if (checkevendate.matches(a)) {
+        events.add(new CalendarEvent(getResources().getColor(R.color.colorPrimaryDark), "event"));
+    }
 
-                        checkevendate=DateFormat.format("MM-dd-yyyy", date).toString();
-
-                        Sstarttime = starttimeschednew.get(0);
-                        reccoeventdate = DateTimeUtils.formatWithPattern(Sstarttime, "MM-dd-yyyy");
-                        if (checkevendate.matches(reccoeventdate)) {
-
-                            events.add(new CalendarEvent(getResources().getColor(R.color.colorPrimaryDark), "event"));
-
-                        }
-
-
+}
                         return events;
+
                     }
                 })
                 .build();
 
         horizontalCalendar.setCalendarListener(new HorizontalCalendarListener() {
+            @RequiresApi(api = Build.VERSION_CODES.O)
             @Override
             public void onDateSelected(Calendar date, int position) {
-                SimpleDateFormat inFormat = new SimpleDateFormat("HH:mm");
-                SimpleDateFormat outFormat = new SimpleDateFormat("hh:mm aa");
                 relativeLayout.setVisibility(View.INVISIBLE);
-                selectedDateStr = DateFormat.format("MM-dd-yyyy", date).toString();
-                if (starttimeschednew.size()==1)
-                {
-                    Sstarttime = starttimeschednew.get(0);
-                    Sendtime = endtimeschednew.get(0);
-                    checkselectdate = DateTimeUtils.formatWithPattern(Sstarttime, "MM-dd-yyyy");
-                    if (checkselectdate.matches(selectedDateStr)) {
+                selectedDateStr = DateFormat.format("dd-MM-yyyy", date).toString();
+                    for (int da=0;da<groupKeynew.size();da++) {
+                        groupdate=groupKeynew.get(da);
 
+    if (selectedDateStr.contains(groupdate)) {
+        startdatearr.clear();
+        Sstarttime = starttimeschednew.get(da);
+        checkstarttime = Sstarttime.substring(11, 16);
+        SimpleDateFormat _24HourSDF = new SimpleDateFormat("HH:mm");
+        SimpleDateFormat _12HourSDF = new SimpleDateFormat("hh:mm a");
+        Date _24HourDt = null;
+        try {
+            _24HourDt = _24HourSDF.parse(checkstarttime);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        String S12form=_12HourSDF.format(_24HourDt);
+        startdatearr.add(S12form);
+        Bslotprice.setText("Book For "+slotnew.get(da)+" KW");
+        adapter = new Schedule_class(GuestActivityDetails.this, R.layout.calendertime_guestlist, startdatearr);
+        LVlistingravit.setAdapter(adapter);
+        relativeLayout.setVisibility(View.VISIBLE);
+        final int finalDa = da;
 
-
-                        checkstarttime=Sstarttime.substring(11,16);
-                        checkendtime=Sendtime.substring(11,16);
-                        try {
-                            aac = outFormat.format(inFormat.parse(checkstarttime));
-                            bbc = outFormat.format(inFormat.parse(checkendtime));
-
-                        } catch (ParseException e1) {
-                            e1.printStackTrace();
-                        }
-                        relativeLayout.setVisibility(View.VISIBLE);
-                        linearLayout.setVisibility(View.VISIBLE);
-                        textView.setText(aac);
-                        textViewend.setText(bbc);
-                    }
-                    else
-                    {
-                        relativeLayout.setVisibility(View.INVISIBLE);
-
-                    }
-
-//                    if (!Slongi.isEmpty())
-//                    {
-//                        Bmap_show.setVisibility(View.VISIBLE);
-//                    }
-//                    else
-//                    {
-//                        Bmap_show.setVisibility(View.GONE);
-//                    }
-
-
-
+        Bslotprice.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+if (isAvailablenew.get(finalDa).matches("false"))
+{
+    new SweetAlertDialog(GuestActivityDetails.this, SweetAlertDialog.WARNING_TYPE).setTitleText("Not Available ")
+            .setContentText("Slot is Not Available")
+            .setConfirmText("OK")
+            .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                @Override
+                public void onClick(SweetAlertDialog sweetAlertDialog) {
+                    sweetAlertDialog.dismiss();
                 }
-
-                else if (starttimeschednew.size()==2)
+            }).show();
+}
+               else if (TextUtils.isEmpty(Sroles))
                 {
-                    Sstarttime = starttimeschednew.get(0);
-                    Sstarttime2 = starttimeschednew.get(1);
-                    Sendtime = endtimeschednew.get(0);
-                    Sendtime2 = endtimeschednew.get(1);
-                    checkselectdate = DateTimeUtils.formatWithPattern(Sstarttime, "MM-dd-yyyy");
-
-                    checkselectdate2 = DateTimeUtils.formatWithPattern(Sstarttime2, "MM-dd-yyyy");
-
-                    if (checkselectdate.matches(selectedDateStr)) {
-
-
-
-                        checkstarttime=Sstarttime.substring(11,16);
-                        checkendtime=Sendtime.substring(11,16);
-                        checkstarttime2=Sstarttime2.substring(11,16);
-                        checkendtime2=Sendtime2.substring(11,16);
-
-                        try {
-                            aac = outFormat.format(inFormat.parse(checkstarttime));
-                            bbc = outFormat.format(inFormat.parse(checkendtime));
-
-                        } catch (ParseException e1) {
-                            e1.printStackTrace();
-                        }
-                        try {
-                            aac2 = outFormat.format(inFormat.parse(checkstarttime2));
-                            bbc2 = outFormat.format(inFormat.parse(checkendtime2));
-
-                        } catch (ParseException e1) {
-                            e1.printStackTrace();
-                        }
-                        relativeLayout.setVisibility(View.VISIBLE);
-                        linearLayout.setVisibility(View.VISIBLE);
-                        linearLayout2.setVisibility(View.VISIBLE);
-                        textView.setText(aac);
-                        textViewend.setText(bbc);
-                        textView2.setText(aac2);
-                        textViewend2.setText(bbc2);
-                    }
-                    else
-                    {
-                        relativeLayout.setVisibility(View.INVISIBLE);
-
-                    }
-//                    if (!Slongi.isEmpty())
-//                    {
-//                        Bmap_show.setVisibility(View.VISIBLE);
-//                    }
-//                    else
-//                    {
-//                        Bmap_show.setVisibility(View.GONE);
-//                    }
-
-
-
+                    new SweetAlertDialog(GuestActivityDetails.this, SweetAlertDialog.NORMAL_TYPE).setTitleText("Sign in!")
+                            .setContentText("Please Signin Now!")
+                            .setConfirmText("OK")
+                            .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                                @Override
+                                public void onClick(SweetAlertDialog sweetAlertDialog) {
+                                    startActivity(new Intent(GuestActivityDetails.this, SigninActivity.class));
+                                    finish();
+                                    sweetAlertDialog.dismiss();
+                                }
+                            }).show();
                 }
-                else if(starttimeschednew.size()==3)
+                else if(Sroles.matches("student"))
                 {
-                    Sstarttime = starttimeschednew.get(0);
-                    Sstarttime2 = starttimeschednew.get(1);
-                    Sendtime = endtimeschednew.get(0);
-                    Sendtime2 = endtimeschednew.get(1);
-                    Sstarttime3 = starttimeschednew.get(2);
-                    Sendtime3 = endtimeschednew.get(2);
+                    new SweetAlertDialog(GuestActivityDetails.this, SweetAlertDialog.NORMAL_TYPE).setTitleText("Request Confirmation!")
+                            .setContentText("Are you sure you want to Book this Slot!")
+                            .setConfirmText("OK")
+                            .setCancelText("Cancel")
+                            .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                                @Override
+                                public void onClick(SweetAlertDialog sweetAlertDialog) {
+                                    String myclassid,myschid;
+                                    myclassid=schcalssid.get(finalDa);
+                                    myschid=schid.get(finalDa);
+                                    enrollslot(myclassid,myschid);
+                                }
 
-                    checkselectdate = DateTimeUtils.formatWithPattern(Sstarttime, "MM-dd-yyyy");
-
-                    checkselectdate2 = DateTimeUtils.formatWithPattern(Sstarttime2, "MM-dd-yyyy");
-
-                    checkselectdate3 = DateTimeUtils.formatWithPattern(Sstarttime3, "MM-dd-yyyy");
-
-                    if (checkselectdate.matches(selectedDateStr)) {
-
-
-
-                        checkstarttime=Sstarttime.substring(11,16);
-                        checkendtime=Sendtime.substring(11,16);
-                        checkstarttime2=Sstarttime2.substring(11,16);
-                        checkendtime2=Sendtime2.substring(11,16);
-                        checkstarttime3=Sstarttime3.substring(11,16);
-                        checkendtime3=Sendtime3.substring(11,16);
-
-                        try {
-                            aac = outFormat.format(inFormat.parse(checkstarttime));
-                            bbc = outFormat.format(inFormat.parse(checkendtime));
-
-                        } catch (ParseException e1) {
-                            e1.printStackTrace();
-                        }
-                        try {
-                            aac2 = outFormat.format(inFormat.parse(checkstarttime2));
-                            bbc2 = outFormat.format(inFormat.parse(checkendtime2));
-
-                        } catch (ParseException e1) {
-                            e1.printStackTrace();
-                        }
-                        try {
-                            aac3 = outFormat.format(inFormat.parse(checkstarttime3));
-                            bbc3 = outFormat.format(inFormat.parse(checkendtime3));
-
-                        } catch (ParseException e1) {
-                            e1.printStackTrace();
-                        }
-                        relativeLayout.setVisibility(View.VISIBLE);
-                        linearLayout.setVisibility(View.VISIBLE);
-                        linearLayout2.setVisibility(View.VISIBLE);
-                        linearLayout3.setVisibility(View.VISIBLE);
-                        textView.setText(aac);
-                        textViewend.setText(bbc);
-                        textView2.setText(aac2);
-                        textViewend2.setText(bbc2);
-                        textView3.setText(aac3);
-                        textViewend3.setText(bbc3);
-                    }
-                    else
-                    {
-                        relativeLayout.setVisibility(View.INVISIBLE);
+                            })
+                            .setCancelClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                                @Override
+                                public void onClick(SweetAlertDialog sweetAlertDialog) {
+                                    sweetAlertDialog.dismiss();
+                                }
+                            })
+                            .show();
 
                     }
-//                    if (!Slongi.isEmpty())
-//                    {
-//                        Bmap_show.setVisibility(View.VISIBLE);
-//                    }
-//                    else
-//                    {
-//                        Bmap_show.setVisibility(View.GONE);
-//                    }
-
-
-                }
-                else if (starttimeschednew.size()==4)
-                {
-                    Sstarttime = starttimeschednew.get(0);
-                    Sstarttime2 = starttimeschednew.get(1);
-                    Sendtime = endtimeschednew.get(0);
-                    Sendtime2 = endtimeschednew.get(1);
-                    Sstarttime3 = starttimeschednew.get(2);
-                    Sendtime3 = endtimeschednew.get(2);
-                    Sstarttime4 = starttimeschednew.get(3);
-                    Sendtime4 = endtimeschednew.get(3);
-
-                    checkselectdate = DateTimeUtils.formatWithPattern(Sstarttime, "MM-dd-yyyy");
-
-                    checkselectdate2 = DateTimeUtils.formatWithPattern(Sstarttime2, "MM-dd-yyyy");
-
-                    checkselectdate3 = DateTimeUtils.formatWithPattern(Sstarttime3, "MM-dd-yyyy");
-
-                    checkselectdate4 = DateTimeUtils.formatWithPattern(Sstarttime4, "MM-dd-yyyy");
-
-                    if (checkselectdate.matches(selectedDateStr)) {
-
-
-
-                        checkstarttime=Sstarttime.substring(11,16);
-                        checkendtime=Sendtime.substring(11,16);
-                        checkstarttime2=Sstarttime2.substring(11,16);
-                        checkendtime2=Sendtime2.substring(11,16);
-                        checkstarttime3=Sstarttime3.substring(11,16);
-                        checkendtime3=Sendtime3.substring(11,16);
-                        checkstarttime4=Sstarttime4.substring(11,16);
-                        checkendtime4=Sendtime4.substring(11,16);
-
-                        try {
-                            aac = outFormat.format(inFormat.parse(checkstarttime));
-                            bbc = outFormat.format(inFormat.parse(checkendtime));
-
-                        } catch (ParseException e1) {
-                            e1.printStackTrace();
-                        }
-                        try {
-                            aac2 = outFormat.format(inFormat.parse(checkstarttime2));
-                            bbc2 = outFormat.format(inFormat.parse(checkendtime2));
-
-                        } catch (ParseException e1) {
-                            e1.printStackTrace();
-                        }
-                        try {
-                            aac3 = outFormat.format(inFormat.parse(checkstarttime3));
-                            bbc3 = outFormat.format(inFormat.parse(checkendtime3));
-
-                        } catch (ParseException e1) {
-                            e1.printStackTrace();
-                        }
-                        try {
-                            aac4 = outFormat.format(inFormat.parse(checkstarttime4));
-                            bbc4 = outFormat.format(inFormat.parse(checkendtime4));
-
-                        } catch (ParseException e1) {
-                            e1.printStackTrace();
-                        }
-                        relativeLayout.setVisibility(View.VISIBLE);
-                        linearLayout.setVisibility(View.VISIBLE);
-                        linearLayout2.setVisibility(View.VISIBLE);
-                        linearLayout3.setVisibility(View.VISIBLE);
-                        linearLayout4.setVisibility(View.VISIBLE);
-                        textView.setText(aac);
-                        textViewend.setText(bbc);
-                        textView2.setText(aac2);
-                        textViewend2.setText(bbc2);
-                        textView3.setText(aac3);
-                        textViewend3.setText(bbc3);
-                        textView4.setText(aac4);
-                        textViewend4.setText(bbc4);
-                    }
-                    else
-                    {
-                        relativeLayout.setVisibility(View.INVISIBLE);
-
-                    }
-
-//                    if (!Slongi.isEmpty())
-//                    {
-//                        Bmap_show.setVisibility(View.VISIBLE);
-//                    }
-//                    else
-//                    {
-//                        Bmap_show.setVisibility(View.GONE);
-//                    }
-
-
-                }
-                else if (starttimeschednew.size()==5)
-                {
-                    Sstarttime = starttimeschednew.get(0);
-                    Sstarttime2 = starttimeschednew.get(1);
-                    Sendtime = endtimeschednew.get(0);
-                    Sendtime2 = endtimeschednew.get(1);
-                    Sstarttime3 = starttimeschednew.get(2);
-                    Sendtime3 = endtimeschednew.get(2);
-                    Sstarttime4 = starttimeschednew.get(3);
-                    Sendtime4 = endtimeschednew.get(3);
-                    Sstarttime5 = starttimeschednew.get(4);
-                    Sendtime5 = endtimeschednew.get(4);
-
-                    checkselectdate = DateTimeUtils.formatWithPattern(Sstarttime, "MM-dd-yyyy");
-                    checkselectdate2 = DateTimeUtils.formatWithPattern(Sstarttime2, "MM-dd-yyyy");
-                    checkselectdate3 = DateTimeUtils.formatWithPattern(Sstarttime3, "MM-dd-yyyy");
-                    checkselectdate4 = DateTimeUtils.formatWithPattern(Sstarttime4, "MM-dd-yyyy");
-                    checkselectdate5 = DateTimeUtils.formatWithPattern(Sstarttime5, "MM-dd-yyyy");
-                    if (checkselectdate.matches(selectedDateStr)) {
-
-
-
-                        checkstarttime=Sstarttime.substring(11,16);
-                        checkendtime=Sendtime.substring(11,16);
-                        checkstarttime2=Sstarttime2.substring(11,16);
-                        checkendtime2=Sendtime2.substring(11,16);
-                        checkstarttime3=Sstarttime3.substring(11,16);
-                        checkendtime3=Sendtime3.substring(11,16);
-                        checkstarttime4=Sstarttime4.substring(11,16);
-                        checkendtime4=Sendtime4.substring(11,16);
-                        checkstarttime5=Sstarttime5.substring(11,16);
-                        checkendtime5=Sendtime5.substring(11,16);
-
-                        try {
-                            aac = outFormat.format(inFormat.parse(checkstarttime));
-                            bbc = outFormat.format(inFormat.parse(checkendtime));
-
-                        } catch (ParseException e1) {
-                            e1.printStackTrace();
-                        }
-                        try {
-                            aac2 = outFormat.format(inFormat.parse(checkstarttime2));
-                            bbc2 = outFormat.format(inFormat.parse(checkendtime2));
-
-                        } catch (ParseException e1) {
-                            e1.printStackTrace();
-                        }
-                        try {
-                            aac3 = outFormat.format(inFormat.parse(checkstarttime3));
-                            bbc3 = outFormat.format(inFormat.parse(checkendtime3));
-
-                        } catch (ParseException e1) {
-                            e1.printStackTrace();
-                        }
-                        try {
-                            aac4 = outFormat.format(inFormat.parse(checkstarttime4));
-                            bbc4 = outFormat.format(inFormat.parse(checkendtime4));
-
-                        } catch (ParseException e1) {
-                            e1.printStackTrace();
-                        }
-                        try {
-                            aac5 = outFormat.format(inFormat.parse(checkstarttime5));
-                            bbc5 = outFormat.format(inFormat.parse(checkendtime5));
-
-                        } catch (ParseException e1) {
-                            e1.printStackTrace();
-                        }
-                        relativeLayout.setVisibility(View.VISIBLE);
-                        linearLayout.setVisibility(View.VISIBLE);
-                        linearLayout2.setVisibility(View.VISIBLE);
-                        linearLayout3.setVisibility(View.VISIBLE);
-                        linearLayout4.setVisibility(View.VISIBLE);
-                        linearLayout5.setVisibility(View.VISIBLE);
-                        textView.setText(aac);
-                        textViewend.setText(bbc);
-                        textView2.setText(aac2);
-                        textViewend2.setText(bbc2);
-                        textView3.setText(aac3);
-                        textViewend3.setText(bbc3);
-                        textView4.setText(aac4);
-                        textViewend4.setText(bbc4);
-                        textView5.setText(aac5);
-                        textViewend5.setText(bbc5);
-                    }
-                    else
-                    {
-                        relativeLayout.setVisibility(View.INVISIBLE);
-
-                    }
-//                    if (!Slongi.isEmpty())
-//                    {
-//                        Bmap_show.setVisibility(View.VISIBLE);
-//                    }
-//                    else
-//                    {
-//                        Bmap_show.setVisibility(View.GONE);
-//                    }
-//
-
-                }
-                else
-                {
-                    Toast.makeText(context, "Coming Soon", Toast.LENGTH_SHORT).show();
-                }
-
 
 
             }
+
         });
+        break;
+
+    } else {
+        startdatearr.clear();
+        relativeLayout.setVisibility(View.INVISIBLE);
+
+    }
+
+                    }
+
+//                for (String a:groupKeynew) {
+//
+//                    Toast.makeText(context, a, Toast.LENGTH_SHORT).show();
+//
+//                }
+
+
+
+           }
+        });
+    }
+    public class Schedule_class extends ArrayAdapter {
+        private ArrayList<String> ScheduleModeList;
+        private int resource;
+        Context context;
+        private LayoutInflater inflater;
+
+        Schedule_class(Context context, int resource, ArrayList<String> objects) {
+            super(context, resource, objects);
+            ScheduleModeList = objects;
+            this.context = context;
+            this.resource = resource;
+            inflater = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
+        }
+
+        @Override
+        public int getViewTypeCount() {
+            return 1;
+        }
+
+        @Override
+        public int getItemViewType(int position) {
+            return position;
+        }
+
+
+        @NonNull
+        @Override
+        public View getView(final int position, View convertView, @NonNull ViewGroup parent) {
+            final ViewHolder holder;
+            if (convertView == null) {
+                convertView = inflater.inflate(resource, null);
+                holder = new ViewHolder();
+
+                holder.TVtitle = convertView.findViewById(R.id.starttime1);
+
+//                holder.TVschedule_des = convertView.findViewById(R.id.schedule_description);
+//                holder.TVprice_schedule = convertView.findViewById(R.id.price_schedule);
+//                holder.TVhours=convertView.findViewById(R.id.hours_sched);
+//                holder.TVmonth=convertView.findViewById(R.id.month_day_sched);
+//                holder.TVtime_sched=convertView.findViewById(R.id.time_sched);
+                //     holder.TVstart_time = convertView.findViewById(R.id.hours_sched);
+
+                convertView.setTag(holder);
+            }//ino
+            else {
+                holder = (ViewHolder) convertView.getTag();
+            }
+
+
+            final String preupl = ScheduleModeList.get(position);
+
+
+            holder.TVtitle.setText(preupl);
+
+
+
+            return convertView;
+        }
+
+        class ViewHolder {
+            private TextView TVtitle;
+
+
+        }
+    }
+
+    public void enrollslot(String myclassid, String myschid)
+    {
+
+        try {
+
+            RequestQueue requestQueue = Volley.newRequestQueue(this);
+            JSONObject jsonBody = new JSONObject();
+            JSONArray arrayid = new JSONArray();
+            jsonBody.put("classId", myclassid);
+
+arrayid.put(myschid);
+jsonBody.put("scheduleIds",arrayid);
+
+            final String requestBody = jsonBody.toString();
+            StringRequest stringRequest = new StringRequest(Request.Method.POST, Global_url_twotr.Student_enroll, new Response.Listener<String>() {
+
+                public void onResponse(String response) {
+                    new SweetAlertDialog(GuestActivityDetails.this, SweetAlertDialog.SUCCESS_TYPE).setTitleText("Booking Confirmed")
+                            .setConfirmText("OK")
+                            .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                                @Override
+                                public void onClick(SweetAlertDialog sweetAlertDialog) {
+                                    sweetAlertDialog.dismiss();
+                                }
+                            }).show();
+                }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+
+
+                    new SweetAlertDialog(GuestActivityDetails.this, SweetAlertDialog.WARNING_TYPE).setTitleText("Not Available ")
+                            .setContentText("Slot is Not Available")
+                            .setConfirmText("OK")
+                            .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                                @Override
+                                public void onClick(SweetAlertDialog sweetAlertDialog) {
+                                    sweetAlertDialog.dismiss();
+                                }
+                            }).show();
+                }
+            }) {
+                @Override
+                public String getBodyContentType() {
+
+                    return "application/json; charset=utf-8";
+                }
+
+                @Override
+                public Map<String, String> getHeaders() throws AuthFailureError {
+                    HashMap<String, String> headers = new HashMap<String, String>();
+                    // headers.put("content-Type", "application/json");
+                    headers.put("x-tutor-app-id", "tutor-app-android");
+                    headers.put("authorization", "Bearer "+Stoken);
+
+
+                    return headers;
+
+                }
+
+                @Override
+                public byte[] getBody() throws AuthFailureError {
+                    try {
+                        return requestBody == null ? null : requestBody.getBytes("utf-8");
+
+                    } catch (UnsupportedEncodingException uee) {
+                        VolleyLog.wtf("Unsupported Encoding while trying to get the bytes of %s using %s", requestBody, "utf-8");
+                        return null;
+                    }
+                }
+
+
+
+
+            };
+
+            requestQueue.add(stringRequest);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
     }
 
 }

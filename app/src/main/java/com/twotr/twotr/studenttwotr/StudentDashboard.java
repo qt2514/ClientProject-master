@@ -36,9 +36,7 @@ import com.orangegangsters.github.swipyrefreshlayout.library.SwipyRefreshLayoutD
 import com.squareup.picasso.Picasso;
 import com.twotr.twotr.R;
 import com.twotr.twotr.globalpackfiles.Global_url_twotr;
-
 import com.twotr.twotr.guestfiles.GuestActivityDetails;
-import com.twotr.twotr.guestfiles.GuestControlBoard;
 import com.twotr.twotr.guestfiles.GuestData;
 import com.twotr.twotr.guestfiles.GuestFilters;
 import com.twotr.twotr.guestfiles.Guest_list_parce;
@@ -89,8 +87,6 @@ public class StudentDashboard extends Fragment implements AAH_FabulousFragment.C
     List<GuestFilters> mList = new ArrayList<>();
     int amountmax=1000;
     String typeofstu="";
-
-
 
     public static StudentDashboard newInstance() {
         StudentDashboard fragment= new StudentDashboard();
@@ -233,9 +229,6 @@ public class StudentDashboard extends Fragment implements AAH_FabulousFragment.C
                 type_group="1 on 1";
             }
             holder.TVsubjectname.setText(supl.getSubject()+"  "+ type_group);
-
-//            holder.TVtypemenbers.setText(type_group);
-//            holder.TVschedule_des.setText(supl.getDescription());
             holder.TVprice.setText(supl.getPrice()+" KD");
             String Scompletestart=supl.getStart();
             String Scompleteend=supl.getEnd();
@@ -322,8 +315,6 @@ public class StudentDashboard extends Fragment implements AAH_FabulousFragment.C
                 auth.put("price",price);
                 auth.put("ratings", "0");
                 auth.put("timezone", "Asia/Kuwait");
-
-
                 printout = new DataOutputStream(connection.getOutputStream ());
                 printout.writeBytes(auth.toString());
                 printout.flush ();
@@ -352,21 +343,36 @@ public class StudentDashboard extends Fragment implements AAH_FabulousFragment.C
                     catego.set_id(finalObject.getString("_id"));
                     catego.setCreatedBy(finalObject.getString("createdBy"));
                     catego.setCreatedByName(finalObject.getString("createdByName"));
-                    JSONArray jsonArray1 = finalObject.getJSONArray("schedules");
+               JSONArray jsonArray1 = finalObject.getJSONArray("schedules");
                     ArrayList<String> starttimeschednew =new ArrayList<>();
                     ArrayList<String> endtimeschednew=new ArrayList<>();
+                    ArrayList<String> groupKeynew =new ArrayList<>();
+                    ArrayList<String> isAvailablenew=new ArrayList<>();
+                    ArrayList<String> slotnew =new ArrayList<>();
+                    ArrayList<String> availableCountnew=new ArrayList<>();
+                    ArrayList<String> enrollclassid =new ArrayList<>();
+                    ArrayList<String> enrollscheduleid=new ArrayList<>();
                     for (int j = 0; j < jsonArray1.length(); j++) {
                         JSONObject jsonObject = jsonArray1.getJSONObject(j);
                         catego.setStart(jsonObject.getString("start"));
                         catego.setEnd(jsonObject.getString("end"));
-
+                        groupKeynew.add(jsonObject.getString("groupKey"));
+                        isAvailablenew.add(jsonObject.getString("isAvailable"));
                         starttimeschednew.add(jsonObject.getString("start"));
                         endtimeschednew.add(jsonObject.getString("end"));
-
+                        slotnew.add(jsonObject.getString("slotPrice"));
+                        availableCountnew.add(jsonObject.getString("availableCount"));
+                        enrollclassid.add(jsonObject.getString("classId"));
+                        enrollscheduleid.add(jsonObject.getString("_id"));
                     }
+                    catego.setGroupKey(groupKeynew);
+                    catego.setIsAvailable(isAvailablenew);
                     catego.setStartli(starttimeschednew);
                     catego.setEndli(endtimeschednew);
-
+                    catego.setSlotPrice(slotnew);
+                    catego.setAvailableCount(availableCountnew);
+                    catego.setSche_classId(enrollclassid);
+                    catego.setSche_id(enrollscheduleid);
                     try
                     {
                         JSONObject jlocati=finalObject.getJSONObject("location");
@@ -430,13 +436,18 @@ public class StudentDashboard extends Fragment implements AAH_FabulousFragment.C
                         intent.putExtra("studentscount", schedule_upcoming_list.getStudentsCount());
                         intent.putExtra("minprice", schedule_upcoming_list.getMinPrice());
                         intent.putExtra("cateid",schedule_upcoming_list.get_id());
-
                         intent.putExtra("createdby",schedule_upcoming_list.getCreatedBy());
                         intent.putExtra("imgurl",schedule_upcoming_list.getUrl());
-
                         intent.putExtra("createdbyname",schedule_upcoming_list.getCreatedByName());
                         intent.putStringArrayListExtra("starttime",schedule_upcoming_list.getStartli());
                         intent.putStringArrayListExtra("endtime", schedule_upcoming_list.getEndli());
+                              intent.putExtra("imgurl",schedule_upcoming_list.getUrl());
+                            intent.putExtra("isAvailable",schedule_upcoming_list.getIsAvailable());
+                            intent.putExtra("groupKey",schedule_upcoming_list.getGroupKey());
+                            intent.putExtra("slotPrice",schedule_upcoming_list.getSlotPrice());
+                            intent.putExtra("availableCount",schedule_upcoming_list.getAvailableCount());
+                        intent.putExtra("schclassid",schedule_upcoming_list.getSche_classId());
+                        intent.putExtra("sch_id",schedule_upcoming_list.getSche_id());
                         String Scompletestart = schedule_upcoming_list.getStart();
                         String Scompleteend = schedule_upcoming_list.getEnd();
                         String startdate = Scompletestart.substring(0, 10);

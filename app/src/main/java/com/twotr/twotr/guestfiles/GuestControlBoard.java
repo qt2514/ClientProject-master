@@ -395,17 +395,34 @@ DataInputStream inputStream;
                     JSONArray jsonArray1 = finalObject.getJSONArray("schedules");
                     ArrayList<String> starttimeschednew =new ArrayList<>();
                     ArrayList<String> endtimeschednew=new ArrayList<>();
+                    ArrayList<String> groupKeynew =new ArrayList<>();
+                    ArrayList<String> isAvailablenew=new ArrayList<>();
+                    ArrayList<String> slotnew =new ArrayList<>();
+                    ArrayList<String> availableCountnew=new ArrayList<>();
+                    ArrayList<String> enrollclassid =new ArrayList<>();
+                    ArrayList<String> enrollscheduleid=new ArrayList<>();
                     for (int j = 0; j < jsonArray1.length(); j++) {
                         JSONObject jsonObject = jsonArray1.getJSONObject(j);
                         catego.setStart(jsonObject.getString("start"));
                         catego.setEnd(jsonObject.getString("end"));
-
+                        groupKeynew.add(jsonObject.getString("groupKey"));
+                        isAvailablenew.add(jsonObject.getString("isAvailable"));
                         starttimeschednew.add(jsonObject.getString("start"));
                         endtimeschednew.add(jsonObject.getString("end"));
-
+                        slotnew.add(jsonObject.getString("slotPrice"));
+                        availableCountnew.add(jsonObject.getString("availableCount"));
+                        enrollclassid.add(jsonObject.getString("classId"));
+                        enrollscheduleid.add(jsonObject.getString("_id"));
                     }
+                    catego.setGroupKey(groupKeynew);
+                    catego.setIsAvailable(isAvailablenew);
                     catego.setStartli(starttimeschednew);
                     catego.setEndli(endtimeschednew);
+                    catego.setSlotPrice(slotnew);
+                    catego.setAvailableCount(availableCountnew);
+                    catego.setSche_classId(enrollclassid);
+                    catego.setSche_id(enrollscheduleid);
+
 
                                         try
                                      {
@@ -475,6 +492,12 @@ DataInputStream inputStream;
                             intent.putStringArrayListExtra("starttime",schedule_upcoming_list.getStartli());
                             intent.putStringArrayListExtra("endtime", schedule_upcoming_list.getEndli());
                             intent.putExtra("imgurl",schedule_upcoming_list.getUrl());
+                            intent.putStringArrayListExtra("isAvailable",schedule_upcoming_list.getIsAvailable());
+                            intent.putStringArrayListExtra("groupKey",schedule_upcoming_list.getGroupKey());
+                            intent.putStringArrayListExtra("slotPrice",schedule_upcoming_list.getSlotPrice());
+                            intent.putStringArrayListExtra("availableCount",schedule_upcoming_list.getAvailableCount());
+                            intent.putStringArrayListExtra("schclassid",schedule_upcoming_list.getSche_classId());
+                            intent.putStringArrayListExtra("sch_id",schedule_upcoming_list.getSche_id());
                             String Scompletestart = schedule_upcoming_list.getStart();
                             String Scompleteend = schedule_upcoming_list.getEnd();
                             String startdate = Scompletestart.substring(0, 10);

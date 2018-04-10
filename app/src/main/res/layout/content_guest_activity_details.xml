@@ -132,30 +132,27 @@
         android:layout_below="@+id/top_relat"
         android:layout_height="wrap_content"
         android:background="#fff"
+        android:layout_marginBottom="20dp"
         app:textColorSelected="@color/colorPrimary"/>
 
     <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
+    android:layout_centerHorizontal="true"
         android:id="@+id/relaymast"
-        android:padding="10dp"
+        android:padding="5dp"
+        android:layout_below="@+id/calendarView"
+        android:layout_margin="10dp"
         android:visibility="invisible"
-        android:layout_centerHorizontal="true"
         >
 
         <android.support.v7.widget.CardView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:elevation="10dp"
-
             app:cardCornerRadius="5dp"
-            app:cardElevation="3dp"
+            app:cardElevation="10dp"
             >
-            <ScrollView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
+
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:orientation="vertical"
@@ -164,175 +161,46 @@
                     android:layout_margin="5dp"
                     android:padding="5dp"
                     android:layout_height="wrap_content">
-                    <LinearLayout
-                        android:id="@+id/linlay1"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_margin="5dp"
-                        android:visibility="gone"
+<TextView
+    android:layout_width="match_parent"
+    android:text="Business line"
+    android:textColor="@color/black"
+    android:padding="10dp"
+    android:fontFamily="@font/montserrat"
+    android:textSize="18sp"
+    android:layout_height="match_parent" />
+                    <ListView
+                        android:layout_width="match_parent"
+                        android:id="@+id/listingravit"
+                        android:scrollbars="none"
+                        android:dividerHeight="0dp"
+                        android:divider="@null"
+                        android:layout_height="160dp" />
 
-                        android:orientation="horizontal"
-                        android:weightSum="2">
-                        <TextView
-                            android:id="@+id/starttime1"
-                            android:layout_width="wrap_content"
-
-                            android:layout_margin="5dp"
-                            android:padding="5dp"
-                            android:fontFamily="@font/montserrat"
-                            android:textSize="14sp"
-                            android:background="@drawable/border_less_main"
-                            android:layout_height="wrap_content" />
-                        <TextView
-                            android:id="@+id/endtime1"
-                            android:layout_width="wrap_content"
-
-                            android:layout_margin="5dp"
-                            android:padding="5dp"
-                            android:background="@drawable/border_less_main"
-
-                            android:fontFamily="@font/montserrat"
-                            android:textSize="14sp"
-                            android:layout_height="wrap_content" />
-                    </LinearLayout>
-                    <LinearLayout
-                        android:id="@+id/linlay2"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_margin="5dp"
-                        android:visibility="gone"
-                        android:orientation="horizontal"
-                        android:weightSum="2">
-                        <TextView
-                            android:id="@+id/starttime2"
-                            android:layout_width="wrap_content"
-
-                            android:layout_margin="5dp"
-                            android:padding="5dp"
-                            android:fontFamily="@font/montserrat"
-                            android:background="@drawable/border_less_main"
-
-                            android:textSize="14sp"
-                            android:layout_height="wrap_content" />
-                        <TextView
-                            android:id="@+id/endtime2"
-                            android:layout_width="wrap_content"
-
-                            android:layout_margin="5dp"
-                            android:padding="5dp"
-                            android:fontFamily="@font/montserrat"
-                            android:background="@drawable/border_less_main"
-
-                            android:textSize="14sp"
-                            android:layout_height="wrap_content" />
-                    </LinearLayout>
-                    <LinearLayout
-                        android:id="@+id/linlay3"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_margin="5dp"
-                        android:visibility="gone"
-                        android:orientation="horizontal"
-                        android:weightSum="2">
-                        <TextView
-                            android:id="@+id/starttime3"
-                            android:layout_width="wrap_content"
-
-                            android:layout_margin="5dp"
-                            android:padding="5dp"
-                            android:fontFamily="@font/montserrat"
-                            android:background="@drawable/border_less_main"
-
-                            android:textSize="14sp"
-                            android:layout_height="wrap_content" />
-                        <TextView
-                            android:id="@+id/endtime3"
-                            android:layout_width="wrap_content"
-
-                            android:layout_margin="5dp"
-                            android:padding="5dp"
-                            android:fontFamily="@font/montserrat"
-                            android:background="@drawable/border_less_main"
-
-                            android:textSize="14sp"
-                            android:layout_height="wrap_content" />
-                    </LinearLayout>
-                    <LinearLayout
-                        android:id="@+id/linlay4"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_margin="5dp"
-                        android:visibility="gone"
-                        android:orientation="horizontal"
-                        android:weightSum="2">
-                        <TextView
-                            android:id="@+id/starttime4"
-                            android:layout_width="wrap_content"
-
-                            android:layout_margin="5dp"
-                            android:padding="5dp"
-                            android:fontFamily="@font/montserrat"
-                            android:background="@drawable/border_less_main"
-
-                            android:textSize="14sp"
-                            android:layout_height="wrap_content" />
-                        <TextView
-                            android:id="@+id/endtime4"
-                            android:layout_width="wrap_content"
-
-                            android:layout_margin="5dp"
-                            android:padding="5dp"
-                            android:fontFamily="@font/montserrat"
-                            android:background="@drawable/border_less_main"
-
-                            android:textSize="14sp"
-                            android:layout_height="wrap_content" />
-                    </LinearLayout>
-                    <LinearLayout
-                        android:id="@+id/linlay5"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_margin="5dp"
-                        android:visibility="gone"
-                        android:orientation="horizontal"
-                        android:weightSum="2">
-                        <TextView
-                            android:id="@+id/starttime5"
-                            android:layout_width="wrap_content"
-
-                            android:layout_margin="5dp"
-                            android:padding="5dp"
-                            android:fontFamily="@font/montserrat"
-                            android:background="@drawable/border_less_main"
-
-                            android:textSize="14sp"
-                            android:layout_height="wrap_content" />
-                        <TextView
-                            android:id="@+id/endtime5"
-                            android:layout_width="wrap_content"
-
-                            android:layout_margin="5dp"
-                            android:padding="5dp"
-                            android:fontFamily="@font/montserrat"
-                            android:background="@drawable/border_less_main"
-
-                            android:textSize="14sp"
-                            android:layout_height="wrap_content" />
-                    </LinearLayout>
                     <Button
-                        android:layout_width="wrap_content"
-                        android:id="@+id/map_show"
+                        android:id="@+id/slotpricebook"
+                        android:layout_width="match_parent"
+                        android:layout_height="45dp"
                         android:textAllCaps="false"
-                        android:visibility="gone"
-                        android:text="Show Map"
+                        android:fontFamily="@font/montserrat"
                         android:background="@drawable/signin_butt"
-                        android:textColor="@color/mdtp_white"
-                        android:layout_height="wrap_content" />
+                        android:textColor="@color/colorAccent"
+
+                        />
                 </LinearLayout>
 
-            </ScrollView>
 
 
         </android.support.v7.widget.CardView>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:id="@+id/map_show"
+            android:textAllCaps="false"
+            android:visibility="gone"
+            android:text="Show Map"
+            android:background="@drawable/signin_butt"
+            android:textColor="@color/mdtp_white"
+            android:layout_height="wrap_content" />
     </RelativeLayout>
 </RelativeLayout>
