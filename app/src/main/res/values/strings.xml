@@ -57,4 +57,5 @@
     <string name="title_activity_profile_update_educational">Profile_update_educational</string>
     <string name="title_activity_profile__update__professional">Profile_Update_Professional</string>
     <string name="title_activity_tutor_material_upload">TutorMaterialUpload</string>
+    <string name="title_activity_notification_details">NotificationDetails</string>
 </resources>

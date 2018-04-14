@@ -115,6 +115,7 @@ public class StudentDashboard extends Fragment implements AAH_FabulousFragment.C
         mList.addAll(mData.getAllMovies());
         Shared_user_details=this.getActivity().getSharedPreferences("user_detail_mode",0);
         Stoken=  Shared_user_details.getString("token", null);
+        Log.i("mytokeni",Stoken);
         Sid=  Shared_user_details.getString("id", null);
         schedule_list_url = Global_url_twotr.Guest_list_api+searchque+"&page=1&size=10" ;
         new ScheduleAsyncList().execute(schedule_list_url);

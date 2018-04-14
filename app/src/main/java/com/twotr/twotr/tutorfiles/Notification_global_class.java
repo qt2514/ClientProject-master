@@ -9,6 +9,7 @@ public class Notification_global_class implements Parcelable{
     private String isActive;
     private String subjectId;
     private String subject_name;
+    private String stud_id;
     private String stud_firstName;
     private String stud_lastName;
     private String stud_middleName;
@@ -22,6 +23,27 @@ public class Notification_global_class implements Parcelable{
     private String sched_start;
     private String sched_end;
     private String notifi_status;
+
+    public Notification_global_class() {
+        this.classId = classId;
+        this.isActive = isActive;
+        this.subjectId = subjectId;
+        this.subject_name = subject_name;
+        this.stud_id = stud_id;
+        this.stud_firstName = stud_firstName;
+        this.stud_lastName = stud_lastName;
+        this.stud_middleName = stud_middleName;
+        this.profile_Picture = profile_Picture;
+        this.profile_url = profile_url;
+        this.notifi_id = notifi_id;
+        this.notifi_isConfirmed = notifi_isConfirmed;
+        this.notifi_isRejected = notifi_isRejected;
+        this.notifi_isAccepted = notifi_isAccepted;
+        this.notifi_isPending = notifi_isPending;
+        this.sched_start = sched_start;
+        this.sched_end = sched_end;
+        this.notifi_status = notifi_status;
+    }
 
     public String getClassId() {
         return classId;
@@ -53,6 +75,14 @@ public class Notification_global_class implements Parcelable{
 
     public void setSubject_name(String subject_name) {
         this.subject_name = subject_name;
+    }
+
+    public String getStud_id() {
+        return stud_id;
+    }
+
+    public void setStud_id(String stud_id) {
+        this.stud_id = stud_id;
     }
 
     public String getStud_firstName() {
@@ -163,31 +193,12 @@ public class Notification_global_class implements Parcelable{
         return CREATOR;
     }
 
-    public Notification_global_class() {
-        this.classId = classId;
-        this.isActive = isActive;
-        this.subjectId = subjectId;
-        this.subject_name = subject_name;
-        this.stud_firstName = stud_firstName;
-        this.stud_lastName = stud_lastName;
-        this.stud_middleName = stud_middleName;
-        this.profile_Picture = profile_Picture;
-        this.profile_url = profile_url;
-        this.notifi_id = notifi_id;
-        this.notifi_isConfirmed = notifi_isConfirmed;
-        this.notifi_isRejected = notifi_isRejected;
-        this.notifi_isAccepted = notifi_isAccepted;
-        this.notifi_isPending = notifi_isPending;
-        this.sched_start = sched_start;
-        this.sched_end = sched_end;
-        this.notifi_status = notifi_status;
-    }
-
     protected Notification_global_class(Parcel in) {
         classId = in.readString();
         isActive = in.readString();
         subjectId = in.readString();
         subject_name = in.readString();
+        stud_id = in.readString();
         stud_firstName = in.readString();
         stud_lastName = in.readString();
         stud_middleName = in.readString();
@@ -213,6 +224,7 @@ public class Notification_global_class implements Parcelable{
         dest.writeString(isActive);
         dest.writeString(subjectId);
         dest.writeString(subject_name);
+        dest.writeString(stud_id);
         dest.writeString(stud_firstName);
         dest.writeString(stud_lastName);
         dest.writeString(stud_middleName);

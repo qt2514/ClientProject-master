@@ -212,7 +212,11 @@
         <activity
             android:name=".tutorfiles.TutorMaterialUpload"
             android:label="@string/title_activity_tutor_material_upload"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".tutorfiles.NotificationDetails"
+            android:label="@string/title_activity_notification_details"
+            android:theme="@style/AppTheme"></activity>
     </application>
 
 </manifest>

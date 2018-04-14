@@ -9,7 +9,6 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -44,8 +43,6 @@ import com.orangegangsters.github.swipyrefreshlayout.library.SwipyRefreshLayout;
 import com.orangegangsters.github.swipyrefreshlayout.library.SwipyRefreshLayoutDirection;
 import com.twotr.twotr.R;
 import com.twotr.twotr.globalpackfiles.Global_url_twotr;
-import com.twotr.twotr.globalpackfiles.TinyDB;
-import com.twotr.twotr.guestfiles.GuestControlBoard;
 import com.wang.avi.AVLoadingIndicatorView;
 
 import org.json.JSONArray;
@@ -56,7 +53,6 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.Serializable;
 import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -232,7 +228,7 @@ LVschedule_history.setVisibility(View.VISIBLE);
             }
 
         });
-        LVschedule_history.setOnScrollListener(new EndlessScrollListener() {
+        LVschedule.setOnScrollListener(new EndlessScrollListener() {
             @Override
             public void onLoadMore(int page, int totalItemsCount) {
 

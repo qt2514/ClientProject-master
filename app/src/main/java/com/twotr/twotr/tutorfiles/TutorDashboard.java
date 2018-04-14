@@ -15,6 +15,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -111,9 +112,10 @@ imageViewnoloc=view.findViewById(R.id.dashborad_noloac);
    LVNotification_view=view.findViewById(R.id.notification_listview);
    IBnotification_close=view.findViewById(R.id.close_notification);
    notificationpanel=view.findViewById(R.id.notification_masterpanel);
+        IBnotification_view=view.findViewById(R.id.notification_dashboard_load);
+
         avi=view.findViewById(R.id.avi);
         LVtutordashboard=view.findViewById(R.id.dashboard_list);
-        IBnotification_view=view.findViewById(R.id.notification_dashboard_load);
         swipyRefreshLayout=view.findViewById(R.id.swipyrefreshlayout);
         new ScheduleAsyncList().execute(Global_url_twotr.Profile_dashboard);
         LVtutordashboard.setOnScrollListener(new EndlessScrollListener() {
@@ -138,6 +140,7 @@ imageViewnoloc=view.findViewById(R.id.dashborad_noloac);
          public void onClick(View v) {
              notificationpanel.setVisibility(View.VISIBLE);
              IBnotification_view.setVisibility(View.GONE);
+             IBnotification_close.setVisibility(View.VISIBLE);
          }
      });
 
@@ -858,7 +861,7 @@ if (ngc.getNotifi_isAccepted())
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            avi.show();
+
         }
 
         @Override
@@ -913,11 +916,13 @@ if (ngc.getNotifi_isAccepted())
                     nofi_json.setSubjectId(finalObject.getString("subjectId"));
                     nofi_json.setSubject_name(finalObject.getString("subject"));
                     JSONObject student_details = finalObject.getJSONObject("student");
+                    nofi_json.setStud_id(student_details.getString("_id"));
                     nofi_json.setStud_firstName(student_details.getString("firstName"));
                     nofi_json.setStud_lastName(student_details.getString("lastName"));
                     JSONObject student_profile_image = student_details.getJSONObject("profilePicture");
                     nofi_json.setProfile_Picture(student_profile_image.getString("url"));
                     JSONObject notification_details = finalObject.getJSONObject("notification");
+                    nofi_json.setNotifi_id(notification_details.getString("_id"));
                     nofi_json.setNotifi_isConfirmed(notification_details.getBoolean("isConfirmed"));
                     nofi_json.setNotifi_isRejected(notification_details.getBoolean("isRejected"));
                     nofi_json.setNotifi_isAccepted(notification_details.getBoolean("isAccepted"));
@@ -931,9 +936,6 @@ if (ngc.getNotifi_isAccepted())
 
 
                     }
-
-
-
 
                     milokilo.add(nofi_json);
 
@@ -962,15 +964,52 @@ if (ngc.getNotifi_isAccepted())
         @Override
         protected void onPostExecute(final List<Notification_global_class> NotificationMode) {
             super.onPostExecute(NotificationMode);
-            avi.hide();
+
             if ((NotificationMode != null) && (NotificationMode.size()>0)&& getActivity()!=null)
             {
                 IBnotification_view.setVisibility(View.VISIBLE);
-
-
                 Notification_class adapter = new Notification_class(getActivity(), R.layout.notificationlist, NotificationMode);
                 LVNotification_view.setAdapter(adapter);
                 adapter.notifyDataSetChanged();
+                LVNotification_view.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                        String staus_notifi;
+                        Notification_global_class notificla = NotificationMode.get(position);
+                        if (notificla.getNotifi_isAccepted())
+                        {
+                            staus_notifi="Accepted";
+                        }
+                        else if (notificla.getNotifi_isConfirmed())
+                        {
+                            staus_notifi="Confirmed";
+                        }
+                        else if (notificla.getNotifi_isPending())
+                        {
+                            staus_notifi="Pending";
+                        }
+                        else
+                        {
+                            staus_notifi="Rejected";
+                        }
+                        Intent intent = new Intent(getActivity(), NotificationDetails.class);
+                        intent.putExtra("stufname", notificla.getStud_firstName());
+                        intent.putExtra("stulname", notificla.getStud_lastName());
+                        intent.putExtra("stuimage", notificla.getProfile_Picture());
+                        intent.putExtra("subject_name", notificla.getSubject_name());
+                        intent.putExtra("subject_id", notificla.getSubjectId());
+                        intent.putExtra("student_id",notificla.getStud_id());
+                        intent.putExtra("notifi_id",notificla.getNotifi_id());
+                        intent.putExtra("status_rec", staus_notifi);
+                        intent.putExtra("start_time", notificla.getSched_start());
+                        intent.putExtra("class_id",notificla.getClassId());
+                        intent.putExtra("whoiam", "tutor");
+
+
+                        startActivity(intent);
+                    }
+                });
+
             }
 
 else {

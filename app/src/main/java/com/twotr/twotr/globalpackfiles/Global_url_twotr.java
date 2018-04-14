@@ -90,7 +90,11 @@ public static String Tutor_forgot_password=Base_url+"auth/reset/password";
     public static String Student_enroll=Base_url+"schedule/enrol";
 
 
-    public static String Tutor_Notification=Base_url+"/schedule/notifications/tutor";
+    public static String Tutor_Notification=Base_url+"schedule/notifications/tutor";
+    public static String Student_Notification=Base_url+"schedule/notifications/student";
+
+
+    public static String Tutor_notification_approval=Base_url+"schedule/approval";
 
 
 }
