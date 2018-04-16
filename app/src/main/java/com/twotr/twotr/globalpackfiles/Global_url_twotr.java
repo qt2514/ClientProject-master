@@ -96,5 +96,8 @@ public static String Tutor_forgot_password=Base_url+"auth/reset/password";
 
     public static String Tutor_notification_approval=Base_url+"schedule/approval";
 
+    public  static String Profile_dashboard_student=Base_url +"class/dashboard/upcoming/student?page=1&size=10";
+
+
 
 }

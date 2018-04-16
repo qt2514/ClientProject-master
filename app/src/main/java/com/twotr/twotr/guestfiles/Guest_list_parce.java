@@ -30,6 +30,7 @@ public class Guest_list_parce implements Parcelable {
     private String subject;
     private  String minPrice;
     private String createdByName;
+    private ArrayList<String> newslot;
     private ArrayList<String> startli;
     private ArrayList<String> endli;
     private ArrayList<String> groupKey;
@@ -194,6 +195,14 @@ private  String url;
         this.createdByName = createdByName;
     }
 
+    public ArrayList<String> getNewslot() {
+        return newslot;
+    }
+
+    public void setNewslot(ArrayList<String> newslot) {
+        this.newslot = newslot;
+    }
+
     public ArrayList<String> getStartli() {
         return startli;
     }
@@ -290,6 +299,7 @@ private  String url;
         this.subject = subject;
         this.minPrice = minPrice;
         this.createdByName = createdByName;
+        this.newslot = newslot;
         this.startli = startli;
         this.endli = endli;
         this.groupKey = groupKey;
@@ -323,6 +333,7 @@ private  String url;
         subject = in.readString();
         minPrice = in.readString();
         createdByName = in.readString();
+        newslot = in.createStringArrayList();
         startli = in.createStringArrayList();
         endli = in.createStringArrayList();
         groupKey = in.createStringArrayList();
@@ -355,6 +366,7 @@ private  String url;
         dest.writeString(subject);
         dest.writeString(minPrice);
         dest.writeString(createdByName);
+        dest.writeStringList(newslot);
         dest.writeStringList(startli);
         dest.writeStringList(endli);
         dest.writeStringList(groupKey);

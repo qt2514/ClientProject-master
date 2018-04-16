@@ -70,7 +70,8 @@ public class GuestActivityDetails extends AppCompatActivity {
     LinearLayout linearLayouthead;
     String selectedDateStr ;
     ImageButton IB_back;
-    String subjectname,subjecttype,subjecttime,Slati,Slongi,Susername,Screateid,Simageurl,checkevendate,groupdate;
+    String subjectname,subjecttype,subjecttime,Slati,Slongi,Susername,Screateid,Simageurl,checkevendate,groupdate,
+            Sstudentcount;
     Button Bmap_show;
 CircleImageView profileimage;
     List<String> groupKeynew ;
@@ -102,7 +103,8 @@ LVlistingravit=findViewById(R.id.listingravit);
         groupKeynew =new ArrayList<>();
         isAvailablenew=new ArrayList<>();
         slotnew =new ArrayList<>();
-      availableCountnew =new ArrayList<>();
+        availableCountnew =new ArrayList<>();
+
         schcalssid =new ArrayList<>();
         schid=new ArrayList<>();
 
@@ -123,8 +125,9 @@ LVlistingravit=findViewById(R.id.listingravit);
             groupKeynew= Bintent.getStringArrayList("groupKey");
             slotnew= Bintent.getStringArrayList("slotPrice");
             availableCountnew= Bintent.getStringArrayList("availableCount");
+            Sstudentcount=Bintent.getString("studentcount");
             subjectname= Bintent.getString("subjectname");
-            subjecttype= Bintent.getString("typesub");
+            subjecttype= Bintent.getString("type_subject");
             subjecttime= Bintent.getString("hrstot");
             Slati= Bintent.getString("latitude");
             Slongi= Bintent.getString("longitude");
@@ -266,27 +269,59 @@ if (isAvailablenew.get(finalDa).matches("false"))
                 }
                 else if(Sroles.matches("student"))
                 {
-                    new SweetAlertDialog(GuestActivityDetails.this, SweetAlertDialog.NORMAL_TYPE).setTitleText("Request Confirmation!")
-                            .setContentText("Are you sure you want to Book this Slot!")
-                            .setConfirmText("OK")
-                            .setCancelText("Cancel")
-                            .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
-                                @Override
-                                public void onClick(SweetAlertDialog sweetAlertDialog) {
-                                    String myclassid,myschid;
-                                    myclassid=schcalssid.get(finalDa);
-                                    myschid=schid.get(finalDa);
-                                    enrollslot(myclassid,myschid);
-                                }
+if (subjecttype.matches("group"))
+{
+    new SweetAlertDialog(GuestActivityDetails.this, SweetAlertDialog.NORMAL_TYPE).setTitleText("Request Confirmation!")
+            .setContentText("Total Capacity of class is "+ Sstudentcount+". There are "+availableCountnew.get(finalDa)+" slot left."+"Are you sure you want to Book this Slot!")
+            .setConfirmText("OK")
+            .setCancelText("Cancel")
+            .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                @Override
+                public void onClick(SweetAlertDialog sweetAlertDialog) {
+                    String myclassid,myschid;
+                    myclassid=schcalssid.get(finalDa);
+                    myschid=schid.get(finalDa);
+                    enrollslot(myclassid,myschid);
+                    sweetAlertDialog.dismiss();
 
-                            })
-                            .setCancelClickListener(new SweetAlertDialog.OnSweetClickListener() {
-                                @Override
-                                public void onClick(SweetAlertDialog sweetAlertDialog) {
-                                    sweetAlertDialog.dismiss();
-                                }
-                            })
-                            .show();
+                }
+
+            })
+            .setCancelClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                @Override
+                public void onClick(SweetAlertDialog sweetAlertDialog) {
+                    sweetAlertDialog.dismiss();
+                }
+            })
+            .show();
+}
+else
+{
+    new SweetAlertDialog(GuestActivityDetails.this, SweetAlertDialog.NORMAL_TYPE).setTitleText("Request Confirmation!")
+            .setContentText("Are you sure you want to Book this Slot!")
+            .setConfirmText("OK")
+            .setCancelText("Cancel")
+            .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                @Override
+                public void onClick(SweetAlertDialog sweetAlertDialog) {
+                    String myclassid,myschid;
+                    myclassid=schcalssid.get(finalDa);
+                    myschid=schid.get(finalDa);
+                    enrollslot(myclassid,myschid);
+                    sweetAlertDialog.dismiss();
+
+                }
+
+            })
+            .setCancelClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                @Override
+                public void onClick(SweetAlertDialog sweetAlertDialog) {
+                    sweetAlertDialog.dismiss();
+                }
+            })
+            .show();
+}
+
 
                     }
 

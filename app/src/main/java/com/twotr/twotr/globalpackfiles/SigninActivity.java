@@ -24,6 +24,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.firebase.iid.FirebaseInstanceId;
 import com.ontbee.legacyforks.cn.pedant.SweetAlert.SweetAlertDialog;
 import com.twotr.twotr.R;
 import com.twotr.twotr.db_handlers.SessionManager;
@@ -280,7 +281,7 @@ public void signin_verif(String susername, String spass)
         jsonBody.put("username", susername);
         jsonBody.put("password", spass);
         jsonBody.put("deviceType", "android");
-        jsonBody.put("deviceId", "dummyid");
+        jsonBody.put("deviceId", FirebaseInstanceId.getInstance().getId());
 
         final String requestBody = jsonBody.toString();
 
@@ -781,7 +782,7 @@ public void networkcreate(String firstname, String lastname, final String email,
 
                     try {
                         JSONObject jObj = new JSONObject(response);
-Log.i("jobjres",jObj.toString());
+                Log.i("jobjres",jObj.toString());
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }

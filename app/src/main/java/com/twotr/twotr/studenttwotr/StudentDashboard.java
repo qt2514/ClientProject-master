@@ -143,7 +143,7 @@ public class StudentDashboard extends Fragment implements AAH_FabulousFragment.C
         fab2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                dialogFrag.show(getActivity().getSupportFragmentManager(), dialogFrag.getTag());
+              //  dialogFrag.show(getActivity().getSupportFragmentManager(), dialogFrag.getTag());
             }
         });
 
@@ -230,6 +230,18 @@ public class StudentDashboard extends Fragment implements AAH_FabulousFragment.C
                 type_group="1 on 1";
             }
             holder.TVsubjectname.setText(supl.getSubject()+"  "+ type_group);
+//            String slotipr;
+//            if(supl.getNewslot().isEmpty() )
+//            {
+//                slotipr="100";
+//            }
+//            else
+//            {
+//                slotipr=supl.getNewslot().toString();
+//
+//            }
+//
+//            slotipr = slotipr.replaceAll("[\\[\\](){}]","");
             holder.TVprice.setText(supl.getPrice()+" KD");
             String Scompletestart=supl.getStart();
             String Scompleteend=supl.getEnd();
@@ -330,6 +342,7 @@ public class StudentDashboard extends Fragment implements AAH_FabulousFragment.C
                 String finalJson = buffer.toString();
                 JSONObject parentObject = new JSONObject(finalJson);
                 JSONArray parentArray = parentObject.getJSONArray("classes");
+
                 List<Guest_list_parce> milokilo = new ArrayList<>();
                 for (int i = 0; i < parentArray.length(); i++) {
                     JSONObject finalObject = parentArray.getJSONObject(i);
@@ -366,6 +379,18 @@ public class StudentDashboard extends Fragment implements AAH_FabulousFragment.C
                         enrollclassid.add(jsonObject.getString("classId"));
                         enrollscheduleid.add(jsonObject.getString("_id"));
                     }
+                    ArrayList<String> newslot =new ArrayList<>();
+
+                    for (int k=0;k<1;k++)
+                    {
+                        JSONObject jsonObject = jsonArray1.getJSONObject(k);
+
+                        newslot.add(jsonObject.getString("slotPrice"));
+
+                    }
+
+                    catego.setNewslot(newslot);
+
                     catego.setGroupKey(groupKeynew);
                     catego.setIsAvailable(isAvailablenew);
                     catego.setStartli(starttimeschednew);
@@ -446,6 +471,7 @@ public class StudentDashboard extends Fragment implements AAH_FabulousFragment.C
                             intent.putExtra("isAvailable",schedule_upcoming_list.getIsAvailable());
                             intent.putExtra("groupKey",schedule_upcoming_list.getGroupKey());
                             intent.putExtra("slotPrice",schedule_upcoming_list.getSlotPrice());
+                            intent.putExtra("studentcount",schedule_upcoming_list.getStudentsCount());
                             intent.putExtra("availableCount",schedule_upcoming_list.getAvailableCount());
                         intent.putExtra("schclassid",schedule_upcoming_list.getSche_classId());
                         intent.putExtra("sch_id",schedule_upcoming_list.getSche_id());
@@ -536,6 +562,7 @@ public class StudentDashboard extends Fragment implements AAH_FabulousFragment.C
                 JSONObject parentObject = new JSONObject(finalJson);
                 JSONArray parentArray = parentObject.getJSONArray("classes");
                 List<Guest_list_parce> milokilo = new ArrayList<>();
+
                 for (int i = 0; i < parentArray.length(); i++) {
                     JSONObject finalObject = parentArray.getJSONObject(i);
                     //
@@ -547,25 +574,76 @@ public class StudentDashboard extends Fragment implements AAH_FabulousFragment.C
                     catego.setStudentsCount(finalObject.getString("studentsCount"));
                     catego.setMinPrice(finalObject.getString("minPrice"));
                     catego.set_id(finalObject.getString("_id"));
+                    catego.setCreatedBy(finalObject.getString("createdBy"));
                     catego.setCreatedByName(finalObject.getString("createdByName"));
                     JSONArray jsonArray1 = finalObject.getJSONArray("schedules");
+                    ArrayList<String> starttimeschednew =new ArrayList<>();
+                    ArrayList<String> endtimeschednew=new ArrayList<>();
+                    ArrayList<String> groupKeynew =new ArrayList<>();
+                    ArrayList<String> isAvailablenew=new ArrayList<>();
+                    ArrayList<String> slotnew =new ArrayList<>();
+                    ArrayList<String> availableCountnew=new ArrayList<>();
+                    ArrayList<String> enrollclassid =new ArrayList<>();
+                    ArrayList<String> enrollscheduleid=new ArrayList<>();
                     for (int j = 0; j < jsonArray1.length(); j++) {
                         JSONObject jsonObject = jsonArray1.getJSONObject(j);
                         catego.setStart(jsonObject.getString("start"));
                         catego.setEnd(jsonObject.getString("end"));
-
-                        //  ListSubject.add(Skind);
+                        groupKeynew.add(jsonObject.getString("groupKey"));
+                        isAvailablenew.add(jsonObject.getString("isAvailable"));
+                        starttimeschednew.add(jsonObject.getString("start"));
+                        endtimeschednew.add(jsonObject.getString("end"));
+                        slotnew.add(jsonObject.getString("slotPrice"));
+                        availableCountnew.add(jsonObject.getString("availableCount"));
+                        enrollclassid.add(jsonObject.getString("classId"));
+                        enrollscheduleid.add(jsonObject.getString("_id"));
                     }
-//                    try {
-//                        JSONObject jlocati=finalObject.getJSONObject("location");
-//                        catego.setLat(jlocati.getString("lat"));
-//                        catego.setLng(jlocati.getString("lng"));
-//                    } catch (JSONException e) {
-//                        e.printStackTrace();
-//                    }
+                    ArrayList<String> newslot =new ArrayList<>();
 
+                    for (int k=0;k<1;k++)
+                    {
+                        JSONObject jsonObject = jsonArray1.getJSONObject(k);
+
+                        newslot.add(jsonObject.getString("slotPrice"));
+
+                    }
+
+                    catego.setNewslot(newslot);
+
+                    catego.setGroupKey(groupKeynew);
+                    catego.setIsAvailable(isAvailablenew);
+                    catego.setStartli(starttimeschednew);
+                    catego.setEndli(endtimeschednew);
+                    catego.setSlotPrice(slotnew);
+                    catego.setAvailableCount(availableCountnew);
+                    catego.setSche_classId(enrollclassid);
+                    catego.setSche_id(enrollscheduleid);
+                    try
+                    {
+                        JSONObject jlocati=finalObject.getJSONObject("location");
+                        catego.setLat(jlocati.getString("lat"));
+                        catego.setLng(jlocati.getString("lng"));
+                    }
+
+                    catch (JSONException e)
+
+                    {
+                        e.printStackTrace();
+                    }
+                    try {
+                        JSONObject profilePicture = finalObject.getJSONObject("profilePicture");
+                        catego.setUrl( profilePicture.getString("url"));
+
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
                     milokilo.add(catego);
                 }
+
+
+
+
+
                 return milokilo;
             } catch (JSONException | IOException e) {
                 e.printStackTrace();

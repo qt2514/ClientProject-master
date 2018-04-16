@@ -23,6 +23,7 @@ public class Notification_global_class implements Parcelable{
     private String sched_start;
     private String sched_end;
     private String notifi_status;
+private String termmsg;
 
     public Notification_global_class() {
         this.classId = classId;
@@ -43,6 +44,7 @@ public class Notification_global_class implements Parcelable{
         this.sched_start = sched_start;
         this.sched_end = sched_end;
         this.notifi_status = notifi_status;
+        this.termmsg = termmsg;
     }
 
     public String getClassId() {
@@ -189,6 +191,14 @@ public class Notification_global_class implements Parcelable{
         this.notifi_status = notifi_status;
     }
 
+    public String getTermmsg() {
+        return termmsg;
+    }
+
+    public void setTermmsg(String termmsg) {
+        this.termmsg = termmsg;
+    }
+
     public static Creator<Notification_global_class> getCREATOR() {
         return CREATOR;
     }
@@ -216,6 +226,7 @@ public class Notification_global_class implements Parcelable{
         sched_start = in.readString();
         sched_end = in.readString();
         notifi_status = in.readString();
+        termmsg = in.readString();
     }
 
     @Override
@@ -238,6 +249,7 @@ public class Notification_global_class implements Parcelable{
         dest.writeString(sched_start);
         dest.writeString(sched_end);
         dest.writeString(notifi_status);
+        dest.writeString(termmsg);
     }
 
     @Override

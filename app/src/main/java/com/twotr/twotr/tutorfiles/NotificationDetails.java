@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -21,6 +22,7 @@ import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.github.thunder413.datetimeutils.DateTimeUtils;
 import com.ontbee.legacyforks.cn.pedant.SweetAlert.SweetAlertDialog;
 import com.squareup.picasso.Picasso;
 import com.twotr.twotr.R;
@@ -37,7 +39,8 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class NotificationDetails extends AppCompatActivity {
 ImageButton IB_back;
-String Sstud_name,Sstud_prof,Ssubject_name,Sstaus,Sclassid,Ssubid,Sstuid,Snotifiid,Sstud_fname,Sstud_lname,Sstar_time,Swhoiam;
+String Sstud_name,Sstud_prof,Ssubject_name,Sstaus,Sclassid,Ssubid,Sstuid,Snotifiid,Sstud_fname,
+        Sstud_lname,Sstar_time,Swhoiam,Stermsmsg;
 TextView TVstuname,TVsub_name,TV_status,TV_sched;
 CircleImageView CIprofpic;
 Context context;
@@ -72,7 +75,6 @@ IBconfir=findViewById(R.id.but_confirm);
         Bundle Bintent = intent.getExtras();
         if (Bintent != null) {
             Sstud_fname = (String) Bintent.get("stufname");
-
             Sstud_lname = (String) Bintent.get("stulname");
             Sstud_name = Sstud_fname + " " + Sstud_lname;
             Sstud_prof = (String) Bintent.get("stuimage");
@@ -84,6 +86,8 @@ IBconfir=findViewById(R.id.but_confirm);
             Sclassid = (String) Bintent.get("class_id");
             Sstar_time = (String) Bintent.get("start_time");
             Swhoiam = (String) Bintent.get("whoiam");
+            Stermsmsg = (String) Bintent.get("termsmsg");
+
         }
 
         TVstuname.setText(Sstud_name);
@@ -91,8 +95,13 @@ IBconfir=findViewById(R.id.but_confirm);
         TVsub_name.setText(Ssubject_name);
 
         TV_status.setText(Sstaus);
+        String monthformating= DateTimeUtils.formatWithPattern(Sstar_time, "EEE, MMM dd");
+        String time_sched=Sstar_time.substring(11,16);
+        String completedate;
+            completedate=monthformating+" | "+time_sched;
 
-        TV_sched.setText(Sstar_time);
+
+        TV_sched.setText(completedate);
 
         Picasso
                 .with(context)
@@ -132,7 +141,7 @@ IBconfir=findViewById(R.id.but_confirm);
         }
         else
         {
-            if (Sstaus.equals("Accepted") || Sstaus.equals("Confirmed") || Sstaus.equals("Rejected"))
+            if ( Sstaus.equals("Rejected")||Sstaus.equals("Pending"))
             {
                 IBconfir.setVisibility(View.GONE);
 
@@ -142,6 +151,35 @@ IBconfir=findViewById(R.id.but_confirm);
                 IBconfir.setVisibility(View.VISIBLE);
 
             }
+            if (!TextUtils.isEmpty(Stermsmsg))
+            {
+                IBconfir.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        new SweetAlertDialog(NotificationDetails.this, SweetAlertDialog.NORMAL_TYPE).setTitleText("Terms!")
+                                .setContentText(Stermsmsg)
+                                .setConfirmText("OK")
+                                .setCancelText("Cancel")
+                                .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                                    @Override
+                                    public void onClick(SweetAlertDialog sweetAlertDialog) {
+
+                                        sweetAlertDialog.dismiss();
+
+                                    }
+
+                                })
+                                .setCancelClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                                    @Override
+                                    public void onClick(SweetAlertDialog sweetAlertDialog) {
+                                        sweetAlertDialog.dismiss();
+                                    }
+                                })
+                                .show();
+                    }
+                });
+            }
+
         }
     }
 

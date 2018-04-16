@@ -915,6 +915,7 @@ if (ngc.getNotifi_isAccepted())
                     nofi_json.setIsActive(finalObject.getString("isActive"));
                     nofi_json.setSubjectId(finalObject.getString("subjectId"));
                     nofi_json.setSubject_name(finalObject.getString("subject"));
+
                     JSONObject student_details = finalObject.getJSONObject("student");
                     nofi_json.setStud_id(student_details.getString("_id"));
                     nofi_json.setStud_firstName(student_details.getString("firstName"));
